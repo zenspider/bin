@@ -6,6 +6,11 @@ use Getopt::Long;
 
 $| = 1;
 
+# TODO: figure out how to pipe through more ONLY if we are interactive
+sub I_am_interactive {
+    return -t STDIN && -t STDOUT;
+}
+
 my @check = ();
 #my $keywords = '(?<!SUF|PRE)F IX|H ACK|T ODO|(?<!P|O)D OC(?!UMENT|TYPE|_INSTALL)|RE FACTOR';
 my $keywords = '\b(F IX|H ACK|T ODO|D OC|R EFACTOR|R ETIRE)\b';
@@ -32,7 +37,7 @@ sub wanted {
     return if -B _;
     push @check, $File::Find::name;
   } else {
-    if ($File::Find::name =~ m/CVS|blib/ || -l _) {
+    if ($File: //depot/main/user/ryand/Bin/progress.pl $/ || -l _) {
       $File::Find::prune = 1;
     }
   }
