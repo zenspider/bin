@@ -6,14 +6,14 @@ use Mail::SpamAssassin;
 use Time::JulianDay;
 use Getopt::Long;
 
+my $VERSION = '1.1.0';
+
 my %option;
 GetOptions(\%option,
 	   "file=s",
 	   "check",
 	   "mailfolder=s",
 	  );
-
-# FIX: make TO be all recipients.
 
 # My Mail Policies:
 #
@@ -40,12 +40,13 @@ open LOG, ">>/home/ryand/.mailfilter.log"
   || die "Couldn't open mailfilter.log: $!";
 
 # Get all of our standard fields of interest.
-my ($item, $from, $to, $cc, $subject);
+my ($item, $from, $to, $cc, $rcpt, $subject);
 unless ($option{check}) {
   $item = Mail::Audit->new();
   $from = $item->from() || '';
   $to = $item->to() || '';
   $cc = $item->cc() || '';
+  $rcpt = join(', ', $item->to(), $item->cc(), $item->bcc());
   $subject = $item->subject() || '';
   chomp($from, $to, $cc, $subject);
   study $from;
@@ -53,7 +54,7 @@ unless ($option{check}) {
 
 # general filter
 my $isodate_re = '\d{4}-\d{2}-\d{2}';
-my $field_re = 'SUBJECT|FROM|TO|CC';
+my $field_re = 'SUBJECT|FROM|TO|CC|RCPT';
 
 if ($option{file}) {
   unless (open IN, $option{file}) {
@@ -171,7 +172,7 @@ sub log {
   my $time = time2str("%Y%m%d_%H%M%S", time);
 
   unless ($option{check}) {
-    print LOG "$time: $from: $subject: $msg\n";
+    print LOG "$time:$VERSION: $from: $subject: $msg\n";
   } else {
     print "$msg\n";
   }
@@ -184,7 +185,7 @@ __DATA__
 #
 # FILE    = some/path (already in mail folder)
 # ISODATE = YYYY-MM-DD
-# FIELD   = (SUBJECT|FROM|TO|CC)
+# FIELD   = (SUBJECT|FROM|TO|CC|RCPT)
 # REGEX   = any perl regex
 #
 # EXAMPLES:
