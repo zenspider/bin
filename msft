@@ -11,7 +11,9 @@ my $price = get "http://quote.yahoo.com/d/quotes.csv?s=$symbol&f=l1&e=.csv";
 die unless $price;
 
 $price =~ s/\s*(\S+)\s*/$1/s;
-my $options = int(3700 * ($price - 33.125)) + int(840 * ($price - 107.25));
-my $subject = sprintf("$symbol %6.2f%8d", $price, $options);
+my $options = (6000.0 * ($price - 16.5625)) + (1680.0 * ($price - 53.625));
+my $voptions = (1200.0 * ($price - 16.5625)) + (210 * ($price - 53.625));
+my $espp = (171 * $price); # current espp
+my $subject = sprintf("$symbol %6.2f opt=%6.2f espp=%6.2f total=%6.2f liquid=%6.2f", $price, $options, $espp, ($options+$espp), ($voptions + $espp));
 
 print `pagekathy $subject`;
