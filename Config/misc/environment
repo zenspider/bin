@@ -59,7 +59,7 @@ case $- in
   
   export EDITOR="~/Bin/e"
 
-  if test ${TERM-} = "emacs" ; then
+  if test ${TERM-} = "emacs" -o ${TERM-} = "dumb" ; then
     export PAGER=cat
   else
     export PAGER=more
@@ -72,9 +72,6 @@ case $- in
   stty erase '^h' intr '^c' kill '^u' susp '^z'
   
   if [ ! -z ${DISPLAY-} ] ; then
-#    #if [ $DISPLAY == ":0.0" ]; then # FIX -o $DISPLAY == "unix:0.0" ]; then
-#      export DISPLAY="$HOSTNAME:0.0"
-#    #fi
     echo "export DISPLAY=$DISPLAY"
   else
     echo "No DISPLAY"
