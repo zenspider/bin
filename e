@@ -6,12 +6,29 @@ check_up() {
     if gnuclient -batch -eval t >/dev/null 2>&1; then
       false;
     else
-      echo starting xemacs
-      xemacs -unmapped -f gnuserv-start &
-      until gnuclient -batch -eval t >/dev/null 2>&1
-      do
-	sleep 1
-      done
+
+      # double lock
+      sleep 1
+      if gnuclient -batch -eval t >/dev/null 2>&1; then
+	false;
+      else
+	echo starting xemacs
+	xemacs -unmapped -f gnuserv-start &
+	pid=$!
+	count=0
+	until gnuclient -batch -eval t >/dev/null 2>&1
+	do
+	  if [ $count -ge 5 ]; then
+	    echo "Can't start emacs..."
+	    kill $pid
+	    exit 1
+	  fi
+
+	  count=$(($count + 1))
+
+	  sleep 1
+	done
+      fi
       sleep 1
     fi
   else

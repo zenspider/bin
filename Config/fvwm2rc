@@ -1,3 +1,4 @@
+# This file changed by the .fvwm2rc to .fvwm/.fvwm2rc converter
 # -*- winmgr -*-
 ImagePath   /usr/X11R6/share/fvwm2/pixmaps:/usr/X11R6/icons:/usr/share/icons
 
@@ -7,10 +8,10 @@ ClickTime 750
 SnapAttraction 10 SameType
 ColormapFocus FollowsMouse
 
-IconFont	-adobe-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*
-WindowFont	-adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
+Style "*" IconFont -adobe-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*
+Style "*" Font -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
 DefaultColors	Black gray80
-HilightColor	Black SteelBlue4
+Style "*" HilightFore Black, HilightBack SteelBlue4
 
 DeskTopSize 2x2
 
@@ -20,7 +21,8 @@ Style "*"	Icon unknown1.xpm, Color lightgrey/dimgrey
 Style "*"	DecorateTransient, NoPPosition
 Style "*"	IconBox -50 0 -1 -50
 Style "*"	SloppyFocus
-Style "*"	RandomPlacement, SmartPlacement
+
+Style * MinOverlapPercentPlacement
 
 Module FvwmAuto 500  Raise Nop
 
