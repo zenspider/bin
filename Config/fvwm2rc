@@ -112,7 +112,7 @@ Style "Netscape"	NoPPosition
 # START-UP Functions
 #
 AddToFunc "InitFunction" "I" Exec xsetroot -solid gray37
-+		"I" Exec xmodmap /home/ryand/.xmodmap.ibm
++		"I" Exec xmodmap /toasters/toaster5/users/ryand/.xmodmap.ibm
 +		"I" Exec xemacs -f vm &
 +		"I" Exec netscape-4.07 &
 +		"I" Exec sleep 3 # seem to need a delay for fvwmButtons
@@ -212,12 +212,12 @@ AddToMenu LoginMenu	"XTerm:" Title
 +	"Local"		Exec exec xterm +cn &
 +	"Remote"	Module FvwmForm Rlogin
 +	""		Nop
-+	"vroom"		Exec exec /home/ryand/Bin/xt vroom &
-+	"spock"		Exec exec /home/ryand/Bin/xt spock &
-+	"space"		Exec exec /home/ryand/Bin/xt space &
-+	"lily"		Exec exec /home/ryand/Bin/xt lily &
-+	"zap"		Exec exec /home/ryand/Bin/xt zap &
-+	"rossini"	Exec exec /home/ryand/Bin/xt rossini &
++	"vroom"		Exec exec /toasters/toaster5/users/ryand/Bin/xt vroom &
++	"spock"		Exec exec /toasters/toaster5/users/ryand/Bin/xt spock &
++	"space"		Exec exec /toasters/toaster5/users/ryand/Bin/xt space &
++	"lily"		Exec exec /toasters/toaster5/users/ryand/Bin/xt lily &
++	"zap"		Exec exec /toasters/toaster5/users/ryand/Bin/xt zap &
++	"rossini"	Exec exec /toasters/toaster5/users/ryand/Bin/xt rossini &
 
 ############################################################################
 # COMPLEX FUNCTIONS
