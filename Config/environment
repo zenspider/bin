@@ -122,7 +122,7 @@ esac
 
 export OLDPATH=$PATH
 PATH=''
-STD_PATH=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/usr/bin/X11:/usr/local/bin
+STD_PATH=/usr/sbin:/sbin:/usr/bin:/bin:/usr/bin/X11:/usr/local/bin
 MYPATH=~/Bin:${HOSTPATH-}:${DOMAINPATH-}:$STD_PATH
 
 oldIFS=$IFS
