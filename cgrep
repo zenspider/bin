@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/opt/third-party/bin/perl -w
 
 use strict;
 
