@@ -13,7 +13,7 @@ sub I_am_interactive {
 
 my @check = ();
 #my $keywords = '(?<!SUF|PRE)F IX|H ACK|T ODO|(?<!P|O)D OC(?!UMENT|TYPE|_INSTALL)|RE FACTOR';
-my $keywords = '\b(F IX|H ACK|T ODO|D OC|R EFACTOR|R ETIRE)\b';
+my $keywords = '\b(F IX|H ACK|T ODO|D OC|R EFACTOR|R ETIRE|W ARN)\b';
 my %hit = ();
 my %word = ();
 my $total = 0;

@@ -3,6 +3,11 @@
 # for rxvt
 *font:      -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
 
+! rxvt settings. hopefully turns on meta support for emacs
+rxvt*bits:8
+rxvt*meta8:True
+rxvt*backspacekey:""
+
 #ifdef COLOR
 XTerm*background:			black
 XTerm*foreground:			green2
