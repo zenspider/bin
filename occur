@@ -1,0 +1,14 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+my %c = ();
+
+while (<>) {
+  chomp;
+  $c{$_}++;
+}
+
+foreach my $key (sort { $c{$b} <=> $c{$a} } keys %c) {
+  printf "%5d: %s\n", $c{$key}, $key;
+}
