@@ -1,3 +1,0 @@
-#!/usr/local/bin/bash
-
-(for file in $*; do mailx -s $file ryand < $file && /bin/rm $file; done) &> /dev/null
