@@ -76,16 +76,14 @@ Mouse 3	TSIF	A	RaiseLower
 AddToFunc InitFunction 	"I" Module FvwmButtons
 +			"I" Exec xsetroot -solid gray40 &
 +			"I" Exec xemacs &
++			"I" Exec netscape &
 
 AddToFunc RestartFunction "I" Module FvwmButtons
 +			"I" Exec xsetroot -solid gray40 &
 
 ######################## Menus ###################
 AddToMenu RootMenu	"Root Menu"	Title
-+			"XTerm"		Exec exec xterm
-#+			"Rxvt"		Exec exec rxvt
-+			""		Nop
-+			"Remote Logins"	Popup Remote-Logins
++			"Logins"	Popup Logins
 +			""		Nop
 +                       "Utilities"     Popup Utilities
 +			""		Nop
@@ -107,11 +105,12 @@ AddToMenu Utilities     "Utilities" Title
 +                       "Editres"       Exec exec editres
 +			""		Nop
 +			"XEmacs"	Exec exec xemacs
++			"Netscape"	Exec exec netscape
 +                       "Mail"          MailFunction gnuclient -f vm
 +			""		Nop
 +                       "XLock"         Exec exec xlock -mode random
 +			""		Nop
-+                       "Reset X defaults" Exec xrdb -load $HOME/.Xdefaults 
++                       "Reset X defaults" Exec xrdb -load $HOME/.Xdefaults
 
 AddToMenu Misc-Ops "Misc Config Opts" Title
 +                  "Sloppy Focus"        ChangeDefaultFocus SloppyFocus
@@ -128,13 +127,13 @@ AddToMenu Misc-Ops "Misc Config Opts" Title
 +                  "Partial Paging"         EdgeScroll 50 50
 +                  "Full Paging && Edge Wrap" EdgeScroll 100000 100000
 
-AddToMenu Window-Ops	"Window Ops"	Title		
+AddToMenu Window-Ops	"Window Ops"	Title
 +			"Move"		Move
 +			"Resize"	Resize
 +			"Raise"		Raise
-+			"Lower"		Lower 
++			"Lower"		Lower
 +		 	"(De)Iconify"	Iconify
-+			"(Un)Stick"	Stick		
++			"(Un)Stick"	Stick
 +			"(Un)Maximize"	Maximize
 +			""		Nop
 +			"Delete"	Delete
@@ -145,28 +144,32 @@ AddToMenu Window-Ops	"Window Ops"	Title
 
 AddToMenu Window-Ops2	"&Move"		Move
 +			"&Resize"	Resize
-+			"R&aise"	Raise   	
-+			"&Lower"	Lower   	
-+			"(De)&Iconify"	Iconify 	
-+			"(Un)&Stick"	Stick		
++			"R&aise"	Raise
++			"&Lower"	Lower
++			"(De)&Iconify"	Iconify
++			"(Un)&Stick"	Stick
 +                       "(Un)Ma&ximize" Maximize
-+			""		Nop     	
-+			"&Delete"	Delete	
-+			"&Close"	Close
-+			"Destroy"	Destroy 	
 +			""		Nop
-+			"ScrollBar" 	Module FvwmScroll 2 2	
++			"&Delete"	Delete
++			"&Close"	Close
++			"Destroy"	Destroy
++			""		Nop
++			"ScrollBar" 	Module FvwmScroll 2 2
 +			"Print"         PrintFunction
 +                       "Print Reverse" PrintReverseFunction
 
 # be sure to fill these in with your correct machine names:
-AddToMenu Remote-Logins	"software-7"	Exec rsh software-7	xterm -display $HOSTDISPLAY &
-+			"cachimbo"	Exec rsh cachimbo	xterm -display $HOSTDISPLAY &
+AddToMenu Logins	"XTerm"		Exec exec xterm
++			""		Nop
++			"Other..."	Module FvwmForm Rlogin
++			""		Nop
++			"lust"		Exec rsh lust		 xterm -display $HOSTDISPLAY &
++			""		Nop
++			"software-7"	Exec rsh software-7	 xterm -display $HOSTDISPLAY &
++			"cachimbo"	Exec rsh cachimbo	 xterm -display $HOSTDISPLAY &
 +			"web-build-1"	Exec rsh website-build-1 xterm -display $HOSTDISPLAY &
 +			"web-build-2"	Exec rsh website-build-2 xterm -display $HOSTDISPLAY &
 +			""		Nop
-+			"Other..."	Module FvwmForm Rlogin
-
 
 AddToMenu Module-Popup	"FvwmModules"	Title
 +			"Identify"	Module	FvwmIdent
@@ -190,7 +193,7 @@ AddToMenu Module-Popup	"FvwmModules"	Title
 +                       "Form - MyFvwmTalk"  Module FvwmForm MyFvwmTalk
 +                       "Form - QuitVerify"  Module FvwmForm QuitVerify
 
-AddToMenu Restart 	"Restart" Title	
+AddToMenu Restart 	"Restart" Title
 +			" Fvwm2"	Restart fvwm2
 +			"Fvwm"		Restart fvwm
 +			"ctwm"		Restart ctwm
@@ -263,7 +266,7 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 *FvwmButtonsRows 1
 
 *FvwmButtons(Title xlock, Icon xlock.xpm, \
-    Action 'Exec "" xlock &')
+    Action 'Exec "" xscreensaver-command -lock')
 *FvwmButtons(Title xclock, Icon clock.xpm, \
     Swallow(UseOld) "xclock" 'Exec exec xclock -bg Grey80 -padding 0')
 *FvwmButtons(1x1, Title load \
@@ -311,7 +314,7 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 *FvwmPagerGeometry -1-1
 *FvwmPagerLabel 0 Work
 *FvwmPagerLabel 1 Play
-*FvwmPagerLabel 2 To-Do 
+*FvwmPagerLabel 2 To-Do
 *FvwmPagerSmallFont -adobe-helvetica-medium-r-*-*-8-*-*-*-*-*-*-*
 *FvwmPagerBalloons            All
 *FvwmPagerBalloonBack         Yellow
@@ -330,14 +333,14 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 *FvwmWinListAction Click3 Module "FvwmIdent" FvwmIdent
 *FvwmWinListUseSkipList
 *FvwmWinListGeometry +0-1
-                                      
+
 
 *FvwmBackerDesk 0 -solid steelblue
 *FvwmBackerDesk 1 -solid midnightblue
 
 *FvwmScrollBack grey40
 *FvwmScrollFore green
-	
+
 ############################################################
 ############################################################
 # Note that icons are shown in the module
