@@ -25,7 +25,7 @@ case $- in
     export PAGER=more
     export MORE="-e"
     
-    if [ -z ${DISPLAY-} ] ; then
+    if [ ! -z ${DISPLAY-} ] ; then
       echo "DISPLAY = '$DISPLAY'"
     else
       echo "No DISPLAY"
@@ -34,6 +34,8 @@ case $- in
     # ESHELL is what emacs will run for a shell
     export ESHELL="/bin/bash"
     
+    export MANPATH=~/.man:/usr/local/gnu/man:/usr/local/man:/usr/man:/usr/openwin/man:/usr/X11R6.1/man:/dept/snoc/man:.
+
     case "${HOSTTYPE}.${OSTYPE}" in
       
       "alpha.OSF1" )
@@ -78,6 +80,7 @@ case $- in
       
       "sgi.Irix6" )
 	stty erase '^h' intr '^c' kill '^u'
+	export MANPATH=/usr/share/catman:/usr/share/man:/usr/catman:/usr/man:/usr/freeware/catman:/usr/freeware/man:
 	;;	
       
       * )
@@ -105,7 +108,7 @@ PATH=''
 #AMAZON_PATH=/opt/amazon/website/bin:/opt/third-party/bin:/usr/local/gnu/bin:/usr/local/script:/usr/local/script/QA:/dept/snoc/arch/bin:
 
 STD_PATH=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:
-MYPATH=~/Bin:/usr/freeware/bin:/usr/gnu/bin:/usr/bin/X11:/usr/local/bin:${STD_PATH}
+MYPATH=~/Bin:/usr/freeware/bin:/usr/bin/X11:/usr/local/bin:${STD_PATH}
 
 oldIFS=$IFS
 IFS=:
@@ -121,8 +124,6 @@ IFS=$oldIFS
 
 export SAVEPATH=$PATH
 export CDPATH=.:~/
-
-export MANPATH=~/.man:/usr/local/gnu/man:/usr/local/man:/usr/man:/usr/openwin/man:/usr/X11R6.1/man:/dept/snoc/man:.
 
 export PERL5LIB=.:/home/ryand/Dev/Perl
 
