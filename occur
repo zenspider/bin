@@ -6,6 +6,8 @@ use Getopt::Long;
 my %option = ();
 GetOptions(\%option,
            "n",
+	   "b|w",
+	   "o",
            );
 
 my %c = ();
@@ -15,9 +17,16 @@ while (<>) {
 
   s/(\d+)/<num>/g if $option{n};
 
+  if ($option{b}) {
+      s/^\s+//g;
+      s/\s+$//g;
+      next unless $_;
+  }
+
   $c{$_}++;
 }
 
 foreach my $key (sort { $c{$b} <=> $c{$a} } keys %c) {
+  next if $option{o} and $c{$key} == 1;
   printf "%5d: %s\n", $c{$key}, $key;
 }
