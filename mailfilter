@@ -1,12 +1,18 @@
 #!/usr/bin/perl -w
 
+# Intended to be hooked into qmail via a .qmail file like so:
+# 
+# |preline /usr/local/bin/spamassassin -PaL | /home/ryand/Bin/mailfilter -f /home/ryand/.mailfilter.rc -m /home/ryand/Mail
+# 
+# the calling to spamassassin w/ -P is required, -a for autowhitelist,
+# -L is optional and makes it slightly faster.
+
 use strict;
 use Mail::Audit;
-use Mail::SpamAssassin;
 use Time::JulianDay;
 use Getopt::Long;
 
-my $VERSION = '1.2.1';
+my $VERSION = '1.4.1';
 
 my %option;
 GetOptions(\%option,
@@ -14,6 +20,8 @@ GetOptions(\%option,
 	   "check",
 	   "mailfolder=s",
 	  );
+
+$option{'check'} ||= '';
 
 # My Mail Policies:
 #
@@ -41,27 +49,24 @@ open LOG, ">>$logdir/.mailfilter.log"
   || die "Couldn't open mailfilter.log: $!";
 
 # Get all of our standard fields of interest.
-my ($item, $spam_status, $is_spam, $from, $to, $cc, $rcpt, $subject);
+my ($mail, $from, $to, $cc, $rcpt, $subject) = ('', '', '', '', '', '');
 unless ($option{check}) {
+  my $debug = 0;
+  $mail = Mail::Audit->new();
 
-  $item = Mail::Audit->new();
-  my $spamtest = Mail::SpamAssassin->new;
-  $spam_status = $spamtest->check($item);
-  $is_spam = $spam_status->is_spam;
+  my $spam = $mail->get('X-Spam-Status') || '';
+  my $is_spam = ($spam =~ m/^yes/i);
 
-  $spam_status->rewrite_mail;
-  $spam_status->handle_auto_report;
+  $from = $mail->from() || '';
+  $to = $mail->to() || '';
+  $cc = $mail->cc() || '';
+  $rcpt = join(', ', $mail->to(), $mail->cc(), $mail->bcc());
+  $subject = $mail->subject() || '';
+  chomp($from, $to, $cc, $subject, $rcpt);
 
   if ($is_spam) {
-    &save("BlackBox", "SPAM: " . $spam_status->get_names_of_tests_hit);
+    &save("BlackBox", "Spam box:", $to, $subject);
   }
-
-  $from = $item->from() || '';
-  $to = $item->to() || '';
-  $cc = $item->cc() || '';
-  $rcpt = join(', ', $item->to(), $item->cc(), $item->bcc());
-  $subject = $item->subject() || '';
-  chomp($from, $to, $cc, $subject, $rcpt);
 }
 
 # general filter
@@ -142,7 +147,7 @@ while (<IN>) {
 }
 
 unless ($option{check}) {
-  &save("GrayBox", "Default rule: " . $spam_status->get_names_of_tests_hit);
+  &save("GrayBox", "Default rule");
 } else {
   &log("Looks good");
 }
@@ -163,11 +168,13 @@ sub save {
   my $box = shift;
 
   &log("Saving in '$box'", @_);
-  $item->accept("$option{mailfolder}/$box");
+  $mail->accept("$option{mailfolder}/$box");
 }
 
 sub log {
-  my $msg = join(': ', @_);
+  my $msg = join(': ', @_) || '';
+
+  $msg =~ s/\s+/ /mg;
 
   use Date::Format;
   my $time = time2str("%Y%m%d_%H%M%S", time);
