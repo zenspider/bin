@@ -18,7 +18,9 @@ my $html = 0;
 	    html => \$html,
 	   );
 
-&find(\&wanted, '.');
+@ARGV = ('.') unless @ARGV;
+
+&find(\&wanted, @ARGV);
 &check;
 &report;
 exit;
