@@ -1,0 +1,2 @@
+export P4CLIENT=ryand-linux
+export QA_TEST_HOST=ryand
