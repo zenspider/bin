@@ -74,7 +74,6 @@ Mouse 3	TSIF	A	RaiseLower
 
 ######################## Initialization Functions ############################
 AddToFunc InitFunction 	"I" Module FvwmButtons
-+			"I" Exec xmodmap /home/ryand/.xmodmap.dvorak
 +			"I" Exec xsetroot -solid gray40 &
 +			"I" Exec xemacs &
 
@@ -274,7 +273,7 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
     +cn -ls -sb -fn 8x13 -title "xterm" &')
 *FvwmButtons(3x1, Swallow "FvwmPager" "FvwmPager 0 2")
 *FvwmButtons(8x1, Swallow "mini-term" "Exec exec xterm +cn -sb -ls -T mini-term -fg black  -bg Grey80")
-*FvwmButtons(4x1, Swallow "mail-monitor" "Exec exec xterm +cn -T mail-monitor -fg black -bg Grey80 -e /home/ryand/Bin/monitorMail")
+#*FvwmButtons(4x1, Swallow "mail-monitor" "Exec exec xterm +cn -T mail-monitor -fg black -bg Grey80 -e /home/ryand/Bin/monitorMail")
 
 ########################## Icon Manager ####################################
 # this FvwmIconMan setup is for swallowing in above button bar example
