@@ -2,7 +2,7 @@
 
 #set -xv
 
-cd /home/ryand
+cd /toasters/toaster5/users/ryand
 mkdir bugbash.data &> /dev/null
 cd bugbash.data && rm -rf ELM*
 
