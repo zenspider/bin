@@ -29,7 +29,8 @@ GetOptions(\%option,
 # 3) All other mail goes to GrayBox
 #
 
-$option{mailfolder} = (getpwuid($>))[7] . "/Mail";
+$option{mailfolder} = (getpwuid($>))[7] . "/Mail"
+  unless $option{mailfolder};
 
 (&log("'$option{mailfolder}' is not a valid directory"), exit(1))
   unless -d $option{mailfolder};
