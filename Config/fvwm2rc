@@ -74,8 +74,6 @@ Mouse 3	TSIF	A	RaiseLower
 ######################## Initialization Functions ############################
 AddToFunc InitFunction 	"I" Module FvwmButtons
 +			"I" Exec xsetroot -solid gray40 &
-+			"I" Exec xemacs &
-+			"I" Exec netscape &
 
 AddToFunc RestartFunction "I" Module FvwmButtons
 +			"I" Exec xsetroot -solid gray40 &
@@ -99,14 +97,9 @@ AddToMenu RootMenu	"Root Menu"	Title
 AddToMenu Utilities     "Utilities" Title
 +			"Navigator"	Exec exec netscape
 +			"XEmacs"	Exec exec xemacs
-+			"Remedy"	Exec rsh remedy-1 /usr/ar4.0/bin/aruser -display $DISPLAY
-+                       "Mail"          MailFunction gnuclient -f vm
-+			""		Nop
++			"Project Clock"	Exec exec pck-timer
++			"Remedy"	Exec rsh remedy-1 /usr/ar4.0/bin/aruser -display $HOSTDISPLAY &
 +			"Top"		Exec exec rxvt -e top
-+			"Calculator"	Exec exec xcalc
-+			"Xman"		Exec exec xman
-+			"Xmag"		Exec exec xmag
-+                       "Editres"       Exec exec editres
 +			""		Nop
 +                       "Reset X defaults" Exec xrdb -load $HOME/.Xdefaults
 
@@ -161,14 +154,10 @@ AddToMenu Logins	"Term"		Exec exec rxvt
 +			""		Nop
 +			"Other..."	Module FvwmForm Rlogin
 +			""		Nop
-+			"lust"		Exec rsh lust		 rxvt -display $HOSTDISPLAY &
-+			""		Nop
-+			"software-7"	Exec rsh software-7	 xterm -display $HOSTDISPLAY &
-+			"cachimbo"	Exec rsh cachimbo	 xterm -display $HOSTDISPLAY &
-+			"web-build-1"	Exec rsh website-build-1 xterm -display $HOSTDISPLAY &
-+			"web-build-2"	Exec rsh website-build-2 xterm -display $HOSTDISPLAY &
-+			"web-build-4"	Exec rsh website-build-4 xterm -display $HOSTDISPLAY &
-+			""		Nop
++			"software-7"	Exec ssh software-7 xterm &
++			"web-build-1"	Exec ssh website-build-1 xterm &
++			"web-build-2"	Exec ssh website-build-2 xterm &
++			"web-build-4"	Exec ssh website-build-4 xterm &
 
 AddToMenu Module-Popup	"FvwmModules"	Title
 +			"Identify"	Module	FvwmIdent
@@ -195,15 +184,7 @@ AddToMenu Module-Popup	"FvwmModules"	Title
 +                       "Form - QuitVerify"  Module FvwmForm QuitVerify
 
 AddToMenu Restart 	"Restart" Title
-+			" Fvwm2"	Restart fvwm2
-+			"Fvwm"		Restart fvwm
-+			"ctwm"		Restart ctwm
-+			"mwm"		Restart mwm
-+			"olwm"		Restart /usr/openwin/bin/olwm
-+			"tvtwm"		Restart tvtwm
-+			"twm"		Restart twm
-+			"vtwm"		Restart vtwm
-+			"rxvt"		Restart rxvt
++			"Fvwm2"		Restart fvwm2
 
 ######################## Sample Functions ##########################
 
@@ -271,7 +252,7 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 *FvwmButtons(Title Term, Icon rterm.xpm, \
     Action 'Exec "Term" rxvt -title "Term" &')
 *FvwmButtons(3x1, Swallow "FvwmPager" "FvwmPager 0 2")
-*FvwmButtons(8x1, Swallow "mini-term" "Exec exec rxvt -T mini-term -fg green2 -bg grey12")
+*FvwmButtons(8x1, Swallow "mini-term" "Exec exec rxvt +sb -T mini-term -fg green2 -bg grey12")
 
 ########################## Icon Manager ####################################
 # this FvwmIconMan setup is for swallowing in above button bar example
