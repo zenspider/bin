@@ -2,6 +2,7 @@
 
 use strict;
 use File::Find;
+use Getopt::Long;
 
 my @check = ();
 #my $keywords = '(?<!SUF|PRE)FIX|HACK|TODO|(?<!P|O)DOC(?!UMENT|TYPE|_INSTALL)|REFACTOR';
@@ -9,9 +10,12 @@ my $keywords = '\b(FIX|HACK|TODO|DOC|REFACTOR)\b';
 my %hit = ();
 my %word = ();
 my $total = 0;
-my $html = 1;
+my $html = 0;
 
-chdir "/home/ryand/cvs/";
+&GetOptions(
+	    html => \$html,
+	   );
+
 &find(\&wanted, '.');
 &check;
 &report;
@@ -70,8 +74,12 @@ sub report {
     print "${file}::\n\n";
     foreach my $line (@{$hit{$file}}) {
 
-      $line =~ s|($keywords)|<B>$1</B>|og
-	if $html;
+      if ($html) {
+	$line =~ s|&|&amp;|g;
+	$line =~ s|<|&lt;|g;
+	$line =~ s|>|&gt;|g;
+	$line =~ s|($keywords)|<B>$1</B>|og;
+      }
 
       print $line, "\n";
     }
