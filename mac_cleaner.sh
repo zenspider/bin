@@ -8,6 +8,8 @@ fi
 rm -rf \
     /System/Library/Extensions.kextcache \
     /Library/Caches/* \
+    /System/Library/Caches/* \
+    /private/var/db/BootCache.playlist \
     ~/Library/Caches/* \
     ~/Library/FontCollections/*.fcache
 
