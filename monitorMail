@@ -1,4 +1,4 @@
-#!/usr/local/gnu/bin/perl5.00404 -w
+#!/opt/third-party/bin/perl -w
 use strict;
 
 print "Initializing...\n";
@@ -6,8 +6,9 @@ print "Initializing...\n";
 my $clear = `clear`;
 my $i = 0;
 
-chdir('/toasters/toaster5/users/ryand/Mail/spool');
-opendir(DIR, '/toasters/toaster5/users/ryand/Mail/spool');
+my $homedir = (getpwnam('ryand'))[7];
+chdir('$homedir/Mail/spool') || die "Couldn't cd to directory: $!";
+opendir(DIR, '.');
 my @dirs = grep { /^[^\.]/ } readdir(DIR);
 closedir(DIR);
 
