@@ -1,14 +1,4 @@
 # -*- ksh -*-
-##################################################################
-# 
-# .bashrc
-#
-# Vers. Date	   Comment
-# ----- ---------- -----------------------------------------------
-# 1.1.0 1998-09-17 Amazon conversion
-# 1.0.0 1996-10-04 Birthday
-#
-##################################################################
 
 #set -xv
 
@@ -30,7 +20,7 @@ set -u		# Break when undefined variable is used.
 
 CONFIG=$HOME/Bin/Config
 
-export DOMAIN=$(hostname | /usr/bin/perl -pe 's/.*\.([^\.]+\.[^\.]+)$/$1/;')
+export DOMAIN=$(hostname | /usr/bin/perl -pe 's/^.*?([^\.]+\.[^\.]+)$/$1/;')
 export HOSTNAME=$(hostname -s)
 
 for f in $CONFIG/os/$(uname) $CONFIG/domain/$DOMAIN $CONFIG/host/$HOSTNAME $CONFIG/misc/environment; do
