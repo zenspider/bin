@@ -129,6 +129,10 @@ case "${HOSTTYPE}.${OSTYPE}" in
   "powerpc.aix" )
     alias ps-all='ps -ef'
     ;;
+
+  "powerpc.freebsd" )
+    alias ps-all='ps -ef'
+    ;;
   
   "sparc.solaris" )
     alias ps-all='ps -ef'
