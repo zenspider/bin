@@ -8,7 +8,7 @@ echo dir is $dir
 
 cd $dir
 
-p=$(/usr/local/bin/perl -e 'use Cwd; $cwd = cwd(); $cwd =~ s|^/tmp_mnt||; print $cwd;')
+p=$(perl -e 'use Cwd; $cwd = cwd(); $cwd =~ s|^/tmp_mnt||; print $cwd;')
 
 for l in bash_login bash_profile profile; do
   if [ ! -e $l ]; then

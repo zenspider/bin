@@ -78,6 +78,9 @@ case $- in
        "sgi.Irix6" )
  	export MANPATH=/usr/share/catman:/usr/share/man:/usr/catman:/usr/man:/usr/freeware/catman:/usr/freeware/man:
  	;;	
+
+       "i386.freebsd3.2" )
+        ;;
        
       * )
 	echo $0:${HOSTTYPE}.${OSTYPE} is an unknown machine type
@@ -93,6 +96,7 @@ case $- in
     case "${HOSTTYPE}.${OSTYPE}" in
       
       "alpha.OSF1" | "alphaev56.osf4.0d" )
+        STD_PATH=/usr/bin/X11
 	;;
       "sparc.sunos" )
 	;;
@@ -109,6 +113,9 @@ case $- in
        "sgi.Irix6" )
  	;;	
        
+       "i386.freebsd3.2" )
+        ;;
+       
       * )
 	echo $0:${HOSTTYPE}.${OSTYPE} is an unknown machine type
 	;;
@@ -122,7 +129,7 @@ esac
 
 export OLDPATH=$PATH
 PATH=''
-STD_PATH=/usr/sbin:/sbin:/usr/bin:/bin:/usr/bin/X11:/usr/local/bin
+STD_PATH=/usr/sbin:/sbin:/usr/bin:/bin:/usr/local/bin:${STD_PATH-}
 MYPATH=~/Bin:${HOSTPATH-}:${DOMAINPATH-}:$STD_PATH
 
 oldIFS=$IFS
@@ -132,7 +139,15 @@ for p in $MYPATH ; do
   if [ -d $p ]; then
     PATH=$PATH:$p
   else
-    echo Path $p not found
+    case $- in
+      
+  # interactive shell
+      *i*)
+	   echo Path $p not found
+	   ;;
+      * )
+	  ;;
+    esac
   fi
 done
 IFS=$oldIFS

@@ -157,7 +157,6 @@ case "${HOSTTYPE}.${OSTYPE}" in
   
   "alpha.OSF1" | "alphaev56.osf4.0d" )
     alias ps-all='ps aux'
-    # Nothing to override
     ;;
 
   "sparc.sunos" )
@@ -179,6 +178,10 @@ case "${HOSTTYPE}.${OSTYPE}" in
 
   "sgi.Irix6" )
     alias ps-all='ps -ef'
+    ;;
+
+  "i386.freebsd3.2" )
+    alias ps-all='ps aux'
     ;;
 
   *)
