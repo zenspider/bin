@@ -12,29 +12,29 @@ if [ -n ${PS1-} ]; then
   abs() {
     set -P
     
-    local target=${1-.}
-    if [ -f $target ] || [ ! -e $target ]; then
-      dir=$(dirname $target);
-      file=$(basename $target);
+    local target="${1-.}"
+    if [ -f "$target" ] || [ ! -e "$target" ]; then
+      dir=$(dirname "$target");
+      file=$(basename "$target");
     else
-      dir=$target
+      dir="$target"
       file=''
     fi
     
-    pushd $dir &> /dev/null
-    echo $PWD/$file
+    pushd "$dir" &> /dev/null
+    echo "$PWD/$file"
     popd &> /dev/null
   }
   
   # Gives the pwd
   pwd() {
-    local target=$(abs $*);
+    local target=$(abs "$*");
     
     
-    if [ -f $target ]; then
-      echo $(dirname $target);
+    if [ -f "$target" ]; then
+      echo $(dirname "$target");
     else
-      echo $target
+      echo "$target"
     fi
   }
 
@@ -175,6 +175,10 @@ alias lpr2up='enscript -2r'
 ############################################################
 # General Functions:
 ############################################################
+
+pidof() {
+    ps axc|awk "{if (\$5==\"$1\") print \$1}";
+}
 
 ff () {
     find . -type f -print0 | xargs -0 egrep $*

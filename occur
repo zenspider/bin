@@ -1,11 +1,20 @@
 #!/usr/bin/perl -w
 
 use strict;
+use Getopt::Long;
+
+my %option = ();
+GetOptions(\%option,
+           "n",
+           );
 
 my %c = ();
 
 while (<>) {
   chomp;
+
+  s/(\d+)/<num>/g if $option{n};
+
   $c{$_}++;
 }
 

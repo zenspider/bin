@@ -1,3 +1,0 @@
-#!/bin/bash
-
-tkmonitor -message "None" -delay 300000 -title "" checkmail2
