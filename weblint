@@ -1,7 +1,12 @@
-#!/usr/bin/perl -w
+#!/bin/sh -- # -*- perl -*-
+eval 'exec perl -w -S $0 ${1+"$@"}'
+  if 0;
 
-use lib '/usr/people/ryand/home';
 use strict;
 use HTML::Weblint;
+use Carp ();
+
+local $SIG{__WARN__} = \&Carp::cluck;
+local $SIG{__DIE__} = \&Carp::cluck;
 
 &HTML::Weblint::main(@ARGV);
