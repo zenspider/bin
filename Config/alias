@@ -369,7 +369,7 @@ furl() {
 #  done
 #}
     
-psgrep() {
+ps-grep() {
   ps-all | grep $1 | grep -v "grep $1"
 }
 
@@ -404,4 +404,10 @@ rot13() {
   else
     tr "[a-m][n-z][A-M][N-Z]" "[n-z][a-m][N-Z][A-M]" < $1
   fi
+}
+
+fromto() {
+  from=$1
+  to=$2
+  perl -e 'foreach (shift..shift) {print "$_ "}; print "\n";' $from $to
 }
