@@ -167,7 +167,6 @@ alias cvsx='cvs -d ~/.cvs'
 alias lc='wc -l'
 alias listapps='find . -perm -1 -type f -print'
 alias lpr2up='enscript -2r'
-alias mem='ps -eo uname,pid,cputime,pcpu,pmem,cmd | sort -drn -k 5 | ${PAGER-more}'
 alias perlpath="perl -e 'print join(\"\\n\", @INC), \"\\n\";'"
 alias rl='rlogin -8'
 alias sho='show $LOGNAME'
@@ -319,4 +318,8 @@ fromto() {
 
 p4t() {
   cd $(~/Bin/p4t)
+}
+
+mem() {
+  ps -efo rss,vsz,args | perl -pi -e 'if (m/^(\S+)M/) { $mem = $1 * 1024; s/^(\S+)M/${mem}K/ }; s/^(\S+)K/$1/; ' | sort -n
 }
