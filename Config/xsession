@@ -8,7 +8,7 @@
 export PRINTER=bianchi
 . ~/.bashrc
 
-xrdb -load /home/ryand/.Xresources
+xrdb -load /toasters/toaster5/users/ryand/.Xresources
 xmodmap ~/.xmodmap.dvorak
 xscreensaver &
 

@@ -145,7 +145,7 @@ Style "xemacs"		StartsOnDesk 1
 
 AddToFunc "InitFunction"    "I" Exec xsetroot -solid gray40 &
 +                           "I" Module FvwmButtons
-+			    "I" Exec xemacs -f vm &
++			    "I" Exec ~/xemacs/bin/xemacs -f vm &
 +			    "I" Exec mmxp
 +			    "I" Exec nocapslock
 
@@ -213,16 +213,16 @@ AddToMenu "Applications" "Applications" Title
 + "Calculator%mini-calc.xpm%"		Exec xcalc &
 + "Oclock%mini-clock.xpm%" 		Exec oclock &
 + "Netscape"				Exec netscape-4.07 &
-+ "XEmacs"				Exec xemacs &
++ "XEmacs"				Exec ~/xemacs/bin/xemacs &
 
 AddToMenu "Shells" "Shells" Title
 + "Local"			Exec exec xterm +cn &
 + "Remote"			Module FvwmForm Rlogin
 + ""				Nop
-+ "cachimbo"			Exec exec /home/ryand/Bin/xt cachimbo
-+ "Anaconda%mini-term.xpm%"	Exec exec /home/ryand/Bin/xt anaconda
-+ "CS%mini-term.xpm%"		Exec exec /home/ryand/Bin/xt cs
-+ "Xterm %mini-term.xpm%"	Exec exec /home/ryand/Bin/xt
++ "cachimbo"			Exec exec /toasters/toaster5/users/ryand/Bin/xt cachimbo
++ "Anaconda%mini-term.xpm%"	Exec exec /toasters/toaster5/users/ryand/Bin/xt anaconda
++ "CS%mini-term.xpm%"		Exec exec /toasters/toaster5/users/ryand/Bin/xt cs
++ "Xterm %mini-term.xpm%"	Exec exec /toasters/toaster5/users/ryand/Bin/xt
 
 #
 # This menu is invoked as a sub-menu - it allows you to quit,
@@ -393,7 +393,7 @@ Key Escape      A       C       WindowList
 # Define the buttons to use.....
 
 *FvwmButtons(Title xlock, Icon xlock.xpm, \
-             Action 'Exec "XLock" /home/ryand/Bin/xlock &')
+             Action 'Exec "XLock" /toasters/toaster5/users/ryand/Bin/xlock &')
 *FvwmButtons(Title xclock, Icon clock.xpm, \
              Swallow(UseOld) "xclock" 'Exec exec xclock -bg Grey80 -padding 0')
 *FvwmButtons(1x1, Title load, \
@@ -404,7 +404,7 @@ Key Escape      A       C       WindowList
                      +cn -ls -sb -fn 8x13 -title "xterm" &')
 *FvwmButtons(3x1, Swallow "FvwmPager" 'FvwmPager 0 2')
 *FvwmButtons(8x1, Swallow "mini-term" "Exec exec xterm +cn -sb -ls -T mini-term -fg black  -bg Grey80")
-*FvwmButtons(4x1, Swallow "mail-monitor" "Exec exec xterm +cn -T mail-monitor -fg black -bg Grey80 -e /home/ryand/Bin/monitorMail")
+*FvwmButtons(4x1, Swallow "mail-monitor" "Exec exec xterm +cn -T mail-monitor -fg black -bg Grey80 -e /toasters/toaster5/users/ryand/Bin/monitorMail")
 
 #------------------ Identify
 *FvwmIdentBack #000080
