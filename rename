@@ -1,4 +1,4 @@
-#!/usr/local/10bin/perl5 -w
+#!/opt/third-party/bin/perl -w
 
 # Usage: rename perlexpr [files]
 
