@@ -28,9 +28,7 @@ Style "*"	RandomPlacement, SmartPlacement
 MenuStyle *	mwm
 MenuStyle *	Foreground Black, Background gray60
 MenuStyle *	Greyed gray70, ActiveFore White
-#MenuStyle *	HilightBackOff, Hilight3DOff
 MenuStyle *	Font -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
-#MenuStyle *	MenuFace DGradient 64 gray20 MidnightBlue
 
 # Styles for various Fvwm modules:
 Style "Fvwm*"       NoTitle,  Sticky, WindowListSkip
@@ -84,7 +82,6 @@ AddToFunc RestartFunction "I" Module FvwmButtons
 
 ######################## Menus ###################
 AddToMenu RootMenu	"Root Menu"	Title
-+			"rxvt"		Exec exec rxvt
 +			"Logins"	Popup Logins
 +			""		Nop
 +                       "Utilities"     Popup Utilities
@@ -102,6 +99,7 @@ AddToMenu RootMenu	"Root Menu"	Title
 AddToMenu Utilities     "Utilities" Title
 +			"Navigator"	Exec exec netscape
 +			"XEmacs"	Exec exec xemacs
++			"Remedy"	Exec rsh remedy-1 /usr/ar4.0/bin/aruser -display $DISPLAY
 +                       "Mail"          MailFunction gnuclient -f vm
 +			""		Nop
 +			"Top"		Exec exec rxvt -e top
@@ -159,11 +157,11 @@ AddToMenu Window-Ops2	"&Move"		Move
 +                       "Print Reverse" PrintReverseFunction
 
 # be sure to fill these in with your correct machine names:
-AddToMenu Logins	"XTerm"		Exec exec xterm
+AddToMenu Logins	"Term"		Exec exec rxvt
 +			""		Nop
 +			"Other..."	Module FvwmForm Rlogin
 +			""		Nop
-+			"lust"		Exec rsh lust		 xterm -display $HOSTDISPLAY &
++			"lust"		Exec rsh lust		 rxvt -display $HOSTDISPLAY &
 +			""		Nop
 +			"software-7"	Exec rsh software-7	 xterm -display $HOSTDISPLAY &
 +			"cachimbo"	Exec rsh cachimbo	 xterm -display $HOSTDISPLAY &
@@ -189,6 +187,8 @@ AddToMenu Module-Popup	"FvwmModules"	Title
 +			""		Nop
 +			"IconBox"	Module	FvwmIconBox
 +                       "IconMan"       Module  FvwmIconMan
++			""		Nop
++			"Animate"	Popup MenuFvwmAnimate
 +			""		Nop
 +                       "Form - Rlogin"      Module FvwmForm Rlogin
 +                       "Form - MyFvwmTalk"  Module FvwmForm MyFvwmTalk
@@ -262,6 +262,8 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 
 *FvwmButtons(Title xlock, Icon xlock.xpm, \
     Action 'Exec "" xscreensaver-command -lock')
+*FvwmButtons(Title "dv<->qw", Icon key.xpm, \
+    Action 'Exec "" /home/ryand/Bin/keyswitch')
 *FvwmButtons(Title xclock, Icon clock.xpm, \
     Swallow(UseOld) "xclock" 'Exec exec xclock -fg SteelBlue4 -bg grey12 -hl turquoise4 -hd turquoise4 -padding 0')
 *FvwmButtons(1x1, Title load \
