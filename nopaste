@@ -1,0 +1,74 @@
+#!/usr/local/bin/ruby -sw
+
+require 'net/http'
+require 'pp'
+require 'cgi'
+
+languages = %w(C90 C C++ C\# Java Pascal Perl PHP PL/I Python Ruby SQL VB XML Plain\ Text)
+default_language = languages.last
+tab_values       = %w(No 2 3 4 5 6 8)
+
+$l ||= default_language
+$n ||= ""
+$s ||= ""
+$t ||= tab_values.first
+
+lang             = $l
+nickname         = $n
+description      = $s
+tabs             = $t
+
+text =
+  if ARGV.empty? then
+    $stdin.read
+  else
+    File.read(ARGV.shift)
+  end
+
+data = {
+  :lang => lang,
+  :nick => nickname,
+  :desc => description,
+  :cvt_tabs => tabs,
+  :text => text,
+}
+
+order = %w(lang nick desc cvt_tabs text).map { |s| s.intern }
+data = order.map { |k|
+  v=data[k]
+  "#{CGI::escape k.to_s}=#{CGI::escape v}"
+}.join('&')
+
+headers = {
+  'Content-Type' => 'application/x-www-form-urlencoded',
+  'Referer' => 'http://www.rafb.net/paste/index.html',
+  'Host' => 'www.rafb.net',
+  'Accept' => 'image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, image/png, image/tiff, multipart/x-mixed-replace, */*;q=0.1',
+  'Accept-Encoding' => 'bzip2, gzip, deflate, identity',
+  'Accept-Charset' => 'iso-8859-1, utf-8, iso-10646-ucs-2, macintosh, windows-1252, *',
+  'Accept-Language' => 'en, fr;q=0.94, ja;q=0.88, it;q=0.81, de;q=0.75, es;q=0.69, nl;q=0.62, sv;q=0.56, no;q=0.50, da;q=0.44, fi;q=0.38, pt;q=0.31, zh-cn;q=0.25, zh-tw;q=0.19, ko;q=0.12',
+  'Pragma' => 'no-cache',
+  'Cache-Control' => 'max-age=0',
+  'Connection' => 'Keep-Alive',
+  'User-Agent' => 'Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en-US) AppleWebKit/125.4 (KHTML, like Gecko, Safari) OmniWeb/v563.34',
+}
+
+Net::HTTP.start('www.rafb.net', 80) { |http|
+  response = http.post('/paste/paste.php', data, headers)
+
+  location = response['location']
+
+  if location then
+    puts "http://www.rafb.net#{location}"
+  else
+    puts "ERROR:"
+    puts "header:"
+    p response.header
+    puts
+    puts "body:"
+    puts response.body
+    puts "code/message:"
+    puts response.code
+    puts response.message
+  end
+}
