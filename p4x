@@ -1,8 +1,0 @@
-#!/bin/bash
-
-p4 have ... | perl -pe 's|^.*- ||' | sort > /tmp/p4.$$.1
-find $PWD -type d -name tmp -prune -o -type f -print | sort > /tmp/p4.$$.2
-
-diff /tmp/p4.$$.1 /tmp/p4.$$.2 | perl -ne "s|$PWD/||; s|>|?|; s|<|U|; print unless m|^\d|"
-
-rm -f /tmp/p4.$$.*
