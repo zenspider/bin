@@ -1,7 +1,5 @@
 # -*- winmgr -*-
-# PixmapPath /usr/local/mini-icons/
-IconPath   /usr/X11R6/icons:/usr/share/icons
-#IconPath  /usr/local/icons/:/usr/local/mini-icons/
+IconPath   /usr/X11R6/lib/X11/fvwm2/pixmaps:/usr/X11R6/icons:/usr/share/icons
 
 EdgeResistance 10000 0
 EdgeScroll 100 100
@@ -9,31 +7,23 @@ ClickTime 750
 SnapAttraction 10 SameType
 ColormapFocus FollowsMouse
 
-# make sure these fonts exist on your system:
 IconFont	-adobe-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*
 WindowFont	-adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
-DefaultColors Black gray80
-HilightColor  Black SteelBlue4
+DefaultColors	Black gray80
+HilightColor	Black SteelBlue4
 
 DeskTopSize 2x2
 
 # default Styles:
 Style "*"	BorderWidth 5, HandleWidth 5
 Style "*"	Icon unknown1.xpm, Color lightgrey/dimgrey
-Style "*"	MWMFunctions, MWMDecor, HintOverride
 Style "*"	DecorateTransient, NoPPosition
 Style "*"	IconBox -50 0 -1 -50
-#Style "*"	ClickToFocus
 Style "*"	SloppyFocus
 Style "*"	RandomPlacement, SmartPlacement
 
 Module FvwmAuto 500  Raise Nop
-# Lower
-# Module FvwmAuto 2000 Nop Iconify
 
-Style "FvwmButtons" SloppyFocus
-
-MenuStyle *	mwm
 MenuStyle *	Foreground Black, Background gray60
 MenuStyle *	Greyed gray70, ActiveFore White
 MenuStyle *	Font -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
@@ -49,17 +39,6 @@ Style "FvwmButtons" Icon toolbox.xpm, BorderWidth 0, HandleWidth 0
 Style "xterm"       Icon xterm.xpm, IconBox -70 1 -1 -140
 Style "rxvt"        Icon xterm.xpm, IconBox -70 1 -1 -140
 
-# Styles for various common programs:
-Style "*lock"       NoTitle, NoHandles, Sticky, WindowListSkip
-Style "xbiff"       NoTitle, Sticky, WindowListSkip
-Style "xcalc"       Icon xcalc.xpm, NoButton 2,RandomPlacement
-Style "xmh"         Icon mail1.xpm, NoIconTitle,StickyIcon
-Style "xmh"	    RandomPlacement, NoButton 2
-Style "xman"	    Icon xman.xpm, RandomPlacement
-Style "xmag"	    Icon mag_glass.xpm, RandomPlacement
-Style "xgraph"      Icon graphs.xpm, RandomPlacement
-Style "xmosaic"     Color Green/Yellow
-
 # some simple default mouse bindings:
 #   for the root window:
 Mouse 1	R   	A       Menu RootMenu Nop
@@ -67,7 +46,7 @@ Mouse 2	R    	A      	Menu Window-Ops Nop
 Mouse 3	R    	A      	WindowList
 
 #   for the title bar buttons:
-Mouse 0	1    	A      	Menu Window-Ops2 Close
+Mouse 0	1    	A      	Menu Window-Ops Close
 Mouse 0	2    	A     	Maximize-Func
 Mouse 0	4    	A     	Iconify
 
@@ -76,17 +55,15 @@ Mouse 1	F	A	Resize-or-Raise
 Mouse 1	TS	A	Move-or-Raise
 Mouse 1	I	A	Move-or-Iconify
 Mouse 2	I	A	Iconify
-Mouse 2	FST	A	Menu Window-Ops2 Nop
+Mouse 2	FST	A	Menu Window-Ops Nop
 Mouse 3	TSIF	A	RaiseLower
 
 ######################## Initialization Functions ############################
 AddToFunc InitFunction 	"I" Module FvwmButtons
-+			"I" Exec xv -quit -root .bg/current.jpg
-# +			"I" Exec xsetroot -solid gray40 &
++			"I" Exec xv -quit -root -rm 5 .bg/current.jpg
 
 AddToFunc RestartFunction "I" Module FvwmButtons
-+			"I" Exec xv -quit -root .bg/current.jpg
-# +			"I" Exec xsetroot -solid gray40 &
++			"I" Exec xv -quit -root -rm 5 .bg/current.jpg
 
 ######################## Menus ###################
 AddToMenu RootMenu	"Root Menu"	Title
@@ -105,9 +82,10 @@ AddToMenu RootMenu	"Root Menu"	Title
 +			"Exit Fvwm"	Module FvwmForm QuitVerify
 
 AddToMenu Utilities     "Utilities" Title
++			"Galeon"	Exec exec galeon
 +			"Navigator"	Exec exec netscape
 +			"XEmacs"	Exec exec xemacs
-+			"Remedy"	Exec ssh -f remedy-1 /usr/ar4.0/bin/aruser 
++			"Remedy"	Exec ssh -f earth /usr/ar/bin/aruser 
 +			"Meeting Maker"	Exec ssh -f mm-1-sun /dept/snoc/arch/lib/mmaker/mmxp
 +			"Top"		Exec exec rxvt -e top
 +			""		Nop
@@ -145,60 +123,12 @@ AddToMenu Window-Ops	"Window Ops"	Title
 +			""		Nop
 +			"Refresh Window" RefreshWindow
 
-AddToMenu Window-Ops2	"&Move"		Move
-+			"&Resize"	Resize
-+			"R&aise"	Raise
-+			"&Lower"	Lower
-+			"(De)&Iconify"	Iconify
-+			"(Un)&Stick"	Stick
-+                       "(Un)Ma&ximize" Maximize
-+			""		Nop
-+			"&Delete"	Delete
-+			"&Close"	Close
-+			"Destroy"	Destroy
-+			""		Nop
-+			"ScrollBar" 	Module FvwmScroll 2 2
-+			"Print"         PrintFunction
-+                       "Print Reverse" PrintReverseFunction
-
-AddToMenu Module-Popup	"FvwmModules"	Title
-+			"Identify"	Module	FvwmIdent
-+			"Talk"  	Module	FvwmTalk
-+			""		Nop
-+			"Button-Bar"	Module	FvwmButtons
-+			"Pager"		Module  FvwmPager 0 0
-+			"Pager (2 desks)" Module  FvwmPager 0 1
-+			"WinList"	Module  FvwmWinList
-+			""		Nop
-+			"Banner"	Module	FvwmBanner
-+                       "ScrollBar"     Module  FvwmScroll 50 50
-+			"Background"	Module  FvwmBacker
-+                       "AutoRaise"     Module  FvwmAuto 200 Raise Nop
-+                       "Stop AutoRaise" KillModule FvwmAuto
-+			""		Nop
-+			"IconBox"	Module	FvwmIconBox
-+                       "IconMan"       Module  FvwmIconMan
-+			""		Nop
-+			"Animate"	Popup MenuFvwmAnimate
-+			""		Nop
-+                       "Form - Rlogin"      Module FvwmForm Rlogin
-+                       "Form - MyFvwmTalk"  Module FvwmForm MyFvwmTalk
-+                       "Form - QuitVerify"  Module FvwmForm QuitVerify
-
 AddToMenu Restart 	"Restart" Title
 +			"Fvwm2"		Restart fvwm2
 
 ######################## Sample Functions ##########################
 
-AddToFunc MailFunction	   "I" Next [$0] Iconify -1
-+		           "I" Next [$0] Focus
-+			   "I" None [$0] Exec $0 $1
-
 AddToFunc Move-or-Raise		"I" Raise
-+				"M" Move
-+  				"D" Lower
-
-AddToFunc Move-or-Raise2	"M" Raise
 +				"M" Move
 +  				"D" Lower
 
@@ -214,24 +144,8 @@ AddToFunc Resize-or-Raise	"I" Raise
 +				"M" Resize
 +				"D" Lower
 
-AddToFunc Resize-or-Raise2	"M" Raise
-+				"M" Resize
-+				"D" Lower
-
-AddToFunc PrintFunction		"I" Raise
-+				"I" Exec xdpr -id $w
-
-AddToFunc PrintReverseFunction  "I" Raise
-+                               "I" Exec xdpr 1/2 -h -rv -id $w
-
 AddToFunc Iconify-and-Raise     "I" Iconify
 +                               "I" Raise
-
-AddToFunc FocusAndWarp "I" Focus
-+                      "I" WarpToWindow 2p 2p
-
-AddToFunc DeiconifyFocusAndWarp "I" Iconify -1
-+                               "I" FocusAndWarp
 
 AddToFunc ChangeDefaultFocus "I" Style "*" $0
 +                            "I" Recapture
@@ -271,7 +185,6 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 *FvwmIconMan*focusbutton          up yellow firebrick
 *FvwmIconMan*focusandselectButton down yellow firebrick
 *FvwmIconMan*dontshow icon=Untitled name=Untitled
-#*FvwmIconMan*drawicons true
 *FvwmIconMan*buttongeometry  300x0
 *FvwmIconMan*managergeometry 1x5
 
@@ -286,7 +199,6 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 *FvwmPagerFore		      green3 # SlateGray4
 *FvwmPagerHilight	      gray35
 *FvwmPagerWindowColors	      green2 gray25 green2 SteelBlue4
-#*FvwmPagerSmallFont	      -adobe-helvetica-medium-r-*-*-8-*-*-*-*-*-*-*
 *FvwmPagerFont		      -adobe-helvetica-medium-r-*-*-8-*-*-*-*-*-*-*
 *FvwmPagerGeometry	      -1-1
 *FvwmPagerLabel		      0 Work
@@ -317,52 +229,10 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 *FvwmScrollBack grey40
 *FvwmScrollFore green
 
-############################################################
-############################################################
-# Note that icons are shown in the module
-#    only if NoIcon commnand is applied.
-#Style     "*"  NoIcon
-
-############################################################
-# *FvwmIconBoxIconBack    #cfcfcf
-# *FvwmIconBoxIconHiFore  black
-# *FvwmIconBoxIconHiBack  LightSkyBlue
-# *FvwmIconBoxBack        #5f9ea0
-# *FvwmIconBoxGeometry    5x1+0+0
-# *FvwmIconBoxMaxIconSize 64x38
-# *FvwmIconBoxFont        -adobe-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*
-# *FvwmIconBoxSortIcons   IconName
-# *FvwmIconBoxPadding     4
-# *FvwmIconBoxLines       10
-# *FvwmIconBoxSBWidth     11
-# *FvwmIconBoxPlacement   Left Top
-# *FvwmIconBoxPixmap      fvwm.xpm
-# *FvwmIconBoxSetWMIconSize
-# *FvwmIconBoxHilightFocusWin
-# *FvwmIconBoxMouse       1       Click           RaiseLower
-# *FvwmIconBoxMouse       1       DoubleClick     Iconify
-# *FvwmIconBoxMouse       2       Click           Iconify -1, Focus
-# *FvwmIconBoxMouse       3       Click           Module FvwmIdent
-# *FvwmIconBoxKey         r       RaiseLower
-# *FvwmIconBoxKey         space   Iconify
-# *FvwmIconBoxKey         d       Close
-# *FvwmIconBoxKey         n       Next
-# *FvwmIconBoxKey         p       Prev
-# *FvwmIconBoxKey         h       Left
-# *FvwmIconBoxKey         j       Down
-# *FvwmIconBoxKey         k       Up
-# *FvwmIconBoxKey         l       Right
-
-# Icon file specifications
-#
-# Mostly, you don't have to specify icon files, as FvwmIconBox now
-# reads icon files specified in Style commands.
-#
 *FvwmIconBox            "Fvwm*"         -
 
 # FvwmForm alias - query exit ala mwm
 *QuitVerifyGrabServer
-*QuitVerifyWarpPointer
 *QuitVerifyFont          -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
 *QuitVerifyButtonFont   -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
 *QuitVerifyFore          Black
