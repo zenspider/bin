@@ -169,6 +169,7 @@ alias W='w | sort'
 alias aoeu="echo switching to qwerty; xmodmap ~/.xmodmap.qwerty"
 alias asdf="echo switching to dvorak; xmodmap ~/.xmodmap.dvorak"
 alias bold='tput smso'
+alias cgrep='grep -2'
 alias checkperl='for file in $(egrep -l '\#!.*perl' ~/Bin/*); do 2>&1 perl -cw $file|grep -v "syntax OK"; done'
 alias clean='DU -a . | sort -rn | ${PAGER-more}'
 alias cpu='ps -eo uname,pid,cputime,pcpu,pmem,cmd | sort -drn -k 4 | ${PAGER-more}'
