@@ -13,12 +13,13 @@ export QA_TEST_PORT=4007
 export QA_TEST_HOST=qa-tools
 
 export PRINTER=bianchi
+export CLASSPATH=
 
 ############################################################
 # Non qa-tools amazon hosts
 
 if [ $HOSTNAME != 'qa-tools' ]; then
-  DOMAINPATH=/opt/amazon/quality-assurance/bin:/opt/amazon/website/bin:/opt/third-party/bin:/usr/local/gnu/bin:/usr/local/script:/dept/snoc/arch/bin:/usr/ccs/lib:/usr/ccs/bin
+  DOMAINPATH=/opt/amazon/quality-assurance/bin:/opt/amazon/website/bin:/opt/amazon/bin:/opt/third-party/bin:/usr/local/gnu/bin:/usr/local/script:/dept/snoc/arch/bin:/usr/ccs/lib:/usr/ccs/bin
   
   # Backend Tools VARS
   export UNSAFE_CCMOTEL=true
