@@ -28,38 +28,33 @@ umask 002	# no writes for others, otherwise fully open
 set -P		# Turn off bash's relative pwd
 set -u		# For a while, break when undefined variable is used.
 
-BIN=${HOME}/Bin
-CONFIG=${BIN}/Config
 
-ENV_FILE=${CONFIG}/environment
-if [ -f $ENV_FILE ] ; then
-  . $ENV_FILE
-fi
+CONFIG=$HOME/Bin/Config
+
+export DOMAIN=$(hostname | perl -pe 's/.*\.([^\.]+\.[^\.]+)$/$1/;')
+export HOSTNAME=$(hostname -s)
+
+for f in $CONFIG/$DOMAIN $CONFIG/$HOSTNAME $CONFIG/environment; do
+  if [ -f $f ] ; then
+    . $f
+  fi
+done
 
 case $- in
   
   # interactive shell
   *i*)
+    
+    ALIAS_FILE=$CONFIG/alias
 
-    ALIAS_FILE=${CONFIG}/alias
     if [ -f $ALIAS_FILE ] ; then
       . $ALIAS_FILE
     fi
-    
-    export HOSTNAME=`hostname | perl -pe 's/\..*$//'`
-    if [ -f ${CONFIG}/$HOSTNAME ] ; then
-      . ${CONFIG}/$HOSTNAME
-    fi
-
-    export DOMAINNAME=`hostname | perl -pe 's/^.*\.([^\.]+\.[^\.]+)$/$1/'`
-    if [ -f ${CONFIG}/$DOMAINNAME ] ; then
-      . ${CONFIG}/$DOMAINNAME
-    fi
-
     ;;
   
   # not interactive
   *) 
-    
     ;;
 esac
+
+    
