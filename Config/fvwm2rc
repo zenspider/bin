@@ -41,6 +41,15 @@ Style "FvwmButtons" Icon toolbox.xpm, BorderWidth 0, HandleWidth 0
 Style "xterm"       Icon xterm.xpm, IconBox -70 1 -1 -140
 Style "rxvt"        Icon xterm.xpm, IconBox -70 1 -1 -140
 
+# Keyboard modifiers
+# Key keyname context modifiers function
+
+# turn off default 2.4 keybindings
+Key Next         A       SCM     -
+Key Prior        A       SCM     -
+Key Tab          A       M       -
+Key Tab          A       SM      -
+
 # some simple default mouse bindings:
 #   for the root window:
 Mouse 1	R   	A       Menu RootMenu Nop
