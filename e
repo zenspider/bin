@@ -1,6 +1,8 @@
 #!/usr/local/bin/bash
 
 check_up() {
+
+  if [ ! -z ${DISPLAY-} ]; then
     if gnuclient -batch -eval t >/dev/null 2>&1; then
       false;
     else
@@ -12,7 +14,9 @@ check_up() {
       done
       sleep 1
     fi
-    
+  else
+    echo "No display, not starting xemacs headless..."
+  fi
 }
 
 e_normal() {
@@ -20,7 +24,13 @@ e_normal() {
 }
 
 e_text() {
-  gnuclient -nw $*
+  if [ -z ${DISPLAY-} ]; then
+    echo "No display, running xemacs directly"
+    xemacs -nw $*
+  else
+    echo "DISPLAY=$DISPLAY, running gnuclient"
+    gnuclient -nw $*
+  fi
 }
 
 check_up
@@ -39,6 +49,9 @@ case $TERM in
     e_text $*
     ;;
   screen )
+    e_text $*
+    ;;
+  cons* )
     e_text $*
     ;;
   dumb )
