@@ -12,7 +12,7 @@ export MAXRESULTS=10000
 export QA_TEST_PORT=4007
 export QA_TEST_HOST=qa-tools
 
-export PRINTER=bianchi
+export PRINTER=cow
 export CLASSPATH=
 
 ############################################################
