@@ -78,7 +78,7 @@ sub report {
 
   print "Detail:\n\n";
   foreach my $file (sort {scalar @{$hit{$b}} <=> scalar @{$hit{$a}}} keys %hit) {
-    print "${file}:: (", scalar(@{$hit{$file}}), ")\n\n";
+    print "${file} (", scalar(@{$hit{$file}}), "):\n\n";
     foreach my $line (@{$hit{$file}}) {
 
       if ($html) {
