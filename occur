@@ -3,6 +3,7 @@
 $n ||= false
 $b ||= false
 $o ||= false
+$p ||= false
 $h ||= false
 $s ||= false
 
@@ -11,6 +12,7 @@ if $h then
   puts "  -b - strip leading and trailing whitespace, and blanks"
   puts "  -n - convert numbers to '<num>'"
   puts "  -o - skip lines that only occur once"
+  puts "  -p - add percentage values to the output"
   puts "  -s - sort by line, rather than occurance"
   puts "  -h - show help"
   exit 0
@@ -18,6 +20,7 @@ end
 
 c = {}
 c.default = 0
+total = 0
 
 ARGF.each do |$_|
   chomp
@@ -29,6 +32,7 @@ ARGF.each do |$_|
   end
   
   c[$_] += 1
+  total += 1
 end
 
 if $s then
@@ -37,7 +41,13 @@ else
   sorted = c.keys.sort { |a,b| c[b] <=> c[a] }
 end
 
+total = total.to_f
+
 sorted.each do |key|
   next if $o and c[key] == 1
-  printf "%5d: %s\n", c[key], key
+  if $p then
+    printf "%5d:%5.2f%%:%s\n", c[key], c[key] / total * 100.0, key
+  else
+    printf "%5d: %s\n", c[key], key
+  end
 end

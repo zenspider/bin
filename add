@@ -6,7 +6,7 @@ BEGIN {
   $total = 0
 }
 
-$total += $1.to_i if $_ =~ /^\s*(\d+)/
+$total += $1.to_i if $_ =~ /^\s*([-\d]+)/
 
 END {
   puts $total
