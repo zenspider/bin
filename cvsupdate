@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash -noprofile
+#!/bin/bash -noprofile
 
 set -xv
 

@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/bin/bash
 
 p4 have ... | perl -pe 's|^.*- ||' | sort > /tmp/p4.$$.1
 find $PWD -type d -name tmp -prune -o -type f -print | sort > /tmp/p4.$$.2

@@ -1,4 +1,4 @@
-#! /usr/local/bin/bash
+#! /bin/bash
 
 #
 #  This script will capture a picture and convert it to jpeg w/ a unique name

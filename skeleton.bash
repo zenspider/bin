@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/bin/bash
 # skeleton - bare minimum shell for processing files
 
 com=${0##/*/}			# save command name

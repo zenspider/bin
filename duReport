@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/bin/bash
 #
 # duReport - walks over all disks used by QA and reports usage on them.
 #
