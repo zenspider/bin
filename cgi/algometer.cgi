@@ -25,7 +25,8 @@ print
 		     'copyright'=>'(C) 1998 Zen Spider Software and Ryan Davis'},
 	     -BGCOLOR=>'white',
 	    ),
-  h1($title);
+  h1($title),
+  p("<STRONG>Algometer</STRONG> n : device for measuring pain caused by pressure");
 
 &algometer();
 
@@ -76,7 +77,7 @@ sub processFile {
       $dateText = &red($date);
     } elsif ($date_j lt $soon) {
       unshift(@{ $count{DATE_YELLOW} }, $priority);
-      $sortCode += 2;
+      $sortCode += 1;
       $dateText = &yellow($date);
     } else {
       unshift(@{ $count{DATE_GREEN} }, $priority);
@@ -94,7 +95,7 @@ sub processFile {
       $percentText = &red($percentText);
     } elsif ($delta > 5) {
       unshift(@{ $count{PERCENT_YELLOW} }, $priority);
-      $sortCode += 1;
+      $sortCode += 2;
       $percentText = &yellow($percentText);
     } else {
       unshift(@{ $count{PERCENT_GREEN} }, $priority);
@@ -186,9 +187,9 @@ sub printResults {
   print 
     "<TABLE CELLPADDING=2 CELLSPACING=2>\n",
     Tr(
-       th({-COLSPAN=>$dlevel-1}, 'Due'),
+       th({-COLSPAN=>$dlevel}, 'Date Due'),
        td('&nbsp;'),
-       th({-COLSPAN=>$plevel-1}, 'Done'),
+       th({-COLSPAN=>$plevel}, 'Percent Done'),
       );
 
   print
@@ -200,7 +201,7 @@ sub printResults {
   
   print
     "</TABLE>",
-    "<TABLE ALIGN=CENTER SPACING=2>\n",
+    "<TABLE SPACING=2>\n",
     Tr(
        "\t", th('Pri'), "\n",
        "\t", th('Due'), "\n",
