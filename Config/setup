@@ -11,9 +11,8 @@ cd $dir
 p=$(perl -e 'use Cwd; $cwd = cwd(); $cwd =~ s|^/tmp_mnt||; print $cwd;')
 
 for l in bash_login bash_profile profile; do
-  if [ ! -e $l ]; then
+    rm -f $l
     ln -s bashrc $l
-  fi
 done
 
 for f in $( ls | grep -Ev "(\~|\#|CVS)" ) ; do
