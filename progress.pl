@@ -32,8 +32,9 @@ sub wanted {
     return if -B _;
     push @check, $File::Find::name;
   } else {
-    $File::Find::prune = 1 
-      if $File::Find::name =~ m/CVS|blib/;
+    if ($File::Find::name =~ m/CVS|blib/ || -l _) {
+      $File::Find::prune = 1;
+    }
   }
 }
 
