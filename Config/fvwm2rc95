@@ -192,23 +192,6 @@ AddToFunc "Resize-or-Raise" "M" Resize
 
 #========================================================================#
 
-#
-# Now define the menus - defer bindings until later
-#
-
-# This is for the Start menu of the FvwmTaskBar
-
-AddToMenu "StartMenu"
-+ "New shell        %mini-sh1.xpm%"         Exec    xterm +cn -ls -sb -fn 8x13 & 
-+ "Manual pages     %mini-book1.xpm%"       Exec    xman &
-+ "Applications     %mini-x2.xpm%"          Popup   Applications
-+ "Shells	    %mini-term.xpm%"        Popup   Shells
-+ ""                                        Nop 
-+ "Refresh Screen   %mini-ray.xpm%"         Refresh
-+ ""                                        Nop
-+ "Exit Fvwm        %mini-stop.xpm%"        Popup   Quit-Verify
-
-#
 # This menu will fire up some very common utilities
 #
 AddToMenu "Utilities" "Utilities" Title
@@ -244,7 +227,6 @@ AddToMenu "Shells" "Shells" Title
 #
 AddToMenu "Quit-Verify" "Really Quit Fvwm?" Title
 + "Yes, Really Quit%mini-exclam.xpm%"	Quit
-+ "No, Don't Quit%mini-cross.xpm%" 	Nop
 
 #
 # Provides a list of modules to fire off
