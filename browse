@@ -1,7 +1,0 @@
-#!/usr/bin/bash
-
-url=$(echo file://$PWD/$1)
-
-netscape -remote openURL\($url\)
-
-

@@ -1,5 +1,0 @@
-#!/bin/csh
-
-foreach host (aok ncr thor ducky klaatu wyeast)
-	xterm -n $host -T $host -e rlogin $host -l build &
-end

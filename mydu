@@ -1,8 +1,0 @@
-#!/usr/local/bin/bash
-
-echo "$PWD: sorted by date:"
-echo ""
-for name in $(ls -1t); do
-du -sk $name
-ls -dl $name
-done
