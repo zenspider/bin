@@ -1,4 +1,5 @@
 #!/bin/bash
+# -*- ksh -*-
 
 # if the following export creates an error, you need to 
 # add execute permissions to the file. This is because
@@ -13,9 +14,14 @@ xscreensaver &
 
 if [ $DOMAIN = "amazon.com" ]; then
   export PRINTER=bianchi
-  #   xmodmap -e "keysym SunF37 = F12"
-  #   xmodmap -e "keysym SunF36 = F11"
+  # xmodmap -e "keysym SunF37 = F12"
+  # xmodmap -e "keysym SunF36 = F11"
   export LD_LIBRARY_PATH=fvwm2/lib:${LD_LIBRARY_PATH-}
+  xhost +software-7 +website-build-1 +website-build-2 +mm-1-sun
+fi
+
+if [ $DOMAIN = "zenspider.com" ]; then
+  xhost +lust +greed
 fi
  
 exec fvwm2
