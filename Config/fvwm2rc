@@ -1,5 +1,5 @@
 # -*- winmgr -*-
-IconPath   /usr/X11R6/lib/X11/fvwm2/pixmaps:/usr/X11R6/icons:/usr/share/icons
+ImagePath   /usr/X11R6/share/fvwm2/pixmaps:/usr/X11R6/icons:/usr/share/icons
 
 EdgeResistance 10000 0
 EdgeScroll 100 100
