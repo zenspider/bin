@@ -4,6 +4,8 @@ use strict;
 use File::Find;
 use Getopt::Long;
 
+$| = 1;
+
 my @check = ();
 #my $keywords = '(?<!SUF|PRE)FIX|HACK|TODO|(?<!P|O)DOC(?!UMENT|TYPE|_INSTALL)|REFACTOR';
 my $keywords = '\b(FIX|HACK|TODO|DOC|REFACTOR)\b';
@@ -71,7 +73,7 @@ sub report {
 
   print "Detail:\n\n";
   foreach my $file (sort {scalar @{$hit{$b}} <=> scalar @{$hit{$a}}} keys %hit) {
-    print "${file}::\n\n";
+    print "${file}:: (", scalar(@{$hit{$file}}), ")\n\n";
     foreach my $line (@{$hit{$file}}) {
 
       if ($html) {
