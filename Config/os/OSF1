@@ -1,6 +1,6 @@
 # -*-ksh-*-
 
-OSPATH=/usr/bin/X11:/usr/ucb:/sbin
+OSPATH=/bin:/usr/local/bin:/usr/bin/X11:/usr/ucb:/sbin
 
 case $- in
   
