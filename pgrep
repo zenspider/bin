@@ -1,0 +1,7 @@
+#!/usr/local/bin/ruby -w
+
+pattern = ARGV.shift
+
+ARGF.each_line do |line|
+  puts $1 if line =~ /(#{pattern})/
+end
