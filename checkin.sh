@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/local/bin/bash
 
 #set -xv
 set -u
@@ -52,8 +52,8 @@ echo "checkin was from: $DIR" >> $LOGFILE
 echo "" >> $COMMENTFILE
 echo "checkin was from: $DIR" >> $COMMENTFILE
 
-mailx -s "Checkin Results" $USER < $LOGFILE
-mailx -s "Checkin Comments" $USER < $COMMENTFILE
+mail -s "Checkin Results" $USER@amazon.com < $LOGFILE
+mail -s "Checkin Comments" $USER@amazon.com < $COMMENTFILE
 
 echo "Checkin Results"
 cat $LOGFILE
