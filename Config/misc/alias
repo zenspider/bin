@@ -316,3 +316,7 @@ fromto() {
   to=$2
   perl -e 'foreach (shift..shift) {print "$_ "}; print "\n";' $from $to
 }
+
+p4t() {
+  cd $(~/Bin/p4t)
+}
