@@ -5,14 +5,18 @@ eval 'exec perl -w -S $0 ${1+"$@"}'
 use strict;
 use Mail::Mailer;
 
+my $msg = join('', @ARGV) || 'Call me 206.694.2641';
+
 my $mail = Mail::Mailer->new();
 $mail->open(
 	    {
-	      From    => 'ryand@amazon.com',
+	      From    => 'zss@ZenSpider.com',
 	      To      => '1139930@skytel.com',
-	      Subject => 'Call me 206.694.2641',
+	      Subject => $msg,
 	    }
 	    )
   or die "Can't open mail: $!\n";
-print $mail "call me\n";
+print $mail '';
 $mail->close();
+
+print "Sent '$msg'\n";
