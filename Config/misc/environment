@@ -52,7 +52,7 @@ case $- in
   
   # interactive shell
   *i*)
-  export CDPATH=.:~/:~/Links
+  export CDPATH=.:~/:~/Links:~/Work
   
   PS1='[\!] '
   PS4='$0@$LINENO: '
