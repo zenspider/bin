@@ -1,0 +1,385 @@
+# -*- ksh -*-
+#set -xv
+
+############################################################
+# Overrides:
+############################################################
+
+case $- in
+  *i* ) # Test for interactive flag
+
+	emacs() {
+	  xemacs -nw $*
+        }
+
+	# Gives the absolute pathname for any path argument
+	abs() {
+	  set -P
+	  
+	  local target=${1-.}
+	  if [ -f $target ] || [ ! -e $target ]; then
+	    dir=$(dirname $target);
+	    file=$(basename $target);
+	  else
+	    dir=$target
+	    file=''
+	  fi
+
+	  pushd $dir &> /dev/null
+	  echo $PWD/$file
+	  popd &> /dev/null
+        }
+
+	# Gives the pwd
+	pwd() {
+	  local target=$(abs $*);
+	  
+	    
+	  if [ -f $target ]; then
+	    echo $(dirname $target);
+	  else
+	    echo $target
+	  fi
+
+        }
+
+#	takeOutTheTrash () {
+#	  #set -xv
+#	  d=$(isodate)
+#	  mkdir /tmp/trash/$d
+#	  /bin/mv -f .trash/* /tmp/trash/$d
+#	  /bin/rm -r .trash
+#	  #set +xv
+#        }
+#	
+#	rm () {
+#	  #set -xv
+#	  if ! [ -d /tmp/trash ]; then
+#	    mkdir /tmp/trash
+#	  fi
+#	  if ! [ -d .trash ]; then
+#	    mkdir .trash
+#	  fi
+#	  for f in $* ; do
+#	    dirname=$(pwd $f)
+#	    target=.trash/$dirname
+#	    if [ ! -e $target ]; then
+#	      mkdir -p $target
+#	    fi
+#	    mv $f $target
+#	  done
+#	  takeOutTheTrash &
+#	  #set +xv
+#        }
+#
+#	alias RM='command rm -i'
+#	alias purge='(cd /tmp; mv trash trash$$; /bin/rm -rf trash$$) &'
+
+	xtitle() {
+	  # can't find binary xtitle
+	  if [ $TERM = 'xterm' ]; then
+	    [ "$2" ] && echo -ne "\033]2;$1\a\033]1;$2\a" || echo -ne "\033]0;$1\a"
+	  fi
+        }
+
+	alias compress='gzip -r9'
+	alias uncompress='gzip -rd'
+	
+	if [ ! -z "${TERM-}" ]; then
+	  case $TERM in
+	    
+	    "xterm" )
+	      # this alias puts the host name and pwd in the xterm header
+	      cd() {
+		local dir=${1-}
+		builtin cd $dir
+		xtitle "$(hostname) @ ${PWD#/tmp_mnt}" $(hostname)
+              }
+	      cd .
+	      ;;
+
+	    * )
+	      # no cd alias
+	      ;;
+	  esac
+	fi
+
+	type () {
+	  
+	  local fail=0
+	  
+	  if [ $# -eq 0 ] ; then
+	    echo 'usage: whatis arg [arg...]'
+	    return 1
+	  fi
+	  
+	  for arg; do
+	    case $(builtin type -type $arg 2>/dev/null) in
+	      "alias")
+		builtin alias "$arg"
+		;;
+	      "function")
+		builtin type "$arg" | sed 1d
+		;;
+	      "builtin")
+		echo builtin "$arg"
+		;;
+	      "file")
+		builtin type -path "$arg"
+		;;
+	      *)
+		# OK, we could have a variable, or we could have nada.
+		if [ "$(eval echo \${$arg+set})" = "set" ] ; then
+		  # It is a variable, and it is set.
+		  echo -n "$arg="
+		  eval echo '\"'\$$arg'\"'
+		else
+		  echo whatis: $arg: not found
+		  fail=1
+		fi
+		;;
+	    esac
+	  done
+	  return $fail
+        }
+
+	;;
+esac 
+  
+############################################################
+# Machine Dependant Aliases:
+############################################################
+
+alias ps-all='ps auxww'
+alias DU='du -k'
+
+case "${HOSTTYPE}.${OSTYPE}" in
+  
+  "alpha.OSF1" | "alphaev56.osf4.0d" )
+    alias ps-all='ps aux'
+    ;;
+
+  "sparc.sunos" )
+    alias ps-all='ps -ef'
+    alias DU='du -a'
+    ;;
+  
+  "hp.hpux" )
+    alias ps-all='ps -ef'
+    ;;
+  
+  "powerpc.aix" )
+    alias ps-all='ps -ef'
+    ;;
+  
+  "sparc.solaris" )
+    alias ps-all='ps -ef'
+    ;;
+
+  "sgi.Irix6" )
+    alias ps-all='ps -ef'
+    ;;
+
+  "i386.freebsd3.2" )
+    alias ps-all='ps aux'
+    ;;
+
+  *)
+    echo "$0:${HOSTTYPE}.${OSTYPE} is an unknown machine type"
+    ;;
+esac
+
+############################################################
+# General Aliases:
+############################################################
+
+alias F='f | sort'
+alias IBM='stty erase ^h'
+alias W='w | sort'
+alias aoeu="echo switching to qwerty; xmodmap ~/.xmodmap.qwerty"
+alias asdf="echo switching to dvorak; xmodmap ~/.xmodmap.dvorak"
+alias bold='tput smso'
+alias checkperl='for file in $(egrep -l '\#!.*perl' ~/Bin/*); do 2>&1 perl -cw $file|grep -v "syntax OK"; done'
+alias clean='DU -a . | sort -rn | more'
+alias cpu='ps -eo uname,pid,cputime,pcpu,pmem,cmd | sort -drn -k 4 | more'
+alias cputime='ps -eo uname,pid,cputime,pcpu,pmem,cmd | sort -drn -k 3 | more'
+alias cvscd='cd $(cat CVS/Repository)'
+alias cvsnew='2>&1 cvs -n update -I \*.class | grep \?'
+alias cvsx='cvs -d ~/.cvs'
+alias lc='wc -l'
+alias listapps='find . -perm -1 -type f -print'
+alias lpr2up='enscript -2r'
+alias mem='ps -eo uname,pid,cputime,pcpu,pmem,cmd | sort -drn -k 5 | more'
+alias perlpath="perl -e 'print join(\"\\n\", @INC), \"\\n\";'"
+alias rl='rlogin -8'
+alias sho='show $LOGNAME'
+alias unbold='tput rmso'
+alias wtf='(w;f) | sort | more'
+
+############################################################
+# General Functions:
+############################################################
+
+append () {
+  local IFS=":" OPTIND
+  while getopts :d: opt; do
+    case $opt in
+      d) IFS="$OPTARG";;
+      *) echo "Usage: append [-d delimiter] var [arg ...]"; return 2;;
+    esac
+  done
+  eval local VAR=\$$OPTIND
+  shift $OPTIND
+  eval [ \"\$$VAR\" ] && eval "$VAR=\"\${$VAR}$IFS\""
+  eval $VAR="\${$VAR}$*"
+}
+
+oct () {
+  let "$1" && { oct $(( $1>>3 )); echo -n $(( $1&7 )); }
+}
+
+chr () {
+  local i=0
+  let "$#" && for i; do echo -e "\\$(oct $i)"; done ||
+    while let "i<256"; do echo -e "$i = \"\\$(oct $i)\""; let "i+=1"; done
+}
+
+fegrep () { 
+  pattern=$1; shift;
+  files=$1; shift;
+  echo "Recursively looking for $pattern in all $files files"
+  find . -name $files -print | xargs egrep $pattern
+}
+
+mylpr () {
+  pr -o4 -e4 -l60 $* | lpr 
+}
+
+findapp() {
+  for file in $*; do
+    grep $file ~/.apps
+  done
+}
+
+l () {
+  ls -FCs $* | more -e
+}
+
+la () {
+  ls -FCsa $* | more -e 
+}
+
+ll () {
+  ls -Fl $* | more -e 
+}
+
+lla () {
+  ls -Fla $* | more -e 
+}
+
+lll () {
+  ls -FlaR $* | more -e
+}
+
+lt () {
+  ls -Flt $* | more -e 
+}
+
+dirs ()	{
+  find ${*-*} -type d -print -prune
+}
+
+ddirs () {
+  find ${*-.} -type d -print
+}
+
+addClass () {
+
+  for class in $*; do
+    if [ -e $class ]; then
+      CLASSPATH=$class:$CLASSPATH
+    else
+      echo "Warning: '$class' does not exist."
+    fi
+  done
+}
+
+ee() {
+  for f in $*; do
+    gnudoit -q '(find-file "'$(abs $f)'")'
+  done
+}
+
+cleans() {
+  DU -as $* | sort -rn | more
+}
+
+show() {
+    ps-all | egrep $(perl -e 'print join("|", @ARGV)' $*)
+}
+
+url() {
+
+  for url in $*
+  do
+    netscape -remote "openURL($url, new-window)"
+  done
+}
+
+furl() {
+  
+  for file in $*
+  do
+    url "file://$PWD/$file"
+  done
+}
+
+#Find() {
+#  for file in $*
+#  do
+#    find . -name $file -print
+#  done
+#}
+    
+ps-grep() {
+  ps-all | grep $1 | grep -v "grep $1"
+}
+
+nuke() {
+  local pid
+
+  pid=$(ps-grep $1|grep -E "^$USER "|grep -v "\^$USER"|awk '{ print $2 }');
+  for p in $pid ; do
+    echo -n "killing $1 (process $pid)..."
+    kill $pid
+    echo "slaughtered."
+  done
+}
+
+mman() {
+  for file in $*; do
+    echo "$file::"
+    more ~/.mancache/$file
+  done
+}
+
+term() {
+  TERM=$1
+  export TERM
+  tset
+}
+
+rot13() {
+  
+  if [ $# = 0 ] ; then
+    tr "[a-m][n-z][A-M][N-Z]" "[n-z][a-m][N-Z][A-M]"
+  else
+    tr "[a-m][n-z][A-M][N-Z]" "[n-z][a-m][N-Z][A-M]" < $1
+  fi
+}
+
+fromto() {
+  from=$1
+  to=$2
+  perl -e 'foreach (shift..shift) {print "$_ "}; print "\n";' $from $to
+}
