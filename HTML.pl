@@ -1,13 +1,16 @@
-#!/usr/bin/perl4
+#!/usr/bin/perl -w
 
 ######################################################################
 # CVS Info:
 #
-# $Id: //depot/main/user/ryand/Bin/HTML.pl#1 $
+# $Id: //depot/main/user/ryand/Bin/HTML.pl#2 $
 #
 # $Log: HTML.pl,v $
-# Revision 1.1  1998/11/26 08:41:22  ryand
-# Initial revision
+# Revision 1.2  1999/01/29 02:15:37  ryand
+# Fixed shebang line
+#
+# Revision 1.1.1.1  1998/11/26 08:41:22  ryand
+# Added to repository.
 #
 # Revision 1.1.1.1  1998/09/14 22:04:44  ryand
 # Imported sources
