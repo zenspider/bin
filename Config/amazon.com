@@ -1,0 +1,1 @@
+DOMAINPATH=/opt/amazon/quality-assurance/bin:/opt/amazon/website/bin:/opt/third-party/bin:/usr/local/gnu/bin:/usr/local/script:/usr/local/script/QA:/dept/snoc/arch/bin:/usr/ccs/lib:/usr/ccs/bin:/usr/ucb
