@@ -52,8 +52,8 @@ echo "checkin was from: $DIR" >> $LOGFILE
 echo "" >> $COMMENTFILE
 echo "checkin was from: $DIR" >> $COMMENTFILE
 
-mail -s "Checkin Results" $USER@amazon.com < $LOGFILE
-mail -s "Checkin Comments" $USER@amazon.com < $COMMENTFILE
+mail -s "Checkin Results" $USER@$DOMAIN < $LOGFILE
+mail -s "Checkin Comments" $USER@$DOMAIN < $COMMENTFILE
 
 echo "Checkin Results"
 cat $LOGFILE
