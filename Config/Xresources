@@ -1,122 +1,48 @@
-*Font: -adobe-courier-medium-r-normal--14-100-100-100-m-90-iso8859-1
-*Font.Name: -adobe-courier-medium-r-normal--14-100-100-100-m-90-iso8859-1
-
-
-! xterm
-! XTerm*background:	black
-! XTerm*foreground:	white
+*Font:      -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
+*Font.Name: -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
 
 #ifdef COLOR
-XTerm*background:	black
-XTerm*foreground:	white
+XTerm*background:			black
+XTerm*foreground:			green2
+#else
+XTerm*background:			black
+XTerm*foreground:			white
 #endif
 
-XTerm*scrollbar:	true
-XTerm*saveLines:	5000
-XTerm*loginShell:	true
-XTerm*utmpInhibit:	false
-XTerm*waitForMap:	true
-XTerm*reverseWrap:	true
-XTerm*multiScroll:	true
+XTerm*scrollBar:			true
+XTerm*saveLines:			5000
+XTerm*loginShell:			true
+XTerm*utmpInhibit:			false
+XTerm*waitForMap:			true
+XTerm*reverseWrap:			true
+XTerm*multiScroll:			true
 
-! Emacs.bold-italic.attributeFont: -dt-*-medium-i-*
-! Emacs.italic.attributeFont: -dt-*-medium-i-*
+#*confirmExit:				False
 
-*confirmExit:           False
-
-#ifdef NCD_WM
-NCDwm*keyboardFocusPolicy: pointer
-NCDwm*focusAutoRaise: false
-NCDwm*flashBorders: true
-NCDwm*hotKeys: true
-NCDwm*modifier: shift
-NCDwm*moveOpaque: false
-NCDwm*moveThreshold: 4
-NCDwm*shadowWidth: 1
-NCDwm*useIconBox: on
-NCDwm*iconBoxGeometry: 3x1+720+19
-NCDwm*hideIcon: on
-NCDwm*XClock.clientDecoration: -title -border
-NCDwm*xpbiff.clientDecoration: -title -border
-NCDwm*nuemacs.clientDecoration: -title
-NCDwm*xcmdpanel.clientDecoration: -title -border
-#endif NCD_WM
+##ifdef NCD_WM
+#NCDwm*keyboardFocusPolicy:		pointer
+#NCDwm*focusAutoRaise:			false
+#NCDwm*flashBorders:			true
+#NCDwm*hotKeys:				true
+#NCDwm*modifier:			shift
+#NCDwm*moveOpaque:			false
+#NCDwm*moveThreshold:			4
+#NCDwm*shadowWidth:			1
+#NCDwm*useIconBox:			on
+#NCDwm*iconBoxGeometry:			3x1+720+19
+#NCDwm*hideIcon:			on
+#NCDwm*XClock.clientDecoration:		-title -border
+#NCDwm*xpbiff.clientDecoration:		-title -border
+#NCDwm*nuemacs.clientDecoration:	-title
+#NCDwm*xcmdpanel.clientDecoration:	-title -border
+##endif NCD_WM
 
 ! default colours for color_xterm
-*VT100*color0: black
-*VT100*color1: red
-*VT100*color2: DarkGreen
-*VT100*color3: yellow
-*VT100*color4: AliceBlue
-*VT100*color5: NavyBlue
-*VT100*color6: gray
-*VT100*color7: #eefffa
-
-*XmTextField.translations:              #override                       \n\
-        ~Meta ~Alt Ctrl<Key>a:          beginning-of-line()             \n\
-        ~Meta ~Alt Ctrl<Key>b:          backward-character()            \n\
-        ~Meta ~Alt Ctrl<Key>d:          delete-next-character()         \n\
-        ~Meta ~Alt Ctrl<Key>e:          end-of-line()                   \n\
-        ~Meta ~Alt Ctrl<Key>f:          forward-character()             \n\
-        ~Meta ~Alt Ctrl<Key>g:          process-cancel()                \n\
-        ~Meta ~Alt Ctrl<Key>h:          delete-previous-character()     \n\
-        ~Meta ~Alt Ctrl<Key>k:          delete-to-end-of-line()         \n\
-        ~Meta ~Alt Ctrl<Key>w:          delete-previous-word()          \n\
-        <Key>Delete:                    delete-previous-character()     \n\
-        <Key>BackSpace:                 delete-previous-character()     \n\
-        <Key>osfDelete:                 delete-previous-character()     \n\
-        <Key>osfBackSpace:              delete-previous-character()     \n\
-        Meta ~Ctrl<Key>b:               backward-word()                 \n\
-         Alt ~Ctrl<Key>b:               backward-word()                 \n\
-        Meta ~Ctrl<Key>d:               delete-next-word()              \n\
-         Alt ~Ctrl<Key>d:               delete-next-word()              \n\
-        Meta ~Ctrl<Key>f:               forward-word()                  \n\
-         Alt ~Ctrl<Key>f:               forward-word()                  \n\
-        Meta ~Ctrl<Key>w:               copy-clipboard()                \n\
-         Alt ~Ctrl<Key>w:               copy-clipboard()                \n\
-        Meta ~Ctrl<Key>Left:            backward-word()                 \n\
-         Alt ~Ctrl<Key>Left:            backward-word()                 \n\
-        Meta ~Ctrl<Key>Right:           forward-word()                  \n\
-         Alt ~Ctrl<Key>Right:           forward-word()                  \n\
-        Meta ~Ctrl<Key>BackSpace:       delete-previous-word()          \n\
-         Alt ~Ctrl<Key>BackSpace:       delete-previous-word()          \n\
-        Meta ~Ctrl<Key>Delete:          delete-next-word()              \n\
-         Alt ~Ctrl<Key>Delete:          delete-next-word()              \n
-
-*XmText.translations:                   #override                       \n\
-        ~Meta ~Alt Ctrl<Key>a:          beginning-of-line()             \n\
-        ~Meta ~Alt Ctrl<Key>b:          backward-character()            \n\
-        ~Meta ~Alt Ctrl<Key>d:          delete-next-character()         \n\
-        ~Meta ~Alt Ctrl<Key>e:          end-of-line()                   \n\
-        ~Meta ~Alt Ctrl<Key>f:          forward-character()             \n\
-        ~Meta ~Alt Ctrl<Key>g:          process-cancel()                \n\
-        ~Meta ~Alt Ctrl<Key>h:          delete-previous-character()     \n\
-        ~Meta ~Alt Ctrl<Key>k:          delete-to-end-of-line()         \n\
-        ~Meta ~Alt Ctrl<Key>w:          delete-previous-word()          \n\
-        <Key>Delete:                    delete-previous-character()     \n\
-        <Key>BackSpace:                 delete-previous-character()     \n\
-        <Key>osfDelete:                 delete-previous-character()     \n\
-        <Key>osfBackSpace:              delete-previous-character()     \n\
-        Meta ~Ctrl<Key>b:               backward-word()                 \n\
-         Alt ~Ctrl<Key>b:               backward-word()                 \n\
-        Meta ~Ctrl<Key>d:               delete-next-word()              \n\
-         Alt ~Ctrl<Key>d:               delete-next-word()              \n\
-        Meta ~Ctrl<Key>f:               forward-word()                  \n\
-         Alt ~Ctrl<Key>f:               forward-word()                  \n\
-        Meta ~Ctrl<Key>w:               copy-clipboard()                \n\
-         Alt ~Ctrl<Key>w:               copy-clipboard()                \n\
-        Meta ~Ctrl<Key>Left:            backward-word()                 \n\
-         Alt ~Ctrl<Key>Left:            backward-word()                 \n\
-        Meta ~Ctrl<Key>Right:           forward-word()                  \n\
-         Alt ~Ctrl<Key>Right:           forward-word()                  \n\
-        Meta ~Ctrl<Key>BackSpace:       delete-previous-word()          \n\
-         Alt ~Ctrl<Key>BackSpace:       delete-previous-word()          \n\
-        Meta ~Ctrl<Key>Delete:          delete-next-word()              \n\
-         Alt ~Ctrl<Key>Delete:          delete-next-word()              \n\
-        ~Meta ~Alt Ctrl<Key>n:          next-line()                     \n\
-        ~Meta ~Alt Ctrl<Key>p:          previous-line()                 \n\
-        ~Meta ~Alt Ctrl<Key>v:          next-page()                     \n\
-         Meta ~Ctrl<Key>v:              previous-page()                 \n\
-         Alt ~Ctrl<Key>v:               previous-page()                 \n
-
-
+*VT100*color0:	black
+*VT100*color1:	red
+*VT100*color2:	DarkGreen
+*VT100*color3:	yellow
+*VT100*color4:	AliceBlue
+*VT100*color5:	NavyBlue
+*VT100*color6:	gray
+*VT100*color7:	#eefffa
