@@ -10,12 +10,20 @@ export OLDPATH=$PATH
 PATH=''
 MYPATH=~/Bin:${HOSTPATH-}:${DOMAINPATH-}:${OSPATH-}
 
+shopt -qs extglob
+MYPATH=${MYPATH//+(:)/:}
+shopt -qu extglob
+
 oldIFS=$IFS
 IFS=:
 export PATH
 for p in $MYPATH ; do
   if [ -d $p ]; then
-    PATH=$PATH:$p
+    if [ -z "$PATH" ]; then
+      PATH=$p
+    else
+      PATH=$PATH:$p
+    fi
   else
     if [ -n ${PS1-} ]; then
       echo Path $p not found
