@@ -1,19 +1,19 @@
 #!/usr/bin/perl -w
 
 use strict;
-
-############################################################
-my $split = 6;
-my $strike = 75.81252 / $split;
-my $original_amount = 6500 * $split;
-my $sold_amount = 6600;
-my $amount = $original_amount - $sold_amount;
-my $symbol = 'AMZN';
-############################################################
-
 use File::Basename;
+use Getopt::Long;
+use Date::Format;
+use LWP::Simple;
+
+my $symbol = 'AMZN';
+
+my $today = time2str("%Y-%m-%d", time);
 my $cmd = $0;
 my $cmddir = dirname($cmd);
+my $test = 1;
+
+GetOptions('test' => \$test) || die "bad option";
 
 # http://finance.yahoo.com/d/quotes.csv?s=AMZN&f=sl1d1t1c1ohgv&e=.csv
 # s  = ticker symbol
@@ -26,20 +26,57 @@ my $cmddir = dirname($cmd);
 # g  = daily low
 # v  = volume
 
-my $fields = 'l1c1';
+my $price = shift || 0;
+my $change;
 
-use LWP::Simple;
-my $data = get "http://quote.yahoo.com/d/quotes.csv?s=$symbol&f=$fields&e=.csv";
-die unless $data;
+unless ($price) {
+  my $fields = 'l1c1';
+  my $data = get "http://quote.yahoo.com/d/quotes.csv?s=$symbol&f=$fields&e=.csv";
+  die unless $data;
 
-my ($price,$change) = split(/,/, $data);
-my $options = int($amount * ($price - $strike));
-my $message = sprintf("%s %.2f (%+.2f) %d (%d)", 
-		      $symbol, $price, $change, $options, $options*.2*.7);
+  ($price,$change) = split(/,/, $data);
+}
 
-if (0) {
+my $value = 0;
+while (<DATA>) {
+  next if m/^\s*\#/;
+  if (/^\s*(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s*/) {
+    my ($type, $count, $date, $strike) = ($1, $2, $3, $4);
+
+    if ($today ge $date) {
+      $value += ($count * ($price - $strike));
+    }
+  }
+}
+
+my $message = sprintf("%s \$%.2f (\$%+.2f) total=\$%d", 
+		      $symbol, $price, $change, $value);
+
+if ($test) {
   print "$message\n";
 } else {
   print `$cmddir/pageryand "$message"`;
 }
-  
+
+__DATA__
+
+#type	count	vestdate	strike$
+
+ISO	6600	1999-09-01	12.6354
+ISO	-6600	1999-09-01	12.6354
+ISO	6600	2000-09-01	12.6354
+ISO	6600	2001-09-01	12.6354
+ISO	6600	2002-09-01	12.6354
+ISO	6600	2003-09-01	12.6354
+
+NQ	200	2001-08-14	13.3750
+NQ	600	2003-02-14	13.3750
+
+
+NQ	360	2002-09-06	7.9300
+NQ	360	2003-09-06	7.9300
+NQ	360	2004-09-06	7.9300
+NQ	360	2005-09-06	7.9300
+NQ	360	2006-09-06	7.9300
+
+NQ	2160	2006-07-01	7.9300
