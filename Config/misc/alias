@@ -323,3 +323,4 @@ p4t() {
 mem() {
   ps -efo rss,vsz,args | perl -pi -e 'if (m/^(\S+)M/) { $mem = $1 * 1024; s/^(\S+)M/${mem}K/ }; s/^(\S+)K/$1/; ' | sort -n
 }
+
