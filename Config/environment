@@ -8,7 +8,7 @@
 ulimit -c 0
 
 # Set program datasize to be the max
-ulimit -d $(ulimit -dH)
+ulimit -d $(ulimit -Hd)
 
 case $- in
   
@@ -40,7 +40,7 @@ case $- in
     
     case "${HOSTTYPE}.${OSTYPE}" in
       
-      "alpha.OSF1" )
+      "alpha.OSF1" | "alphaev56.osf4.0d" )
 	stty echoe
  	stty discard undef
 	;;
@@ -57,7 +57,7 @@ case $- in
       
       "sparc.solaris" )
 	# Set stack size limit to maximum hard limit
-	ulimit -s $(ulimit -sH);
+	ulimit -s $(ulimit -Hs);
 	
 	stty echoe
 	
@@ -92,7 +92,7 @@ case $- in
       
     case "${HOSTTYPE}.${OSTYPE}" in
       
-      "alpha.OSF1" )
+      "alpha.OSF1" | "alphaev56.osf4.0d" )
 	;;
       "sparc.sunos" )
 	;;
