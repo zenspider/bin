@@ -11,7 +11,12 @@ my %option = ();
 GetOptions(\%option,
 	   "no",
 	   "rm",
+
 	   "cp",
+	   "new", # cp only new files
+	   "mod", # cp only modified files
+	   "all", # cp all of them
+
 	   "mv",
 	   "diff",
 	   "report",
@@ -67,6 +72,7 @@ sub compare {
 }
 
 sub run {
+
   my $cmd = join(' ', @_);
 
   if ($option{no}) {
@@ -105,23 +111,32 @@ sub pruneDir {
 sub diff {
   foreach (@{$cmp->{diff}}) {
     print "-" x 70, "\n" unless $option{no};
-    run "diff -c $aDirBase$_ $bDirBase$_";
+    run 'diff', '-c', "$aDirBase$_", "$bDirBase$_";
   }
 }
 
 sub copy {
-  foreach (@{$cmp->{diff}}) {
-    run "cp $bDirBase$_ $aDirBase$_";
+
+  $option{new} = 1
+    unless $option{all} || $option{mod};
+
+  if ($option{mod} || $option{all}) {
+    foreach (@{$cmp->{diff}}) {
+      run 'cp', "$bDirBase$_", "$aDirBase$_";
+    }
   }
-  foreach (@{$cmp->{notA}}) {
-    run "cp $bDirBase$_ $aDirBase$_";
+
+  if ($option{new} || $option{all}) {
+    foreach (@{$cmp->{notA}}) {
+      run 'cp', "$bDirBase$_",  "$aDirBase$_";
+    }
   }
 }
 
 sub remove {
   foreach (@{$cmp->{same}}) {
-    run "rm -f $bDirBase$_";
-    pruneDir(dirname "$bDirBase$_");
+    run "rm -f \"$bDirBase$_\"";
+    pruneDir(dirname "\"$bDirBase$_\"");
   }
 }
 
