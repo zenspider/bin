@@ -1,4 +1,4 @@
-#!/opt/third-party/bin/perl -w
+#!/bin/env perl
 
 use strict;
 
@@ -35,6 +35,7 @@ print
   header(),
   start_html(-Title=>"$title: $subtitle",
 	     -author=>'zss@ZenSpider.com',
+	     -dtd=>'-//W3C//DTD HTML 3.2//EN',
 	     -Meta=>{'keywords'=>'Zen Spider Software, Downloads, Form',
 		     'copyright'=>'(C) 1998 Zen Spider Software and Ryan Davis'},
 	     -BGCOLOR=>'white',
@@ -53,7 +54,11 @@ print
 
 sub algometer {
 
-  my $items = &processFile();
+  my $items;
+
+  if ($action ne 'help') {
+    $items = &processFile();
+  }
 
   if ($action eq 'normal') {
     &tasklist($items);
@@ -67,8 +72,13 @@ sub algometer {
 my %count;
 sub processFile {
 
-  open INPUT, $datafile
-    or (print "Couldn't open input file '$datafile': $!\n", return);
+  if ( -f $datafile ) {
+    open INPUT, $datafile
+      or (print "Couldn't open input file '$datafile': $!\n", return);
+  } else {
+    $action = 'help';
+    return;
+  }
 
   my @items;
   while (defined($_ = <INPUT>)) {
@@ -328,7 +338,7 @@ sub help {
 
 <P> Here is an example line: </P>
 
-<PRE>3 050 1999-04-21 1999-05-06 Write a doohicky in perl (1.5 hr)</PRE>
+<PRE>3 050 1999-04-21 1999-05-06 Write a doohicky in python (1.5 hr)</PRE>
 
 <P> It says that this is a priority 3 task, that is 50 percent done,
 started April 21st 1999, and ends May 6 1999. The rest of the line is
@@ -344,8 +354,7 @@ know you are working on the most important task at that time.</P>
 <table border=\"1\" bgcolor=\"#CCCCFF\">
   <tr>
     <td>
-<PRE>
-############################################################
+<PRE>############################################################
 # PROJECTS:
 #
 # Format:
@@ -380,7 +389,7 @@ $cal
 <P>Write the contents of the above table to a file, and bookmark the
 following url replacing PATH with the path to the file:</P>
 
-<CODE>http://internal/~ryand/suexec/algometer.cgi?file=PATH</CODE>
+<CODE>" . url() . "?file=PATH</CODE>
 
 <P>Now keep the file up to date and you will be on top of things.</P>
 
