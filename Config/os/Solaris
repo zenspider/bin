@@ -1,5 +1,7 @@
 # -*-ksh-*-
 
+OSPATH=/usr/bin/X11:/usr/bin:/usr/ucb
+
 if [[ $- == *i* ]]; then
   # interactive shell
   
@@ -13,8 +15,6 @@ if [[ $- == *i* ]]; then
   # for compiler/dbx support
   export LM_LICENSE_FILE=/opt/SUNWspro/license_dir/sunpro.lic,1
   
-  # Add Java path to Solaris pathing:
-  OSPATH=/usr/ucb
 fi       
 
 export LD_LIBRARY_PATH=/usr/shlib:/usr/openwin/lib:/usr/X11R6.1/lib:/usr/lib:${LD_LIBRARY_PATH-}

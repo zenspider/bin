@@ -1,5 +1,5 @@
 # -*-ksh-*-
 
-OSPATH=/usr/ucb
+OSPATH=/usr/bin/X11:/usr/bin:/usr/ucb
 
       
