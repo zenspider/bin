@@ -293,37 +293,6 @@ ddirs () {
   find ${*-.} -type d -print
 }
 
-case $TERM in
-  *term* )
-    function e() { 
-      for f in $* ; do
-	gnuclient -q $(abs $f)
-      done
-    }
-    ;;
-  vt* | sun | screen )
-    e() {
-      gnuattach $*
-    }
-    ;;
-  dumb | dialup )
-    e() {
-      xemacs -nw $*
-    }
-    ;;
-  emacs )
-    e() {
-      echo "DUH -- You are IN emacs stupid..." 
-    }
-    ;;
-  *)
-    echo "alias: don't know what to do for $TERM"
-    e() {
-      echo "undefined"
-    }
-    ;;
-esac
-
 addClass () {
 
   for class in $*; do
