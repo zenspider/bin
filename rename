@@ -1,4 +1,4 @@
-#!/opt/third-party/bin/perl -w
+#!/bin/env perl
 
 # Usage: rename perlexpr [files]
 
