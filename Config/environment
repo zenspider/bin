@@ -30,24 +30,24 @@ case $- in
     fi
     
     # ESHELL is what emacs will run for a shell
-     export ESHELL=/bin/bash
+    export ESHELL=/bin/bash
+    
+    # Globally set this, I don't care which platform I'm on
+    stty erase '^h' intr '^c' kill '^u' susp '^z'
     
     case "${HOSTTYPE}.${OSTYPE}" in
       
       "alpha.OSF1" )
 	stty echoe
- 	stty erase '^h' intr '^c' kill '^u'
  	stty discard undef
   	export LD_LIBRARY_PATH=/dept/snoc/arch/lib:${LD_LIBRARY_PATH-}
  	export PRINTER=denali
 	;;
       "sparc.sunos" )
- 	stty erase '^h' intr '^c' kill '^u'
 	PATH=$PATH:/usr/ucb
 	;;
       
       "hp.hpux" )
-	stty erase '^h' intr '^c' kill '^u'
 	set noglob;
 	eval $(tset -Qs "$TERM");
 	unset noglob
@@ -58,7 +58,6 @@ case $- in
 	# Set stack size limit to maximum hard limit
 	ulimit -s $(ulimit -sH);
 	
- 	stty erase '^h' intr '^c' kill '^u'
 	stty echoe
 	
  	# Open Windows, yuck
@@ -76,7 +75,6 @@ case $- in
 	;;
       
        "sgi.Irix6" )
- 	stty erase '^h' intr '^c' kill '^u'
  	export MANPATH=/usr/share/catman:/usr/share/man:/usr/catman:/usr/man:/usr/freeware/catman:/usr/freeware/man:
  	;;	
        
@@ -121,15 +119,11 @@ esac
 
 ############################################################
 # Pathing:
-# 
-# Need to find a clean way of dealing w/ pathing & multiple jobs/platforms
 
+export OLDPATH=$PATH
 PATH=''
-MYPATH=~/Bin:/opt/amazon/quality-assurance/bin:/opt/amazon/website/bin:/opt/third-party/bin:/usr/local/gnu/bin:/usr/local/bin:/usr/local/script:/usr/local/script/QA:/bin:/sbin:/usr/ucb:/usr/ccs/lib:/dept/snoc/arch/bin:/sbin:/usr/sbin:/usr/bin:/usr/ccs/bin:/usr/bin/X11
-#OLDMYPATH=/usr/ucb:/usr/ccs/lib:/usr/ccs/bin:
-#AMAZON_PATH=/opt/amazon/website/bin:/opt/third-party/bin:/usr/local/gnu/bin:/usr/local/script:/usr/local/script/QA:/dept/snoc/arch/bin:
-#STD_PATH=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:
-#MYPATH=~/Bin:/usr/freeware/bin:/usr/bin/X11:/usr/local/bin:${STD_PATH}
+STD_PATH=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:/usr/bin/X11:/usr/local/bin
+MYPATH=~/Bin:${HOSTPATH-}:${DOMAINPATH-}:$STD_PATH
 
 oldIFS=$IFS
 IFS=:
