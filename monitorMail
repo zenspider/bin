@@ -6,8 +6,8 @@ print "Initializing...\n";
 my $clear = `clear`;
 my $i = 0;
 
-chdir('/home/ryand/Mail/spool');
-opendir(DIR, '/home/ryand/Mail/spool');
+chdir('/toasters/toaster5/users/ryand/Mail/spool');
+opendir(DIR, '/toasters/toaster5/users/ryand/Mail/spool');
 my @dirs = grep { /^[^\.]/ } readdir(DIR);
 closedir(DIR);
 
