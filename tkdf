@@ -11,7 +11,9 @@ set dfflg "-k"
 #MODIFY# number following disk name is the minimum space in k before
 #MODIFY# being warned. Warning is in the form of a red percentage.
 set disks {
-	{/ 500000} {/disk2 250000}
+    {/    5000}
+    {/usr 25000}
+    {/var 5000}
 }
 
 # Filesystem	kbytes	used	avail	capacity%	Mounted on
