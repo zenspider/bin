@@ -360,8 +360,8 @@ Key F4		A	M	Iconify
 Key F5		A	M	Move
 Key F6		A	M	Resize
 
-Key Tab         A       M       Prev Focus
-Key Tab         A       MS      Next Focus
+#Key Tab         A       M       Prev Focus
+#Key Tab         A       MS      Next Focus
 
 Key Escape      A       C       WindowList
 
@@ -392,6 +392,8 @@ Key Escape      A       C       WindowList
 
 # Define the buttons to use.....
 
+*FvwmButtons(Title xlock, Icon xlock.xpm, \
+             Action 'Exec "XLock" /home/ryand/Bin/xlock &')
 *FvwmButtons(Title xclock, Icon clock.xpm, \
              Swallow(UseOld) "xclock" 'Exec exec xclock -bg Grey80 -padding 0')
 *FvwmButtons(1x1, Title load, \
@@ -400,12 +402,9 @@ Key Escape      A       C       WindowList
 *FvwmButtons(Title xterm, Icon rterm.xpm, \
              Action 'Exec "XTerm" xterm \
                      +cn -ls -sb -fn 8x13 -title "xterm" &')
-#*FvwmButtons(Title Mom, Icon rterm.xpm, Action "Exec exec xterm +cn")
-#*FvwmButtons(Title Zap, Icon rterm.xpm, Action "Exec exec xterm +cn -e rlogin zap")
 *FvwmButtons(3x1, Swallow "FvwmPager" 'FvwmPager 0 2')
 *FvwmButtons(8x1, Swallow "mini-term" "Exec exec xterm +cn -sb -ls -T mini-term -fg black  -bg Grey80")
 *FvwmButtons(4x1, Swallow "mail-monitor" "Exec exec xterm +cn -T mail-monitor -fg black -bg Grey80 -e /home/ryand/Bin/monitorMail")
-#*FvwmButtons(6x1, Swallow "xconsole" "Exec exec xconsole -bg Grey80 -geometry +0+0")
 
 #------------------ Identify
 *FvwmIdentBack #000080
