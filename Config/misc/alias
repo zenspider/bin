@@ -146,7 +146,7 @@ case "${HOSTTYPE}.${OSTYPE}" in
     alias ps-all='ps aux'
     ;;
 
-  i386.[Ll]inux* )
+  i[3456]86.[Ll]inux* )
     alias ps-all='ps -ef'
     ;;
 

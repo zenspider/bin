@@ -28,6 +28,8 @@ export CLASSPATH=
 
 if [ $HOSTNAME != 'qa-tools' ]; then
 #  DOMAINPATH=/opt/amazon/quality-assurance/bin:/opt/amazon/website/bin:/opt/amazon/bin:/opt/third-party/bin:/usr/local/gnu/bin:/usr/local/script:/dept/snoc/arch/bin:/usr/ccs/lib:/usr/ccs/bin
+
+  DOMAINPATH=/opt/amazon/quality-assurance/bin:/opt/amazon/dev-services/bin:/opt/amazon/platform-services/bin
   
   # Backend Tools VARS
   export UNSAFE_CCMOTEL=true
