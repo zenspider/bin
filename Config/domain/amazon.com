@@ -3,10 +3,13 @@
 ############################################################
 # ALL amazon hosts
 
-# Perforce
+# Perforce & WS
 export P4PORT=perforce:6791
 export P4EDITOR=gnuclient
 export MAXRESULTS=10000
+alias ws=ws-dispatch
+export AMAZON_PERFORCE_DEPOT=depot
+export AMAZON_SHELF_DIR=/opt/build-shelf
 
 if [ $HOSTNAME = "itsy" ]; then
   export P4CLIENT=ryand-itsy
@@ -44,4 +47,3 @@ if [ $HOSTNAME != 'qa-tools' ]; then
   # DEC UNIX has pitiful stack size limitations.
   ulimit -s $(ulimit -Hs)
 fi
-
