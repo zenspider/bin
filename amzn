@@ -3,8 +3,11 @@
 use strict;
 
 ############################################################
-my $strike = 75.5 / 6;
-my $amount = 5500 * 6;
+my $split = 6;
+my $strike = 75.81252 / $split;
+my $original_amount = 6500 * $split;
+my $sold_amount = 6600;
+my $amount = $original_amount - $sold_amount;
 my $symbol = 'AMZN';
 ############################################################
 
