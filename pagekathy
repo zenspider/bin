@@ -3,7 +3,7 @@
 use strict;
 use Mail::Mailer;
 
-my $msg = join(' ', @ARGV) || 'Call me 206.694.2641';
+my $msg = join(' ', @ARGV) || 'Call me 206.266.2641';
 
 my $mail = Mail::Mailer->new();
 $mail->open({
