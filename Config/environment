@@ -15,6 +15,9 @@ case $- in
   # interactive shell
   *i*)
     
+    export MANPATH=~/.man:/usr/local/gnu/man:/usr/local/man:/usr/man:/usr/openwin/man:/usr/X11R6.1/man:.
+    export CDPATH=.:~/
+
     PS1='[\!] '
     PS4='$0@$LINENO: '
     HISTCONTROL=ignoredups
@@ -40,8 +43,6 @@ case $- in
       "alpha.OSF1" )
 	stty echoe
  	stty discard undef
-  	export LD_LIBRARY_PATH=/dept/snoc/arch/lib:${LD_LIBRARY_PATH-}
- 	export PRINTER=denali
 	;;
       "sparc.sunos" )
 	PATH=$PATH:/usr/ucb
@@ -92,7 +93,6 @@ case $- in
     case "${HOSTTYPE}.${OSTYPE}" in
       
       "alpha.OSF1" )
-  	export LD_LIBRARY_PATH=/dept/snoc/arch/lib:${LD_LIBRARY_PATH-}
 	;;
       "sparc.sunos" )
 	;;
@@ -138,28 +138,5 @@ done
 IFS=$oldIFS
 
 export SAVEPATH=$PATH
-export CDPATH=.:~/
-
-export MANPATH=~/.man:/usr/local/gnu/man:/usr/local/man:/usr/man:/usr/openwin/man:/usr/X11R6.1/man:/dept/snoc/man:.
-
-export PRINTER=denali
-
-# Open Windows, yuck
-#export OPENWINHOME=/usr/openwin
-#export LD_LIBRARY_PATH=/usr/shlib:/usr/openwin/lib:/usr/X11R6.1/lib:/dept/snoc/arch/lib:/usr/lib:${LD_LIBRARY_PATH-}
-#export OW_WINDOW_MANAGER=/usr/local/bin/ctwm
-
 export PERL5LIB=.:/home/ryand/Dev/Perl
-
-# Allow use of tools against test db
-export UNSAFE_CCMOTEL=true
-
-# Redierect all mail for some of the tools to me
-export AMAZON_REDIRECT_MAIL_TO=ryand@amazon.com
-
-# CVS
-export CVSROOT=/src/cvs
-export SRCROOT=/src/base
-
-export AMAZON_ENVIRONMENT='test-us-hq'
 export lisp="/usr/local/xemacs/lib/xemacs-19.16/lisp/"
