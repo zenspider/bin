@@ -13,4 +13,4 @@ export CVSROOT=/src/cvs
 export LD_LIBRARY_PATH=/dept/snoc/arch/lib:${LD_LIBRARY_PATH-}
 export PRINTER=denali
 
-MANPATH=/dept/snoc/man:${MANPATH}
+MANPATH=/dept/snoc/man:/usr/local/gnu/man:${MANPATH-}

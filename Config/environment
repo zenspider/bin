@@ -15,7 +15,7 @@ case $- in
   # interactive shell
   *i*)
     
-    export MANPATH=~/.man:/usr/local/gnu/man:/usr/local/man:/usr/man:/usr/openwin/man:/usr/X11R6.1/man:.
+    export MANPATH=~/.man:/usr/local/man:/usr/man:/usr/openwin/man:/usr/X11R6.1/man:.
     export CDPATH=.:~/
 
     PS1='[\!] '
