@@ -16,8 +16,8 @@ die unless $price;
 $price =~ s/\s*(\S+)\s*/$1/s;
 
 my $strike = 75.5;
-my $options = int(5500 * ($price - $strike));
-#my $options = int(5500 * 3 * ($price - ($strike / 3)));
+#my $options = int(5500 * ($price - $strike));
+my $options = int(5500 * 3 * ($price - ($strike / 3)));
 my $subject = sprintf("A %6.2f%8d", $price, $options);
 
 unless ($debug) {
