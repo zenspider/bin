@@ -1,0 +1,36 @@
+# ACTION: if build mail comes in, kick off the tests and notify me
+:0
+* ^From: .*build
+* ^Subject: .*Gemstone/J
+{
+    OUT=`date | /usr/ucb/mail -s "corwin: running tests" ryand`
+    OUT=`rsh mom /home/ryand/java/src/bin/corwin -m ryand -m engrmgr </dev/null &`
+    |/dev/null
+}
+
+# Example junkmail recipe:
+:0 W
+* ^From: .*bugadmin
+* ^Subject: .*GemEnterprise.*
+$MAILDIR/junk
+
+:0 Wc:
+{
+# carbon-copy, always executes (no conditions)
+
+# so it keeps going
+}
+
+:0:
+* ? test x$DEBUG = xyes
+* ^From: .*ryand
+* ^Subject:.*test
+$SPOOLDIR/test
+
+# I think I would write the above as:
+
+:0
+* DEBUG ?? yes
+* ^From: .*ryand
+* ^Subject:.*test
+$SPOOLDIR/test

@@ -1,0 +1,21 @@
+# Ryand's procmailrc:
+
+VERBOSE  = no
+DEBUG    = yes
+MAILDIR  = $HOME/Mail
+SPOOLDIR = $MAILDIR/spool
+PMDIR    = $HOME/Bin/Config/procmail
+LOGFILE  = $MAILDIR/log
+DOMAIN   = `uname -n | cut -f 2- -d.`
+HOSTNAME = `uname -n | cut -f 1 -d.`
+
+# Store a backup copy of every letter into $MAILDIR/mail-backup. 
+# Enable this rule while testing.
+:0 Wc:
+* DEBUG ?? yes
+$MAILDIR/mail-backup
+
+INCLUDERC=$PMDIR/rc.$HOSTNAME
+INCLUDERC=$PMDIR/rc.$DOMAIN
+INCLUDERC=$PMDIR/rc.default
+
