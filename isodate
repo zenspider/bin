@@ -2,5 +2,5 @@
 
 use Date::Format;
 
-print time2str("%Y-%m-%d @ %H:%M\n", time);
+print time2str("%Y-%m-%d", time);
 
