@@ -5,146 +5,104 @@
 # Overrides:
 ############################################################
 
-case $- in
-  *i* ) # Test for interactive flag
+if [[ $- == *i* ]]; then
+  # interactive shell
+  
+  # Gives the absolute pathname for any path argument
+  abs() {
+    set -P
+    
+    local target=${1-.}
+    if [ -f $target ] || [ ! -e $target ]; then
+      dir=$(dirname $target);
+      file=$(basename $target);
+    else
+      dir=$target
+      file=''
+    fi
+    
+    pushd $dir &> /dev/null
+    echo $PWD/$file
+    popd &> /dev/null
+  }
+  
+  # Gives the pwd
+  pwd() {
+    local target=$(abs $*);
+    
+    
+    if [ -f $target ]; then
+      echo $(dirname $target);
+    else
+      echo $target
+    fi
+  }
 
-	emacs() {
-	  xemacs -nw $*
+  xtitle() {
+    # can't find binary xtitle
+    if [ $TERM = 'xterm' ]; then
+      [ "$2" ] && echo -ne "\033]2;$1\a\033]1;$2\a" || echo -ne "\033]0;$1\a"
+    fi
+  }
+  
+  if [ ! -z "${TERM-}" ]; then
+    case $TERM in
+      
+      "xterm" )
+	# this alias puts the host name and pwd in the xterm header
+	cd() {
+	  local dir=${1-}
+	  builtin cd $dir
+	  xtitle "$(hostname) @ ${PWD#/tmp_mnt}" $(hostname)
         }
-
-	# Gives the absolute pathname for any path argument
-	abs() {
-	  set -P
-	  
-	  local target=${1-.}
-	  if [ -f $target ] || [ ! -e $target ]; then
-	    dir=$(dirname $target);
-	    file=$(basename $target);
-	  else
-	    dir=$target
-	    file=''
-	  fi
-
-	  pushd $dir &> /dev/null
-	  echo $PWD/$file
-	  popd &> /dev/null
-        }
-
-	# Gives the pwd
-	pwd() {
-	  local target=$(abs $*);
-	  
-	    
-	  if [ -f $target ]; then
-	    echo $(dirname $target);
-	  else
-	    echo $target
-	  fi
-
-        }
-
-#	takeOutTheTrash () {
-#	  #set -xv
-#	  d=$(isodate)
-#	  mkdir /tmp/trash/$d
-#	  /bin/mv -f .trash/* /tmp/trash/$d
-#	  /bin/rm -r .trash
-#	  #set +xv
-#        }
-#	
-#	rm () {
-#	  #set -xv
-#	  if ! [ -d /tmp/trash ]; then
-#	    mkdir /tmp/trash
-#	  fi
-#	  if ! [ -d .trash ]; then
-#	    mkdir .trash
-#	  fi
-#	  for f in $* ; do
-#	    dirname=$(pwd $f)
-#	    target=.trash/$dirname
-#	    if [ ! -e $target ]; then
-#	      mkdir -p $target
-#	    fi
-#	    mv $f $target
-#	  done
-#	  takeOutTheTrash &
-#	  #set +xv
-#        }
-#
-#	alias RM='command rm -i'
-#	alias purge='(cd /tmp; mv trash trash$$; /bin/rm -rf trash$$) &'
-
-	xtitle() {
-	  # can't find binary xtitle
-	  if [ $TERM = 'xterm' ]; then
-	    [ "$2" ] && echo -ne "\033]2;$1\a\033]1;$2\a" || echo -ne "\033]0;$1\a"
-	  fi
-        }
-
-	alias compress='gzip -r9'
-	alias uncompress='gzip -rd'
-	
-	if [ ! -z "${TERM-}" ]; then
-	  case $TERM in
-	    
-	    "xterm" )
-	      # this alias puts the host name and pwd in the xterm header
-	      cd() {
-		local dir=${1-}
-		builtin cd $dir
-		xtitle "$(hostname) @ ${PWD#/tmp_mnt}" $(hostname)
-              }
-	      cd .
-	      ;;
-
-	    * )
-	      # no cd alias
-	      ;;
-	  esac
-	fi
-
-	type () {
-	  
-	  local fail=0
-	  
-	  if [ $# -eq 0 ] ; then
-	    echo 'usage: whatis arg [arg...]'
-	    return 1
-	  fi
-	  
-	  for arg; do
-	    case $(builtin type -type $arg 2>/dev/null) in
-	      "alias")
-		builtin alias "$arg"
-		;;
-	      "function")
-		builtin type "$arg" | sed 1d
-		;;
-	      "builtin")
-		echo builtin "$arg"
-		;;
-	      "file")
-		builtin type -path "$arg"
-		;;
-	      *)
-		# OK, we could have a variable, or we could have nada.
-		if [ "$(eval echo \${$arg+set})" = "set" ] ; then
-		  # It is a variable, and it is set.
-		  echo -n "$arg="
-		  eval echo '\"'\$$arg'\"'
-		else
-		  echo whatis: $arg: not found
-		  fail=1
-		fi
-		;;
-	    esac
-	  done
-	  return $fail
-        }
-
+	cd .
 	;;
-esac 
+      
+      * )
+	  # no cd alias
+	  ;;
+    esac
+  fi
+
+  type () {
+	  
+    local fail=0
+    
+    if [ $# -eq 0 ] ; then
+      echo 'usage: whatis arg [arg...]'
+      return 1
+    fi
+    
+    for arg; do
+      case $(builtin type -type $arg 2>/dev/null) in
+	"alias")
+           builtin alias "$arg"
+	   ;;
+	"function")
+           builtin type "$arg" | sed 1d
+	   ;;
+	"builtin")
+           echo builtin "$arg"
+	   ;;
+	"file")
+           builtin type -path "$arg"
+	   ;;
+	*)
+	   # OK, we could have a variable, or we could have nada.
+	   if [ "$(eval echo \${$arg+set})" = "set" ] ; then
+	     # It is a variable, and it is set.
+	     echo -n "$arg="
+	     eval echo '\"'\$$arg'\"'
+	   else
+	     echo whatis: $arg: not found
+	     fail=1
+	   fi
+	   ;;
+      esac
+    done
+    return $fail
+  }
+fi
   
 ############################################################
 # Machine Dependant Aliases:
@@ -200,39 +158,25 @@ alias aoeu="echo switching to qwerty; xmodmap ~/.xmodmap.qwerty"
 alias asdf="echo switching to dvorak; xmodmap ~/.xmodmap.dvorak"
 alias bold='tput smso'
 alias checkperl='for file in $(egrep -l '\#!.*perl' ~/Bin/*); do 2>&1 perl -cw $file|grep -v "syntax OK"; done'
-alias clean='DU -a . | sort -rn | more'
-alias cpu='ps -eo uname,pid,cputime,pcpu,pmem,cmd | sort -drn -k 4 | more'
-alias cputime='ps -eo uname,pid,cputime,pcpu,pmem,cmd | sort -drn -k 3 | more'
+alias clean='DU -a . | sort -rn | ${PAGER-more}'
+alias cpu='ps -eo uname,pid,cputime,pcpu,pmem,cmd | sort -drn -k 4 | ${PAGER-more}'
+alias cputime='ps -eo uname,pid,cputime,pcpu,pmem,cmd | sort -drn -k 3 | ${PAGER-more}'
 alias cvscd='cd $(cat CVS/Repository)'
 alias cvsnew='2>&1 cvs -n update -I \*.class | grep \?'
 alias cvsx='cvs -d ~/.cvs'
 alias lc='wc -l'
 alias listapps='find . -perm -1 -type f -print'
 alias lpr2up='enscript -2r'
-alias mem='ps -eo uname,pid,cputime,pcpu,pmem,cmd | sort -drn -k 5 | more'
+alias mem='ps -eo uname,pid,cputime,pcpu,pmem,cmd | sort -drn -k 5 | ${PAGER-more}'
 alias perlpath="perl -e 'print join(\"\\n\", @INC), \"\\n\";'"
 alias rl='rlogin -8'
 alias sho='show $LOGNAME'
 alias unbold='tput rmso'
-alias wtf='(w;f) | sort | more'
+alias wtf='(w;f) | sort | ${PAGER-more}'
 
 ############################################################
 # General Functions:
 ############################################################
-
-append () {
-  local IFS=":" OPTIND
-  while getopts :d: opt; do
-    case $opt in
-      d) IFS="$OPTARG";;
-      *) echo "Usage: append [-d delimiter] var [arg ...]"; return 2;;
-    esac
-  done
-  eval local VAR=\$$OPTIND
-  shift $OPTIND
-  eval [ \"\$$VAR\" ] && eval "$VAR=\"\${$VAR}$IFS\""
-  eval $VAR="\${$VAR}$*"
-}
 
 oct () {
   let "$1" && { oct $(( $1>>3 )); echo -n $(( $1&7 )); }
@@ -262,27 +206,27 @@ findapp() {
 }
 
 l () {
-  ls -FCs $* | more -e
+  ls -FCs $* | ${PAGER-more}
 }
 
 la () {
-  ls -FCsa $* | more -e 
+  ls -FCsa $* | ${PAGER-more} 
 }
 
 ll () {
-  ls -Fl $* | more -e 
+  ls -Fl $* | ${PAGER-more} 
 }
 
 lla () {
-  ls -Fla $* | more -e 
+  ls -Fla $* | ${PAGER-more} 
 }
 
 lll () {
-  ls -FlaR $* | more -e
+  ls -FlaR $* | ${PAGER-more}
 }
 
 lt () {
-  ls -Flt $* | more -e 
+  ls -Flt $* | ${PAGER-more} 
 }
 
 dirs ()	{
@@ -293,25 +237,14 @@ ddirs () {
   find ${*-.} -type d -print
 }
 
-addClass () {
-
-  for class in $*; do
-    if [ -e $class ]; then
-      CLASSPATH=$class:$CLASSPATH
-    else
-      echo "Warning: '$class' does not exist."
-    fi
-  done
-}
-
 ee() {
   for f in $*; do
-    gnudoit -q '(find-file "'$(abs $f)'")'
+    gnuclient -eval '(find-file "'$(abs $f)'")'
   done
 }
 
 cleans() {
-  DU -as $* | sort -rn | more
+  DU -as $* | sort -rn | ${PAGER-more}
 }
 
 show() {
@@ -359,7 +292,7 @@ nuke() {
 mman() {
   for file in $*; do
     echo "$file::"
-    more ~/.mancache/$file
+    ${PAGER-more} ~/.mancache/$file
   done
 }
 
