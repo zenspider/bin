@@ -1,6 +1,6 @@
 # -*- winmgr -*-
 # PixmapPath /usr/local/mini-icons/
-IconPath   /usr/X11R6/lib/X11/fvwm2/pixmaps
+IconPath   /usr/X11R6/lib/X11/fvwm2/pixmaps:/usr/share/icons
 #IconPath  /usr/local/icons/:/usr/local/mini-icons/
 
 EdgeResistance 10000 0
