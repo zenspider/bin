@@ -7,8 +7,8 @@ use Getopt::Long;
 $| = 1;
 
 my @check = ();
-#my $keywords = '(?<!SUF|PRE)FIX|HACK|TODO|(?<!P|O)DOC(?!UMENT|TYPE|_INSTALL)|REFACTOR';
-my $keywords = '\b(FIX|HACK|TODO|DOC|REFACTOR|RETIRE)\b';
+#my $keywords = '(?<!SUF|PRE)F IX|H ACK|T ODO|(?<!P|O)D OC(?!UMENT|TYPE|_INSTALL)|RE FACTOR';
+my $keywords = '\b(F IX|H ACK|T ODO|D OC|R EFACTOR|R ETIRE)\b';
 my %hit = ();
 my %word = ();
 my $total = 0;
@@ -48,7 +48,7 @@ sub check {
     while (<IN>) {
       $line++;
 
-      if (m/($keywords)/o) {
+      if (m/($keywords)/xo) {
 	my $key = $1;
 	s/^\s+//;
 	s/\s+$//;
