@@ -95,3 +95,11 @@ XTerm*multiScroll:			true
         ~Meta ~Alt Ctrl<Key>v:          next-page()                     \n\
          Meta ~Ctrl<Key>v:              previous-page()                 \n\
          Alt ~Ctrl<Key>v:               previous-page()                 \n
+
+Tgif.MaxImportFilters: 4
+Tgif.ImportFilter0:    GIF-dither gif giftopnm %s | ppmdither | ppmtoxpm
+Tgif.ImportFilter1:    GIF gif giftopnm %s | ppmquant 222 | ppmtoxpm
+Tgif.ImportFilter2:    JPEG-dither jpg;jpeg \n\
+			djpeg -gif %s | giftopnm | ppmdither | ppmtoxpm
+Tgif.ImportFilter3:    JPEG jpg;jpeg \n\
+			djpeg -gif -colors 222 %s | giftopnm | ppmtoxpm
