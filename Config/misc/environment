@@ -3,6 +3,44 @@
 
 #set -xv
 
+############################################################
+# Pathing:
+
+export OLDPATH=$PATH
+PATH=''
+MYPATH=~/Bin:${HOSTPATH-}:${DOMAINPATH-}:${OSPATH-}
+
+oldIFS=$IFS
+IFS=:
+export PATH
+for p in $MYPATH ; do
+  if [ -d $p ]; then
+    PATH=$PATH:$p
+  else
+case $- in
+  
+  # interactive shell
+  *i*)
+#    if [[ $- == *i* ]]; then
+      # interactive shell
+      echo Path $p not found
+#    fi
+
+    ;;
+  
+  # not interactive
+  *) 
+    ;;
+esac
+  fi
+done
+IFS=$oldIFS
+
+export SAVEPATH=$PATH
+
+############################################################
+# Other Global environment stuff:
+
 # Don't make useless coredump files.  If you want a coredump,
 # say "ulimit -c unlimited" and then cause a segmentation fault.
 #ulimit -c 0
@@ -10,8 +48,10 @@
 # Set program datasize to be the max
 ulimit -d $(ulimit -Hd)
 
-if [[ $- == *i* ]]; then
+case $- in
+  
   # interactive shell
+  *i*)
   export CDPATH=.:~/
   
   PS1='[\!] '
@@ -33,35 +73,16 @@ if [[ $- == *i* ]]; then
   stty erase '^h' intr '^c' kill '^u' susp '^z'
   
   if [ ! -z ${DISPLAY-} ] ; then
-    if [ $DISPLAY == ":0.0" -o $DISPLAY == "unix:0.0" ]; then
-      export DISPLAY="$HOSTNAME:0.0"
-    fi
+#    #if [ $DISPLAY == ":0.0" ]; then # FIX -o $DISPLAY == "unix:0.0" ]; then
+#      export DISPLAY="$HOSTNAME:0.0"
+#    #fi
     echo "export DISPLAY=$DISPLAY"
   else
     echo "No DISPLAY"
   fi
-fi
-
-############################################################
-# Pathing:
-
-export OLDPATH=$PATH
-PATH=''
-MYPATH=~/Bin:${HOSTPATH-}:${DOMAINPATH-}:${OSPATH-}
-
-oldIFS=$IFS
-IFS=:
-export PATH
-for p in $MYPATH ; do
-  if [ -d $p ]; then
-    PATH=$PATH:$p
-  else
-    if [[ $- == *i* ]]; then
-      # interactive shell
-      echo Path $p not found
-    fi
-  fi
-done
-IFS=$oldIFS
-
-export SAVEPATH=$PATH
+  ;;
+  
+  # not interactive
+  *) 
+    ;;
+esac
