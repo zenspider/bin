@@ -5,7 +5,7 @@
 # Overrides:
 ############################################################
 
-if [[ $- == *i* ]]; then
+if [ -n ${PS1-} ]; then
   # interactive shell
   
   # Gives the absolute pathname for any path argument
@@ -318,6 +318,6 @@ p4t() {
 }
 
 mem() {
-  ps -efo rss,vsz,args | perl -pi -e 'if (m/^(\S+)M/) { $mem = $1 * 1024; s/^(\S+)M/${mem}K/ }; s/^(\S+)K/$1/; ' | sort -n
+  ps -efo rss,vsz,user,args | perl -pi -e 'if (m/^(\S+)M/) { $mem = $1 * 1024; s/^(\S+)M/${mem}K/ }; s/^(\S+)K/$1/; ' | sort -n
 }
 

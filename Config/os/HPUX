@@ -1,6 +1,6 @@
 # -*-ksh-*-
 
-if [[ $- == *i* ]]; then
+if [ -n ${PS1-} ]; then
   set noglob;
   eval $(tset -Qs "$TERM");
   unset noglob

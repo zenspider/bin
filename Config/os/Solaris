@@ -2,7 +2,7 @@
 
 OSPATH=/usr/bin/X11:/usr/bin:/usr/ucb
 
-if [[ $- == *i* ]]; then
+if [ -n ${PS1-} ]; then
   # interactive shell
   
   ulimit -s $(ulimit -Hs);

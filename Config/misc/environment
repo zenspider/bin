@@ -17,21 +17,9 @@ for p in $MYPATH ; do
   if [ -d $p ]; then
     PATH=$PATH:$p
   else
-case $- in
-  
-  # interactive shell
-  *i*)
-#    if [[ $- == *i* ]]; then
-      # interactive shell
+    if [ -n ${PS1-} ]; then
       echo Path $p not found
-#    fi
-
-    ;;
-  
-  # not interactive
-  *) 
-    ;;
-esac
+    fi
   fi
 done
 IFS=$oldIFS
