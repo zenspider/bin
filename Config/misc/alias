@@ -176,15 +176,12 @@ alias lpr2up='enscript -2r'
 # General Functions:
 ############################################################
 
-fegrep () { 
-  pattern=$1; shift;
-  files=$1; shift;
-  echo "Recursively looking for $pattern in all $files files"
-  find . -name $files -print | xargs egrep $pattern
-}
-
 ff () {
     find . -type f -print0 | xargs -0 egrep $*
+}
+
+fc () {
+    find . -type f -print0 | xargs -0 egrep -c $* | grep -v :0 | sort -rn -k2 -t:
 }
 
 psg () {
