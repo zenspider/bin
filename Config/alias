@@ -213,8 +213,6 @@ alias sho='show $LOGNAME'
 alias unbold='tput rmso'
 alias wtf='(w;f) | sort | more'
 
-networth() { echo "5500 * (($*) - 75.5)" | bc -l }
-
 ############################################################
 # General Functions:
 ############################################################
@@ -247,7 +245,7 @@ fegrep () {
   pattern=$1; shift;
   files=$1; shift;
   echo "Recursively looking for $pattern in all $files files"
-  egrep $* $pattern $(find . -name $files -print)
+  find . -name $files -print | xargs egrep $pattern
 }
 
 mylpr () {
@@ -294,25 +292,33 @@ ddirs () {
 
 case $TERM in
   *term* )
-    e() { 
+    function e() { 
       for f in $* ; do
 	gnuclient -q $(abs $f)
       done
     }
     ;;
   vt* | sun | screen )
-    e() { gnuattach $* }
-      ;;
+    e() {
+      gnuattach $*
+    }
+    ;;
   dumb | dialup )
-    e() { xemacs -nw $* }
-      ;;
+    e() {
+      xemacs -nw $*
+    }
+    ;;
   emacs )
-    e() { echo "DUH -- You are IN emacs stupid..." }
-      ;;
+    e() {
+      echo "DUH -- You are IN emacs stupid..." 
+    }
+    ;;
   *)
     echo "alias: don't know what to do for $TERM"
-    e() { echo "undefined" }
-      ;;
+    e() {
+      echo "undefined"
+    }
+    ;;
 esac
 
 addClass () {
@@ -326,12 +332,11 @@ addClass () {
   done
 }
 
-#xSame() {
-#  for f in $*
-#  do
-#    gnudoit -q '(find-file "'$f'")'
-#  done
-#}
+ee() {
+  for f in $*; do
+    gnudoit -q '(find-file "'$(abs $f)'")'
+  done
+}
 
 cleans() {
   DU -as $* | sort -rn | more
