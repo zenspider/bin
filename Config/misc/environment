@@ -17,8 +17,6 @@ shopt -qs extglob
 MYPATH=${MYPATH//+(:)/:}
 shopt -qu extglob
 
-echo MYPATH=$MYPATH
-
 oldIFS=$IFS
 IFS=:
 export PATH
