@@ -1,0 +1,19 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Mail::Mailer;
+
+my $msg = join(' ', @ARGV) || die "need a message to page with";
+
+my $mail = Mail::Mailer->new();
+$mail->open({
+	     To      => '4254449363@voicestream.cc',
+#	     To      => '2062237905@messagewatch.com',
+#	     From    => 'ryand@ZenSpider.com',
+	     Subject => $msg,
+	    })
+  or die "Can't open mail: $!\n";
+print $mail '';
+$mail->close();
+
+print "Sent '$msg'\n";
