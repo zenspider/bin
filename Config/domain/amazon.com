@@ -1,12 +1,11 @@
+# -*-ksh-*-
 
 if [ $HOSTNAME != 'qa-tools' ]; then
-  DOMAINPATH=/opt/amazon/quality-assurance/bin:/opt/amazon/website/bin:/opt/third-party/bin:/usr/local/gnu/bin:/usr/local/script:/dept/snoc/arch/bin:/usr/ccs/lib:/usr/ccs/bin:/usr/ucb
+  DOMAINPATH=/opt/amazon/quality-assurance/bin:/opt/amazon/website/bin:/opt/third-party/bin:/usr/local/gnu/bin:/usr/local/script:/dept/snoc/arch/bin:/usr/ccs/lib:/usr/ccs/bin
   
-  # Allow use of tools against test db
+  # Backend Tools VARS
   export UNSAFE_CCMOTEL=true
   export AMAZON_ENVIRONMENT='test-us-hq'
-  
-  # Redierect all mail for some of the tools to me
   export AMAZON_REDIRECT_MAIL_TO=ryand@amazon.com
   
   # CVS
@@ -18,9 +17,9 @@ if [ $HOSTNAME != 'qa-tools' ]; then
   export INFOPATH=/opt/third-party/info:/usr/local/gnu/info/:${INFOPATH-}
   export MANPATH=/opt/third-party/man:/dept/snoc/man:${MANPATH-}
   
+  export PERL5LIB=.:/toasters/toaster5/users/ryand/Dev/Perl
+
   # DEC UNIX has pitiful stack size limitations.
   ulimit -s $(ulimit -Hs)
-else
-  unset MANPATH
 fi
 
