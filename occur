@@ -25,7 +25,17 @@ total = 0
 ARGF.each do |$_|
   chomp
 
-  gsub!(/\d+/, "<num>") if $n
+  # regex is split this way so you get all dots or dashes, not a mix
+  gsub!(/(\d+((\.\d+)*|(\-\d+)*))/) do |match|
+    if match.split(/[\.-]/).size >= 4 then # IP number
+      match
+    else
+      "<num>"
+    end
+  end if $n
+
+  gsub!(/\s{2,}/, ' ')
+
   if $b then
     $_.strip!
     next if $_.empty?
@@ -33,7 +43,7 @@ ARGF.each do |$_|
   
   c[$_] += 1
   total += 1
-end
+end rescue nil # silence broken pipe errors
 
 if $s then
   sorted = c.keys.sort
@@ -50,4 +60,4 @@ sorted.each do |key|
   else
     printf "%5d: %s\n", c[key], key
   end
-end
+end rescue nil # silence broken pipe errors
