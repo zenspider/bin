@@ -5,6 +5,7 @@ BEGIN {
   $::total = 0
 }
 
+s/^\s+//;
 $::total += (split/\s+/)[0];
 
 END {

@@ -1,27 +1,32 @@
 #!/usr/bin/perl -w
 
-# Intended to be hooked into qmail via a .qmail file like so:
+# Intended to be hooked in via a .forward file like so:
 # 
-# |preline /usr/local/bin/spamassassin -PaL | /home/ryand/Bin/mailfilter -f /home/ryand/.mailfilter.rc -m /home/ryand/Mail
+# |"/usr/local/bin/spamassassin -La | /home/ryand/Bin/mailfilter -f /home/ryand/.mailfilter.rc -m /home/ryand/Mail"
 # 
-# the calling to spamassassin w/ -P is required, -a for autowhitelist,
+# -a for autowhitelist,
 # -L is optional and makes it slightly faster.
 
 use strict;
 use Mail::Audit;
 use Time::JulianDay;
 use Getopt::Long;
+use Date::Format;
 
-my $VERSION = '1.4.1';
+my $VERSION = '1.5.0';
+
+my $SPOOL = "/var/mail/".getpwuid($>);
 
 my %option;
 GetOptions(\%option,
 	   "file=s",
 	   "check",
 	   "mailfolder=s",
+	   "nospam",
 	  );
 
 $option{'check'} ||= '';
+$option{'nospam'} ||= '';
 
 # My Mail Policies:
 #
@@ -65,7 +70,12 @@ unless ($option{check}) {
   chomp($from, $to, $cc, $subject, $rcpt);
 
   if ($is_spam) {
-    &save("BlackBox", "Spam box:", $to, $subject);
+    if ($option{'nospam'}) {
+      &log("Rejecting spam from $from, subject $subject");
+      $mail->reject("This mail was identified as spam and rejected.");
+    } else {
+      &save("BlackBox", "Spam box:", $to, $subject);
+    }
   }
 }
 
@@ -102,6 +112,7 @@ while (<IN>) {
     $field = lc($3);
     $regex = $4;
     $msg = '';
+    $file = time2str($file, time);
   } elsif (m/^IGNORE\s+(?:\s+($isodate_re)\s+)?($field_re)\s+(.+)/o) {
     $file = 'BlackBox';
     $isodate = $1 || '';
@@ -159,7 +170,7 @@ sub run {
 
   $SIG{CHLD} = 'IGNORE';
   unless (fork()) {
-    system $file || die "$?";
+    CORE::system($file) || die "$?";
     exit(0);
   }
 }
@@ -168,7 +179,14 @@ sub save {
   my $box = shift;
 
   &log("Saving in '$box'", @_);
-  $mail->accept("$option{mailfolder}/$box");
+
+  if ($box eq 'INBOX') {
+    $mail->accept($SPOOL);
+  } elsif ($box =~ m/^\//) {
+    $mail->accept("$box");
+  } else {
+    $mail->accept("$option{mailfolder}/$box");
+  }
 }
 
 sub log {
