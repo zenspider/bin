@@ -1,3 +1,9 @@
+:0:
+* ? test x$DEBUG = xyes
+* ^From:.*ryand
+* ^Subject:.*test
+$SPOOLDIR/test
+
 :0 W
 * ^From:.*ryand
 * ^Subject:.*cvs:
