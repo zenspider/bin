@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/local/bin/bash
 
 check_up() {
     if gnuclient -batch -eval t >/dev/null 2>&1; then

@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/local/bin/bash
 
 echo "$PWD: sorted by date:"
 echo ""

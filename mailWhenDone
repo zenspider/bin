@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/local/bin/bash
 
 com=${0##/*/}			# save command name
 tmpfile=/tmp/$com.$$

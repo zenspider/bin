@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/local/bin/bash
 
 JDK_DOCS=${2:-/mom2/users/ryand/snapshots.10J/fast10/doc/api}
 RESULTS=/tmp/results.html
