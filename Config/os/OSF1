@@ -1,8 +1,18 @@
 # -*-ksh-*-
 
-if [[ $- == *i* ]]; then
-  stty echoe
-  stty discard undef
-fi
+OSPATH=/usr/bin/X11:/usr/ucb:/sbin
 
-OSPATH=/usr/bin/X11:/usr/ucb
+case $- in
+  
+  # interactive shell
+  *i*)
+       alias gmake=make
+       stty echoe
+       stty discard undef
+    ;;
+  
+  # not interactive
+  *) 
+    ;;
+esac
+
