@@ -14,7 +14,7 @@
 $SPOOLDIR/crontab
 
 :0 W
-* ^Subject: CRON:
+* ^Subject: (CRON:|Cron)
 $SPOOLDIR/crontab
 
 :0 W
