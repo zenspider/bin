@@ -7,8 +7,9 @@ use Getopt::Long;
 
 my %option;
 GetOptions(\%option,
-	   "conf=s",
+	   "file=s",
 	   "check",
+	   "mailfolder=s",
 	  );
 
 #
@@ -28,7 +29,9 @@ GetOptions(\%option,
 # 3) All other mail goes to GrayBox
 #
 
-my $mail = '/home/ryand/Mail/spool';
+(&log("'$option{mailfolder}' is not a valid directory"), exit(1))
+  unless -d $option{mailfolder};
+
 open LOG, ">>/home/ryand/.mailfilter.log"
   || die "Couldn't open mailfilter.log: $!";
 
@@ -47,7 +50,17 @@ unless ($option{check}) {
 # general filter
 my $isodate_re = '\d{4}-\d{2}-\d{2}';
 my $field_re = 'SUBJECT|FROM|TO|CC';
-while (<DATA>) {
+
+if ($option{file}) {
+  unless (open IN, $option{file}) {
+    &log("Error opening recipe file '$option{file}': $!");
+    exit(1);
+  } 
+} else {
+  *IN = *DATA;
+}
+
+while (<IN>) {
 
   # the usual whitespace cleanup
   chomp;
@@ -89,10 +102,18 @@ while (<DATA>) {
   }
 
   unless ($option{check}) {
-    my $cmd = "&save(\$file, \$msg) if \$$field =~ $regex";
+    my $cmd = "&save(\$file, \$msg, \$field, \$$field, \$regex) if \$$field =~ $regex";
     eval $cmd;
     if ($@) {
       &log("ERROR w/ '$cmd': $@");
+    }
+  } else {
+    &log($file, $msg, $field, $regex);
+    my $cmd = "'blah' =~ $regex";
+    eval $cmd;
+    if ($@) {
+      &log("ERROR w/ '$cmd': $@");
+      exit(1);
     }
   }
 }
@@ -102,23 +123,27 @@ unless ($option{check}) {
   if ($rbl) {
     &save("BlackBox", "SPAM: '$rbl'");
   } else {
-    &save("GrayBox");
+    &save("GrayBox", "Default rule");
   }
+} else {
+  &log("Looks good");
 }
 
 sub save {
   my $box = shift;
-  my $msg = shift || '';
 
-  &log("Saving in '$box'" . ($msg ? ": $msg" : ''));
-  $item->accept("$mail/$box");
+  &log("Saving in '$box'", @_);
+  $item->accept("$option{mailfolder}/$box");
 }
 
 sub log {
-  my $msg = join('', @_);
+  my $msg = join(': ', @_);
+
+  use Date::Format;
+  my $time = time2str("%Y%m%d_%H%M%S", time);
 
   unless ($option{check}) {
-    print LOG "$from: $subject: $msg\n";
+    print LOG "$time: $from: $subject: $msg\n";
   } else {
     print "$msg\n";
   }
@@ -144,34 +169,3 @@ __DATA__
 #
 
 #CMD   FILE          ISODATE    FIELD   REGEX
-
-############################################################
-# Ignore:
-
-# if the TO/SUBJECT field is to one of several bulk spammers, ignore.
-
-IGNORE                          SUBJECT m/Subject: Obidos Error Report/i
-
-IGNORE				FROM	m/root\@/i
-IGNORE				SUBJECT m/CRON:|Cron/i
-
-############################################################
-# Accept:
-
-ACCEPT commit-main		SUBJECT m/Subject:.*P4 SUBMIT by .* \(mainline\)/i
-ACCEPT commit			SUBJECT m/commit|checkin|publish|submit/i
-ACCEPT build			TO	m/(performance-interest|build-info|houston)\@/i
-ACCEPT build			FROM	m/build\@/i
-ACCEPT frank			SUBJECT m/frank/i
-ACCEPT frank			TO	m/frank-users/i
-ACCEPT downtown			TO	m/(downtown|pac|pac-amzn-sal|amazon|seattle|seattle-reg|pac|pacmed|infrastructure)\@/i
-ACCEPT software			TO	m/(software|pubsub-users|ute|perlhacker|infrastructure|codeline-owners)\@/i
-ACCEPT qa			TO	m/qa-tools\@/i
-ACCEPT antlr			TO	m/antlr-interest\@/i
-
-# Accept mail from or to me
-
-ACCEPT INBOX			FROM    m/(zss|ryand|root)\@\.*(amazon|zenspider)\.com/i
-
-# Everything else is rejected by default
-
