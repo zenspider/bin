@@ -60,7 +60,7 @@ case $- in
   
   export EDITOR="~/Bin/e"
 
-  if [ ${TERM-} == "emacs" ]; then
+  if test ${TERM-} = "emacs" ; then
     export PAGER=cat
   else
     export PAGER=more
