@@ -14,7 +14,7 @@ if [ -z $login ]; then
 fi
 
 if [ -z $shell ]; then
-    shell="/dev/null"
+    shell=/sbin/nologin
 fi
 
 next_uid=$(($(nireport / /users uid | grep "5[0-9][0-9]" | sort -n | tail -1) + 1))
