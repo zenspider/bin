@@ -5,9 +5,14 @@
 
 # Perforce
 export P4PORT=perforce:6791
-export P4CLIENT=ryand-dec
 export P4EDITOR=gnuclient
 export MAXRESULTS=10000
+
+if [ $HOSTNAME = "itsy" ]; then
+  export P4CLIENT=ryand-itsy
+else 
+  export P4CLIENT=ryand-dec
+fi
 
 export QA_TEST_PORT=4007
 export QA_TEST_HOST=qa-tools

@@ -95,6 +95,3 @@ XTerm*multiScroll:			true
         ~Meta ~Alt Ctrl<Key>v:          next-page()                     \n\
          Meta ~Ctrl<Key>v:              previous-page()                 \n\
          Alt ~Ctrl<Key>v:               previous-page()                 \n
-
-
-

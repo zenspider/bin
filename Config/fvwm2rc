@@ -1,6 +1,6 @@
 # -*- winmgr -*-
 # PixmapPath /usr/local/mini-icons/
-IconPath   /usr/X11R6/lib/X11/fvwm2/pixmaps:/usr/share/icons
+IconPath   /usr/X11R6/icons:/usr/share/icons
 #IconPath  /usr/local/icons/:/usr/local/mini-icons/
 
 EdgeResistance 10000 0
@@ -24,7 +24,14 @@ Style "*"	MWMFunctions, MWMDecor, HintOverride
 Style "*"	DecorateTransient, NoPPosition
 Style "*"	IconBox -50 0 -1 -50
 Style "*"	ClickToFocus
+#Style "*"	SloppyFocus
 Style "*"	RandomPlacement, SmartPlacement
+
+Module FvwmAuto 500  Raise Nop
+# Lower
+# Module FvwmAuto 2000 Nop Iconify
+
+Style "FvwmButtons" SloppyFocus
 
 MenuStyle *	mwm
 MenuStyle *	Foreground Black, Background gray60
@@ -36,7 +43,7 @@ Style "Fvwm*"       NoTitle,  Sticky, WindowListSkip
 Style "Fvwm*"       BorderWidth 2, CirculateSkipIcon, CirculateSkip
 Style "FvwmPager"   StaysOnTop
 Style "FvwmBanner"  StaysOnTop
-Style "FvwmButtons" Icon toolbox.xpm, StaysOnTop, BorderWidth 0, HandleWidth 0
+Style "FvwmButtons" Icon toolbox.xpm, BorderWidth 0, HandleWidth 0
 
 # Styles for your common terminal emulator programs:
 Style "xterm"       Icon xterm.xpm, IconBox -70 1 -1 -140
@@ -74,10 +81,12 @@ Mouse 3	TSIF	A	RaiseLower
 
 ######################## Initialization Functions ############################
 AddToFunc InitFunction 	"I" Module FvwmButtons
-+			"I" Exec xsetroot -solid gray40 &
++			"I" Exec xv -quit -root .bg/current.jpg
+# +			"I" Exec xsetroot -solid gray40 &
 
 AddToFunc RestartFunction "I" Module FvwmButtons
-+			"I" Exec xsetroot -solid gray40 &
++			"I" Exec xv -quit -root .bg/current.jpg
+# +			"I" Exec xsetroot -solid gray40 &
 
 ######################## Menus ###################
 AddToMenu RootMenu	"Root Menu"	Title
@@ -91,6 +100,7 @@ AddToMenu RootMenu	"Root Menu"	Title
 +                       "Refresh Screen"   Refresh
 +                       "Recapture Screen" Recapture
 +			""		Nop
++			"Sleep"		Exec zzz
 +			"Restart"	Popup Restart
 +			"Exit Fvwm"	Module FvwmForm QuitVerify
 
@@ -237,15 +247,11 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
     Action 'Exec "" xscreensaver-command -lock')
 *FvwmButtons(Title "dv<->qw", Icon key.xpm, \
     Action 'Exec "" /home/ryand/Bin/keyswitch')
-*FvwmButtons(Title xclock, Icon clock.xpm, \
-    Swallow(UseOld) "xclock" 'Exec exec xclock -fg SteelBlue4 -bg grey12 -hl turquoise4 -hd turquoise4 -padding 0')
-*FvwmButtons(1x1, Title load \
-    Swallow(UseOld) "xload" 'Exec exec xload -nolabel -bg gray12 -fg turquoise4 -hl red')
-*FvwmButtons(Title ZSS, Icon rterm.xpm, Action 'Exec "" ssh -f zenspider.com xemacs')
-*FvwmButtons(Title Term, Icon rterm.xpm, \
-    Action 'Exec "Term" rxvt -title "Term" &')
+*FvwmButtons(Title Term, Icon rterm.xpm,  Action 'Exec "Term" rxvt -title "Term" &')
 *FvwmButtons(3x1, Swallow "FvwmPager" "FvwmPager 0 2")
-*FvwmButtons(8x1, Swallow "mini-term" "Exec exec rxvt +sb -name mini-term -fg green2 -bg grey12")
+*FvwmButtons(Title xclock, Icon clock.xpm, Swallow(UseOld) "xclock" 'Exec exec xclock -fg SteelBlue4 -bg grey12 -hl turquoise4 -hd turquoise4 -padding 0')
+*FvwmButtons(1x1, Title load Swallow(UseOld) "xload" 'Exec exec xload -nolabel -bg gray12 -fg turquoise4 -hl red')
+*FvwmButtons(1x1, Title apm Swallow(UseOld) "asapm" 'Exec exec asapm')
 
 ########################## Icon Manager ####################################
 # this FvwmIconMan setup is for swallowing in above button bar example
@@ -318,38 +324,35 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 #Style     "*"  NoIcon
 
 ############################################################
-*FvwmIconBoxIconBack    #cfcfcf
-*FvwmIconBoxIconHiFore  black
-*FvwmIconBoxIconHiBack  LightSkyBlue
-*FvwmIconBoxBack        #5f9ea0
-#*FvwmIconBoxFore       blue
-*FvwmIconBoxGeometry    5x1+0+0
-*FvwmIconBoxMaxIconSize 64x38
-*FvwmIconBoxFont        -adobe-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*
-*FvwmIconBoxSortIcons   IconName
-*FvwmIconBoxPadding     4
-*FvwmIconBoxLines       10
-*FvwmIconBoxSBWidth     11
-*FvwmIconBoxPlacement   Left Top
-*FvwmIconBoxPixmap      fvwm.xpm
-#*FvwmIconBoxHideSC Horizontal
-*FvwmIconBoxSetWMIconSize
-*FvwmIconBoxHilightFocusWin
-#*FvwmIconBoxResolution          Desk
-*FvwmIconBoxMouse       1       Click           RaiseLower
-*FvwmIconBoxMouse       1       DoubleClick     Iconify
-*FvwmIconBoxMouse       2       Click           Iconify -1, Focus
-*FvwmIconBoxMouse       3       Click           Module FvwmIdent
-*FvwmIconBoxKey         r       RaiseLower
-*FvwmIconBoxKey         space   Iconify
-*FvwmIconBoxKey         d       Close
-*FvwmIconBoxKey         n       Next
-*FvwmIconBoxKey         p       Prev
-*FvwmIconBoxKey         h       Left
-*FvwmIconBoxKey         j       Down
-*FvwmIconBoxKey         k       Up
-*FvwmIconBoxKey         l       Right
-#
+# *FvwmIconBoxIconBack    #cfcfcf
+# *FvwmIconBoxIconHiFore  black
+# *FvwmIconBoxIconHiBack  LightSkyBlue
+# *FvwmIconBoxBack        #5f9ea0
+# *FvwmIconBoxGeometry    5x1+0+0
+# *FvwmIconBoxMaxIconSize 64x38
+# *FvwmIconBoxFont        -adobe-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*
+# *FvwmIconBoxSortIcons   IconName
+# *FvwmIconBoxPadding     4
+# *FvwmIconBoxLines       10
+# *FvwmIconBoxSBWidth     11
+# *FvwmIconBoxPlacement   Left Top
+# *FvwmIconBoxPixmap      fvwm.xpm
+# *FvwmIconBoxSetWMIconSize
+# *FvwmIconBoxHilightFocusWin
+# *FvwmIconBoxMouse       1       Click           RaiseLower
+# *FvwmIconBoxMouse       1       DoubleClick     Iconify
+# *FvwmIconBoxMouse       2       Click           Iconify -1, Focus
+# *FvwmIconBoxMouse       3       Click           Module FvwmIdent
+# *FvwmIconBoxKey         r       RaiseLower
+# *FvwmIconBoxKey         space   Iconify
+# *FvwmIconBoxKey         d       Close
+# *FvwmIconBoxKey         n       Next
+# *FvwmIconBoxKey         p       Prev
+# *FvwmIconBoxKey         h       Left
+# *FvwmIconBoxKey         j       Down
+# *FvwmIconBoxKey         k       Up
+# *FvwmIconBoxKey         l       Right
+
 # Icon file specifications
 #
 # Mostly, you don't have to specify icon files, as FvwmIconBox now
