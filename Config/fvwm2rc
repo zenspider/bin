@@ -82,7 +82,7 @@ AddToFunc RestartFunction "I" Module FvwmButtons
 
 ######################## Menus ###################
 AddToMenu RootMenu	"Root Menu"	Title
-+			"XTerm"		Exec exec xterm +cn -ls -sb -fn 8x13
++			"XTerm"		Exec exec xterm
 #+			"Rxvt"		Exec exec rxvt
 +			""		Nop
 +			"Remote Logins"	Popup Remote-Logins
@@ -107,7 +107,7 @@ AddToMenu Utilities     "Utilities" Title
 +                       "Editres"       Exec exec editres
 +			""		Nop
 +			"XEmacs"	Exec exec xemacs
-+                       "Mail"          MailFunction xmh "-font fixed"
++                       "Mail"          MailFunction gnuclient -f vm
 +			""		Nop
 +                       "XLock"         Exec exec xlock -mode random
 +			""		Nop
@@ -160,10 +160,10 @@ AddToMenu Window-Ops2	"&Move"		Move
 +                       "Print Reverse" PrintReverseFunction
 
 # be sure to fill these in with your correct machine names:
-AddToMenu Remote-Logins	"software-7"	Exec rsh software-7	xterm +cn -ls -sb -fn 8x13 -display $HOSTDISPLAY &
-+			"cachimbo"	Exec rsh cachimbo	xterm +cn -ls -sb -fn 8x13 -display $HOSTDISPLAY &
-+			"web-build-1"	Exec rsh website-build-1 xterm +cn -ls -sb -fn 8x13 -display $HOSTDISPLAY &
-+			"web-build-2"	Exec rsh website-build-2 xterm +cn -ls -sb -fn 8x13 -display $HOSTDISPLAY &
+AddToMenu Remote-Logins	"software-7"	Exec rsh software-7	xterm -display $HOSTDISPLAY &
++			"cachimbo"	Exec rsh cachimbo	xterm -display $HOSTDISPLAY &
++			"web-build-1"	Exec rsh website-build-1 xterm -display $HOSTDISPLAY &
++			"web-build-2"	Exec rsh website-build-2 xterm -display $HOSTDISPLAY &
 +			""		Nop
 +			"Other..."	Module FvwmForm Rlogin
 
@@ -241,10 +241,10 @@ AddToFunc Iconify-and-Raise     "I" Iconify
 +                               "I" Raise
 
 # RLOGIN machine fg bg
-AddToFunc RLOGIN "I" Exec xterm +cn -ls -sb -fn 8x13 -fg $1 -bg $2 -e rlogin $0 -8
+# AddToFunc RLOGIN "I" Exec xterm -fg $1 -bg $2 -e rlogin $0 -8
 
 # TELNET machine fg bg
-AddToFunc TELNET "I" Exec xterm +cn -ls -sb -fn 8x13 -fg $1 -bg $2 -e telnet $0
+# AddToFunc TELNET "I" Exec xterm -fg $1 -bg $2 -e telnet $0
 
 AddToFunc FocusAndWarp "I" Focus
 +                      "I" WarpToWindow 2p 2p
@@ -259,7 +259,7 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 *FvwmButtonsGeometry -0-0
 *FvwmButtonsFore Black
 *FvwmButtonsBack Grey80
-*FvwmButtonsFont -adobe-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*
+*FvwmButtonsFont -adobe-helvetica-medium-r-*-*-10-*-*-*-*-*-*-*
 *FvwmButtonsRows 1
 
 *FvwmButtons(Title xlock, Icon xlock.xpm, \
@@ -269,11 +269,9 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 *FvwmButtons(1x1, Title load \
     Swallow(UseOld) "xload" 'Exec exec xload -nolabel -bg grey80 -hl red')
 *FvwmButtons(Title xterm, Icon rterm.xpm, \
-    Action 'Exec "XTerm" xterm \
-    +cn -ls -sb -fn 8x13 -title "xterm" &')
+    Action 'Exec "XTerm" xterm -title "xterm" &')
 *FvwmButtons(3x1, Swallow "FvwmPager" "FvwmPager 0 2")
-*FvwmButtons(8x1, Swallow "mini-term" "Exec exec xterm +cn -sb -ls -T mini-term -fg black  -bg Grey80")
-#*FvwmButtons(4x1, Swallow "mail-monitor" "Exec exec xterm +cn -T mail-monitor -fg black -bg Grey80 -e /home/ryand/Bin/monitorMail")
+*FvwmButtons(8x1, Swallow "mini-term" "Exec exec xterm -T mini-term -fg black  -bg Grey80")
 
 ########################## Icon Manager ####################################
 # this FvwmIconMan setup is for swallowing in above button bar example
@@ -281,7 +279,7 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 *FvwmIconMan*Resolution  page
 *FvwmIconMan*background  bisque3
 *FvwmIconMan*foreground  black
-*FvwmIconMan*font        7x13bold
+*FvwmIconMan*font        -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
 *FvwmIconMan*format      "%t"
 *FvwmIconMan*action      Mouse   1 N sendcommand Focus, sendcommand "Iconify"
 *FvwmIconMan*action      Mouse   2 N sendcommand "Iconify 1"
@@ -301,24 +299,24 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 # Just choose colors and a fonts
 *FvwmIdentBack MidnightBlue
 *FvwmIdentFore Yellow
-*FvwmIdentFont -adobe-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*
+*FvwmIdentFont -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
 
 ########################### Pager #########################################
 *FvwmPagerBack grey60
 *FvwmPagerFore black
 # turn off desktop names for swallowing in above button bar example:
-*FvwmPagerFont -schumacher-clean-*-*-*-*-6-*-*-*-*-60-*-*
+*FvwmPagerFont -adobe-helvetica-medium-r-*-*-8-*-*-*-*-*-*-*
 #*FvwmPagerFont none
 *FvwmPagerHilight #c0c0c0
 *FvwmPagerGeometry -1-1
 *FvwmPagerLabel 0 Work
 *FvwmPagerLabel 1 Play
-*FvwmPagerLabel 2 To Do 
-*FvwmPagerSmallFont -schumacher-clean-*-*-*-*-6-*-*-*-*-40-*-*
+*FvwmPagerLabel 2 To-Do 
+*FvwmPagerSmallFont -adobe-helvetica-medium-r-*-*-8-*-*-*-*-*-*-*
 *FvwmPagerBalloons            All
 *FvwmPagerBalloonBack         Yellow
 *FvwmPagerBalloonFore         Black
-*FvwmPagerBalloonFont         lucidasanstypewriter-12
+*FvwmPagerBalloonFont	      -adobe-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*
 *FvwmPagerBalloonYOffset      +2
 *FvwmPagerBalloonBorderWidth  1
 *FvwmPagerBalloonBorderColor  Black
@@ -326,7 +324,7 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 ##########################FvwmWinList##################################
 *FvwmWinListBack #908090
 *FvwmWinListFore Black
-*FvwmWinListFont -adobe-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*
+*FvwmWinListFont -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
 *FvwmWinListAction Click1 Iconify -1,Focus
 *FvwmWinListAction Click2 Iconify
 *FvwmWinListAction Click3 Module "FvwmIdent" FvwmIdent
@@ -388,37 +386,31 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 
 # FvwmForm alias - rlogin or telnet to host via xterm
 *RloginWarpPointer
-*RloginFont         *helvetica*m*r*n*12*
-*RloginButtonFont   *helvetica*m*o*n*12*
-*RloginInputFont    *cour*m*r*n*12*
+*RloginFont         -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
+*RloginButtonFont   -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
+*RloginInputFont    -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
 *RloginFore         Black
 *RloginBack         Light Gray
-*RloginItemFore          Wheat
+*RloginItemFore          White
 *RloginItemBack          Gray50
 # begin items
 *RloginLine         center
 *RloginText         "Login to Remote Host"
-*RloginLine         center
+*RloginLine	    left
 *RloginText         "Host:"
 *RloginInput        HostName  30   ""
-*RloginLine         center
+*RloginLine         left
+*RloginText         "User:"
+*RloginInput        UserName  10   ""
+*RloginLine         left
+*RloginText         "Meth:"
 *RloginSelection    meth single
 *RloginChoice       TN TN off "telnet"
 *RloginChoice       RL RL on "rlogin"
 *RloginSelection    UserSel   single
-#*RloginChoice       Default   Default   on   "same user"
-#*RloginChoice       Custom    Custom    off  "user:"
-*RloginText         "(Userid:"
-*RloginInput        UserName  10   ""
-*RloginText         ")"
-*RloginLine         center
-*RloginText         "FG:"
-*RloginInput        FgColor 15 ""
-*RloginText         "BG:"
-*RloginInput        BgColor 15 ""
 *RloginLine         expand
 *RloginButton       quit "Login" ^M
-*RloginCommand Exec xterm +cn -ls -sb -fn 8x13 $(FgColor?-fg $(FgColor)) $(BgColor?-bg $(BgColor)) -T xterm@$(HostName) -e $(RL?rlogin) $(TN?telnet) $(HostName) $(RL?-8 $(UserName?-l $(UserName)))
+*RloginCommand Exec xterm -T xterm@$(HostName) -e $(RL?rlogin) $(TN?telnet) $(HostName) $(RL?-8 $(UserName?-l $(UserName)))
 *RloginButton       restart   "Clear"
 *RloginCommand Beep
 *RloginButton       quit "Cancel"
@@ -427,9 +419,8 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 # FvwmForm alias - query exit ala mwm
 *QuitVerifyGrabServer
 *QuitVerifyWarpPointer
-*QuitVerifyFont          *helvetica*m*r*n*14*
-#*QuitVerifyButtonFont    *helvetica*m*o*n*14*
-*QuitVerifyButtonFont    7x13bold
+*QuitVerifyFont          -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
+*QuitVerifyButtonFont   -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
 *QuitVerifyFore          Black
 *QuitVerifyBack          Light Gray
 *QuitVerifyItemFore Wheat
@@ -446,9 +437,9 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 # MyTalk & MyFvwmTalk from Dave Goldberg
 # MyTalk Form - dissappears after use
 *MyTalkWarpPointer
-*MyTalkFont *helvetica*m*r*n*14*
-*MyTalkButtonFont *helvetica*m*o*n*14*
-*MyTalkInputFont *cour*m*r*n*14*
+*MyTalkFont -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
+*MyTalkButtonFont -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
+*MyTalkInputFont -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
 *MyTalkFore Red
 *MyTalkBack Gray
 *MyTalkItemFore Blue
@@ -464,9 +455,9 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 *MyTalkCommand Nop
 # MyFvwmTalk Form - sticks around
 *MyFvwmTalkWarpPointer
-*MyFvwmTalkFont *helvetica*m*r*n*14*
-*MyFvwmTalkButtonFont *helvetica*m*o*n*14*
-*MyFvwmTalkInputFont *cour*m*r*n*14*
+*MyFvwmTalkFont -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
+*MyFvwmTalkButtonFont -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
+*MyFvwmTalkInputFont -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
 *MyFvwmTalkFore Red
 *MyFvwmTalkBack Gray
 *MyFvwmTalkItemFore Blue
