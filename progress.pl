@@ -41,6 +41,7 @@ sub check {
 
   print STDERR "Found ", scalar @check, " files. Scanning...\n";
 
+  my $count = 0;
   foreach my $file (@check) {
     open IN, $file || die "Couldn't open file '$file': $!";
     my $line = 0;
@@ -57,7 +58,8 @@ sub check {
       }
     }
     close IN;
-    print STDERR ".";
+    print STDERR 'x'
+      unless ++$count % 10;
   }
   print STDERR "done\n\n";
 
