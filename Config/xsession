@@ -24,8 +24,8 @@ xmodmap -e "remove Lock = Caps_Lock"
 xmodmap ~/.xmodmap.dvorak
 
 if [ $DOMAIN = "amazon.com" ]; then
-  export PRINTER=cow
-  xhost +software-7 +website-build-1 +website-build-2 +mm-1-sun +remedy-1 +production-1 +production-2 +production-3 +software-batch-1 +remedy-1 +qa-tools-2 +qa-tools-3
+  export PRINTER=rainier
+#  xhost +software-7 +website-build-1 +website-build-2 +mm-1-sun +remedy-1 +production-1 +production-2 +production-3 +software-batch-1 +remedy-1 +qa-tools-2 +qa-tools-3
   xscreensaver &
 fi
 

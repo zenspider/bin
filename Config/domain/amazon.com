@@ -20,7 +20,7 @@ fi
 export QA_TEST_PORT=4007
 export QA_TEST_HOST=qa-tools
 
-export PRINTER=cow
+export PRINTER=rainier
 export CLASSPATH=
 
 ############################################################
