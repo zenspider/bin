@@ -357,12 +357,12 @@ furl() {
   done
 }
 
-Find() {
-  for file in $*
-  do
-    find . -name $file -print
-  done
-}
+#Find() {
+#  for file in $*
+#  do
+#    find . -name $file -print
+#  done
+#}
     
 psgrep() {
   ps-all | grep $1 | grep -v "grep $1"
