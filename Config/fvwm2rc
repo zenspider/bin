@@ -82,7 +82,7 @@ AddToMenu RootMenu	"Root Menu"	Title
 +			"Exit Fvwm"	Module FvwmForm QuitVerify
 
 AddToMenu Utilities     "Utilities" Title
-+			"Galeon"	Exec exec galeon
++			"Opera"		Exec exec opera
 +			"Navigator"	Exec exec netscape
 +			"XEmacs"	Exec exec xemacs
 +			"Remedy"	Exec ssh -f earth /usr/ar/bin/aruser 
