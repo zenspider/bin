@@ -89,7 +89,7 @@ sub report {
   print OUT "<PRE>"
     if $html;
 
-  print $summary;
+  print OUT $summary;
 
   print OUT "Detail:\n\n";
   foreach my $file (sort {scalar @{$hit{$b}} <=> scalar @{$hit{$a}} || $a cmp $b} keys %hit) {
