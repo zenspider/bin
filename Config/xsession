@@ -1,0 +1,14 @@
+#! /bin/bash
+
+export PRINTER=denali
+. ~/.environment
+
+xrdb -load /home/ryand/.Xresources
+nocapslock
+xmodmap ~/.xmodmap.dvorak
+xemacs -f vm &
+mmxp
+
+# Exec Window Manager
+#exec /opt/third-party/bin/ctwm
+exec /usr/local/bin/fvwm95-2
