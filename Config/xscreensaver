@@ -1,12 +1,12 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-demo 3.33 for ryand on Fri Nov  9 17:27:31 2001.
+# Written by xscreensaver-demo 4.02 for ryand on Tue May 21 19:07:06 2002.
 # http://www.jwz.org/xscreensaver/
 
 timeout:	0:05:00
 cycle:		0:00:00
 lock:		True
-lockTimeout:	0:00:10
-passwdTimeout:	0:00:30
+lockTimeout:	0:01:00
+passwdTimeout:	0:01:00
 visualID:	default
 installColormap:    True
 verbose:	False
@@ -34,6 +34,9 @@ grabVideoFrames:    False
 chooseRandomImages: True
 imageDirectory:	/usr/home/ryand/.bg
 
+mode:		random
+selected:	0
+
 programs:								      \
 -		 "Qix (solid)" 	qix -root -solid -delay 0 -segments 100	    \n\
 -	   "Qix (transparent)" 	qix -root -count 4 -solid -transparent	    \n\
@@ -49,170 +52,193 @@ programs:								      \
 				  300					    \n\
 -	"Attraction (orbital)" 	attraction -root -mode lines -radius 300      \
 				  -orbit -vmult 0.5			    \n\
--			"Pyro" 	pyro -root				    \n\
--		       "Rocks" 	rocks -root				    \n\
--		       "Helix" 	helix -root				    \n\
--		       "Pedal" 	pedal -root				    \n\
--		   "Rorschach" 	rorschach -root -offset 7		    \n\
--		    "Hopalong" 	hopalong -root				    \n\
--		   "Greynetic" 	greynetic -root				    \n\
--		      "IMSmap" 	imsmap -root				    \n\
--		 "SlideScreen" 	slidescreen -root			    \n\
--		 "DecayScreen" 	decayscreen -root			    \n\
--		      "Jigsaw" 	jigsaw -root				    \n\
--		    "BlitSpin" 	blitspin -root -grab			    \n\
--			"Slip" 	slip -root				    \n\
--		     "Distort" 	distort -root				    \n\
--		   "Spotlight" 	spotlight -root				    \n\
+-				pyro -root				    \n\
+-				rocks -root				    \n\
+-				helix -root				    \n\
+-				pedal -root				    \n\
+-				rorschach -root -offset 7		    \n\
+-				hopalong -root				    \n\
+-				greynetic -root				    \n\
+-				imsmap -root				    \n\
+-				slidescreen -root			    \n\
+-				decayscreen -root			    \n\
+-				jigsaw -root				    \n\
+-				blitspin -root -grab			    \n\
+-				slip -root				    \n\
+-				distort -root				    \n\
+-				spotlight -root				    \n\
 -	      "Ripples (oily)" 	ripples -root -oily -light 2		    \n\
 -	      "Ripples (stir)" 	ripples -root -oily -light 2 -stir	    \n\
 -	   "Ripples (desktop)" 	ripples -root -water -light 6		    \n\
--		   "Hypercube" 	hypercube -root				    \n\
--		   "Hyperball" 	hyperball -root				    \n\
--			"Halo" 	halo -root				    \n\
--			"Maze" 	maze -root				    \n\
--		     "Noseguy" 	noseguy -root				    \n\
--		       "Flame" 	flame -root				    \n\
--		      "LMorph" 	lmorph -root				    \n\
--			"Deco" 	deco -root				    \n\
--		       "Moire" 	moire -root				    \n\
--		      "Moire2" 	moire2 -root				    \n\
--		   "Lightning" 	lightning -root				    \n\
--		     "Strange" 	strange -root				    \n\
--		      "Spiral" 	spiral -root				    \n\
--		       "Laser" 	laser -root				    \n\
--			"Grav" 	grav -root				    \n\
+-				hypercube -root				    \n\
+-				hyperball -root				    \n\
+-				halo -root				    \n\
+-				maze -root				    \n\
+-				noseguy -root				    \n\
+-				flame -root				    \n\
+-				lmorph -root				    \n\
+-				deco -root				    \n\
+-				moire -root				    \n\
+-				moire2 -root				    \n\
+-				lightning -root				    \n\
+-				strange -root				    \n\
+-				spiral -root				    \n\
+-				laser -root				    \n\
+-				grav -root				    \n\
 -	       "Grav (trails)" 	grav -root -trail -decay		    \n\
--		       "Drift" 	drift -root				    \n\
--			 "IFS" 	ifs -root				    \n\
--		       "Julia" 	julia -root				    \n\
--		     "Penrose" 	penrose -root				    \n\
--		  "Sierpinski" 	sierpinski -root			    \n\
--		       "Braid" 	braid -root				    \n\
--		      "Galaxy" 	galaxy -root				    \n\
--		    "Bouboule" 	bouboule -root				    \n\
--		       "Swirl" 	swirl -root				    \n\
--			"Flag" 	flag -root				    \n\
--		      "Sphere" 	sphere -root				    \n\
--		      "Forest" 	forest -root				    \n\
--			"Lisa" 	lisa -root				    \n\
--		      "Lissie" 	lissie -root				    \n\
--			"Goop" 	goop -root -max-velocity 0.5 -elasticity      \
+-				drift -root				    \n\
+-				ifs -root				    \n\
+-				julia -root				    \n\
+-				penrose -root				    \n\
+-				sierpinski -root			    \n\
+-				braid -root				    \n\
+-				galaxy -root				    \n\
+-				bouboule -root				    \n\
+-				swirl -root				    \n\
+-				flag -root				    \n\
+-				sphere -root				    \n\
+-				forest -root				    \n\
+-				lisa -root				    \n\
+-				lissie -root				    \n\
+-				goop -root -max-velocity 0.5 -elasticity      \
 				  0.9					    \n\
--		    "Starfish" 	starfish -root				    \n\
+-				starfish -root				    \n\
 -	     "Starfish (blob)" 	starfish -root -blob			    \n\
--		       "Munch" 	munch -root				    \n\
--		    "FadePlot" 	fadeplot -root				    \n\
--		       "Coral" 	coral -root -delay 0			    \n\
--		    "Mountain" 	mountain -root				    \n\
--		    "Triangle" 	triangle -root -delay 1			    \n\
--			"Worm" 	worm -root				    \n\
--		       "Rotor" 	rotor -root				    \n\
--			 "Ant" 	ant -root				    \n\
--		       "Demon" 	demon -root				    \n\
--			"Loop" 	loop -root				    \n\
--		       "Vines" 	vines -root				    \n\
--		"Kaleidescope" 	kaleidescope -root			    \n\
--		       "XJack" 	xjack -root				    \n\
--		       "XLyap" 	xlyap -root -randomize			    \n\
--		    "Cynosure" 	cynosure -root				    \n\
--			"Flow" 	flow -root				    \n\
--		    "Epicycle" 	epicycle -root				    \n\
--		"Interference" 	interference -root			    \n\
--		     "Truchet" 	truchet -root -randomize		    \n\
--			"BSOD" 	bsod -root				    \n\
--		     "Crystal" 	crystal -root				    \n\
--		    "Discrete" 	discrete -root				    \n\
--		      "Kumppa" 	kumppa -root				    \n\
--		     "RD-Bomb" 	rd-bomb -root				    \n\
+-				munch -root				    \n\
+-				fadeplot -root				    \n\
+-				coral -root -delay 0			    \n\
+-				mountain -root				    \n\
+-				triangle -root -delay 1			    \n\
+-				worm -root				    \n\
+-				rotor -root				    \n\
+-				ant -root				    \n\
+-				demon -root				    \n\
+-				loop -root				    \n\
+-				vines -root				    \n\
+-				kaleidescope -root			    \n\
+-				xjack -root				    \n\
+-				xlyap -root -randomize			    \n\
+-				cynosure -root				    \n\
+-				flow -root				    \n\
+-				epicycle -root				    \n\
+-				interference -root			    \n\
+-				truchet -root -randomize		    \n\
+-				bsod -root				    \n\
+-				crystal -root				    \n\
+-				discrete -root				    \n\
+-				kumppa -root				    \n\
+-				rd-bomb -root				    \n\
 -	    "RD-Bomb (mobile)" 	rd-bomb -root -speed 1 -size 0.1	    \n\
--		       "Sonar" 	sonar -root				    \n\
--			 "T3D" 	t3d -root				    \n\
--		   "Penetrate" 	penetrate -root				    \n\
--		      "Deluxe" 	deluxe -root				    \n\
--		     "Compass" 	compass -root				    \n\
--		     "Squiral" 	squiral -root				    \n\
--		      "XFlame" 	xflame -root				    \n\
--		      "Wander" 	wander -root				    \n\
+-				sonar -root				    \n\
+-				t3d -root				    \n\
+-				penetrate -root				    \n\
+-				deluxe -root				    \n\
+-				compass -root				    \n\
+-				squiral -root				    \n\
+-				xflame -root				    \n\
+-				wander -root				    \n\
 -	      "Wander (spots)" 	wander -root -advance 0 -size 10 -circles     \
 				  True -length 10000 -reset 100000	    \n\
--		    "Critical" 	critical -root				    \n\
--		    "Phosphor" 	phosphor -root				    \n\
--		     "XMatrix" 	xmatrix -root				    \n\
--		       "Petri" 	petri -root -size 2 -count 20		    \n\
+-				critical -root				    \n\
+-				phosphor -root				    \n\
+-				xmatrix -root				    \n\
+-				petri -root -size 2 -count 20		    \n\
 -		     "Petri 2" 	petri -root -minlifespeed 0.02		      \
 				  -maxlifespeed 0.03 -minlifespan 1	      \
 				  -maxlifespan 1 -instantdeathchan 0	      \
 				  -minorchan 0 -anychan 0.3		    \n\
--		   "ShadeBobs" 	shadebobs -root				    \n\
--		     "C Curve" 	ccurve -root				    \n\
--		     "Blaster" 	blaster -root				    \n\
--		       "Bumps" 	bumps -root				    \n\
--		     "XTeeVee" 	xteevee -root				    \n\
--		 "XSpiroGraph" 	xspirograph -root			    \n\
--		    "NerveRot" 	nerverot -root				    \n\
+-				shadebobs -root				    \n\
+-				ccurve -root				    \n\
+-				blaster -root				    \n\
+-				bumps -root				    \n\
+-				xteevee -root				    \n\
+-				xspirograph -root			    \n\
+-				nerverot -root				    \n\
 -	    "NerveRot (dense)" 	nerverot -root -count 1000		    \n\
 -	    "NerveRot (thick)" 	nerverot -root -count 100 -line-width 4	      \
 				  -max-nerve-radius 0.8 -nervousness 0.5      \
 				  -db					    \n\
--		   "XRaySwarm" 	xrayswarm -root				    \n\
+-				xrayswarm -root				    \n\
 -	      "Zoom (Fatbits)" 	zoom -root				    \n\
 -	       "Zoom (Lenses)" 	zoom -root -lenses			    \n\
--		   "RotZoomer" 	rotzoomer -root				    \n\
+-				rotzoomer -root				    \n\
 -	  "RotZoomer (mobile)" 	rotzoomer -root -move			    \n\
 -	   "RotZoomer (sweep)" 	rotzoomer -root -sweep			    \n\
--	       "WhirlwindWarp" 	whirlwindwarp -root			    \n\
--		   "WhirlyGig" 	whirlygig -root -nlines 20 -whirlies 40	      \
+-				whirlwindwarp -root			    \n\
+-				whirlygig -root -nlines 20 -whirlies 40	      \
 				  -xspeed 0.5				    \n\
--		   "SpeedMine" 	speedmine -root				    \n\
+-				speedmine -root				    \n\
 -		   "SpeedWorm" 	speedmine -root -worm			    \n\
-- Color: 	     "Bubbles" 	bubbles -root				    \n\
-- Default-N: 	  "WebCollage" 	webcollage -root			    \n\
+- Color: 			bubbles -root				    \n\
+- Default-N: 			webcollage -root			    \n\
 - Default-N:  "WebCollage (whacked)"					      \
 				  webcollage -root -filter 'vidwhacker	      \
 				  -stdin -stdout'			    \n\
-- default-n: 	  "VidWhacker" 	vidwhacker -root			    \n\
-- GL: 		       "Gears" 	gears -root				    \n\
+- default-n: 			vidwhacker -root			    \n\
+- GL: 				gears -root				    \n\
 - GL: 	   "Gears (planetary)" 	gears -root -planetary			    \n\
-- GL: 	       "Superquadrics" 	superquadrics -root			    \n\
-- GL: 		     "Morph3D" 	morph3d -root				    \n\
-- GL: 			"Cage" 	cage -root				    \n\
-- GL: 		     "Moebius" 	moebius -root				    \n\
-- GL: 		      "Stairs" 	stairs -root				    \n\
-- GL: 		       "Pipes" 	pipes -root				    \n\
-- GL: 		  "Sproingies" 	sproingies -root			    \n\
-- GL: 		       "Rubik" 	rubik -root				    \n\
-- GL: 		    "Atlantis" 	atlantis -root				    \n\
-- GL: 		      "Lament" 	lament -root				    \n\
-- GL: 		    "Bubble3D" 	bubble3d -root				    \n\
-- GL: 		    "GLPlanet" 	glplanet -root				    \n\
-- GL: 		      "Pulsar" 	pulsar -root				    \n\
+- GL: 				superquadrics -root			    \n\
+- GL: 				morph3d -root				    \n\
+- GL: 				cage -root				    \n\
+- GL: 				moebius -root				    \n\
+- GL: 				stairs -root				    \n\
+- GL: 				pipes -root				    \n\
+- GL: 				sproingies -root			    \n\
+- GL: 				rubik -root				    \n\
+- GL: 				atlantis -root				    \n\
+- GL: 				lament -root				    \n\
+- GL: 				bubble3d -root				    \n\
+- GL: 				glplanet -root				    \n\
+- GL: 				pulsar -root				    \n\
 - GL: 	   "Pulsar (textures)" 	pulsar -root -texture -mipmap		      \
 				  -texture_quality -light -fog		    \n\
-- GL: 		   "Extrusion" 	extrusion -root				    \n\
-- GL: 		"Sierpinski3D" 	sierpinski3d -root			    \n\
-- GL: 		       "GFlux" 	gflux -root				    \n\
-- GL: 		  "StonerView" 	stonerview -root			    \n\
-- GL: 		    "StarWars" 	starwars -root -program uptime		    \n\
-- GL: 		      "GLText" 	gltext -root				    \n\
+- GL: 				extrusion -root				    \n\
+- GL: 				sierpinski3d -root			    \n\
+- GL: 				gflux -root				    \n\
+- GL: 				stonerview -root			    \n\
+- GL: 				starwars -root -program uptime		    \n\
+- GL: 				gltext -root				    \n\
 - GL: 	      "GLText (clock)" 	gltext -text "%A%n%d %b %Y%n%r" -root	    \n\
-- GL: 		    "Molecule" 	molecule -root				    \n\
+- GL: 				molecule -root				    \n\
 - GL: 	    "Molecule (lumpy)" 	molecule -root -no-bonds -no-labels	    \n\
-- GL: 		  "DangerBall" 	dangerball -root			    \n\
--		  "XDaliClock" 	xdaliclock -root -builtin3 -cycle	    \n\
-- default-n: 	      "XEarth" 	xearth -nofork -nostars -ncolors 50	      \
+- GL: 				dangerball -root			    \n\
+-				xdaliclock -root -builtin3 -cycle	    \n\
+- default-n: 			xearth -nofork -nostars -ncolors 50	      \
 				  -night 3 -wait 0 -timewarp 400.0 -pos	      \
 				  sunrel/38/-30				    \n\
 -		     "SSystem" 	ssystem -fullscreen :32			    \n\
--		  "XMountains" 	xmountains -b -M -Z 0 -r 1		    \n\
+-				xmountains -b -M -Z 0 -r 1		    \n\
 -	    "XMountains (top)" 	xmountains -b -M -Z 0 -r 1 -m		    \n\
--			"XaoS" 	xaos -root -autopilot -incoloring -1	      \
+-				xaos -root -autopilot -incoloring -1	      \
 				  -nogui -outcoloring -1		    \n\
--		   "XFishTank" 	xfishtank -d -s				    \n\
--		       "XSnow" 	xsnow					    \n\
--		       "Goban" 	goban -root				    \n\
--	       "ElectricSheep" 	electricsheep				    \n\
--		      "Cosmos" 	cosmos -root				    \n\
+-				xfishtank -d -s				    \n\
+-				xsnow					    \n\
+-				goban -root				    \n\
+-				electricsheep				    \n\
+-				cosmos -root				    \n\
+				vermiculate -root			    \n\
+				twang -root				    \n\
+				apollonian -root			    \n\
+				euler2d -root				    \n\
+	     "Euler2d (dense)" 	euler2d -root -count 4000 -eulertail 400      \
+				  -ncolors 230				    \n\
+-				juggle -root				    \n\
+				polyominoes -root			    \n\
+-				thornbird -root				    \n\
+				fluidballs -root			    \n\
+  GL: 				menger -root				    \n\
+  GL: 		"GFlux (grab)" 	gflux -root -mode grab			    \n\
+  GL: 				circuit -root				    \n\
+  GL: 				engine -root				    \n\
+  GL: 				flipscreen3d -root			    \n\
+  GL: 				glsnake -root				    \n\
+  GL: 				boxed -root				    \n\
+  GL: 				glforestfire -root			    \n\
+  GL: 				sballs -root				    \n\
+  GL: 				cubenetic -root				    \n\
+-				xplanetbg -xscreensaver -moonside	      \
+				  -markerfile earth -wait 1 -timewarp 400   \n\
+- GL: 				sphereEversion --root			    \n\
 
 
 pointerPollTime:    0:00:05

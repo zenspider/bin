@@ -19,8 +19,11 @@ my %word = ();
 my $total = 0;
 my $html = 0;
 
+my %option;
 &GetOptions(
-	    html => \$html,
+	    \%option,
+	    'html',
+	    'dev',
 	   );
 
 @ARGV = ('.') unless @ARGV;
@@ -35,6 +38,9 @@ sub wanted {
 
   if (-f _ && $_ !~ m/\.pyc$|\.o$|~$/) {
     return if -B _;
+    if ($option{'dev'}) {
+      return unless $File::Find::name =~ m%/dev/%;
+    }
     push @check, $File::Find::name;
   } else {
     if ($File::Find::name # LEAVE THIS ON TWO LINES - rcs expansion nuking code
@@ -87,7 +93,7 @@ sub report {
   }
 
   print OUT "<PRE>"
-    if $html;
+    if $option{'html'};
 
   print OUT $summary;
 
@@ -96,7 +102,7 @@ sub report {
     print OUT "${file} (", scalar(@{$hit{$file}}), "):\n\n";
     foreach my $line (@{$hit{$file}}) {
 
-      if ($html) {
+      if ($option{'html'}) {
 	$line =~ s|&|&amp;|g;
 	$line =~ s|<|&lt;|g;
 	$line =~ s|>|&gt;|g;
@@ -111,7 +117,7 @@ sub report {
   print OUT $summary;
 
   print OUT "</PRE>\n"
-    if $html;
+    if $option{'html'};
 
   close OUT if I_am_interactive;
 }
@@ -123,9 +129,9 @@ sub summary {
   my $hitcount = scalar keys %hit;
 
   $summary .= "Summary:\n\n";
-  $summary .= sprintf "  %-24s : %4d\n", "Number of files checked", $checkcount;
-  $summary .= sprintf "  %-24s : %4d (%4.2f%%)\n", "Number of files marked", $hitcount, ($hitcount / $checkcount * 100);
   $summary .= sprintf "  %-24s : %4d\n", "Number of tags found", $total;
+  $summary .= sprintf "  %-24s : %4d (%4.2f%%)\n", "Number of files marked", $hitcount, ($hitcount / $checkcount * 100);
+  $summary .= sprintf "  %-24s : %4d\n", "Number of files checked", $checkcount;
 
   if ($hitcount > 0) {
     $summary .= sprintf "  %-24s : %7.2f\n", "Tags per infected file", ($total / $hitcount);

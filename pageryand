@@ -7,7 +7,7 @@ my $msg = join(' ', @ARGV) || die "need a message to page with";
 
 my $mail = Mail::Mailer->new();
 $mail->open({
-	     To      => 'ryand-pager@zenspider.com',
+	     To      => '2069999936@vtext.com',
 	    })
   or die "Can't open mail: $!\n";
 print $mail $msg;

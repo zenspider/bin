@@ -7,7 +7,8 @@ case $- in
   
   # interactive shell
   *i*)
-#       stty discard undef
+       stty discard undef dsusp undef eol undef eol2 undef erase2 undef lnext undef quit undef reprint undef status undef werase undef
+#       stty -iexten
        ;;
   *)
      ;;
