@@ -5,20 +5,17 @@
 # of how xsession works. In otherwords, you are running
 # is 'sh', not 'bash', if you aren't executable.
 
-export PRINTER=bianchi
 . ~/.bashrc
 
-xrdb -load /toasters/toaster5/users/ryand/.Xresources
+xrdb -load ~/.Xresources
 xmodmap ~/.xmodmap.dvorak
 xscreensaver &
 
-# Fix amazon.com's ncd xterm keyboards
-# if [ $DOMAIN = "amazon.com" ]; then
-#   xmodmap -e "keysym SunF37 = F12"
-#   xmodmap -e "keysym SunF36 = F11"
-# fi
-
-# Exec Window Manager
-#export LD_LIBRARY_PATH=/dept/snoc/arch/lib
-export LD_LIBRARY_PATH=fvwm2/lib:${LD_LIBRARY_PATH-}
+if [ $DOMAIN = "amazon.com" ]; then
+  export PRINTER=bianchi
+  #   xmodmap -e "keysym SunF37 = F12"
+  #   xmodmap -e "keysym SunF36 = F11"
+  export LD_LIBRARY_PATH=fvwm2/lib:${LD_LIBRARY_PATH-}
+fi
+ 
 exec fvwm2
