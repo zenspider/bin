@@ -77,14 +77,23 @@ sub report {
 
   my $summary = &summary;
 
-  print "<PRE>"
+  local $SIG{PIPE} = sub { die "spooler pipe broke" };
+
+  if (I_am_interactive) {
+    my $pager = $ENV{'PAGER'} || 'more';
+    open OUT, "| $pager" || die "Couldn't open pipe: $!";
+  } else {
+    *OUT = *STDOUT;
+  }
+
+  print OUT "<PRE>"
     if $html;
 
   print $summary;
 
-  print "Detail:\n\n";
-  foreach my $file (sort {scalar @{$hit{$b}} <=> scalar @{$hit{$a}}} keys %hit) {
-    print "${file} (", scalar(@{$hit{$file}}), "):\n\n";
+  print OUT "Detail:\n\n";
+  foreach my $file (sort {scalar @{$hit{$b}} <=> scalar @{$hit{$a}} || $a cmp $b} keys %hit) {
+    print OUT "${file} (", scalar(@{$hit{$file}}), "):\n\n";
     foreach my $line (@{$hit{$file}}) {
 
       if ($html) {
@@ -94,15 +103,17 @@ sub report {
 	$line =~ s|($keywords)|<B>$1</B>|og;
       }
 
-      print $line, "\n";
+      print OUT $line, "\n";
     }
-    print "\n\n";
+    print OUT "\n\n";
   }
 
-  print $summary;
+  print OUT $summary;
 
-  print "</PRE>\n"
+  print OUT "</PRE>\n"
     if $html;
+
+  close OUT if I_am_interactive;
 }
 
 sub summary {
