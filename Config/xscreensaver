@@ -1,0 +1,37 @@
+# XScreenSaver Preferences File
+# Written by xscreensaver-demo 3.12 for ryand on Mon May 17 19:04:39 1999.
+# http://www.jwz.org/xscreensaver/
+
+timeout:	       0:10:00
+cycle:		       0:00:00
+lock:		       True
+lockTimeout:	       0:02:30
+passwdTimeout:	       0:00:30
+visualID:	       default
+installColormap:       True
+verbose:	       False
+timestamp:	       False
+splashDuration:	       0:00:05
+demoCommand:	       xscreensaver-demo
+prefsCommand:	       xscreensaver-demo -prefs
+helpURL:	       http://www.jwz.org/xscreensaver/man.html
+loadURL:	       netscape -remote 'openURL(%s)' || netscape '%s'
+nice:		       10
+fade:		       False
+unfade:		       False
+fadeSeconds:	       0:00:00
+fadeTicks:	       20
+captureStderr:	       True
+font:		       *-medium-r-*-140-*-m-*
+
+programs:
+
+pointerPollTime:       0:00:05
+windowCreationTimeout: 0:00:30
+initialDelay:	       0:00:00
+sgiSaverExtension:     True
+mitSaverExtension:     False
+xidleExtension:	       True
+procInterrupts:	       True
+overlayStderr:	       True
+
