@@ -150,6 +150,10 @@ case "${HOSTTYPE}.${OSTYPE}" in
     alias ps-all='ps -ef'
     ;;
 
+  powerpc.darwin* )
+    alias ps-all='ps auxww'
+    ;;
+
   *)
     echo "$0:${HOSTTYPE}.${OSTYPE} is an unknown machine type"
     ;;
