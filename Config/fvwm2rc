@@ -74,6 +74,7 @@ Mouse 3	TSIF	A	RaiseLower
 
 ######################## Initialization Functions ############################
 AddToFunc InitFunction 	"I" Module FvwmButtons
++			"I" Exec xmodmap /home/ryand/.xmodmap.dvorak
 +			"I" Exec xsetroot -solid gray40 &
 +			"I" Exec xemacs &
 
