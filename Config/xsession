@@ -15,6 +15,7 @@ LOG=~/.xinitrc.log
 echo $(date): starting xinitrc on $HOSTNAME.$DOMAIN >> $LOG
 
 xrdb -load ~/.Xresources
+xmodmap -e "remove Lock = Caps_Lock"
 xmodmap ~/.xmodmap.dvorak
 
 if [ $DOMAIN = "amazon.com" ]; then
@@ -31,6 +32,8 @@ if [ $DOMAIN = "zenspider.com" ]; then
     xscreensaver &
   fi
 fi
+
+xterm &
 
 fvwm2
 
