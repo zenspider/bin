@@ -1,1 +1,3 @@
 # -*-ksh-*-
+
+export CLASSPATH=
