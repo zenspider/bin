@@ -91,6 +91,31 @@ case $- in
   # not interactive
   *) 
       
+    case "${HOSTTYPE}.${OSTYPE}" in
+      
+      "alpha.OSF1" )
+  	export LD_LIBRARY_PATH=/dept/snoc/arch/lib:${LD_LIBRARY_PATH-}
+	;;
+      "sparc.sunos" )
+	;;
+      
+      "hp.hpux" )
+	;;
+      
+      "sparc.solaris" )
+ 	export LD_LIBRARY_PATH=/usr/shlib:/usr/openwin/lib:/usr/X11R6.1/lib:/usr/lib:${LD_LIBRARY_PATH-}
+	# export LD_LIBRARY_PATH=/usr/openwin/lib;
+	
+	;;
+      
+       "sgi.Irix6" )
+ 	;;	
+       
+      * )
+	echo $0:${HOSTTYPE}.${OSTYPE} is an unknown machine type
+	;;
+      
+    esac
     ;;
 esac
 
