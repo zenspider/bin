@@ -42,8 +42,7 @@ open LOG, ">>/home/ryand/.mailfilter.log"
 # Get all of our standard fields of interest.
 my ($item, $from, $to, $cc, $subject);
 unless ($option{check}) {
-  $item = Mail::SpamAssassin::MyMailAudit->new();
-#  $item = Mail::Audit->new();
+  $item = Mail::Audit->new();
   $from = $item->from() || '';
   $to = $item->to() || '';
   $cc = $item->cc() || '';
@@ -133,10 +132,14 @@ unless ($option{check}) {
   my $spamtest = Mail::SpamAssassin->new;
   my $status = $spamtest->check($item);
   my $spam = $status->is_spam;
+
+  $status->rewrite_mail;
+  $status->handle_auto_report;
+
   if ($spam) {
     &save("BlackBox", "SPAM: " . $status->get_names_of_tests_hit);
   } else {
-    &save("GrayBox", "Default rule");
+    &save("GrayBox", "Default rule: " . $status->get_names_of_tests_hit);
   }
 } else {
   &log("Looks good");
