@@ -3,8 +3,8 @@
 use strict;
 
 ############################################################
-my $strike = 75.5 / 3;
-my $amount = 5500 * 3;
+my $strike = 75.5 / 6;
+my $amount = 5500 * 6;
 my $symbol = 'AMZN';
 ############################################################
 
@@ -12,12 +12,31 @@ use File::Basename;
 my $cmd = $0;
 my $cmddir = dirname($cmd);
 
+# http://finance.yahoo.com/d/quotes.csv?s=AMZN&f=sl1d1t1c1ohgv&e=.csv
+# s  = ticker symbol
+# l1 = last price
+# d1 = date
+# t1 = time
+# c1 = change
+# o  = open price
+# h  = daily high
+# g  = daily low
+# v  = volume
+
+my $fields = 'l1c1';
+
 use LWP::Simple;
-my $price = get "http://quote.yahoo.com/d/quotes.csv?s=$symbol&f=l1&e=.csv";
-die unless $price;
+my $data = get "http://quote.yahoo.com/d/quotes.csv?s=$symbol&f=$fields&e=.csv";
+die unless $data;
 
-$price =~ s/\s*(\S+)\s*/$1/s;
+my ($price,$change) = split(/,/, $data);
 my $options = int($amount * ($price - $strike));
-my $subject = sprintf("A %6.2f%8d", $price, $options);
+my $subject = sprintf("%s %.2f (%+.2f) %d", 
+		      $symbol, $price, $change, $options);
 
-print `$cmddir/pageryand $subject`;
+if (0) {
+  print "$subject\n";
+} else {
+  print `$cmddir/pageryand "$subject"`;
+}
+  
