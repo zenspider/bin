@@ -1,0 +1,155 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Digest::MD5;
+use Getopt::Long;
+use Data::Dumper;
+$Data::Dumper::Indent = 1;
+
+my %option = ();
+GetOptions(\%option,
+	   "no",
+	   "yes",
+	   "rm",
+	   "cp",
+	   "mv",
+	   "diff",
+	   "report",
+	  );
+
+# rm files from B that are the same
+# cp files from B that are different
+# cp files from B that are missing
+
+# diff files that are different
+
+$option{no} = 1;
+$option{yes} = 0;
+
+my $aDirBase = shift;
+my $bDirBase = shift;
+
+unless (
+	defined $aDirBase &&
+	defined $bDirBase &&
+	-d $aDirBase &&
+	-d $bDirBase
+       ) {
+  print "USAGE: FIX\n";
+  exit 1;
+}
+
+print "Scanning $aDirBase\n";
+my $aMD5 = &rmd5($aDirBase);
+print "Scanning $bDirBase\n";
+my $bMD5 = &rmd5($bDirBase);
+
+print "Comparing results\n";
+my $cmp = &cmpHash($aMD5, $bMD5);
+
+if ($option{diff}) {
+  foreach (@{$cmp->{diff}}) {
+    print '-' x 60, "\n";
+    system "diff -c $aDirBase$_ $bDirBase$_";
+  }
+}
+
+if ($option{rm}) {
+  foreach (@{$cmp->{same}}) {
+    print "rm $bDirBase$_\n";
+  }
+}
+
+if ($option{report}) {
+  print "Missing in $bDirBase\n";
+  foreach (@{$cmp->{notB}}) {
+    print "  $aDirBase$_\n";
+  }
+  print "Missing in $aDirBase\n";
+  foreach (@{$cmp->{notA}}) {
+    print "  $bDirBase$_\n";
+  }
+}
+
+exit 0;
+
+# given a path to a directory, returns a hash of all enclosed files w/ MD5s
+sub rmd5 {
+  my $path = shift || die "Need a path";
+  die "$path must be a directory" unless -d $path;
+
+  my %result = ();
+  my @dirs  = ($path);
+
+  while (@dirs) {
+    my $dir = shift @dirs;
+    opendir DIR, $dir;
+
+    foreach my $file (readdir DIR) {
+      next if $file =~ m/^\.\.?$/;
+
+      $file = "$dir/$file";
+
+      if (-d $file) {
+	push @dirs, "$file";
+      } elsif (-f $file) {
+
+	my $digest = Digest::MD5->new;
+	open IN, $file || warn "$!", next;
+	$digest->addfile(\*IN);
+
+	$file =~ s/^$path//;
+	$result{$file} = $digest->hexdigest;
+
+      } else {
+	print "UNKNOWN TYPE: $file\n";
+      }
+    }
+    
+    closedir DIR;
+  }
+
+  return \%result;
+}
+
+sub cmpHash {
+
+  my $a = shift;
+  my $b = shift;
+  my @notB = ();
+  my @notA = ();
+  my @same = ();
+  my @diff = ();
+
+  # find all common keys and things not in B
+  foreach my $key (keys %$a) {
+    if (exists $b->{$key}) {
+      if ($a->{$key} eq $b->{$key}) {
+	push @same, $key;
+      } else {
+	push @diff, $key;
+      }
+    } else {
+      push @notB, $key;
+    }
+  }
+
+  # find all things not in A
+  foreach my $key (keys %$b) {
+    unless (exists $a->{$key}) {
+      push @notA, $key;
+    }
+  }
+
+  @notB = sort @notB;
+  @notA = sort @notA;
+  @same = sort @same;
+  @diff = sort @diff;
+
+  return {
+	  same => \@same,
+	  diff => \@diff,
+	  notA => \@notA,
+	  notB => \@notB,
+	 };
+}
