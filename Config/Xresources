@@ -1,5 +1,7 @@
 *Font:      -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
 *Font.Name: -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
+# for rxvt
+*font:      -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
 
 #ifdef COLOR
 XTerm*background:			black
@@ -16,26 +18,6 @@ XTerm*utmpInhibit:			false
 XTerm*waitForMap:			true
 XTerm*reverseWrap:			true
 XTerm*multiScroll:			true
-
-#*confirmExit:				False
-
-##ifdef NCD_WM
-#NCDwm*keyboardFocusPolicy:		pointer
-#NCDwm*focusAutoRaise:			false
-#NCDwm*flashBorders:			true
-#NCDwm*hotKeys:				true
-#NCDwm*modifier:			shift
-#NCDwm*moveOpaque:			false
-#NCDwm*moveThreshold:			4
-#NCDwm*shadowWidth:			1
-#NCDwm*useIconBox:			on
-#NCDwm*iconBoxGeometry:			3x1+720+19
-#NCDwm*hideIcon:			on
-#NCDwm*XClock.clientDecoration:		-title -border
-#NCDwm*xpbiff.clientDecoration:		-title -border
-#NCDwm*nuemacs.clientDecoration:	-title
-#NCDwm*xcmdpanel.clientDecoration:	-title -border
-##endif NCD_WM
 
 ! default colours for color_xterm
 *VT100*color0:	black
