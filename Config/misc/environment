@@ -33,7 +33,7 @@ if [[ $- == *i* ]]; then
   stty erase '^h' intr '^c' kill '^u' susp '^z'
   
   if [ ! -z ${DISPLAY-} ] ; then
-    if [ $DISPLAY == ":0.0" ]; then
+    if [ $DISPLAY == ":0.0" -o $DISPLAY == "unix:0.0" ]; then
       export DISPLAY="$HOSTNAME:0.0"
     fi
     echo "export DISPLAY=$DISPLAY"
