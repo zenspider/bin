@@ -1,0 +1,8 @@
+#!/usr/local/bin/bash
+
+p4 have $(p4 where | cut -f 1 -d\ ) | perl -pe 's|^.*- ||' | sort > /tmp/p4.$$.1
+find $PWD -type f | sort > /tmp/p4.$$.2
+
+diff /tmp/p4.$$.1 /tmp/p4.$$.2 | perl -ne "s|$PWD/||; s|>|?|; s|<|U|; print unless m|^\d|"
+
+rm -f /tmp/p4.$$.*
