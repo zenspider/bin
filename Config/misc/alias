@@ -217,7 +217,7 @@ la () {
 }
 
 unset ll
-unalias ll
+#unalias ll
 ll () {
   ls -Fl $* | ${PAGER-more} 
 }
