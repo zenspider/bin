@@ -22,22 +22,29 @@ case $- in
     
     # Universal display mechanism, hopefully works
     if [ -z ${DISPLAY-} ] ; then
-      export DISPLAY=$(cat ~/.display)
+      if [ -f ~/.display ]; then
+	export DISPLAY=$(cat ~/.display)
+      else
+	echo "No DISPLAY"
+      fi
     else
       echo $DISPLAY > ~/.display
     fi
     
     # ESHELL is what emacs will run for a shell
-    export ESHELL=/bin/bash
+    export ESHELL="/bin/bash"
     
     case "${HOSTTYPE}.${OSTYPE}" in
       
       "alpha.OSF1" )
 	stty echoe erase '^h'
 	stty discard undef
+	export LD_LIBRARY_PATH=/dept/snoc/arch/lib:${LD_LIBRARY_PATH-}
+	export PRINTER=denali
+
 	;;
       "sparc.sunos" )
-	stty erase '^h'
+	stty erase '^h' intr '^c' kill '^u'
 	PATH=$PATH:/usr/ucb
 	;;
       
@@ -53,17 +60,25 @@ case $- in
 	# Set stack size limit to maximum hard limit
 	ulimit -s $(ulimit -sH);
 	
-	stty erase '^h'
+	stty erase '^h' intr '^c' kill '^u'
 	stty echoe
+	
+	# Open Windows, yuck
+	export OPENWINHOME=/usr/openwin
+	export LD_LIBRARY_PATH=/usr/shlib:/usr/openwin/lib:/usr/X11R6.1/lib:/usr/lib:${LD_LIBRARY_PATH-}
+	export OW_WINDOW_MANAGER=/usr/local/bin/ctwm
 	
 	# for compiler/dbx support
 	export LM_LICENSE_FILE=/opt/SUNWspro/license_dir/sunpro.lic,1
 	
 	# Add Java path to Solaris pathing:
 	PATH=$PATH:/usr/ucb
-	export LD_LIBRARY_PATH=/usr/openwin/lib;
 	
 	;;
+      
+      "sgi.Irix6" )
+	stty erase '^h' intr '^c' kill '^u'
+	;;	
       
       * )
 	echo $0:${HOSTTYPE}.${OSTYPE} is an unknown machine type
@@ -81,9 +96,16 @@ esac
 
 ############################################################
 # Pathing:
+# 
+# Need to find a clean way of dealing w/ pathing & multiple jobs/platforms
 
+OLDPATH=$PATH
 PATH=''
-MYPATH=~/Bin:/opt/amazon/website/bin:/opt/third-party/bin:/usr/local/gnu/bin:/usr/local/bin:/usr/local/script:/usr/local/script/QA:/bin:/sbin:/usr/ucb:/usr/ccs/lib:/dept/snoc/arch/bin:/sbin:/usr/sbin:/usr/bin:/usr/ccs/bin:/usr/bin/X11
+#OLDMYPATH=/usr/ucb:/usr/ccs/lib:/usr/ccs/bin:
+#AMAZON_PATH=/opt/amazon/website/bin:/opt/third-party/bin:/usr/local/gnu/bin:/usr/local/script:/usr/local/script/QA:/dept/snoc/arch/bin:
+
+STD_PATH=/usr/sbin:/usr/bsd:/sbin:/usr/bin:/bin:
+MYPATH=~/Bin:/usr/freeware/bin:/usr/gnu/bin:/usr/bin/X11:/usr/local/bin:${STD_PATH}
 
 oldIFS=$IFS
 IFS=:
@@ -101,13 +123,6 @@ export SAVEPATH=$PATH
 export CDPATH=.:~/
 
 export MANPATH=~/.man:/usr/local/gnu/man:/usr/local/man:/usr/man:/usr/openwin/man:/usr/X11R6.1/man:/dept/snoc/man:.
-
-export PRINTER=denali
-
-# Open Windows, yuck
-export OPENWINHOME=/usr/openwin
-export LD_LIBRARY_PATH=/usr/shlib:/usr/openwin/lib:/usr/X11R6.1/lib:/dept/snoc/arch/lib:/usr/lib:${LD_LIBRARY_PATH-}
-export OW_WINDOW_MANAGER=/usr/local/bin/ctwm
 
 export PERL5LIB=.:/home/ryand/Dev/Perl
 

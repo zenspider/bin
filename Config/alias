@@ -177,6 +177,10 @@ case "${HOSTTYPE}.${OSTYPE}" in
     alias ps-all='ps -ef'
     ;;
 
+  "sgi.Irix6" )
+    alias ps-all='ps -ef'
+    ;;
+
   *)
     echo "$0:${HOSTTYPE}.${OSTYPE} is an unknown machine type"
     ;;
