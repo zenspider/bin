@@ -4,30 +4,32 @@ use strict;
 use Digest::MD5;
 use Getopt::Long;
 use Data::Dumper;
+use File::Basename;
 $Data::Dumper::Indent = 1;
 
 my %option = ();
 GetOptions(\%option,
 	   "no",
-	   "yes",
 	   "rm",
 	   "cp",
 	   "mv",
 	   "diff",
 	   "report",
+	   "debug",
 	  );
 
+$option{report} = 1
+  unless $option{cp} || $option{rm} || $option{diff};
+
 # rm files from B that are the same
-# cp files from B that are different
-# cp files from B that are missing
-
+# cp files from B that are different or missing in A
 # diff files that are different
-
-$option{no} = 1;
-$option{yes} = 0;
 
 my $aDirBase = shift;
 my $bDirBase = shift;
+my $aMD5 = {};
+my $bMD5 = {};
+my $cmp  = {};
 
 unless (
 	defined $aDirBase &&
@@ -39,39 +41,102 @@ unless (
   exit 1;
 }
 
-print "Scanning $aDirBase\n";
-my $aMD5 = &rmd5($aDirBase);
-print "Scanning $bDirBase\n";
-my $bMD5 = &rmd5($bDirBase);
+&scan;
+&compare;
+&debug, exit(1)  if $option{debug};
+&diff   if $option{diff};
+&copy   if $option{cp};
+&remove if $option{rm};
+&report if $option{report};
+exit(0);
 
-print "Comparing results\n";
-my $cmp = &cmpHash($aMD5, $bMD5);
+sub debug {
+  print Dumper($cmp);
+}
 
-if ($option{diff}) {
+sub scan {
+  print "Scanning $aDirBase\n";
+  $aMD5 = &rmd5($aDirBase);
+  print "Scanning $bDirBase\n";
+  $bMD5 = &rmd5($bDirBase);
+}
+
+sub compare {
+  print "Comparing results\n";
+  $cmp = &cmpHash($aMD5, $bMD5);
+}
+
+sub run {
+  my $cmd = join(' ', @_);
+
+  if ($option{no}) {
+    print "$cmd\n";
+  } else {
+    my $status = system $cmd;
+    #die "Problem running '$cmd' ($?): $!" if $status;
+  }
+}
+
+sub countDirContents {
+  my $path = shift;
+  my $count = 0;
+  die "'$path' is not a directory" unless -d $path;
+
+  opendir DIR, $path || die "Couldn't open '$path': $!";
+  foreach my $file (readdir DIR) {
+    next if $file =~ m/^\.\.?$/;
+    $count++;
+  }
+  closedir DIR;
+
+  return $count;
+}
+
+sub pruneDir {
+  my $dir = shift;
+  die "'$dir' is not a directory" unless -d $dir;
+
+  if (countDirContents($dir) == 0) {
+    run "rm -rf $dir";
+    pruneDir(dirname $dir);
+  }
+}
+
+sub diff {
   foreach (@{$cmp->{diff}}) {
-    print '-' x 60, "\n";
-    system "diff -c $aDirBase$_ $bDirBase$_";
+    print "-" x 70, "\n" unless $option{no};
+    run "diff -c $aDirBase$_ $bDirBase$_";
   }
 }
 
-if ($option{rm}) {
-  foreach (@{$cmp->{same}}) {
-    print "rm $bDirBase$_\n";
+sub copy {
+  foreach (@{$cmp->{diff}}) {
+    run "cp $bDirBase$_ $aDirBase$_";
   }
-}
-
-if ($option{report}) {
-  print "Missing in $bDirBase\n";
-  foreach (@{$cmp->{notB}}) {
-    print "  $aDirBase$_\n";
-  }
-  print "Missing in $aDirBase\n";
   foreach (@{$cmp->{notA}}) {
-    print "  $bDirBase$_\n";
+    run "cp $bDirBase$_ $aDirBase$_";
   }
 }
 
-exit 0;
+sub remove {
+  foreach (@{$cmp->{same}}) {
+    run "rm -f $bDirBase$_";
+    pruneDir(dirname "$bDirBase$_");
+  }
+}
+
+sub report {
+  my %data = ();
+
+  foreach (@{$cmp->{notA}}) { $data{$_} = '>'; }
+  foreach (@{$cmp->{notB}}) { $data{$_} = '<'; }
+  foreach (@{$cmp->{same}}) { $data{$_} = '='; }
+  foreach (@{$cmp->{diff}}) { $data{$_} = '~'; }
+  
+  foreach (sort keys %data) {
+    print "$data{$_} $_\n";
+  }
+}
 
 # given a path to a directory, returns a hash of all enclosed files w/ MD5s
 sub rmd5 {
