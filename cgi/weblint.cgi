@@ -116,7 +116,8 @@ sub printDir {
 
   print "<OL>\n";
   my %contents;
-  find sub { $contents{$File: //depot/main/user/ryand/Bin/cgi/weblint.cgi $file;
+  find sub { $contents{$File::Find::name}++ }, # LEAVE SPLIT rcs killing code
+		       $file;
   my $item;
   for $item (sort keys %contents) {
     my $name = basename($item);

@@ -37,7 +37,8 @@ sub wanted {
     return if -B _;
     push @check, $File::Find::name;
   } else {
-    if ($File: //depot/main/user/ryand/Bin/progress.pl $/ || -l _) {
+    if ($File::Find::name # LEAVE THIS ON TWO LINES - rcs expansion nuking code
+	=~ m/CVS|blib|html$/ || -l _) {
       $File::Find::prune = 1;
     }
   }
