@@ -31,7 +31,7 @@ set -u		# For a while, break when undefined variable is used.
 
 CONFIG=$HOME/Bin/Config
 
-export DOMAIN=$(hostname | perl -pe 's/.*\.([^\.]+\.[^\.]+)$/$1/;')
+export DOMAIN=$(hostname | /usr/local/bin/perl -pe 's/.*\.([^\.]+\.[^\.]+)$/$1/;')
 export HOSTNAME=$(hostname -s)
 
 for f in $CONFIG/$DOMAIN $CONFIG/$HOSTNAME $CONFIG/environment; do
