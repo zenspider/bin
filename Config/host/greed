@@ -1,4 +1,5 @@
 # -*-ksh-*-
 
-HOSTPATH=/usr/local/jdk1.1.8/bin
+HOSTPATH=/usr/local/jdk1.1.8/bin:/usr/local/pgsql/bin:
+MANPATH=${MANPATH-}:/usr/local/pgsql/man
 export CVSROOT=/usr/cvs
