@@ -11,7 +11,7 @@ my $symbol = 'AMZN';
 my $today = time2str("%Y-%m-%d", time);
 my $cmd = $0;
 my $cmddir = dirname($cmd);
-my $test = 1;
+my $test = 0;
 
 GetOptions('test' => \$test) || die "bad option";
 
@@ -55,6 +55,7 @@ my $message = sprintf("%s \$%.2f (\$%+.2f) total=\$%d",
 if ($test) {
   print "$message\n";
 } else {
+  $message =~ s/\$/\\\$/g;
   print `$cmddir/pageryand "$message"`;
 }
 
