@@ -138,12 +138,11 @@ case "${HOSTTYPE}.${OSTYPE}" in
     alias ps-all='ps -ef'
     ;;
 
-  #"i386.freebsd*" | "i386.FreeBSD*")
-i386.[Ff]ree[Bb][Ss][Dd]*)
+  i386.[Ff]ree[Bb][Ss][Dd]*)
     alias ps-all='ps aux'
     ;;
 
-  "i386.linux-gnu" )
+  i386.[Ll]inux* )
     alias ps-all='ps -ef'
     ;;
 
