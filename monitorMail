@@ -7,7 +7,8 @@ my $clear = `clear`;
 my $i = 0;
 
 my $homedir = (getpwnam('ryand'))[7];
-chdir('$homedir/Mail/spool') || die "Couldn't cd to directory: $!";
+my $maildir = "$homedir/Mail/spool";
+chdir($maildir) || die "Couldn't cd to '$maildir': $!";
 opendir(DIR, '.');
 my @dirs = grep { /^[^\.]/ } readdir(DIR);
 closedir(DIR);
