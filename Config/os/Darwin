@@ -1,6 +1,6 @@
 # -*-ksh-*-
 
-OSPATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:
+OSPATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/opt/local/bin:/opt/local/sbin
 export MANPATH=/usr/share/man:/usr/local/man:/usr/share/perl/man:/usr/local/lib/perl5/5.00503/man
 
 case $- in
