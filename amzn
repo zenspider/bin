@@ -8,7 +8,6 @@ use LWP::Simple;
 
 my $symbol = 'AMZN';
 
-my $today = time2str("%Y-%m-%d", time);
 my $cmd = $0;
 my $cmddir = dirname($cmd);
 my $test = 0;
@@ -27,6 +26,7 @@ GetOptions('test' => \$test) || die "bad option";
 # v  = volume
 
 my $price = shift || 0;
+my $today = shift || time2str("%Y-%m-%d", time);
 my $change;
 
 unless ($price) {
