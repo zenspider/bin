@@ -31,10 +31,10 @@ set -u		# For a while, break when undefined variable is used.
 
 CONFIG=$HOME/Bin/Config
 
-export DOMAIN=$(hostname | /usr/local/bin/perl -pe 's/.*\.([^\.]+\.[^\.]+)$/$1/;')
+export DOMAIN=$(hostname | /usr/bin/perl -pe 's/.*\.([^\.]+\.[^\.]+)$/$1/;')
 export HOSTNAME=$(hostname -s)
 
-for f in $CONFIG/$DOMAIN $CONFIG/$HOSTNAME $CONFIG/environment; do
+for f in $CONFIG/os/$(uname) $CONFIG/domain/$DOMAIN $CONFIG/host/$HOSTNAME $CONFIG/misc/environment; do
   if [ -f $f ] ; then
     . $f
   fi
@@ -45,7 +45,7 @@ case $- in
   # interactive shell
   *i*)
     
-    ALIAS_FILE=$CONFIG/alias
+    ALIAS_FILE=$CONFIG/misc/alias
 
     if [ -f $ALIAS_FILE ] ; then
       . $ALIAS_FILE
