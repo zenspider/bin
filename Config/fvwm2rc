@@ -40,7 +40,8 @@ Style "FvwmBanner"  StaysOnTop
 Style "FvwmButtons" Icon toolbox.xpm, StaysOnTop, BorderWidth 0, HandleWidth 0
 
 # Styles for your common terminal emulator programs:
-Style "XTerm"       Icon xterm.xpm, IconBox -70 1 -1 -140
+Style "xterm"       Icon xterm.xpm, IconBox -70 1 -1 -140
+Style "rxvt"        Icon xterm.xpm, IconBox -70 1 -1 -140
 
 # Styles for various common programs:
 Style "*lock"       NoTitle, NoHandles, Sticky, WindowListSkip
@@ -83,6 +84,7 @@ AddToFunc RestartFunction "I" Module FvwmButtons
 
 ######################## Menus ###################
 AddToMenu RootMenu	"Root Menu"	Title
++			"rxvt"		Exec exec rxvt
 +			"Logins"	Popup Logins
 +			""		Nop
 +                       "Utilities"     Popup Utilities
@@ -98,17 +100,15 @@ AddToMenu RootMenu	"Root Menu"	Title
 +			"Exit Fvwm"	Module FvwmForm QuitVerify
 
 AddToMenu Utilities     "Utilities" Title
-+			"Top"		Exec exec xterm -T Top -n Top -e top
++			"Navigator"	Exec exec netscape
++			"XEmacs"	Exec exec xemacs
++                       "Mail"          MailFunction gnuclient -f vm
++			""		Nop
++			"Top"		Exec exec rxvt -e top
 +			"Calculator"	Exec exec xcalc
 +			"Xman"		Exec exec xman
 +			"Xmag"		Exec exec xmag
 +                       "Editres"       Exec exec editres
-+			""		Nop
-+			"XEmacs"	Exec exec xemacs
-+			"Netscape"	Exec exec netscape
-+                       "Mail"          MailFunction gnuclient -f vm
-+			""		Nop
-+                       "XLock"         Exec exec xlock -mode random
 +			""		Nop
 +                       "Reset X defaults" Exec xrdb -load $HOME/.Xdefaults
 
@@ -169,6 +169,7 @@ AddToMenu Logins	"XTerm"		Exec exec xterm
 +			"cachimbo"	Exec rsh cachimbo	 xterm -display $HOSTDISPLAY &
 +			"web-build-1"	Exec rsh website-build-1 xterm -display $HOSTDISPLAY &
 +			"web-build-2"	Exec rsh website-build-2 xterm -display $HOSTDISPLAY &
++			"web-build-4"	Exec rsh website-build-4 xterm -display $HOSTDISPLAY &
 +			""		Nop
 
 AddToMenu Module-Popup	"FvwmModules"	Title
@@ -202,7 +203,7 @@ AddToMenu Restart 	"Restart" Title
 +			"tvtwm"		Restart tvtwm
 +			"twm"		Restart twm
 +			"vtwm"		Restart vtwm
-+			"xterm"		Restart xterm
++			"rxvt"		Restart rxvt
 
 ######################## Sample Functions ##########################
 
@@ -243,12 +244,6 @@ AddToFunc PrintReverseFunction  "I" Raise
 AddToFunc Iconify-and-Raise     "I" Iconify
 +                               "I" Raise
 
-# RLOGIN machine fg bg
-# AddToFunc RLOGIN "I" Exec xterm -fg $1 -bg $2 -e rlogin $0 -8
-
-# TELNET machine fg bg
-# AddToFunc TELNET "I" Exec xterm -fg $1 -bg $2 -e telnet $0
-
 AddToFunc FocusAndWarp "I" Focus
 +                      "I" WarpToWindow 2p 2p
 
@@ -260,21 +255,21 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 
 ################## FvwmButtons button-bar ################################
 *FvwmButtonsGeometry -0-0
-*FvwmButtonsFore Black
-*FvwmButtonsBack Grey80
+*FvwmButtonsFore green2
+*FvwmButtonsBack gray12
 *FvwmButtonsFont -adobe-helvetica-medium-r-*-*-10-*-*-*-*-*-*-*
 *FvwmButtonsRows 1
 
 *FvwmButtons(Title xlock, Icon xlock.xpm, \
     Action 'Exec "" xscreensaver-command -lock')
 *FvwmButtons(Title xclock, Icon clock.xpm, \
-    Swallow(UseOld) "xclock" 'Exec exec xclock -bg Grey80 -padding 0')
+    Swallow(UseOld) "xclock" 'Exec exec xclock -fg SteelBlue4 -bg grey12 -hl turquoise4 -hd turquoise4 -padding 0')
 *FvwmButtons(1x1, Title load \
-    Swallow(UseOld) "xload" 'Exec exec xload -nolabel -bg grey80 -hl red')
-*FvwmButtons(Title xterm, Icon rterm.xpm, \
-    Action 'Exec "XTerm" xterm -title "xterm" &')
+    Swallow(UseOld) "xload" 'Exec exec xload -nolabel -bg gray12 -fg turquoise4 -hl red')
+*FvwmButtons(Title Term, Icon rterm.xpm, \
+    Action 'Exec "Term" rxvt -title "Term" &')
 *FvwmButtons(3x1, Swallow "FvwmPager" "FvwmPager 0 2")
-*FvwmButtons(8x1, Swallow "mini-term" "Exec exec xterm -T mini-term -fg black  -bg Grey80")
+*FvwmButtons(8x1, Swallow "mini-term" "Exec exec rxvt -T mini-term -fg green2 -bg grey12")
 
 ########################## Icon Manager ####################################
 # this FvwmIconMan setup is for swallowing in above button bar example
@@ -305,20 +300,19 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 *FvwmIdentFont -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
 
 ########################### Pager #########################################
-*FvwmPagerBack grey60
-*FvwmPagerFore black
-# turn off desktop names for swallowing in above button bar example:
-*FvwmPagerFont -adobe-helvetica-medium-r-*-*-8-*-*-*-*-*-*-*
-#*FvwmPagerFont none
-*FvwmPagerHilight #c0c0c0
-*FvwmPagerGeometry -1-1
-*FvwmPagerLabel 0 Work
-*FvwmPagerLabel 1 Play
-*FvwmPagerLabel 2 To-Do
-*FvwmPagerSmallFont -adobe-helvetica-medium-r-*-*-8-*-*-*-*-*-*-*
+*FvwmPagerBack		      gray12
+*FvwmPagerFore		      green3 # SlateGray4
+*FvwmPagerHilight	      gray35
+*FvwmPagerWindowColors	      green2 gray25 green2 SteelBlue4
+#*FvwmPagerSmallFont	      -adobe-helvetica-medium-r-*-*-8-*-*-*-*-*-*-*
+*FvwmPagerFont		      -adobe-helvetica-medium-r-*-*-8-*-*-*-*-*-*-*
+*FvwmPagerGeometry	      -1-1
+*FvwmPagerLabel		      0 Work
+*FvwmPagerLabel		      1 Play
+*FvwmPagerLabel		      2 To-Do 
 *FvwmPagerBalloons            All
-*FvwmPagerBalloonBack         Yellow
-*FvwmPagerBalloonFore         Black
+*FvwmPagerBalloonBack         Black
+*FvwmPagerBalloonFore         green2
 *FvwmPagerBalloonFont	      -adobe-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*
 *FvwmPagerBalloonYOffset      +2
 *FvwmPagerBalloonBorderWidth  1
@@ -387,7 +381,7 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 #
 *FvwmIconBox            "Fvwm*"         -
 
-# FvwmForm alias - rlogin or telnet to host via xterm
+# FvwmForm alias - rlogin or telnet to host via rxvt
 *RloginWarpPointer
 *RloginFont         -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
 *RloginButtonFont   -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
@@ -413,7 +407,7 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 *RloginSelection    UserSel   single
 *RloginLine         expand
 *RloginButton       quit "Login" ^M
-*RloginCommand Exec xterm -T xterm@$(HostName) -e $(RL?rlogin) $(TN?telnet) $(HostName) $(RL?-8 $(UserName?-l $(UserName)))
+*RloginCommand Exec rxvt -e $(RL?rlogin) $(TN?telnet) $(HostName) $(RL?-8 $(UserName?-l $(UserName)))
 *RloginButton       restart   "Clear"
 *RloginCommand Beep
 *RloginButton       quit "Cancel"
