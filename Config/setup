@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 cmd=$(basename $0)
 dir=$(dirname  $0)
@@ -15,23 +15,30 @@ for l in bash_login bash_profile profile; do
     ln -s bashrc $l
 done
 
-for f in $( ls | grep -Ev "(\~|\#|CVS)" ) ; do
+rm -f emacs
+ln -s ../elisp/emacs.el emacs
+rm -f xinitrc
+ln -s xsession xinitrc
 
-  if [ $f != $cmd ]; then
+for f in $( ls | grep -Ev "(\~|\#)" ) ; do
 
-    if [ -L ~/.$f ]; then
-      echo Removing symlink ~/.$f
-      rm ~/.$f
+  if [ -f $f ]; then
+    if [ $f != $cmd ]; then
+      
+      if [ -L ~/.$f ]; then
+	echo Removing symlink ~/.$f
+	rm ~/.$f
+      fi
+      
+      if [ -f ~/.$f ]; then
+	echo Moving ~/.$f to ~/.$f.old
+	mv ~/.$f ~/.$f.old
+      fi
+      
+      echo Linking $p/$f from ~/.$f
+      ln -s $p/$f ~/.$f
+      
     fi
-
-    if [ -f ~/.$f ]; then
-      echo Moving ~/.$f to ~/.$f.old
-      mv ~/.$f ~/.$f.old
-    fi
-
-    echo Linking $p/$f from ~/.$f
-    ln -s $p/$f ~/.$f
-
   fi
 
 done
