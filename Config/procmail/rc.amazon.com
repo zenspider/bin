@@ -10,69 +10,54 @@
 /dev/null
 
 :0 W
-* ^Subject:.*(commit|checkin)
+* ^From:.*root\@
+$SPOOLDIR/crontab
+
+:0 W
+* ^Subject: CRON:
+$SPOOLDIR/crontab
+
+:0 W
+* ^Subject:.*P4 SUBMIT by .* \(mainline\)
+$SPOOLDIR/commit-main
+
+:0 W
+* ^Subject:.*(commit|checkin|publish|submit)
 $SPOOLDIR/commit
 
 :0 W
-* ^TO_build-info
+* ^TO_poker@
+$SPOOLDIR/poker
+
+:0 W
+* ^TO_(performance-interest|build-info|houston)@
 $SPOOLDIR/build
 
 :0 W
-* ^TO_houston
+* ^From:.*build@
 $SPOOLDIR/build
 
 :0 W
-* ^From:.*build
-$SPOOLDIR/build
-
-:0 W
-* ^Subject:.*BACKEND BUILD/INSTALL
-$SPOOLDIR/build
-
-:0 W
-* ^From:.*(hobbs|maryann)@
-$SPOOLDIR/build
-
-:0 W
-* ^Subject:.*frank.*
+* ^Subject:.*frank
 $SPOOLDIR/frank
 
 :0 W
 * ^TO_frank-users
 $SPOOLDIR/frank
 
+# FIX: why :0: instead of :0 W?
 :0:
-* ^TO_downtown@
+* ^TO_(downtown|pac|pac-amzn-sal|amazon|seattle|seattle-reg|pac|pacmed|infrastructure)@
 $SPOOLDIR/downtown
 
 :0:
-* ^TO_amazon@
-$SPOOLDIR/downtown
-
-:0:
-* ^TO_seattle@
-$SPOOLDIR/downtown
-
-:0:
-* ^TO_seattle-reg@
-$SPOOLDIR/downtown
-
-:0:
-* ^TO_columbia@
-$SPOOLDIR/downtown
-
-:0:
-* ^TO_pacmed@
-$SPOOLDIR/downtown
-
-:0:
-* ^TO_pac@
-$SPOOLDIR/downtown
-
-:0:
-* ^TO_software@
+* ^TO_(software|pubsub-users|ute|perlhacker|infrastructure|codeline-owners)@
 $SPOOLDIR/software
 
 :0:
 * ^TO_qa-tools@
 $SPOOLDIR/qa
+
+:0:
+* ^TO_antlr-interest@
+$SPOOLDIR/antlr
