@@ -1,4 +1,4 @@
-#!/bin/wish -f
+#!/usr/local/bin/wish8.2 -f
 wm title . "tkdf 2.0"
 
 #MODIFY# dfcmd should be the executable to your systems df command.
@@ -11,10 +11,8 @@ set dfflg "-k"
 #MODIFY# number following disk name is the minimum space in k before
 #MODIFY# being warned. Warning is in the form of a red percentage.
 set disks {
-    {/    5000}
-    {/usr 25000}
-    {/var 5000}
-}
+	{/ 50000} {/usr 500000} {/usr/mp3-1 655360} {/usr/mp3-2 655360}
+} 
 
 # Filesystem	kbytes	used	avail	capacity%	Mounted on
 # 7		8	9	10	11		12
