@@ -31,12 +31,12 @@ die unless $data;
 
 my ($price,$change) = split(/,/, $data);
 my $options = int($amount * ($price - $strike));
-my $subject = sprintf("%s %.2f (%+.2f) %d", 
-		      $symbol, $price, $change, $options);
+my $message = sprintf("%s %.2f (%+.2f) %d (%d)", 
+		      $symbol, $price, $change, $options, $options*.2*.7);
 
 if (0) {
-  print "$subject\n";
+  print "$message\n";
 } else {
-  print `$cmddir/pageryand "$subject"`;
+  print `$cmddir/pageryand "$message"`;
 }
   
