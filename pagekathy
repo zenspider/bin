@@ -9,8 +9,7 @@ my $mail = Mail::Mailer->new();
 $mail->open(
 	    {
 	      From    => 'ryand@amazon.com',
-	      To      => 'kbosik@microsoft.com',
-	      CC      => 'mspager@microsoft.com',
+	      To      => '1139930@skytel.com',
 	      Subject => 'Call me 206.694.2641',
 	    }
 	    )
