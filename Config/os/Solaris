@@ -1,0 +1,20 @@
+# -*-ksh-*-
+
+if [[ $- == *i* ]]; then
+  # interactive shell
+  
+  ulimit -s $(ulimit -Hs);
+  stty echoe
+  
+  # Open Windows, yuck
+  export OPENWINHOME=/usr/openwin
+  export OW_WINDOW_MANAGER=/usr/local/bin/ctwm
+  
+  # for compiler/dbx support
+  export LM_LICENSE_FILE=/opt/SUNWspro/license_dir/sunpro.lic,1
+  
+  # Add Java path to Solaris pathing:
+  OSPATH=/usr/ucb
+fi       
+
+export LD_LIBRARY_PATH=/usr/shlib:/usr/openwin/lib:/usr/X11R6.1/lib:/usr/lib:${LD_LIBRARY_PATH-}

@@ -1,0 +1,8 @@
+# -*-ksh-*-
+
+if [[ $- == *i* ]]; then
+  set noglob;
+  eval $(tset -Qs "$TERM");
+  unset noglob
+fi
+OSPATH=/usr/toolset/bin:/opt/langtools/bin:/opt/ansic/bin:$PATH

@@ -1,0 +1,4 @@
+# -*-ksh-*-
+
+HOSTPATH=/usr/local/jdk1.1.8/bin
+export CVSROOT=/usr/cvs

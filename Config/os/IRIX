@@ -1,0 +1,3 @@
+# -*-ksh-*-
+
+export MANPATH=/usr/share/catman:/usr/share/man:/usr/catman:/usr/man:/usr/freeware/catman:/usr/freeware/man:

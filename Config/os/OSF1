@@ -1,0 +1,8 @@
+# -*-ksh-*-
+
+if [[ $- == *i* ]]; then
+  stty echoe
+  stty discard undef
+fi
+
+OSPATH=/usr/bin/X11:/usr/ucb
