@@ -9,7 +9,7 @@ cd bugbash.data && rm -rf ELM*
 PATH=$PATH:/var/ddts/bin
 
 for bug in $(findbug -NOA) ; do
-  dumpbug -fn $bug > $bug
+  dumpbug -fR $bug > $bug
 done
 
 #date | mailx -s "Done rebuilding bugbash files" ryand
