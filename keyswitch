@@ -1,0 +1,26 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+open IN, "xmodmap -pk |" || die "couldn't open xmodmap: $!";
+
+my $char_S;
+
+while (<IN>) {
+  s/^\s+//;
+  if (m/^39.+?\((\S)\)/) {
+    $char_S = $1;
+    last;
+  }
+}
+
+if ($char_S eq 'o') {
+  `xmodmap $ENV{HOME}/.xmodmap.qwerty`;
+  print "Switched to qwerty\n";
+} elsif ($char_S eq 's') {
+  `xmodmap $ENV{HOME}/.xmodmap.dvorak`;
+  print "Switched to dvorak\n";
+} else {
+  print "Currently fucked. You aren't in dvorak or qwerty\n";
+  exit(1);
+}
