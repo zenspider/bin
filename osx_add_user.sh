@@ -37,6 +37,4 @@ sudo chown -R $login:staff /Users/$login
 # sudo passwd $login
 
 echo "# to make the user an admin user, execute:"
-echo sudo niutil -createprop / /users/$login wheel users $login 0
-echo sudo niutil -createprop / /users/$login admin users $login 0
-echo sudo niutil -createprop / /users/$login staff users $login 0
+echo sudo niutil -appendprop / /groups/admin users $login
