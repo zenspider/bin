@@ -1,3 +1,4 @@
+# -*- winmgr -*-
 # PixmapPath /usr/local/mini-icons/
 IconPath   /usr/X11R6/lib/X11/fvwm2/pixmaps
 #IconPath  /usr/local/icons/:/usr/local/mini-icons/
@@ -98,7 +99,8 @@ AddToMenu Utilities     "Utilities" Title
 +			"Navigator"	Exec exec netscape
 +			"XEmacs"	Exec exec xemacs
 +			"Project Clock"	Exec exec pck-timer
-+			"Remedy"	Exec rsh remedy-1 /usr/ar4.0/bin/aruser -display $HOSTDISPLAY &
++			"Remedy"	Exec ssh -f remedy-1 /usr/ar4.0/bin/aruser 
++			"Meeting Maker"	Exec ssh -f mm-1-sun /dept/snoc/arch/lib/mmaker/mmxp
 +			"Top"		Exec exec rxvt -e top
 +			""		Nop
 +                       "Reset X defaults" Exec xrdb -load $HOME/.Xdefaults
@@ -154,10 +156,17 @@ AddToMenu Logins	"Term"		Exec exec rxvt
 +			""		Nop
 +			"Other..."	Module FvwmForm Rlogin
 +			""		Nop
++			"web-build-5"	Exec ssh website-build-5 xterm &
 +			"software-7"	Exec ssh software-7 xterm &
++			""		Nop
 +			"web-build-1"	Exec ssh website-build-1 xterm &
 +			"web-build-2"	Exec ssh website-build-2 xterm &
 +			"web-build-4"	Exec ssh website-build-4 xterm &
++			""		Nop
++			"qa-tools-1"	Exec ssh qa-tools-1 xterm &
++			"qa-tools-2"	Exec ssh qa-tools-2 xterm &
++			"qa-tools-3"	Exec ssh qa-tools-3 xterm &
+
 
 AddToMenu Module-Popup	"FvwmModules"	Title
 +			"Identify"	Module	FvwmIdent
