@@ -3,6 +3,13 @@
 use strict;
 use Mail::Audit;
 use Time::JulianDay;
+use Getopt::Long;
+
+my %option;
+GetOptions(\%option,
+	   "conf=s",
+	   "check",
+	  );
 
 #
 # My Mail Policies:
@@ -21,19 +28,21 @@ use Time::JulianDay;
 # 3) All other mail goes to GrayBox
 #
 
-my $mail = '/home/ryand/Mail';
+my $mail = '/home/ryand/Mail/spool';
 open LOG, ">>/home/ryand/.mailfilter.log"
   || die "Couldn't open mailfilter.log: $!";
 
 # Get all of our standard fields of interest.
-my $item = Mail::Audit->new();
-my $from = $item->from();
-my $to = $item->to();
-my $cc = $item->cc();
-my $subject = $item->subject();
-
-chomp($from, $to, $cc, $subject);
-study $from;
+my ($item, $from, $to, $cc, $subject);
+unless ($option{check}) {
+  $item = Mail::Audit->new();
+  $from = $item->from();
+  $to = $item->to();
+  $cc = $item->cc();
+  $subject = $item->subject();
+  chomp($from, $to, $cc, $subject);
+  study $from;
+}
 
 # general filter
 my $isodate_re = '\d{4}-\d{2}-\d{2}';
@@ -57,7 +66,7 @@ while (<DATA>) {
     $field = lc($3);
     $regex = $4;
     $msg = '';
-  } elsif (m/^IGNORE\s+(?:\s+($isodate_re))?\s+($field_re)\s+(.+)/o) {
+  } elsif (m/^IGNORE\s+(?:\s+($isodate_re)\s+)?($field_re)\s+(.+)/o) {
     $file = 'BlackBox';
     $isodate = $1 || '';
     $field = lc($2);
@@ -79,18 +88,22 @@ while (<DATA>) {
     }
   }
 
-  my $cmd = "&save(\$file, \$msg) if \$$field =~ $regex";
-  eval $cmd;
-  if ($@) {
-    &log("ERROR w/ '$cmd': $@");
+  unless ($option{check}) {
+    my $cmd = "&save(\$file, \$msg) if \$$field =~ $regex";
+    eval $cmd;
+    if ($@) {
+      &log("ERROR w/ '$cmd': $@");
+    }
   }
 }
 
-my $rbl = $item->rblcheck(5);
-if ($rbl) {
-  &save("BlackBox", "SPAM: '$rbl'");
-} else {
-  &save("GrayBox");
+unless ($option{check}) {
+  my $rbl = $item->rblcheck(5);
+  if ($rbl) {
+    &save("BlackBox", "SPAM: '$rbl'");
+  } else {
+    &save("GrayBox");
+  }
 }
 
 sub save {
@@ -104,7 +117,11 @@ sub save {
 sub log {
   my $msg = join('', @_);
 
-  print LOG "$from: $subject: $msg\n";
+  unless ($option{check}) {
+    print LOG "$from: $subject: $msg\n";
+  } else {
+    print "$msg\n";
+  }
 }
 
 __DATA__
@@ -131,42 +148,30 @@ __DATA__
 ############################################################
 # Ignore:
 
-# if the TO field is to one of several bulk spammers, ignore.
-IGNORE                          TO      m/\@juno\.com/
-IGNORE                          FROM    m/HomeOwners\@etree\.fsnet\.co\.uk/
-IGNORE                          FROM    m/rreed\@gnwmail\.com/
-IGNORE				FROM    m/mms\@mail\.bigpond\.com/i
+# if the TO/SUBJECT field is to one of several bulk spammers, ignore.
+
+IGNORE                          SUBJECT m/Subject: Obidos Error Report/i
+
+IGNORE				FROM	m/root\@/i
+IGNORE				SUBJECT m/CRON:|Cron/i
 
 ############################################################
 # Accept:
 
-ACCEPT Miscellaneous/NetFlix	FROM    m/\@netflix\.com/i
-ACCEPT Miscellaneous/ebay	FROM    m/\@ebay\.com/i
-ACCEPT Personal/Casey		FROM    m/schmoppy/i
-ACCEPT Personal/Dad		FROM    m/joejack\@|quinn/i
-ACCEPT Personal/Dad             FROM    m/joejack\@silverlink\.net/i
-# ACCEPT Personal/General		FROM    m/\@uffda\.com|jbr\@oz\.net|/i
-ACCEPT Personal/Kathy		FROM    m/kbosik\@/i
-ACCEPT Personal/Kim		FROM    m/kschulze\@/i
-ACCEPT Personal/Krause		FROM    m/duanek|cfeng/i
-ACCEPT Personal/Phil            FROM    m/pa?wilk\@/i
-ACCEPT Technical/Amazon\.com	FROM    m/\@amazon\.com/i
-ACCEPT Technical/Cron           FROM    m/Cron Daemon|root\@\.*?zenspider\.com/i
-ACCEPT Technical/Cron           SUBJECT m/system check/i
-ACCEPT Technical/Internic	FROM    m/internic/i
-ACCEPT Technical/Java		FROM    m/\@sun\.com/i
-ACCEPT Technical/Metrowerks	FROM    m/metrowerks\.com/i
-ACCEPT Technical/News           FROM    m/\@.?*(freebsd\.org|xplain\.com)/i
-ACCEPT Technical/Onyx		TO	m/onyx-tech\.com/i
-ACCEPT Technical/Oz		FROM    m/\@oz\.net/i
-ACCEPT Technical/SGI		FROM    m/sgi\.com/i
-ACCEPT Technical/Seapine	FROM    m/\@seapine\.com/i
-ACCEPT Technical/Server		FROM    m/uptime-robot\@/i
-ACCEPT Technical/Squeak		FROM    m/squeak\@/i
-ACCEPT ZSS/DropUNIX1\.3		FROM    m/ujwal\@llnl\.gov/i
-ACCEPT ZSS/DropUNIX1\.3		SUBJECT m/drop unix/i
+ACCEPT commit-main		SUBJECT m/Subject:.*P4 SUBMIT by .* \(mainline\)/i
+ACCEPT commit			SUBJECT m/commit|checkin|publish|submit/i
+ACCEPT build			TO	m/(performance-interest|build-info|houston)\@/i
+ACCEPT build			FROM	m/build\@/i
+ACCEPT frank			SUBJECT m/frank/i
+ACCEPT frank			TO	m/frank-users/i
+ACCEPT downtown			TO	m/(downtown|pac|pac-amzn-sal|amazon|seattle|seattle-reg|pac|pacmed|infrastructure)\@/i
+ACCEPT software			TO	m/(software|pubsub-users|ute|perlhacker|infrastructure|codeline-owners)\@/i
+ACCEPT qa			TO	m/qa-tools\@/i
+ACCEPT antlr			TO	m/antlr-interest\@/i
 
-# Accept mail from me
-ACCEPT WhiteBox			FROM    m/(zss|ryand|root)\@\.*zenspider\.com/i
+# Accept mail from or to me
+
+ACCEPT INBOX			FROM    m/(zss|ryand|root)\@\.*(amazon|zenspider)\.com/i
 
 # Everything else is rejected by default
+
