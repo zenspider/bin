@@ -8,7 +8,7 @@ $| = 1;
 
 my @check = ();
 #my $keywords = '(?<!SUF|PRE)FIX|HACK|TODO|(?<!P|O)DOC(?!UMENT|TYPE|_INSTALL)|REFACTOR';
-my $keywords = '\b(FIX|HACK|TODO|DOC|REFACTOR)\b';
+my $keywords = '\b(FIX|HACK|TODO|DOC|REFACTOR|RETIRE)\b';
 my %hit = ();
 my %word = ();
 my $total = 0;
