@@ -1,0 +1,58 @@
+#!/bin/zsh -f
+
+if [ "$ARGC" -lt 2 ]; then
+    echo "Usage: ${0:t} archive.dmg file1 [file2...]"
+    exit 1
+fi
+
+DISKCOPYIMAGE=$1; shift
+
+echo "Building Disk Copy image"
+
+LABELNAME="${DISKCOPYIMAGE:t:r}"
+SCRATCHIMAGE="/tmp/${LABELNAME} Temp-$$.dmg"
+
+echo "    Sizing files..."
+du -k -s -c $* | tail -1 | read sizeInKB dummy
+
+echo "Size = $sizeInKB"
+
+sizeInKB=$(( sizeInKB + sizeInKB / 10 ))
+sizeInMB=$(( ( sizeInKB - 1 ) / 1024 + 1 ));
+if [ $sizeInMB -lt 4 ]; then
+    sizeInMB=4
+fi
+
+echo "    Creating ${sizeInMB}MB scratch image ${SCRATCHIMAGE}..."
+rm -f $SCRATCHIMAGE
+hdiutil create $SCRATCHIMAGE -megabytes $sizeInMB -layout NONE
+hdid -nomount $SCRATCHIMAGE | read drive
+newfs_hfs -v "${LABELNAME}" -b 4096 /dev/r${drive:t}
+
+echo "    Image formatted, ejecting ${drive}..."
+hdiutil eject ${drive}
+
+echo "    Mounting $SCRATCHIMAGE..."
+hdid $SCRATCHIMAGE | read drive MOUNTPOINT
+
+echo "    Searching for ${drive}..."
+while [ "$MOUNTPOINT" = "" ]
+do
+	MOUNTPOINT=`df -l | grep $drive | awk '{print $6}'`
+done
+echo "    Found $drive at $MOUNTPOINT"
+
+for file in $*
+do
+    echo "    Copying ${file}..."
+    ditto -rsrc "$file" "${MOUNTPOINT}/${file}"
+done
+
+echo "    Ejecting..."
+hdiutil eject ${drive}
+
+echo "    Compressing..."
+hdiutil convert -format UDZO $SCRATCHIMAGE -o ${DISKCOPYIMAGE:r}
+
+echo "    Removing scratch image"
+rm -f $SCRATCHIMAGE
