@@ -23,8 +23,8 @@ Style "*"	Icon unknown1.xpm, Color lightgrey/dimgrey
 Style "*"	MWMFunctions, MWMDecor, HintOverride
 Style "*"	DecorateTransient, NoPPosition
 Style "*"	IconBox -50 0 -1 -50
-Style "*"	ClickToFocus
-#Style "*"	SloppyFocus
+#Style "*"	ClickToFocus
+Style "*"	SloppyFocus
 Style "*"	RandomPlacement, SmartPlacement
 
 Module FvwmAuto 500  Raise Nop
