@@ -22,9 +22,11 @@ GetOptions(\%option,
 	   "file=s",
 	   "check",
 	   "mailfolder=s",
+	   "blackbox=s",
 	   "nospam",
 	  );
 
+$option{'blackbox'} ||= 'BlackBox';
 $option{'check'} ||= '';
 $option{'nospam'} ||= '';
 
