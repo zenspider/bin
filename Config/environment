@@ -7,6 +7,9 @@
 # say "ulimit -c unlimited" and then cause a segmentation fault.
 ulimit -c 0
 
+# Set program datasize to be the max
+ulimit -d $(ulimit -dH)
+
 case $- in
   
   # interactive shell
@@ -16,19 +19,16 @@ case $- in
     PS4='$0@$LINENO: '
     HISTCONTROL=ignoredups
     
+    # FIX: impove this mechanism
     export EDITOR='gnuclient'
+
     export PAGER=more
     export MORE="-e"
     
-    # Universal display mechanism, hopefully works
     if [ -z ${DISPLAY-} ] ; then
-      if [ -f ~/.display ]; then
-	export DISPLAY=$(cat ~/.display)
-      else
-	echo "No DISPLAY"
-      fi
+      echo "DISPLAY = '$DISPLAY'"
     else
-      echo $DISPLAY > ~/.display
+      echo "No DISPLAY"
     fi
     
     # ESHELL is what emacs will run for a shell
