@@ -14,11 +14,11 @@
 $SPOOLDIR/commit
 
 :0 W
-* TO.*build-info.*
+* ^TO_build-info
 $SPOOLDIR/build
 
 :0 W
-* TOhouston.*
+* ^TO_houston
 $SPOOLDIR/build
 
 :0 W
@@ -38,41 +38,41 @@ $SPOOLDIR/build
 $SPOOLDIR/frank
 
 :0 W
-* TO.*frank-users.*
+* ^TO_frank-users
 $SPOOLDIR/frank
 
 :0:
-* ^TOdowntown@
+* ^TO_downtown@
 $SPOOLDIR/downtown
 
 :0:
-* ^TOamazon@
+* ^TO_amazon@
 $SPOOLDIR/downtown
 
 :0:
-* ^TOseattle@
+* ^TO_seattle@
 $SPOOLDIR/downtown
 
 :0:
-* ^TOseattle-reg@
+* ^TO_seattle-reg@
 $SPOOLDIR/downtown
 
 :0:
-* ^TOcolumbia@
+* ^TO_columbia@
 $SPOOLDIR/downtown
 
 :0:
-* ^TOpacmed@
+* ^TO_pacmed@
 $SPOOLDIR/downtown
 
 :0:
-* ^TOpac@
+* ^TO_pac@
 $SPOOLDIR/downtown
 
 :0:
-* ^TOsoftware
+* ^TO_software@
 $SPOOLDIR/software
 
 :0:
-* ^TOqa
+* ^TO_qa-tools@
 $SPOOLDIR/qa
