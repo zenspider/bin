@@ -1,36 +1,23 @@
 #!/usr/bin/perl -w
 
 use strict;
-use LWP::Simple;
-use Mail::Mailer;
 
-my $debug = 0;
+############################################################
+my $strike = 75.5 / 3;
+my $amount = 5500 * 3;
 my $symbol = 'AMZN';
+############################################################
 
-#"AMZN",216.625,"11/27/1998","1:01PM",+6.3125,217.25,218,213,1597800
-#s,l1,d1,t1,c1,o,h,g,v
+use File::Basename;
+my $cmd = $0;
+my $cmddir = dirname($cmd);
 
+use LWP::Simple;
 my $price = get "http://quote.yahoo.com/d/quotes.csv?s=$symbol&f=l1&e=.csv";
 die unless $price;
 
 $price =~ s/\s*(\S+)\s*/$1/s;
-
-my $strike = 75.5;
-#my $options = int(5500 * ($price - $strike));
-my $options = int(5500 * 3 * ($price - ($strike / 3)));
+my $options = int($amount * ($price - $strike));
 my $subject = sprintf("A %6.2f%8d", $price, $options);
 
-unless ($debug) {
-  my $mailer = new Mail::Mailer;
-  $mailer->open({
-		 'To' => '2062237905@messagewatch.com',
-		 'From' => 'amzn@ZenSpider.com',
-		 'Subject' => $subject,
-		}
-	       );
-  print $mailer '';
-  $mailer->close;
-} else {
-  print "1234567812345678\n";
-  print "$subject\n";
-}
+print `$cmddir/pageryand $subject`;
