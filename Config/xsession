@@ -1,14 +1,23 @@
-#! /bin/bash
+#!/bin/bash
+
+# if the following export creates an error, you need to 
+# add execute permissions to the file. This is because
+# of how xsession works. In otherwords, you are running
+# is 'sh', not 'bash', if you aren't executable.
 
 export PRINTER=denali
-. ~/.environment
+. ~/.bashrc
 
 xrdb -load /home/ryand/.Xresources
-nocapslock
 xmodmap ~/.xmodmap.dvorak
-xemacs -f vm &
-mmxp
+
+# Fix amazon.com's ncd xterm keyboards
+if [ $DOMAIN = "amazon.com" ]; then
+  xmodmap -e "keysym SunF37 = F12"
+  xmodmap -e "keysym SunF36 = F11"
+fi
 
 # Exec Window Manager
 #exec /opt/third-party/bin/ctwm
+export LD_LIBRARY_PATH=/dept/snoc/arch/lib
 exec /usr/local/bin/fvwm95-2
