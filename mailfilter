@@ -12,7 +12,8 @@ GetOptions(\%option,
 	   "mailfolder=s",
 	  );
 
-#
+# FIX: make TO be all recipients.
+
 # My Mail Policies:
 #
 # 0) Until trust for this gets built up, we will be saving EVERYTHING 
@@ -27,7 +28,6 @@ GetOptions(\%option,
 #
 # 2) If the mail fails rblcheck, it is real spam and goes to BlackBox
 # 3) All other mail goes to GrayBox
-#
 
 $option{mailfolder} = (getpwuid($>))[7] . "/Mail"
   unless $option{mailfolder};
@@ -74,7 +74,8 @@ while (<IN>) {
   next if m/^\#/;
   next if m/^$/;
 
-  my ($action, $file, $isodate, $field, $regex, $msg);
+  my ($cmd, $action, $file, $isodate, $field, $regex, $msg) 
+    = ('save', '', '', '', '', '', '');
 
   if (m/^ACCEPT\s+(\S+)(?:\s+($isodate_re))?\s+($field_re)\s+(.+)/o) {
     $file = $1;
@@ -88,11 +89,16 @@ while (<IN>) {
     $field = lc($2);
     $regex = $3;
     $msg = "Ignoring";
+  } elsif (m/^EXEC\s+(\S+)\s+($field_re)\s+(.+)/o) {
+    $cmd = 'run';
+    $file = $1;
+    $field = lc($2);
+    $regex = $3;
   } else {
     &log("ERROR: syntax error: '$_'");
     exit(1);
   }
-  
+
   if ($isodate) {
     $isodate =~ /(\d\d\d\d)-(\d\d)-(\d\d)/;
     my $then = julian_day($1, $2, $3);
@@ -105,7 +111,7 @@ while (<IN>) {
   }
 
   unless ($option{check}) {
-    my $cmd = "&save(\$file, \$msg, \$field, \$$field, \$regex) if \$$field =~ $regex";
+    my $cmd = "&$cmd(\$file, \$msg, \$field, \$$field, \$regex) if \$$field =~ $regex";
     eval $cmd;
     if ($@) {
       &log("ERROR w/ '$cmd': $@");
@@ -130,6 +136,18 @@ unless ($option{check}) {
   }
 } else {
   &log("Looks good");
+}
+
+sub run {
+  my $file = shift;
+
+  &log("Running $file");
+
+  $SIG{CHLD} = 'IGNORE';
+  unless (fork()) {
+    system $file || die "$?";
+    exit(0);
+  }
 }
 
 sub save {
