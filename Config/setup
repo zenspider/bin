@@ -8,6 +8,8 @@ echo dir is $dir
 
 cd $dir
 
+p=$(/usr/local/bin/perl -e 'use Cwd; $cwd = cwd(); $cwd =~ s|^/tmp_mnt||; print $cwd;')
+
 for l in bash_login bash_profile profile; do
   if [ ! -e $l ]; then
     ln -s bashrc $l
@@ -28,8 +30,8 @@ for f in $( ls | grep -Ev "(\~|\#|CVS)" ) ; do
       mv ~/.$f ~/.$f.old
     fi
 
-    echo Linking $f
-    ln -s $PWD/$f ~/.$f
+    echo Linking $p/$f from ~/.$f
+    ln -s $p/$f ~/.$f
 
   fi
 
