@@ -6,6 +6,12 @@
 # of how xsession works. In otherwords, you are running
 # is 'sh', not 'bash', if you aren't executable.
 
+# just in case:
+HOSTNAME=$(hostname -s)
+
+LOG=~/.xinitrc.log
+echo $(date): starting xinitrc on $HOSTNAME.$DOMAIN >> $LOG
+
 xrdb -load ~/.Xresources
 xmodmap ~/.xmodmap.dvorak
 
@@ -24,4 +30,6 @@ if [ $DOMAIN = "zenspider.com" ]; then
   fi
 fi
 
-exec fvwm2
+fvwm2
+
+echo $(date): quitting xinitrc on $HOSTNAME.$DOMAIN >> $LOG
