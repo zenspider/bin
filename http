@@ -1,0 +1,14 @@
+#!/usr/freeware/bin/perl -w
+
+require 5.002;
+use strict;
+
+use LWP::Simple;
+use URI::Heuristic ('uf_uristr'); # -e 'print URI::Heuristic::uf_uristr("1.1.1.1"), "\n";'
+
+foreach (@ARGV) {
+  my $url = uf_uristr($_);
+  print "=" x 60, "\n$url\n";
+  getprint($url);
+}
+print "=" x 60, "\n";

@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+for arg in $*; do
+  echo "$arg:"
+  echo ""
+  gzgrep $arg /usr/files.txt.gz /usr/dirs.txt.gz
+done

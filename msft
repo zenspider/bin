@@ -1,0 +1,17 @@
+#!/usr/bin/perl -w
+
+use strict;
+use LWP::Simple;
+use Mail::Mailer;
+
+my $debug = 0;
+my $symbol = 'MSFT';
+
+my $price = get "http://quote.yahoo.com/d/quotes.csv?s=$symbol&f=l1&e=.csv";
+die unless $price;
+
+$price =~ s/\s*(\S+)\s*/$1/s;
+my $options = int(3700 * ($price - 33.125)) + int(840 * ($price - 107.25));
+my $subject = sprintf("$symbol %6.2f%8d", $price, $options);
+
+print `pagekathy $subject`;
