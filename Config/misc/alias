@@ -142,6 +142,10 @@ case "${HOSTTYPE}.${OSTYPE}" in
     alias ps-all='ps aux'
     ;;
 
+  "i386.linux-gnu" )
+    alias ps-all='ps -ef'
+    ;;
+
   *)
     echo "$0:${HOSTTYPE}.${OSTYPE} is an unknown machine type"
     ;;
@@ -212,6 +216,8 @@ la () {
   ls -FCsa $* | ${PAGER-more} 
 }
 
+unset ll
+unalias ll
 ll () {
   ls -Fl $* | ${PAGER-more} 
 }
