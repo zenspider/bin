@@ -28,7 +28,10 @@ umask 002	# no writes for others, otherwise fully open
 set -P		# Turn off bash's relative pwd
 set -u		# For a while, break when undefined variable is used.
 
-ENV_FILE=~/.environment
+BIN=${HOME}/Bin
+CONFIG=${BIN}/Config
+
+ENV_FILE=${CONFIG}/environment
 if [ -f $ENV_FILE ] ; then
   . $ENV_FILE
 fi
@@ -38,14 +41,19 @@ case $- in
   # interactive shell
   *i*)
 
-    ALIAS_FILE=~/.alias
+    ALIAS_FILE=${CONFIG}/alias
     if [ -f $ALIAS_FILE ] ; then
       . $ALIAS_FILE
     fi
     
-    export HOSTNAME=`hostname | sed 's/\..*$//'`
-    if [ -f $HOME/.$HOSTNAME ] ; then
-      . ~/.$HOSTNAME
+    export HOSTNAME=`hostname | perl -pe 's/\..*$//'`
+    if [ -f ${CONFIG}/$HOSTNAME ] ; then
+      . ${CONFIG}/$HOSTNAME
+    fi
+
+    export DOMAINNAME=`hostname | perl -pe 's/^.*\.([^\.]+\.[^\.]+)$/$1/'`
+    if [ -f ${CONFIG}/$DOMAINNAME ] ; then
+      . ${CONFIG}/$DOMAINNAME
     fi
 
     ;;
