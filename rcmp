@@ -42,7 +42,23 @@ unless (
 	-d $aDirBase &&
 	-d $bDirBase
        ) {
-  print "USAGE: FIX\n";
+
+  my $prog = $0;
+  $prog =~ s|^.*/||;
+
+  print "USAGE: $prog {options} dir1 dir2
+  --cp     - copy the differing files from dir2 to dir1.
+  --new	   - copy only new files.
+  --mod	   - copy only modified files.
+  --all	   - copy all files.
+  --debug  - scans and compares only.
+  --diff   - shows the differences.
+  --mv     - moves from dir2 to dir1 instead of copying.
+  --no     - doesn't actualy execute, just shows commands.
+  --report - display a report at the end.
+  --rm     - remove files in dir2 that are identical.
+";
+
   exit 1;
 }
 
