@@ -1,13 +1,13 @@
-#!/usr/freeware/bin/perl -w
+#!/bin/env perl
 
 require 5.002;
 use strict;
 
 use LWP::Simple;
-use URI::Heuristic ('uf_uristr'); # -e 'print URI::Heuristic::uf_uristr("1.1.1.1"), "\n";'
+use URI::Heuristic qw(uf_urlstr);
 
 foreach (@ARGV) {
-  my $url = uf_uristr($_);
+  my $url = uf_urlstr($_);
   print "=" x 60, "\n$url\n";
   getprint($url);
 }
