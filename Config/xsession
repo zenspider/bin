@@ -13,11 +13,12 @@ xmodmap ~/.xmodmap.dvorak
 xscreensaver &
 
 # Fix amazon.com's ncd xterm keyboards
-if [ $DOMAIN = "amazon.com" ]; then
-  xmodmap -e "keysym SunF37 = F12"
-  xmodmap -e "keysym SunF36 = F11"
-fi
+# if [ $DOMAIN = "amazon.com" ]; then
+#   xmodmap -e "keysym SunF37 = F12"
+#   xmodmap -e "keysym SunF36 = F11"
+# fi
 
 # Exec Window Manager
-export LD_LIBRARY_PATH=/dept/snoc/arch/lib
-exec /usr/local/bin/fvwm95-2
+#export LD_LIBRARY_PATH=/dept/snoc/arch/lib
+export LD_LIBRARY_PATH=fvwm2/lib:${LD_LIBRARY_PATH-}
+exec fvwm2
