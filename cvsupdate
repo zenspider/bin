@@ -1,4 +1,4 @@
-#!/usr/bin/bash -noprofile
+#!/usr/local/bin/bash -noprofile
 
 #set -xv
 
@@ -31,5 +31,5 @@ shift $(($OPTIND - 1))
   
 export CVSROOT=${ROOT-/src/cvs}
 
-cvs ${N-} update ${IGNORE-} $* 2>&1 | /bin/egrep -v "^cvs update: Updating"
+cvs ${N-} update ${IGNORE-} $* 2>&1 | grep -Ev "^cvs update: Updating"
 
