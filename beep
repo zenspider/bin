@@ -1,3 +1,5 @@
 #!/bin/bash
 
-echo 
+# echo 
+
+cat /usr/local/lib/xemacs/xemacs-packages/etc/sounds/Boring.au > /dev/audio &
