@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Will this allow ALL subprocesses to pick it up? I hope so
+export DISPLAY=$DISPLAY
+
 xrdb $HOME/.xdefaults
 /usr/local/10bin/fvwm2
 #/usr/openwin/bin/olwm
