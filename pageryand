@@ -8,10 +8,9 @@ my $msg = join(' ', @ARGV) || die "need a message to page with";
 my $mail = Mail::Mailer->new();
 $mail->open({
 	     To      => 'ryan.davis@voicestream.net',
-	     Subject => $msg,
 	    })
   or die "Can't open mail: $!\n";
-print $mail '';
+print $mail $msg;
 $mail->close();
 
 print "Sent '$msg'\n";
