@@ -1,6 +1,5 @@
 #!/usr/bin/perl -w
 
-
 use strict;
 use CGI qw(:standard escapeHTML);
 use CGI::Carp qw(fatalsToBrowser set_message);
@@ -20,11 +19,11 @@ my $soon = $today + 7;
 
 print
   header(),
-  start_html(	-Title=>$title,
-		-author=>'zss@ZenSpider.com',
-		-Meta=>{'keywords'=>'Zen Spider Software, Downloads, Form',
-			'copyright'=>'(C) 1998 Zen Spider Software and Ryan Davis'},
-		-BGCOLOR=>'white',
+  start_html(-Title=>$title,
+	     -author=>'zss@ZenSpider.com',
+	     -Meta=>{'keywords'=>'Zen Spider Software, Downloads, Form',
+		     'copyright'=>'(C) 1998 Zen Spider Software and Ryan Davis'},
+	     -BGCOLOR=>'white',
 	    ),
   h1($title);
 
@@ -77,7 +76,7 @@ sub processFile {
       $dateText = &red($date);
     } elsif ($date_j lt $soon) {
       unshift(@{ $count{DATE_YELLOW} }, $priority);
-      $sortCode += 3;
+      $sortCode += 2;
       $dateText = &yellow($date);
     } else {
       unshift(@{ $count{DATE_GREEN} }, $priority);
@@ -86,13 +85,14 @@ sub processFile {
 
     my $delta = $expect - $percent;
     my $percentText = $percent;
-    $percentText .= '%' . ($delta > 0 ? " ($expect)" : '');
+    $percentText .= '%' . ($delta > 0 ? 
+			   ($expect < 100 ? " ($expect)" : " (100)") : '');
     
     if ($delta > 15) {
       unshift(@{ $count{PERCENT_RED} }, $priority);
-      $sortCode += 2;
+      $sortCode += 3;
       $percentText = &red($percentText);
-    } elsif ($delta > 1) {
+    } elsif ($delta > 5) {
       unshift(@{ $count{PERCENT_YELLOW} }, $priority);
       $sortCode += 1;
       $percentText = &yellow($percentText);
@@ -113,6 +113,7 @@ sub processFile {
 		     START_J => $start_j,
 		     DESC => $desc,
 		     EXPECT => $expect,
+		     DELTA => $delta,
 		    });
   }
   close INPUT;
@@ -246,11 +247,12 @@ sub green {
 
 sub prioritySort {
 
-  $b->{SORTCODE}   <=> $a->{SORTCODE}
-  || $a->{PRIORITY}   <=> $b->{PRIORITY}
-  || $a->{DATE}    cmp $b->{DATE}
-  || $b->{EXPECT}  <=> $a->{EXPECT}
-  || $b->{PERCENT} <=> $a->{PERCENT};
+  $b->{SORTCODE}    <=> $a->{SORTCODE}
+  || $a->{PRIORITY} <=> $b->{PRIORITY}
+  || $a->{DATE}     cmp $b->{DATE}
+  || $b->{DELTA}    <=> $a->{DELTA}
+#  || $b->{PERCENT}  <=> $a->{PERCENT}
+  || $a->{DESC}     <=> $b->{DESC};
 
 }
 
