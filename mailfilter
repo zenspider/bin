@@ -1,0 +1,172 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Mail::Audit;
+use Time::JulianDay;
+
+#
+# My Mail Policies:
+#
+# 0) Until trust for this gets built up, we will be saving EVERYTHING 
+#    to a single file and logging what we WOULD have done.
+# 1) Go through my general filter list, deal w/ matches as directed.
+#    this will deal w/ know email addresses, email lists, etc.
+#
+#    All that should be left is:
+#      + real spam
+#      + suspect spam
+#      + addresses I need to add to my list
+#
+# 2) If the mail fails rblcheck, it is real spam and goes to BlackBox
+# 3) All other mail goes to GrayBox
+#
+
+my $mail = '/home/ryand/Mail';
+open LOG, ">>/home/ryand/.mailfilter.log"
+  || die "Couldn't open mailfilter.log: $!";
+
+# Get all of our standard fields of interest.
+my $item = Mail::Audit->new();
+my $from = $item->from();
+my $to = $item->to();
+my $cc = $item->cc();
+my $subject = $item->subject();
+
+chomp($from, $to, $cc, $subject);
+study $from;
+
+# general filter
+my $isodate_re = '\d{4}-\d{2}-\d{2}';
+my $field_re = 'SUBJECT|FROM|TO|CC';
+while (<DATA>) {
+
+  # the usual whitespace cleanup
+  chomp;
+  s/^\s+//;
+  s/\s+$//;
+
+  # ignore comment lines
+  next if m/^\#/;
+  next if m/^$/;
+
+  my ($action, $file, $isodate, $field, $regex, $msg);
+
+  if (m/^ACCEPT\s+(\S+)(?:\s+($isodate_re))?\s+($field_re)\s+(.+)/o) {
+    $file = $1;
+    $isodate = $2 || '';
+    $field = lc($3);
+    $regex = $4;
+    $msg = '';
+  } elsif (m/^IGNORE\s+(?:\s+($isodate_re))?\s+($field_re)\s+(.+)/o) {
+    $file = 'BlackBox';
+    $isodate = $1 || '';
+    $field = lc($2);
+    $regex = $3;
+    $msg = "Ignoring";
+  } else {
+    &log("ERROR: syntax error: '$_'");
+    exit(1);
+  }
+  
+  if ($isodate) {
+    $isodate =~ /(\d\d\d\d)-(\d\d)-(\d\d)/;
+    my $then = julian_day($1, $2, $3);
+    my $now  = local_julian_day(time);
+
+    if ($then < $now) {
+      &log("Skipping $field/$regex/$isodate ($then < $now)");
+      next;
+    }
+  }
+
+  my $cmd = "&save(\$file, \$msg) if \$$field =~ $regex";
+  eval $cmd;
+  if ($@) {
+    &log("ERROR w/ '$cmd': $@");
+  }
+}
+
+my $rbl = $item->rblcheck(5);
+if ($rbl) {
+  &save("BlackBox", "SPAM: '$rbl'");
+} else {
+  &save("GrayBox");
+}
+
+sub save {
+  my $box = shift;
+  my $msg = shift || '';
+
+  &log("Saving in '$box'" . ($msg ? ": $msg" : ''));
+  $item->accept("$mail/$box");
+}
+
+sub log {
+  my $msg = join('', @_);
+
+  print LOG "$from: $subject: $msg\n";
+}
+
+__DATA__
+# FORMAT:
+# ACCEPT FILE [ISODATE] FIELD REGEX
+# IGNORE      [ISODATE] FIELD REGEX
+#
+# FILE    = some/path (already in mail folder)
+# ISODATE = YYYY-MM-DD
+# FIELD   = (SUBJECT|FROM|TO|CC)
+# REGEX   = any perl regex
+#
+# EXAMPLES:
+#
+# Ignores any mail whose subject has "Alec Guiness" in it until 2000-09-01
+# IGNORE 2000-09-01 SUBJECT m/Alec Guiness/
+#
+# Accepts mail from "fred@domain.com" into "Personal/Fred"
+# ACCEPT Personal/Fred FROM m/fred@domain.com/
+#
+
+#CMD   FILE          ISODATE    FIELD   REGEX
+
+############################################################
+# Ignore:
+
+# if the TO field is to one of several bulk spammers, ignore.
+IGNORE                          TO      m/\@juno\.com/
+IGNORE                          FROM    m/HomeOwners\@etree\.fsnet\.co\.uk/
+IGNORE                          FROM    m/rreed\@gnwmail\.com/
+IGNORE				FROM    m/mms\@mail\.bigpond\.com/i
+
+############################################################
+# Accept:
+
+ACCEPT Miscellaneous/NetFlix	FROM    m/\@netflix\.com/i
+ACCEPT Miscellaneous/ebay	FROM    m/\@ebay\.com/i
+ACCEPT Personal/Casey		FROM    m/schmoppy/i
+ACCEPT Personal/Dad		FROM    m/joejack\@|quinn/i
+ACCEPT Personal/Dad             FROM    m/joejack\@silverlink\.net/i
+# ACCEPT Personal/General		FROM    m/\@uffda\.com|jbr\@oz\.net|/i
+ACCEPT Personal/Kathy		FROM    m/kbosik\@/i
+ACCEPT Personal/Kim		FROM    m/kschulze\@/i
+ACCEPT Personal/Krause		FROM    m/duanek|cfeng/i
+ACCEPT Personal/Phil            FROM    m/pa?wilk\@/i
+ACCEPT Technical/Amazon\.com	FROM    m/\@amazon\.com/i
+ACCEPT Technical/Cron           FROM    m/Cron Daemon|root\@\.*?zenspider\.com/i
+ACCEPT Technical/Cron           SUBJECT m/system check/i
+ACCEPT Technical/Internic	FROM    m/internic/i
+ACCEPT Technical/Java		FROM    m/\@sun\.com/i
+ACCEPT Technical/Metrowerks	FROM    m/metrowerks\.com/i
+ACCEPT Technical/News           FROM    m/\@.?*(freebsd\.org|xplain\.com)/i
+ACCEPT Technical/Onyx		TO	m/onyx-tech\.com/i
+ACCEPT Technical/Oz		FROM    m/\@oz\.net/i
+ACCEPT Technical/SGI		FROM    m/sgi\.com/i
+ACCEPT Technical/Seapine	FROM    m/\@seapine\.com/i
+ACCEPT Technical/Server		FROM    m/uptime-robot\@/i
+ACCEPT Technical/Squeak		FROM    m/squeak\@/i
+ACCEPT ZSS/DropUNIX1\.3		FROM    m/ujwal\@llnl\.gov/i
+ACCEPT ZSS/DropUNIX1\.3		SUBJECT m/drop unix/i
+
+# Accept mail from me
+ACCEPT WhiteBox			FROM    m/(zss|ryand|root)\@\.*zenspider\.com/i
+
+# Everything else is rejected by default
