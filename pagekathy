@@ -10,8 +10,8 @@ my $msg = join('', @ARGV) || 'Call me 206.694.2641';
 my $mail = Mail::Mailer->new();
 $mail->open(
 	    {
-	      From    => 'zss@ZenSpider.com',
-	      To      => '1139930@skytel.com',
+	      From    => 'ryand@ZenSpider.com',
+	      To      => '7938204@skytel.com',
 	      Subject => $msg,
 	    }
 	    )
