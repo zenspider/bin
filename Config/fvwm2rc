@@ -81,11 +81,10 @@ AddToFunc RestartFunction "I" Module FvwmButtons
 
 ######################## Menus ###################
 AddToMenu RootMenu	"Root Menu"	Title
-+			"Logins"	Popup Logins
++			"Term"		Exec rxvt
 +			""		Nop
 +                       "Utilities"     Popup Utilities
 +			""		Nop
-+			"Fvwm Modules"	          Popup Module-Popup
 +                       "Fvwm Window Ops"         Popup Window-Ops
 +                       "Fvwm Simple Config Ops"  Popup Misc-Ops
 +			""		Nop
@@ -98,7 +97,6 @@ AddToMenu RootMenu	"Root Menu"	Title
 AddToMenu Utilities     "Utilities" Title
 +			"Navigator"	Exec exec netscape
 +			"XEmacs"	Exec exec xemacs
-+			"Project Clock"	Exec exec pck-timer
 +			"Remedy"	Exec ssh -f remedy-1 /usr/ar4.0/bin/aruser 
 +			"Meeting Maker"	Exec ssh -f mm-1-sun /dept/snoc/arch/lib/mmaker/mmxp
 +			"Top"		Exec exec rxvt -e top
@@ -119,6 +117,8 @@ AddToMenu Misc-Ops "Misc Config Opts" Title
 +                  "Vertical Paging Only"   EdgeScroll 0 100
 +                  "Partial Paging"         EdgeScroll 50 50
 +                  "Full Paging && Edge Wrap" EdgeScroll 100000 100000
++                       "AutoRaise"     Module  FvwmAuto 900 Raise Nop
++                       "Stop AutoRaise" KillModule FvwmAuto
 
 AddToMenu Window-Ops	"Window Ops"	Title
 +			"Move"		Move
@@ -150,23 +150,6 @@ AddToMenu Window-Ops2	"&Move"		Move
 +			"ScrollBar" 	Module FvwmScroll 2 2
 +			"Print"         PrintFunction
 +                       "Print Reverse" PrintReverseFunction
-
-# be sure to fill these in with your correct machine names:
-AddToMenu Logins	"Term"		Exec exec rxvt
-+			""		Nop
-+			"Other..."	Module FvwmForm Rlogin
-+			""		Nop
-+			"web-build-5"	Exec ssh website-build-5 xterm &
-+			"software-7"	Exec ssh software-7 xterm &
-+			""		Nop
-+			"web-build-1"	Exec ssh website-build-1 xterm &
-+			"web-build-2"	Exec ssh website-build-2 xterm &
-+			"web-build-4"	Exec ssh website-build-4 xterm &
-+			""		Nop
-+			"qa-tools-1"	Exec ssh qa-tools-1 xterm &
-+			"qa-tools-2"	Exec ssh qa-tools-2 xterm &
-+			"qa-tools-3"	Exec ssh qa-tools-3 xterm &
-
 
 AddToMenu Module-Popup	"FvwmModules"	Title
 +			"Identify"	Module	FvwmIdent
@@ -258,10 +241,11 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
     Swallow(UseOld) "xclock" 'Exec exec xclock -fg SteelBlue4 -bg grey12 -hl turquoise4 -hd turquoise4 -padding 0')
 *FvwmButtons(1x1, Title load \
     Swallow(UseOld) "xload" 'Exec exec xload -nolabel -bg gray12 -fg turquoise4 -hl red')
+*FvwmButtons(Title ZSS, Icon rterm.xpm, Action 'Exec "" ssh -f zenspider.com xemacs')
 *FvwmButtons(Title Term, Icon rterm.xpm, \
     Action 'Exec "Term" rxvt -title "Term" &')
 *FvwmButtons(3x1, Swallow "FvwmPager" "FvwmPager 0 2")
-*FvwmButtons(8x1, Swallow "mini-term" "Exec exec rxvt +sb -T mini-term -fg green2 -bg grey12")
+*FvwmButtons(8x1, Swallow "mini-term" "Exec exec rxvt +sb -name mini-term -fg green2 -bg grey12")
 
 ########################## Icon Manager ####################################
 # this FvwmIconMan setup is for swallowing in above button bar example
@@ -373,38 +357,6 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 #
 *FvwmIconBox            "Fvwm*"         -
 
-# FvwmForm alias - rlogin or telnet to host via rxvt
-*RloginWarpPointer
-*RloginFont         -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
-*RloginButtonFont   -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
-*RloginInputFont    -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
-*RloginFore         Black
-*RloginBack         Light Gray
-*RloginItemFore          White
-*RloginItemBack          Gray50
-# begin items
-*RloginLine         center
-*RloginText         "Login to Remote Host"
-*RloginLine	    left
-*RloginText         "Host:"
-*RloginInput        HostName  30   ""
-*RloginLine         left
-*RloginText         "User:"
-*RloginInput        UserName  10   ""
-*RloginLine         left
-*RloginText         "Meth:"
-*RloginSelection    meth single
-*RloginChoice       TN TN off "telnet"
-*RloginChoice       RL RL on "rlogin"
-*RloginSelection    UserSel   single
-*RloginLine         expand
-*RloginButton       quit "Login" ^M
-*RloginCommand Exec rxvt -e $(RL?rlogin) $(TN?telnet) $(HostName) $(RL?-8 $(UserName?-l $(UserName)))
-*RloginButton       restart   "Clear"
-*RloginCommand Beep
-*RloginButton       quit "Cancel"
-*RloginCommand Nop
-
 # FvwmForm alias - query exit ala mwm
 *QuitVerifyGrabServer
 *QuitVerifyWarpPointer
@@ -422,49 +374,3 @@ AddToFunc ChangeDefaultFocus "I" Style "*" $0
 *QuitVerifyCommand  Quit
 *QuitVerifyButton   quit      "Cancel"
 *QuitVerifyCommand  Nop
-
-# MyTalk & MyFvwmTalk from Dave Goldberg
-# MyTalk Form - dissappears after use
-*MyTalkWarpPointer
-*MyTalkFont -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
-*MyTalkButtonFont -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
-*MyTalkInputFont -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
-*MyTalkFore Red
-*MyTalkBack Gray
-*MyTalkItemFore Blue
-*MyTalkItemBack Gray
-*MyTalkLine center
-*MyTalkText "Fvwm Function"
-*MyTalkInput Func 40 ""
-*MyTalkLine expand
-*MyTalkButton quit "Run" ^M
-*MyTalkCommand $(Func)
-*MyTalkButton restart "Clear" ^R
-*MyTalkButton quit "Cancel" ^C
-*MyTalkCommand Nop
-# MyFvwmTalk Form - sticks around
-*MyFvwmTalkWarpPointer
-*MyFvwmTalkFont -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
-*MyFvwmTalkButtonFont -adobe-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*
-*MyFvwmTalkInputFont -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
-*MyFvwmTalkFore Red
-*MyFvwmTalkBack Gray
-*MyFvwmTalkItemFore Blue
-*MyFvwmTalkItemBack Gray
-*MyFvwmTalkLine center
-*MyFvwmTalkText "Fvwm Function"
-*MyFvwmTalkInput Func 40 ""
-*MyFvwmTalkLine expand
-*MyFvwmTalkButton restart "Run" ^M
-*MyFvwmTalkCommand $(Func)
-*MyFvwmTalkButton restart "Clear" ^R
-*MyFvwmTalkCommand Nop
-*MyFvwmTalkButton restart "Iconify" ^Z
-*MyFvwmTalkCommand Next [MyFvwmTalk] Iconify
-*MyFvwmTalkButton quit "Quit" ^C
-*MyFvwmTalkCommand Nop
-
-# to change banner pixmap
-#*FvwmBannerPixmap fvwm3.xpm
-#*FvwmBannerTimeout 2
-
