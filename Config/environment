@@ -139,4 +139,3 @@ IFS=$oldIFS
 
 export SAVEPATH=$PATH
 export PERL5LIB=.:/home/ryand/Dev/Perl
-export lisp="/usr/local/xemacs/lib/xemacs-19.16/lisp/"
