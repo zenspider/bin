@@ -1,6 +1,6 @@
 #!/usr/local/bin/bash -noprofile
 
-#set -xv
+set -xv
 
 com=${0##/*/}			# save command name
 
@@ -29,6 +29,6 @@ while getopts "nI:r:" opt; do
 done
 shift $(($OPTIND - 1))
   
-export CVSROOT=${ROOT-/src/cvs}
+# export CVSROOT=${ROOT-/src/cvs}
 
 cvs ${N-} update ${IGNORE-} $* 2>&1 | grep -Ev "^cvs (update|server): Updating"

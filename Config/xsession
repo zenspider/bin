@@ -15,6 +15,11 @@ LOG=~/.xinitrc.log
 echo $(date): starting xinitrc on $HOSTNAME.$DOMAIN >> $LOG
 
 xrdb -load ~/.Xresources
+
+if [ ! -f ~/.xmodmap.qwerty ]; then
+  xmodmap -pke > ~/.xmodmap.qwerty
+fi
+
 xmodmap -e "remove Lock = Caps_Lock"
 xmodmap ~/.xmodmap.dvorak
 
