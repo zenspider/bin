@@ -2,5 +2,9 @@
 
 use Date::Format;
 
-print time2str("%Y-%m-%d", time);
+my $tty = (-t STDIN && -t STDOUT);
+my $shift = shift || 0;
+$shift *= 86400;
+
+print time2str("%Y-%m-%d" . ($tty ? "\n" : ""), time + $shift);
 
