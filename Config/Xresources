@@ -28,3 +28,73 @@ XTerm*multiScroll:			true
 *VT100*color5:	NavyBlue
 *VT100*color6:	gray
 *VT100*color7:	#eefffa
+
+*XmTextField.translations:              #override                       \n\
+        ~Meta ~Alt Ctrl<Key>a:          beginning-of-line()             \n\
+        ~Meta ~Alt Ctrl<Key>b:          backward-character()            \n\
+        ~Meta ~Alt Ctrl<Key>d:          delete-next-character()         \n\
+        ~Meta ~Alt Ctrl<Key>e:          end-of-line()                   \n\
+        ~Meta ~Alt Ctrl<Key>f:          forward-character()             \n\
+        ~Meta ~Alt Ctrl<Key>g:          process-cancel()                \n\
+        ~Meta ~Alt Ctrl<Key>h:          delete-previous-character()     \n\
+        ~Meta ~Alt Ctrl<Key>k:          delete-to-end-of-line()         \n\
+        ~Meta ~Alt Ctrl<Key>w:          delete-previous-word()          \n\
+        <Key>Delete:                    delete-previous-character()     \n\
+        <Key>BackSpace:                 delete-previous-character()     \n\
+        <Key>osfDelete:                 delete-previous-character()     \n\
+        <Key>osfBackSpace:              delete-previous-character()     \n\
+        Meta ~Ctrl<Key>b:               backward-word()                 \n\
+         Alt ~Ctrl<Key>b:               backward-word()                 \n\
+        Meta ~Ctrl<Key>d:               delete-next-word()              \n\
+         Alt ~Ctrl<Key>d:               delete-next-word()              \n\
+        Meta ~Ctrl<Key>f:               forward-word()                  \n\
+         Alt ~Ctrl<Key>f:               forward-word()                  \n\
+        Meta ~Ctrl<Key>w:               copy-clipboard()                \n\
+         Alt ~Ctrl<Key>w:               copy-clipboard()                \n\
+        Meta ~Ctrl<Key>Left:            backward-word()                 \n\
+         Alt ~Ctrl<Key>Left:            backward-word()                 \n\
+        Meta ~Ctrl<Key>Right:           forward-word()                  \n\
+         Alt ~Ctrl<Key>Right:           forward-word()                  \n\
+        Meta ~Ctrl<Key>BackSpace:       delete-previous-word()          \n\
+         Alt ~Ctrl<Key>BackSpace:       delete-previous-word()          \n\
+        Meta ~Ctrl<Key>Delete:          delete-next-word()              \n\
+         Alt ~Ctrl<Key>Delete:          delete-next-word()              \n
+
+*XmText.translations:                   #override                       \n\
+        ~Meta ~Alt Ctrl<Key>a:          beginning-of-line()             \n\
+        ~Meta ~Alt Ctrl<Key>b:          backward-character()            \n\
+        ~Meta ~Alt Ctrl<Key>d:          delete-next-character()         \n\
+        ~Meta ~Alt Ctrl<Key>e:          end-of-line()                   \n\
+        ~Meta ~Alt Ctrl<Key>f:          forward-character()             \n\
+        ~Meta ~Alt Ctrl<Key>g:          process-cancel()                \n\
+        ~Meta ~Alt Ctrl<Key>h:          delete-previous-character()     \n\
+        ~Meta ~Alt Ctrl<Key>k:          delete-to-end-of-line()         \n\
+        ~Meta ~Alt Ctrl<Key>w:          delete-previous-word()          \n\
+        <Key>Delete:                    delete-previous-character()     \n\
+        <Key>BackSpace:                 delete-previous-character()     \n\
+        <Key>osfDelete:                 delete-previous-character()     \n\
+        <Key>osfBackSpace:              delete-previous-character()     \n\
+        Meta ~Ctrl<Key>b:               backward-word()                 \n\
+         Alt ~Ctrl<Key>b:               backward-word()                 \n\
+        Meta ~Ctrl<Key>d:               delete-next-word()              \n\
+         Alt ~Ctrl<Key>d:               delete-next-word()              \n\
+        Meta ~Ctrl<Key>f:               forward-word()                  \n\
+         Alt ~Ctrl<Key>f:               forward-word()                  \n\
+        Meta ~Ctrl<Key>w:               copy-clipboard()                \n\
+         Alt ~Ctrl<Key>w:               copy-clipboard()                \n\
+        Meta ~Ctrl<Key>Left:            backward-word()                 \n\
+         Alt ~Ctrl<Key>Left:            backward-word()                 \n\
+        Meta ~Ctrl<Key>Right:           forward-word()                  \n\
+         Alt ~Ctrl<Key>Right:           forward-word()                  \n\
+        Meta ~Ctrl<Key>BackSpace:       delete-previous-word()          \n\
+         Alt ~Ctrl<Key>BackSpace:       delete-previous-word()          \n\
+        Meta ~Ctrl<Key>Delete:          delete-next-word()              \n\
+         Alt ~Ctrl<Key>Delete:          delete-next-word()              \n\
+        ~Meta ~Alt Ctrl<Key>n:          next-line()                     \n\
+        ~Meta ~Alt Ctrl<Key>p:          previous-line()                 \n\
+        ~Meta ~Alt Ctrl<Key>v:          next-page()                     \n\
+         Meta ~Ctrl<Key>v:              previous-page()                 \n\
+         Alt ~Ctrl<Key>v:               previous-page()                 \n
+
+
+
