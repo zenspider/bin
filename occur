@@ -1,32 +1,43 @@
-#!/usr/bin/perl -w
+#!/usr/local/bin/ruby -ws
 
-use strict;
-use Getopt::Long;
+$n ||= false
+$b ||= false
+$o ||= false
+$h ||= false
+$s ||= false
 
-my %option = ();
-GetOptions(\%option,
-           "n",
-	   "b|w",
-	   "o",
-           );
+if $h then
+  puts "#{File.basename($0)} [options] [files]"
+  puts "  -b - strip leading and trailing whitespace, and blanks"
+  puts "  -n - convert numbers to '<num>'"
+  puts "  -o - skip lines that only occur once"
+  puts "  -s - sort by line, rather than occurance"
+  puts "  -h - show help"
+  exit 0
+end
 
-my %c = ();
+c = {}
+c.default = 0
 
-while (<>) {
-  chomp;
+ARGF.each do |$_|
+  chomp
 
-  s/(\d+)/<num>/g if $option{n};
+  gsub!(/\d+/, "<num>") if $n
+  if $b then
+    $_.strip!
+    next if $_.empty?
+  end
+  
+  c[$_] += 1
+end
 
-  if ($option{b}) {
-      s/^\s+//g;
-      s/\s+$//g;
-      next unless $_;
-  }
+if $s then
+  sorted = c.keys.sort
+else
+  sorted = c.keys.sort { |a,b| c[b] <=> c[a] }
+end
 
-  $c{$_}++;
-}
-
-foreach my $key (sort { $c{$b} <=> $c{$a} } keys %c) {
-  next if $option{o} and $c{$key} == 1;
-  printf "%5d: %s\n", $c{$key}, $key;
-}
+sorted.each do |key|
+  next if $o and c[key] == 1
+  printf "%5d: %s\n", c[key], key
+end
