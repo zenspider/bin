@@ -163,42 +163,18 @@ esac
 # General Aliases:
 ############################################################
 
-alias F='f | sort'
-alias IBM='stty erase ^h'
-alias W='w | sort'
 alias aoeu="echo switching to qwerty; xmodmap ~/.xmodmap.qwerty"
 alias asdf="echo switching to dvorak; xmodmap ~/.xmodmap.dvorak"
-alias bold='tput smso'
-alias cgrep='grep -2'
-alias checkperl='for file in $(egrep -l '\#!.*perl' ~/Bin/*); do 2>&1 perl -cw $file|grep -v "syntax OK"; done'
 alias clean='DU -a . | sort -rn | ${PAGER-more}'
-alias cpu='ps -eo uname,pid,cputime,pcpu,pmem,cmd | sort -drn -k 4 | ${PAGER-more}'
-alias cputime='ps -eo uname,pid,cputime,pcpu,pmem,cmd | sort -drn -k 3 | ${PAGER-more}'
-alias cvscd='cd $(cat CVS/Repository)'
-alias cvsnew='2>&1 cvs -n update -I \*.class | grep \?'
-alias cvsx='cvs -d ~/.cvs'
+alias cpu='ps -axo ruser,pid,pcpu,command | sort -drn -k 3 | ${PAGER-more}'
+alias cputime='ps -axo ruser,pid,cputime,command | sort -dr -k 3 | ${PAGER-more}'
+alias cpumem='ps -axo ruser,pid,pmem,command | sort -drn -k 3 | ${PAGER-more}'
 alias lc='wc -l'
-alias listapps='find . -perm -1 -type f -print'
 alias lpr2up='enscript -2r'
-alias perlpath="perl -e 'print join(\"\\n\", @INC), \"\\n\";'"
-alias rl='rlogin -8'
-alias sho='show $LOGNAME'
-alias unbold='tput rmso'
-alias wtf='(w;f) | sort | ${PAGER-more}'
 
 ############################################################
 # General Functions:
 ############################################################
-
-oct () {
-  let "$1" && { oct $(( $1>>3 )); echo -n $(( $1&7 )); }
-}
-
-chr () {
-  local i=0
-  let "$#" && for i; do echo -e "\\$(oct $i)"; done ||
-    while let "i<256"; do echo -e "$i = \"\\$(oct $i)\""; let "i+=1"; done
-}
 
 fegrep () { 
   pattern=$1; shift;
@@ -207,14 +183,16 @@ fegrep () {
   find . -name $files -print | xargs egrep $pattern
 }
 
-mylpr () {
-  pr -o4 -e4 -l60 $* | lpr 
+ff () {
+    find . -type f -print0 | xargs -0 egrep $*
 }
 
-findapp() {
-  for file in $*; do
-    grep $file ~/.apps
-  done
+psg () {
+    ps-all | grep $*
+}
+
+mylpr () {
+  pr -o4 -e4 -l60 $* | lpr 
 }
 
 l () {
@@ -250,37 +228,6 @@ ee() {
 
 cleans() {
   DU -as $* | sort -rn | ${PAGER-more}
-}
-
-show() {
-    ps-all | egrep $(perl -e 'print join("|", @ARGV)' $*)
-}
-
-url() {
-
-  for url in $*
-  do
-    netscape -remote "openURL($url, new-window)"
-  done
-}
-
-furl() {
-  
-  for file in $*
-  do
-    url "file://$PWD/$file"
-  done
-}
-
-#Find() {
-#  for file in $*
-#  do
-#    find . -name $file -print
-#  done
-#}
-    
-ps-grep() {
-  ps-all | grep $1 | grep -v "grep $1"
 }
 
 nuke() {
