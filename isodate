@@ -1,0 +1,6 @@
+#!/opt/third-party/bin/perl -w
+
+use Date::Format;
+
+print time2str("%Y-%m-%dT%H:%M\n", time);
+

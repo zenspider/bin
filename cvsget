@@ -1,0 +1,5 @@
+#! /bin/csh
+#
+# usage:   cvsget <fileName> <revisionNumber>
+#
+co -r$2 `cat ../CVS/Repository`/$1,v $1

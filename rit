@@ -1,0 +1,5 @@
+#!/bin/csh
+# xit - make file executable
+foreach F ($argv)
+	chmod a+r $F
+end

@@ -1,0 +1,8 @@
+IFS=:
+
+machines=software-1:software-2:software-3:software-4:software-5:software-6:software-7:software-8:recife:cachimbo
+
+for m in $machines ; do
+  echo -n $m:
+  rsh $m uptime
+done

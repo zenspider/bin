@@ -1,0 +1,3 @@
+#!/bin/csh
+# lc - not debugged
+tr "[A-Z]" "[a-z]"

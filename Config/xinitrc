@@ -1,0 +1,6 @@
+#!/bin/sh
+
+xrdb $HOME/.xdefaults
+/usr/local/10bin/fvwm2
+#/usr/openwin/bin/olwm
+#/usr/bin/X11/twm

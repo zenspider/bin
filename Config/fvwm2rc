@@ -1,0 +1,436 @@
+##########################################################################
+# FVWM - F? Virtual Window Manager, Version 2.x (fvwm2) Configuration File
+# Created April 1996
+#
+
+##########################################################################
+# PATH Setup 
+#
+# Colon seperated unix directory paths for Modules, xpm files, and bitmaps
+ModulePath   /usr/local/10lib/fvwm2
+PixmapPath   /usr/local/lib/fvwm/pixmaps
+IconPath     /usr/local/lib/fvwm/bitmaps:/usr/include/X11/bitmaps
+
+############################################################################
+# COLORS and FONTS
+#
+# Set the fore and back border colors for the window that has focus
+HilightColor		linen SteelBlue4
+
+# Set fore/back border colors for all other windows 
+Style "*" Color linen/VioletRed4
+
+# Set colors/font for pop-up menus
+# Syntax: MenuStyle forecolor backcolor shadecolor font style(fvwm/mwm)
+MenuStyle black grey slategrey -adobe-times-*-r-*-*-14-*-*-*-*-*-*-* fvwm
+
+# Set fonts to use on title bar and icon label
+WindowFont              9x15
+IconFont                9x15
+
+############################################################################
+# ICON Setup
+#
+# Auto Place Icons is a nice feature (Left Top Right Bottom)
+Style "*" IconBox -50 0 -1 -50
+
+############################################################################
+# FOCUS Setup
+#
+# Does the window with focus control the colormap, or the one under the mouse
+ColormapFocus FollowsFocus
+
+# Uncomment this to force you to click in a window to give it focus
+Style "*" ClickToFocus
+
+# default: focus follows mouse
+#Style "*" MouseFocus
+
+# If you knock your mouse out of the xterm, it keeps focus while in root window
+#Style "*term"		SloppyFocus
+
+############################################################################
+# MISC Setup
+#
+# click/release must occur in <n milliseconds to be a "click"
+ClickTime 250
+
+# if the window occupies less than n% of the screen, draw it opaque
+OpaqueMoveSize 5
+
+# flip by whole pages on the edge of the screen, but delay for a half second
+EdgeResistance 10000 10000
+
+# MWM Emulation: Don't ignore hints for functions and transient decoration
+Style "*" MWMFunctions, MWMDecor
+
+# Changes the look of the "rubberband" you see when moving windows (0 - 255)
+#XORvalue 100
+
+###########################################################################
+# PAGER Setup
+#
+# set the desk top size in units of physical screen size (width x height)
+DeskTopSize 2 2
+
+############################################################################
+# WINDOW Placement
+#
+# SmartPlacement makes new windows pop-up in blank regions of screen 
+# If SmartPlacement fails, this places it randomly instead of making you do it
+Style "*" SmartPlacement, RandomPlacement
+
+############################################################################
+# STYLE Flag Setup
+#
+# (decorations and window options) 
+# Note: Order is important!! If compatible styles are set, styles are ORed
+# together. If conflicting styles are set, the last one specified is used.
+
+# change the default width, set a global icon, and give borders to popups
+Style "*" BorderWidth 6, HandleWidth 6, Icon unknown1.xpm
+	# DecorateTransient
+
+Style "Fvwm*"		NoTitle, NoHandles, Sticky, WindowListSkip
+Style "*lock"		NoTitle, Sticky, WindowListSkip
+Style "xbiff"		NoTitle, Sticky, WindowListSkip
+Style "xload"		NoTitle, Sticky, WindowListSkip, ClickToFocus
+Style "xsession"	NoTitle, Sticky, WindowListSkip, ClickToFocus
+Style "xconsole"	NoTitle, Sticky, WindowListSkip, ClickToFocus
+Style "xfsm"		NoTitle, Sticky, WindowListSkip, ClickToFocus
+Style "FvwmButtons"	ClickToFocus
+Style "Time 3D"		NoTitle, Sticky
+Style "*term"		Icon NeXT.xpm
+Style "xcalc"		Icon xcalc.xpm
+Style "xbiff"		Icon mail1.xpm
+Style "xman"		Icon xman.xpm
+Style "*emacs"		NoPPosition
+Style "Mosaic"		NoPPosition
+Style "Netscape"	NoPPosition
+
+#############################################################################
+# START-UP Functions
+#
+AddToFunc "InitFunction" "I" Exec xsetroot -solid gray37
++		"I" Exec xmodmap /home/ryand/.xmodmap.ibm
++		"I" Exec /usr/local/xemacs/`/usr/local/sh/suntype`bin/xemacs-19.16 -f vm &
++		"I" Exec /usr/local/`/usr/local/sh/suntype`bin/netscape-404 -ncols 64 &
++		"I" Exec sleep 3 # seem to need a delay for fvwmButtons
++		"I" Module FvwmButtons
+
+AddToFunc "RestartFunction" "I" Module FvwmButtons
++		"I" Exec sleep 3 # seem to need a delay for fvwmButtons
++		"I" Exec xsetroot -solid gray37
+
+#############################################################################
+# MENU Setup
+#
+
+# This defines the most common window operations
+AddToMenu Window-Ops    "Window Ops"    Title
++                       "Move"          Move-or-Raise2
++                       "Resize"        Resize-or-Raise2
++                       "Raise"         Raise
++                       "Lower"         Lower
++                       "(De)Iconify"   Iconify
++                       "(Un)Stick"     Stick
++                       "(Un)Maximize"  maximize_func
++                       ""              Nop
++                       "Delete"        Delete
++                       "Close"         Close
++                       "Destroy"       Destroy
++                       ""              Nop
++                       "Refresh Screen" Refresh
+
+# A trimmed down version of "Window Ops", good for binding to decorations
+AddToMenu Window-Ops2   "Move"          Move-or-Raise
++                       "Resize"        Resize-or-Raise
++                       "Raise/Lower"   RaiseLower
++                       "Iconify"       Iconify
++                       "(Un)Stick"     Stick
++                       ""              Nop
++                       "Delete"        Delete
++                       "Close"         Close
++                       "Destroy"       Destroy
++                       ""              Nop
++                       "ScrollBar"     Module FvwmScroll 2 2
++                       "Print"         PrintFunction
+
+AddToMenu FvwmModules	"Fvwm Modules" Title
++                       "Pager"         Module  FvwmPager 0 0
++                       "Button-Bar"    Module  FvwmButtons
++                       "WinList"       Module  FvwmWinList
++                       "Identify"      Module  FvwmIdent
++			""		Nop
++                       "SaveDesktop"   Module  FvwmSave
++                       "Debug"         Module  FvwmDebug
++                       "Background"    Module  FvwmBacker
++                       "IconBox"       Module  FvwmIconBox
++                       "Banner"        Module  FvwmBanner
++			""		Nop
++			"Scroll"	Module	FvwmScroll
++			"Audio"		Module	FvwmAudio
++			"Cpp"		Module	FvwmCpp
++			"M4"		Module	FvwmM4
++			"Talk"		Module	FvwmTalk
++			"Auto"		Module	FvwmAuto
++			"Form"		Module	FvwmForm
++			"Banner"	Module	FvwmBanner
++			"IconMan"	Module	FvwmIconMan
++			"SaveDesk"	Module	FvwmSaveDesk
+
+# This is the root menu
+AddToMenu RootMenu "Root Menu"  Title
++		"XTerm"		Popup LoginMenu
++		"" 		Nop
++		"Utilities"	Popup Utilities
++ 		"Fvwm Modules"  Popup FvwmModules
++		""		Nop
++		"Lock Screen:"	Popup ConfirmLock
++		"Restart Fvwm:"	Popup ConfirmRestart
++		"Exit Fvwm:"	Popup ConfirmExit
+
+AddToMenu ConfirmLock		"Lock Screen"   Exec /gcm/where/oreilly/10x_tools/bin/X11/xlock -mode blank
+
+AddToMenu ConfirmRestart	"Restart Fvwm2" Restart fvwm2
+
+AddToMenu ConfirmExit		"Exit Fvwm"     Quit
+
+# This menu will fire up some often used programs
+AddToMenu Utilities 	"Choose one:" Title
++               "xemacs" Exec	/usr/local/xemacs/`/usr/local/sh/suntype`bin/xemacs-19.16 &
++               "xemacs-vm" Exec /usr/local/xemacs/`/usr/local/sh/suntype`bin/xemacs-19.16 -f vm&
++		""		Nop
++		"Edit Tasks" Exec /usr/local/xemacs/`/usr/local/sh/suntype`bin/gnuclient -q /home/ryand/public_html/tasks.txt
++		"Edit Todos" Exec /usr/local/xemacs/`/usr/local/sh/suntype`bin/gnuclient -q /home/ryand/public_html/todo.txt
++		"Edit .fvwm2rc" Exec /usr/local/xemacs/`/usr/local/sh/suntype`bin/gnuclient -q /home/ryand/.fvwm2rc
++		""		Nop
++		"Netscape"	Exec /usr/local/`/usr/local/sh/suntype`bin/netscape-404 -ncols 64 &
++		""		Nop
++		"TkMan..."	Module FvwmForm ManPageForm
++                "xcalc"	Exec xcalc &
++                "xclipboard"	Exec xclipboard &
+#		"Top"		Exec  exec xterm +cn -name Top -e top &
+
+# A wide variety of screenlocking options...
+AddToMenu LoginMenu	"XTerm:" Title
++	"Local"		Exec exec xterm +cn &
++	"Remote"	Module FvwmForm Rlogin
++	""		Nop
++	"vroom"		Exec exec /home/ryand/Bin/xt vroom &
++	"spock"		Exec exec /home/ryand/Bin/xt spock &
++	"space"		Exec exec /home/ryand/Bin/xt space &
++	"lily"		Exec exec /home/ryand/Bin/xt lily &
++	"zap"		Exec exec /home/ryand/Bin/xt zap &
++	"rossini"	Exec exec /home/ryand/Bin/xt rossini &
+
+############################################################################
+# COMPLEX FUNCTIONS
+#
+AddToFunc warp-or-run		"I" Next [$0 CirculateHit] Iconify -1
++				"I" Next [$0 CirculateHit] Focus
++				"I" None [$0] $1
+
+AddToFunc MailFunction		"I" Next [$0] Iconify -1
++				"I" Next [$0] focus
++				"I" None [$0] Exec exec $0 $1
+
+AddToFunc Move-or-Raise		"I" Raise
++				"M" Move
++				"D" Lower
+
+AddToFunc Move-or-Raise2        "M" Raise
++				"M" Move
++				"D" Lower
+
+AddToFunc Maximize-Func         "C" Maximize     0 100
++                               "D" Maximize     100 100
+
+AddToFunc Move-or-Iconify       "I" Raise
++                               "M" Move
++                               "D" Iconify
+
+AddToFunc Resize-or-Raise       "I" Raise
++                               "M" Resize
++                               "D" Lower
+
+AddToFunc Resize-or-Raise2      "M" Raise
++                               "M" Resize
++                               "D" Lower
+
+AddToFunc PrintFunction         "I" Raise
++                               "I" Exec exec xdpr -id $w
+
+AddToFunc Iconify-and-Raise     "I" Iconify
++                               "I" Raise
+
+############################################################################
+# MOUSE Setup
+#
+# First, the root window. Button 1 brings up the Main Menu. B2 is the
+# window operations list, and B3 is the winlist module
+#     Button	Context Modifi 	Function
+Mouse 1		R   	A       Menu RootMenu Nop
+Mouse 2		R    	A       Menu Window-Ops Nop
+Mouse 3		R    	A      	WindowList
+
+# Now, title bar buttons
+# Left button is the Window-Ops2 menu, right is iconify, rightmost is maximize
+#     Button	Context Modifi 	Function
+Mouse 0		1       A       Menu Window-Ops2 Close
+Mouse 0		2    	A     	Maximize-Func
+Mouse 0		4    	A     	Iconify
+Mouse 0		3       A       Stick
+
+# Button 1 in Frame or Sides is a resize-or-raise, in Icons is a move or 
+# de-iconify, and on Top does a move-or-raise
+#     Button	Context Modifi 	Function
+Mouse 1 	FS      A       Resize-or-Raise
+Mouse 1		I       A       Move-or-Iconify
+Mouse 1		T       A       Move-or-Raise
+
+# Button 2 in an Icon is de-iconify, in Corners/Sides/Titlebar gets Ops Menu
+#     Button	Context Modifi 	Function
+Mouse 2 	I       A       Iconify
+Mouse 2 	FST     A       Menu Window-Ops2 Nop
+
+# Button 3 does a raise-lower on anything
+Mouse 3 	TSIF    A       RaiseLower
+
+# Keyboard accelerators
+Key F4		A	M	Close
+Key F4		A	C	Iconify
+Key Tab		A	M	Next [CurrentDesk] focus
+Key Tab		A	SM	Prev [CurrentDesk] focus
+
+############################################################################
+# FvwmButtons!
+#
+
+*FvwmButtonsFore	Black
+*FvwmButtonsBack	Grey80
+*FvwmButtonsFont	5x8
+*FvwmButtonsGeometry	+25-0
+*FvwmButtonsRows	1
+
+#*FvwmButtons(1x1, Swallow "xbiff" "Exec exec xbiff -update 600 -bg Grey80 -fg Black")
+
+*FvwmButtons(1x1, Swallow "xclock" "Exec exec xclock -bg Grey80 -padding 0")
+*FvwmButtons(1x1, Swallow "xload" "Exec exec xload -bg Grey80 -hl Red -nolabel")
+*FvwmButtons(Title Mom, Icon rterm.xpm, Action "Exec exec xterm +cn")
+*FvwmButtons(Title Zap, Icon rterm.xpm, Action "Exec exec xterm +cn -e rlogin zap")
+*FvwmButtons(Title Spock, Icon rterm.xpm, Action "Exec exec xterm +cn -e rlogin spock")
+*FvwmButtons(Title Rossini, Icon rterm.xpm, Action "Exec exec xterm +cn -e rlogin rossini")
+*FvwmButtons(3x1, Swallow "FvwmPager" "Module FvwmPager 0 2")
+*FvwmButtons(6x1, Swallow "mini-term" "Exec exec xterm +cn -T mini-term -bg Grey80")
+*FvwmButtons(6x1, Swallow "xconsole" "Exec exec xconsole -bg Grey80 -geometry +0+0")
+
+###########################################################################
+# FvwmForm ManPageForm.
+###########################################################################
+
+# Customization stuff.
+*ManPageFormBack Grey80
+*ManPageFormFore Black
+*ManPageFormItemBack LightGrey
+*ManPageFormItemFore Black
+*ManPageFormLine left
+*ManPageFormInput ManPage 20
+*ManPageFormButton restart "Man" ^M
+*ManPageFormCommand Exec exec xterm +cn -title "man $(ManPage)" -e man $(ManPage)
+
+############################################################################
+# FvwmPager
+#
+*FvwmPagerBack Grey80
+*FvwmPagerFore black
+*FvwmPagerFont -adobe-helvetica-bold-r-*-*-10-*-*-*-*-*-*-*
+*FvwmPagerHilight Grey60 
+*FvwmPagerLabel 0 Pen
+*FvwmPagerLabel 1 Java
+*FvwmPagerLabel 2 ST
+
+############################################################################
+# FvwmWinList
+#
+*FvwmWinListBack #908090
+*FvwmWinListFore Black
+*FvwmWinListFont -adobe-helvetica-bold-r-*-*-10-*-*-*-*-*-*-*
+*FvwmWinListAction Click1 Iconify -1,Focus
+*FvwmWinListAction Click2 Iconify
+*FvwmWinListAction Click3 Module "FvwmIdent" FvwmIdent
+*FvwmWinListUseSkipList
+*FvwmWinListGeometry +0+0
+
+############################################################################
+# FvwmIconBox
+#
+# NOTE: Icons will only be shown in module if Style "??" NoIcon is set
+#*FvwmIconBoxFore       blue
+#*FvwmIconBoxHideSC Horizontal
+#*FvwmIconBoxResolution          Desk
+*FvwmIconBoxBack        #5f9ea0
+*FvwmIconBoxFont        -adobe-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*
+*FvwmIconBoxGeometry    5x1+0+0
+*FvwmIconBoxHilightFocusWin
+*FvwmIconBoxIconBack    #cfcfcf
+*FvwmIconBoxIconHiBack  LightSkyBlue
+*FvwmIconBoxIconHiFore  black
+*FvwmIconBoxKey         d       Close
+*FvwmIconBoxKey         h       Left
+*FvwmIconBoxKey         j       Down
+*FvwmIconBoxKey         k       Up
+*FvwmIconBoxKey         l       Right
+*FvwmIconBoxKey         n       Next
+*FvwmIconBoxKey         p       Prev
+*FvwmIconBoxKey         r       RaiseLower
+*FvwmIconBoxKey         space   Iconify
+*FvwmIconBoxLines       10
+*FvwmIconBoxMaxIconSize 64x38
+*FvwmIconBoxMouse       1       Click           RaiseLower
+*FvwmIconBoxMouse       1       DoubleClick     Iconify
+*FvwmIconBoxMouse       2       Click           Iconify -1, Focus
+*FvwmIconBoxMouse       3       Click           Module FvwmIdent
+*FvwmIconBoxPadding     4
+*FvwmIconBoxPixmap      fvwm.xpm
+*FvwmIconBoxPlacement   Left Top
+*FvwmIconBoxSBWidth     11
+*FvwmIconBoxSetWMIconSize
+*FvwmIconBoxSortIcons   IconName
+
+############################################################################
+# FvwmScrollBack
+#
+*FvwmScrollBack grey40
+*FvwmScrollFore green
+
+############################################################################
+# FvwmForm
+#
+# FvwmForm alias - rlogin to host via xterm
+# begin items
+*RloginBack         Light Gray
+*RloginButton       quit "Cancel"
+*RloginButton       quit "Login" ^M
+*RloginButton       restart   "Clear"
+*RloginButtonFont   *helvetica*m*o*n*14*
+*RloginChoice       Custom    Custom    off  "user:"
+*RloginChoice       Default   Default   on   "same user"
+*RloginCommand Beep
+*RloginCommand Exec exec xterm +cn -T xterm@$(HostName) -e rlogin $(HostName) $(Custom?-l $(UserName))
+*RloginCommand Nop
+*RloginFont         *helvetica*m*r*n*14*
+*RloginFore         Black
+*RloginInput        HostName  20   ""
+*RloginInput        UserName  10   ""
+*RloginInputFont    *cour*m*r*n*14*
+*RloginItemBack          Gray50
+*RloginItemFore          Wheat
+*RloginLine         center
+*RloginLine         center
+*RloginLine         center
+*RloginLine         expand
+*RloginSelection    UserSel   single
+*RloginText         "Host:"
+*RloginText         "Login to Remote Host"
+*RloginWarpPointer

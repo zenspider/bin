@@ -1,0 +1,20 @@
+#!/bin/csh
+
+set com = $0			# save command name
+
+if ($#argv < 1) then		# check num of arguments
+	echo "Usage: $com:t <directories>"
+	exit 1
+endif
+
+# Do all file processing here:
+foreach File ($argv)		# process multiple files
+
+	if ($File == "-help") then	# example of flag
+		echo "Prints the contents of the directories to formatted files"
+		shift			# remove "-help" from queue
+	endif
+
+	pr -f -l60 -e4 -o4 $File/* > $File.txt
+
+end

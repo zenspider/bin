@@ -1,0 +1,10 @@
+#!/bin/csh
+
+set repeats=`awk 'BEGIN { FS = "/" } { print $NF }' ~/.apps | sort | uniq -d`
+
+foreach File ( $repeats )
+	echo $File":"
+	tuna $File
+	echo ""
+end
+

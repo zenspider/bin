@@ -1,0 +1,26 @@
+#!/bin/csh -f
+# by RWD modified 11-12-93
+# checktmp is a setup program that should be added to .login. It allows for
+# the creation and use of a temporary hidden directory called .tmp
+# this program scans for it's existance and creates it if needed.
+# I use this program, along with an rm alias to create a "garbage can"
+
+### Setup for temp directory
+
+set com = $0:t			# save command name
+
+if ($#argv < 1) then		# check num of arguments
+	echo "$com: creates directories if non-existant."
+	echo "Usage: $com <dir> ..."
+	exit 1
+endif
+
+# Do all file processing here:
+foreach File ($argv)		# process multiple files
+
+if (! -e $File ) then
+	mkdir $File
+	echo "NOTE: $File directory was recreated."
+endif
+
+end

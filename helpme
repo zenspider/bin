@@ -1,0 +1,7 @@
+#!/bin/csh
+elm -s "HELP ME\!\!\!" ryand << END > /dev/null
+Ryan, please come and help me NOW or call me NOW
+to get me away from the terrible horror I am in.
+
+MSK
+END

@@ -1,0 +1,38 @@
+dbxenv suppress_startup_message 4.0
+
+ignore ILL # for machines older than ultrasparc
+ignore IO 
+ignore PIPE
+ignore WINCH
+ignore USR1
+
+dbxenv output_max_string_length 80
+dbxenv stack_max_size 30
+dbxenv step_events on
+dbxenv scope_look_aside on # enable lookup of static functions 
+
+
+alias br="stop in"
+alias c="cont"
+alias ctlc="cont sig 2"
+alias del="delete"
+alias dep=set
+alias disbr="handler -disable"
+alias enbr="handler -enable"
+alias f="frame"
+alias fin="step up"
+alias gemerr="stop in HostCallDebugger; stop in GemSupErr; stop in TpAuxIncErr; stop in TpPauseOnError"
+alias ibr="status"
+alias javaerr="stop in exceptionThrow; stop in exceptionThrowSpecial; stop in SignalError; stop in sysExit; stop in out_of_memory"
+alias jthreads="print DumpThreads()"
+alias l="list -w10"
+alias n=next
+alias p=print
+alias s=step
+alias spawn=sh
+alias sterr="stop in IntSwiDispatchError; stop in IntSwiFindException"
+alias threaddata="print *HostThrDebugData()"
+alias topazerr="stop in TpAuxIncErr; stop in TpPauseOnError;"
+alias w="where 1" 
+alias ww="where 5"
+alias www="where 15"

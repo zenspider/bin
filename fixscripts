@@ -1,0 +1,73 @@
+#!/usr/local/10bin/perl5 -w
+
+use strict;
+
+die "Usage: fixscripts [files]\n" unless @ARGV;
+
+# Configuration parameters.
+
+my($BIN) = '/usr/local/bin';
+my($SCRIPTS) = '/u/scripts';
+my($BAK) = 'bak';
+
+# Process each file.
+
+my($file);
+foreach $file (@ARGV) {
+  unless (-T $file) {
+    warn "Can't process binary file: $file\n";
+    next;
+  }
+  open(FILE, $file)
+    || do { warn "Can't open $file: $!\n"; next; };
+  
+  # Now process the file.
+  
+  my($contents) = '';
+  my($changed) = 0;
+  while (<FILE>) {
+    if (m|$BIN|o) {
+	print STDERR "<$file:\t",$_;
+	$changed++;
+	
+	if (m|:/|o) {                       # a $path
+	    s|$BIN|$BIN:$SCRIPTS|o;
+	  }
+	elsif (m| /usr| && /set\s/) {       # a $PATH
+	       s|$BIN([^/])|$BIN $SCRIPTS$1|o;
+	     }
+	else {
+	  
+	  # Try substitutions until one works.
+	  
+	  s|$BIN/(\w+)|
+	    -f "$SCRIPTS/$1" ?
+	      "$SCRIPTS/$1" :
+		"$BIN/$1"|oeg             # a program
+		  ||
+		    s| $BIN| $BIN $SCRIPTS|o    # $PATH?
+		      ||
+			s|$BIN |$BIN $SCRIPTS |o    # $PATH?
+			  ||
+			    s|:$BIN|:$BIN:$SCRIPTS|o    # $path?
+			      ||
+				s|$BIN:|$BIN:$SCRIPTS:|o    # $path?
+				  ;
+	}
+	print STDERR ">$file:\t",$_;
+      }
+    $contents .= $_;
+  }
+  close FILE;
+  
+  if ($changed) {
+    rename($file,"$file.$BAK") ||
+      do { warn "Can't rename $file: $!\n"; next; };
+    open(FILE, ">$file") ||
+      do { warn "Can't make $file: $!\n"; next; };
+    print FILE $contents;
+    close FILE;
+  }
+}
+
+

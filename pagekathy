@@ -1,0 +1,19 @@
+#!/bin/sh -- # -*- perl -*-
+eval 'exec perl -w -S $0 ${1+"$@"}'
+  if 0;
+
+use strict;
+use Mail::Mailer;
+
+my $mail = Mail::Mailer->new();
+$mail->open(
+	    {
+	      From    => 'ryand@amazon.com',
+	      To      => 'kbosik@microsoft.com',
+	      CC      => 'mspager@microsoft.com',
+	      Subject => 'Call me 206.694.2641',
+	    }
+	    )
+  or die "Can't open mail: $!\n";
+print $mail "call me\n";
+$mail->close();

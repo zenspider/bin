@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+
+set -Pu
+
+chmod -R a+w /mom*/users/ryand/killme &> /dev/null
+/bin/rm -rf /mom*/users/ryand/killme &> /dev/null

@@ -1,0 +1,5 @@
+cd () {
+        builtin cd $*
+        layertitle "$host@${PWD#/tmp_mnt}"
+}
+cd .

@@ -1,0 +1,56 @@
+#!/usr/local/10bin/perl5 -w
+
+use strict;
+
+# This handles the event where the user cancels the listing.
+# No more cvs stuck locks!
+
+$SIG{'TERM'} = \&terminate;
+$SIG{'INT'} = \&terminate;
+$SIG{'QUIT'} = \&terminate;
+$SIG{'PIPE'} = \&terminate;
+
+sub terminate {
+  close STATUS;
+  close DIFF;
+  exit(0);
+}
+
+my($file, $base, $max) = (undef, undef, 0, 0);
+my($version, $old) = (0, 0);
+
+$| = 1; # turn off buffering
+
+FILE: foreach $file (@ARGV) {
+
+  # Check that file exists and get cvs status on it
+  ((warn "File \'$file\' does not exist."), next)
+    unless -f $file;
+  open (STATUS, "cvs status $file|")
+    or warn "Couldn't get status for file \'$file\'.", next;
+
+  # Read the "Working revision: #" line from cvs status
+  while (<STATUS>) {
+    next unless m/Working revision/;
+
+    ($base, $max) = m/Working revision:\s+(\d+)\.(\d+)\s+/;
+    last;
+  }
+  
+  VERSION: foreach $version (reverse 2..$max) {
+    $old = $version-1;
+
+    print "\n", "=-"x40, "\n";
+    print "cvs diff -r $base.$version -r $base.$old $file";
+    print "\n", "=-"x40, "\n";
+
+    open(DIFF, "cvs diff -r $base.$version -r $base.$old $file\n|")
+      or warn "Couldn't get diff for version $version", next VERSION;
+
+    while(<DIFF>) {
+      print;
+    }
+
+    close(DIFF);
+  }
+}

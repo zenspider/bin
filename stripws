@@ -1,0 +1,10 @@
+#!/usr/local/10bin/perl5 -w
+
+use strict;
+
+while (<>) {
+
+    s/[\ \t][\ \t]+/\t/g;
+    s/[\ \t]+$//;
+    print;
+}

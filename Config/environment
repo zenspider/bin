@@ -1,0 +1,125 @@
+# -*-ksh-*-
+# General Environment (ryand)
+
+#set -xv
+
+# Don't make useless coredump files.  If you want a coredump,
+# say "ulimit -c unlimited" and then cause a segmentation fault.
+ulimit -c 0
+
+case $- in
+  
+  # interactive shell
+  *i*)
+    
+    PS1='[\!] '
+    PS4='$0@$LINENO: '
+    HISTCONTROL=ignoredups
+    
+    export EDITOR='gnuclient'
+    export PAGER=more
+    export MORE="-e"
+    
+    # Universal display mechanism, hopefully works
+    if [ -z ${DISPLAY-} ] ; then
+      export DISPLAY=$(cat ~/.display)
+    else
+      echo $DISPLAY > ~/.display
+    fi
+    
+    # ESHELL is what emacs will run for a shell
+    export ESHELL=/bin/bash
+    
+    case "${HOSTTYPE}.${OSTYPE}" in
+      
+      "alpha.OSF1" )
+	stty echoe erase '^h'
+	stty discard undef
+	;;
+      "sparc.sunos" )
+	stty erase '^h'
+	PATH=$PATH:/usr/ucb
+	;;
+      
+      "hp.hpux" )
+	stty erase '^h' intr '^c' kill '^u'
+	set noglob;
+	eval $(tset -Qs "$TERM");
+	unset noglob
+	PATH=/usr/toolset/bin:/opt/langtools/bin:/opt/ansic/bin:$PATH
+	;;
+      
+      "sparc.solaris" )
+	# Set stack size limit to maximum hard limit
+	ulimit -s $(ulimit -sH);
+	
+	stty erase '^h'
+	stty echoe
+	
+	# for compiler/dbx support
+	export LM_LICENSE_FILE=/opt/SUNWspro/license_dir/sunpro.lic,1
+	
+	# Add Java path to Solaris pathing:
+	PATH=$PATH:/usr/ucb
+	export LD_LIBRARY_PATH=/usr/openwin/lib;
+	
+	;;
+      
+      * )
+	echo $0:${HOSTTYPE}.${OSTYPE} is an unknown machine type
+	;;
+      
+    esac
+    
+    ;;
+      
+  # not interactive
+  *) 
+      
+    ;;
+esac
+
+############################################################
+# Pathing:
+
+PATH=''
+MYPATH=~/Bin:/opt/amazon/website/bin:/opt/third-party/bin:/usr/local/gnu/bin:/usr/local/bin:/usr/local/script:/usr/local/script/QA:/bin:/sbin:/usr/ucb:/usr/ccs/lib:/dept/snoc/arch/bin:/sbin:/usr/sbin:/usr/bin:/usr/ccs/bin:/usr/bin/X11
+
+oldIFS=$IFS
+IFS=:
+export PATH
+for p in $MYPATH ; do
+  if [ -d $p ]; then
+    PATH=$PATH:$p
+  else
+    echo Path $p not found
+  fi
+done
+IFS=$oldIFS
+
+export SAVEPATH=$PATH
+export CDPATH=.:~/
+
+export MANPATH=~/.man:/usr/local/gnu/man:/usr/local/man:/usr/man:/usr/openwin/man:/usr/X11R6.1/man:/dept/snoc/man:.
+
+export PRINTER=denali
+
+# Open Windows, yuck
+export OPENWINHOME=/usr/openwin
+export LD_LIBRARY_PATH=/usr/shlib:/usr/openwin/lib:/usr/X11R6.1/lib:/dept/snoc/arch/lib:/usr/lib:${LD_LIBRARY_PATH-}
+export OW_WINDOW_MANAGER=/usr/local/bin/ctwm
+
+export PERL5LIB=.:/home/ryand/Dev/Perl
+
+# Allow use of tools against test db
+export UNSAFE_CCMOTEL=true
+
+# Redierect all mail for some of the tools to me
+export AMAZON_REDIRECT_MAIL_TO=ryand@amazon.com
+
+# CVS
+export CVSROOT=/src/cvs
+export SRCROOT=/src/base
+
+export AMAZON_ENVIRONMENT='test-us-hq'
+export lisp="/usr/local/xemacs/lib/xemacs-19.16/lisp/"

@@ -1,0 +1,42 @@
+#!/usr/local/gnu/bin/perl5.00404 -w
+use strict;
+
+print "Initializing...\n";
+
+my $clear = `clear`;
+my $i = 0;
+
+chdir('/home/ryand/Mail/spool');
+opendir(DIR, '/home/ryand/Mail/spool');
+my @dirs = grep { /^[^\.]/ } readdir(DIR);
+closedir(DIR);
+
+while (1) {
+  my %count = ();
+  my $mail;
+
+  for $mail (@dirs) {
+    
+    open(MAIL, $mail) 
+      or warn "Can't open $mail: $!\n\t";
+    while (<MAIL>) {
+      $count{$mail}++ if /^From: /i;
+    }
+  }
+  
+  print $clear;
+  print $i++, " EMAIL:: ";
+  if (%count) {
+    my $key;
+    for $key (sort keys %count) {
+      print "$key($count{$key}) ";
+    }
+    print "\n";
+  } else {
+    print "none\n";
+  }
+  my $time = 60;
+  sleep($time);
+}
+
+exit 0;

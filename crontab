@@ -1,0 +1,16 @@
+# Mi = Minute
+# H  = Hour
+# Dm = Day of Month
+# Mo = Month
+# Dw = Day of Week (0 = Sunday)
+#Mi  H	Dm Mo Dw  Task
+0,30 *  *  *  *   /home/ryand/Bin/dailyCleanup
+0    6  *  *  1-5 /usr/local/10bin/cvs -q update -dP /mom3/users/ryand/tests51
+30   6  *  *  1-5 /usr/local/10bin/cvs -q update -dP /mom3/users/ryand/tests10J
+0    7  *  *  1-5 /usr/local/10bin/cvs -q update -dP /home/ryand/.gemstone
+10   7  *  *  1-5 /usr/local/10bin/cvs -q update -dP /home/ryand/Bin
+20   7  *  *  1-5 /usr/local/10bin/cvs -q update -dP /home/ryand/public_html
+30   7  *  *  1-5 /usr/local/10bin/cvs -q update -dP /mom4/users/ryand/perl
+40   7  *  *  1-5 /usr/local/10bin/cvs -q update -dP /home/ryand/java/specs
+50   7  *  *  1-5 /usr/local/10bin/cvs -q update -dP /mom4/users/ryand/tests10J
+0    8  *  *  1-5 /bin/du -sk /engr2/users/* | /bin/sort -rn

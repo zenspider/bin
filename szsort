@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+ls -1s | sort -n | perl -n -e 'print "$2\n" if m/^\s*(\d+)\s+(\S+)/'

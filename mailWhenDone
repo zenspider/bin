@@ -1,0 +1,26 @@
+#!/usr/bin/bash
+
+com=${0##/*/}			# save command name
+tmpfile=/tmp/$com.$$
+
+usage() {
+
+  echo "Usage: $com command args"
+}
+
+if [ $# -lt 1 ]; then	# check num of arguments
+  usage
+  exit 1
+fi
+
+eval $* &> $tmpfile
+status=$?
+
+mailx -s "Results of '$*'" $LOGNAME << END
+Command used: $*
+Result code: $status
+Output:
+$(cat $tmpfile)
+END
+
+command rm -f $tmpfile

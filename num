@@ -1,0 +1,19 @@
+#!/bin/csh
+# to number the files in argument list or the
+# standard input if no arguments.
+
+if ($#argv == 0) then				# arguments?
+  awk '{printf "%4d\t%s\n", NR, $0}'		# use standard input
+  exit 0
+endif
+
+foreach file ($argv[*])				# argument expansion
+  if (-f $file) then
+    awk '{printf "%4d\t%s\n", NR, $0}' $file
+    echo ""
+  else
+    echo2 $0\: No File $file
+  endif
+end
+
+# done.

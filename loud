@@ -1,0 +1,3 @@
+#!/bin/csh
+# loud... undoes what quiet does
+biff y;mesg y

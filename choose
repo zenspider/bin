@@ -1,0 +1,11 @@
+#! /usr/bin/bash
+
+select choice in "$@"
+do
+  if [ $choice ]; then
+    echo $choice
+    break
+  else
+    echo "Error: you _must_ select something."
+  fi
+done

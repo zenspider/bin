@@ -1,0 +1,16 @@
+#!/bin/csh -f
+
+if ($#argv == 0) then			# no files given as argument,
+	expand -4			# so process standard input.
+	exit 0
+else
+	foreach File ($argv)		# process multiple files
+
+	if (-f $File) then		# check to see if plain file
+		echo $File\:		# display file name
+		expand -4 $File
+	else
+		echo $0\ No file $File	# print error message
+		exit 1			# exit abnormally
+	endif
+end

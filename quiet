@@ -1,0 +1,3 @@
+#!/bin/csh
+# quiet... shuts things up
+biff n;mesg n

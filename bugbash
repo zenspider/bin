@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+
+#set -xv
+
+cd /home/ryand
+mkdir bugbash.data &> /dev/null
+cd bugbash.data && rm -rf ELM*
+
+PATH=$PATH:/var/ddts/bin
+
+for bug in $(findbug -NOA) ; do
+  dumpbug -fn $bug > $bug
+done
+
+#date | mailx -s "Done rebuilding bugbash files" ryand

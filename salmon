@@ -1,0 +1,54 @@
+#!/bin/csh
+# a bulk archie searching machine...
+
+if (-e ~/.archie.servers) then			#checks for host file
+	echo -n ""				#if found, do nothing
+else
+	cat << EOF_ARCHIE.SERVERS > ~/.archie.servers
+archie.au
+archie.edvz.uni-linz.ac.at
+archie.univie.ac.at
+archie.funet.fi
+archie.th-darmstadt.de
+archie.kuis.kyoto-u.ac.jp
+archie.sogang.ac.kr
+archie.nz
+archie.inesc.pt
+archie.luth.se
+archie.ncu.edu.tw
+archie.doc.ic.ac.uk
+archie.hensa.ac.uk
+archie.sura.net
+archie.unl.edu
+archie.ans.net
+archie.rutgers.edu
+EOF_ARCHIE.SERVERS
+endif
+
+				#if no arguments, give instructions...
+if ($#argv == 0) then
+	echo "USAGE: salmon [string1] [string2] ..."
+	echo "	Performs a bulk search for [string] and writes to a file in"
+	echo "	/usr/users2/$USER/archie/"
+	exit(1)
+endif
+
+if (-e ~/.archie) then		#makes an archie directory
+	echo -n ""
+else
+	mkdir ~/.archie
+endif
+
+set sites=`cat ~/.archie.servers`	#is going to search from the hosts
+					#in .archie.servers...
+
+# performs searches on all machines for each string
+while ($#argv != 0)
+
+	if (! -e ~/.archie/$argv[1]) touch ~/.archie/$argv[1]
+
+	foreach MACHINE ($sites)
+		archie -srh $MACHINE $argv[1] >>& ~/.archie/$argv[1] &
+	end
+	shift
+end

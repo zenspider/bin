@@ -1,0 +1,37 @@
+#!/opt/third-party/bin/perl -w
+
+use strict;
+
+use Cwd;
+
+my $pwd = cwd();
+opendir(DIR, $pwd) or die "Can't open dir '$pwd'\n\t";
+my @files = readdir(DIR) or die "Can't read dir '$pwd'\n\t";
+closedir(DIR) or die "Can't close dir '$pwd'\n\t";
+
+my $link;
+my %link;
+my $file;
+for $file (sort @files) {
+  if (-l $file) {
+    $link = readlink($file);
+    $link{$link} = $file;
+  }
+}
+
+for $link (sort keys %link) {
+  &bold if $link =~ /home/;
+  print "$link:\n";
+  for $file (sort $link{$link}) {
+    print "\t$file\n";
+  }
+  &unbold if $link =~ /home/;
+}
+
+sub bold() {
+  print `tput smso`;
+}
+
+sub unbold() {
+  print `tput rmso`;
+}

@@ -1,0 +1,27 @@
+#! /bin/csh
+# archdir - tar and compress a directory using tar & gzip
+
+if ($#argv < 1) then		# check num of arguments
+	echo "Usage: $com:t directory..."
+	exit 1
+endif
+
+# Do all file processing here:
+foreach File ($argv)		# process multiple files
+
+	if ($File == "-help") then	# example of flag
+		echo "PUT HELP HERE"
+		shift			# remove "-help" from queue
+	endif
+
+	if (! -d $File) then
+		echo "Error: $File is not a directory"
+		shift
+	endif
+
+	if (-d $File) then
+		tar cf $File.tar $File && /bin/rm -rf $File
+		gzip -f9 $File.tar &
+	endif
+end
+

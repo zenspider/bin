@@ -1,0 +1,3 @@
+#!/bin/csh
+# listfiles - lists files in descendin size order
+find . -type f -exec du -a {} \; | sort -nr | more

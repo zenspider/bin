@@ -1,0 +1,30 @@
+#!/usr/bin/bash
+
+cmd=$(basename $0)
+dir=$(dirname  $0)
+
+echo cmd is $cmd
+echo dir is $dir
+
+cd $dir
+
+for f in $( ls * | grep -v \~) ; do
+
+  if [ $f != $cmd ]; then
+
+    if [ -L ~/.$f ]; then
+      echo Removing symlink ~/.$f
+      rm ~/.$f
+    fi
+
+    if [ -f ~/.$f ]; then
+      echo Moving ~/.$f to ~/.$f.old
+      mv ~/.$f ~/.$f.old
+    fi
+
+    echo Linking $f
+    ln -s $PWD/$f ~/.$f
+
+  fi
+
+done

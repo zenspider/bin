@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+. ~/.bashrc
+
+cd ~/Mail/spool
+egrep -c "^From " * | perl -ne 's/(\w+):(\d+)/You have $2 messages in $1./ unless m/0$/; print unless m/0$/;' - | sort -rn
+exit 0
