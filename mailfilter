@@ -13,7 +13,7 @@ use Time::JulianDay;
 use Getopt::Long;
 use Date::Format;
 
-my $VERSION = '1.5.0';
+my $VERSION = '1.5.1';
 
 my $SPOOL = "/var/mail/".getpwuid($>);
 
@@ -71,7 +71,9 @@ unless ($option{check}) {
 
   if ($is_spam) {
     if ($option{'nospam'}) {
-      &log("Rejecting spam from $from, subject $subject");
+      my $sleep = int rand(5) + 5;
+      &log("Rejecting spam, sleeping $sleep seconds");
+      sleep $sleep;
       $mail->reject("This mail was identified as spam and rejected.");
     } else {
       &save("BlackBox", "Spam box:", $to, $subject);
