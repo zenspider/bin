@@ -103,14 +103,13 @@ sub summary {
   my $hitcount = scalar keys %hit;
 
   $summary .= "Summary:\n\n";
-  $summary .= sprintf "  Number of files checked: %4d\n", $checkcount;
-  $summary .= sprintf "  Number of files marked : %4d (%4.2f%%)\n", $hitcount, ($hitcount / $checkcount * 100);
-  $summary .= sprintf "  Number of tags found   : %4d\n", $total;
+  $summary .= sprintf "  %-24s : %4d\n", "Number of files checked", $checkcount;
+  $summary .= sprintf "  %-24s : %4d (%4.2f%%)\n", "Number of files marked", $hitcount, ($hitcount / $checkcount * 100);
+  $summary .= sprintf "  %-24s : %4d\n", "Number of tags found", $total;
 
   if ($hitcount > 0) {
-    $summary .= sprintf "  Average tags per file  : %6.1f\n", ($total / $hitcount);
-  } else {
-    $summary .= sprintf "  Average tags per file  : N/A\n";
+    $summary .= sprintf "  %-24s : %7.2f\n", "Tags per infected file", ($total / $hitcount);
+    $summary .= sprintf "  %-24s : %7.2f\n", "Tags per all files", ($total / $checkcount);
   }
 
   $summary .= "\n";
