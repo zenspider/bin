@@ -1,0 +1,12 @@
+#!/usr/bin/perl -nw
+
+BEGIN {
+  use strict;
+  $::total = 0
+}
+
+$::total += (split/\s+/)[0];
+
+END {
+  print "$total\n";
+}
