@@ -217,6 +217,7 @@ la () {
   ls -FCsa $* | ${PAGER-more} 
 }
 
+unalias ll 2> /dev/null
 ll () {
   ls -Fl $* | ${PAGER-more} 
 }
