@@ -6,6 +6,8 @@
 # of how xsession works. In otherwords, you are running
 # is 'sh', not 'bash', if you aren't executable.
 
+cd ~
+
 # just in case:
 HOSTNAME=$(hostname -s)
 
