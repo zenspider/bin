@@ -2,6 +2,7 @@
 
 use strict;
 use Mail::Audit;
+use Mail::SpamAssassin;
 use Time::JulianDay;
 use Getopt::Long;
 
@@ -26,7 +27,7 @@ GetOptions(\%option,
 #      + suspect spam
 #      + addresses I need to add to my list
 #
-# 2) If the mail fails rblcheck, it is real spam and goes to BlackBox
+# 2) If the mail fails spamassassin, it is real spam and goes to BlackBox
 # 3) All other mail goes to GrayBox
 
 $option{mailfolder} = (getpwuid($>))[7] . "/Mail"
@@ -41,11 +42,12 @@ open LOG, ">>/home/ryand/.mailfilter.log"
 # Get all of our standard fields of interest.
 my ($item, $from, $to, $cc, $subject);
 unless ($option{check}) {
-  $item = Mail::Audit->new();
-  $from = $item->from();
-  $to = $item->to();
-  $cc = $item->cc();
-  $subject = $item->subject();
+  $item = Mail::SpamAssassin::MyMailAudit->new();
+#  $item = Mail::Audit->new();
+  $from = $item->from() || '';
+  $to = $item->to() || '';
+  $cc = $item->cc() || '';
+  $subject = $item->subject() || '';
   chomp($from, $to, $cc, $subject);
   study $from;
 }
@@ -128,9 +130,11 @@ while (<IN>) {
 }
 
 unless ($option{check}) {
-  my $rbl = $item->rblcheck(5);
-  if ($rbl) {
-    &save("BlackBox", "SPAM: '$rbl'");
+  my $spamtest = Mail::SpamAssassin->new;
+  my $status = $spamtest->check($item);
+  my $spam = $status->is_spam;
+  if ($spam) {
+    &save("BlackBox", "SPAM: " . $status->get_names_of_tests_hit);
   } else {
     &save("GrayBox", "Default rule");
   }
