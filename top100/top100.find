@@ -1,6 +1,0 @@
-# top100.find - uncompresses all files, and lists person asked for.
-
-cd ~/private/top100
-uncompress * >& /dev/null
-~/Bin/num * | grep $argv[1]
-

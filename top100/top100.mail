@@ -1,8 +1,0 @@
-#csh - mailtop100 - formats list of usernames with excessive spoolfiles
-if (! -e mailinglist.top100) then
-	cut -c15-24 top100.mail > mailinglist.top100
-endif
-
-foreach USER (`cat mailinglist.top100`)
-	echo "mailing $USER"
-end

@@ -1,5 +1,0 @@
-# gettop100 - displays top 100 mail files
-sleep 10
-set d = `date +"%m.%d"`
-ls -l /usr/spool/mail | sort +3nr | head -100 > ~/private/top100/top100.$d
-at midnight top100.get
