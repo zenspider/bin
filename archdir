@@ -20,8 +20,7 @@ foreach File ($argv)		# process multiple files
 	endif
 
 	if (-d $File) then
-		tar cf $File.tar $File && /bin/rm -rf $File
-		gzip -f9 $File.tar &
+		(tar cf - $File | gzip -c9 > $File.tar.gz) && /bin/rm -rf $File
 	endif
 end
 
