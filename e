@@ -7,7 +7,7 @@ check_up() {
       false;
     else
       echo starting xemacs
-      xemacs -unmapped &
+      xemacs -unmapped -f gnuserv-start &
       until gnuclient -batch -eval t >/dev/null 2>&1
       do
 	sleep 1
