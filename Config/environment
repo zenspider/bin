@@ -27,7 +27,7 @@ case $- in
     export MORE="-e"
     
     if [ ! -z ${DISPLAY-} ] ; then
-      echo "DISPLAY = '$DISPLAY'"
+      echo "export DISPLAY=$DISPLAY"
     else
       echo "No DISPLAY"
     fi
