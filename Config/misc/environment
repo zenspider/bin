@@ -17,18 +17,20 @@ shopt -qs extglob
 MYPATH=${MYPATH//+(:)/:}
 shopt -qu extglob
 
+echo MYPATH=$MYPATH
+
 oldIFS=$IFS
 IFS=:
 export PATH
 for p in $MYPATH ; do
-  if [ -d $p ]; then
+  if [ -d "$p" ]; then
     if [ -z "$PATH" ]; then
-      PATH=$p
+      PATH="$p"
     else
-      PATH=$PATH:$p
+      PATH="$PATH:$p"
     fi
   else
-    if [ -n ${PS1-} ]; then
+    if [ -n "$p" ]; then
       echo Path $p not found
     fi
   fi
