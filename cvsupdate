@@ -31,5 +31,4 @@ shift $(($OPTIND - 1))
   
 export CVSROOT=${ROOT-/src/cvs}
 
-cvs ${N-} update ${IGNORE-} $* 2>&1 | grep -Ev "^cvs update: Updating" | grep -Ev "^cvs server: Updating"
-
+cvs ${N-} update ${IGNORE-} $* 2>&1 | grep -Ev "^cvs (update|server): Updating"
