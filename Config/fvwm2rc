@@ -113,8 +113,8 @@ Style "Netscape"	NoPPosition
 #
 AddToFunc "InitFunction" "I" Exec xsetroot -solid gray37
 +		"I" Exec xmodmap /home/ryand/.xmodmap.ibm
-+		"I" Exec /usr/local/xemacs/`/usr/local/sh/suntype`bin/xemacs-19.16 -f vm &
-+		"I" Exec /usr/local/`/usr/local/sh/suntype`bin/netscape-404 -ncols 64 &
++		"I" Exec xemacs -f vm &
++		"I" Exec netscape-4.07 &
 +		"I" Exec sleep 3 # seem to need a delay for fvwmButtons
 +		"I" Module FvwmButtons
 
@@ -190,7 +190,7 @@ AddToMenu RootMenu "Root Menu"  Title
 +		"Restart Fvwm:"	Popup ConfirmRestart
 +		"Exit Fvwm:"	Popup ConfirmExit
 
-AddToMenu ConfirmLock		"Lock Screen"   Exec /gcm/where/oreilly/10x_tools/bin/X11/xlock -mode blank
+#AddToMenu ConfirmLock		"Lock Screen"   Exec /gcm/where/oreilly/10x_tools/bin/X11/xlock -mode blank
 
 AddToMenu ConfirmRestart	"Restart Fvwm2" Restart fvwm2
 
@@ -198,19 +198,14 @@ AddToMenu ConfirmExit		"Exit Fvwm"     Quit
 
 # This menu will fire up some often used programs
 AddToMenu Utilities 	"Choose one:" Title
-+               "xemacs" Exec	/usr/local/xemacs/`/usr/local/sh/suntype`bin/xemacs-19.16 &
-+               "xemacs-vm" Exec /usr/local/xemacs/`/usr/local/sh/suntype`bin/xemacs-19.16 -f vm&
++               "xemacs"	Exec xemacs &
 +		""		Nop
-+		"Edit Tasks" Exec /usr/local/xemacs/`/usr/local/sh/suntype`bin/gnuclient -q /home/ryand/public_html/tasks.txt
-+		"Edit Todos" Exec /usr/local/xemacs/`/usr/local/sh/suntype`bin/gnuclient -q /home/ryand/public_html/todo.txt
-+		"Edit .fvwm2rc" Exec /usr/local/xemacs/`/usr/local/sh/suntype`bin/gnuclient -q /home/ryand/.fvwm2rc
-+		""		Nop
-+		"Netscape"	Exec /usr/local/`/usr/local/sh/suntype`bin/netscape-404 -ncols 64 &
++		"Netscape"	Exec netscape-4.07 &
 +		""		Nop
 +		"TkMan..."	Module FvwmForm ManPageForm
-+                "xcalc"	Exec xcalc &
-+                "xclipboard"	Exec xclipboard &
-#		"Top"		Exec  exec xterm +cn -name Top -e top &
++		"xcalc"		Exec xcalc &
++		"xclipboard"	Exec xclipboard &
++		"Top"		Exec  exec xterm +cn -name Top -e top &
 
 # A wide variety of screenlocking options...
 AddToMenu LoginMenu	"XTerm:" Title
