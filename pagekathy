@@ -1,6 +1,4 @@
-#!/bin/sh -- # -*- perl -*-
-eval 'exec perl -w -S $0 ${1+"$@"}'
-  if 0;
+#!/usr/bin/perl
 
 use strict;
 use Mail::Mailer;
