@@ -5,7 +5,9 @@ if [ $(id -u) != 0 ]; then
     exit 1
 fi
 
-rm -rf \
+find ~ -name .DS_Store -print -exec rm "{}" \; 
+
+rm -vrf \
     /System/Library/Extensions.kextcache \
     /Library/Caches/* \
     /System/Library/Caches/* \
