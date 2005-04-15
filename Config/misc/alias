@@ -5,7 +5,7 @@
 # Overrides:
 ############################################################
 
-if [ -n ${PS1-} ]; then
+if [ -n "${PS1-}" ]; then
   # interactive shell
   
   # Gives the absolute pathname for any path argument

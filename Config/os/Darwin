@@ -7,7 +7,6 @@ case $- in
   
   # interactive shell
   *i*)
-       stty discard undef
        ;;
   *)
      ;;

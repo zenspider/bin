@@ -1,10 +1,17 @@
 #!/usr/local/bin/bash
 
-cmd=$(basename $0)
-dir=$(dirname  $0)
+cmd=$(basename "$0")
+dir=$(dirname  "$0")
+cd "$dir"
+dir=$PWD
+bindir=$(dirname "$dir")
 
 echo cmd is $cmd
 echo dir is $dir
+echo bin is $bindir
+
+cd $bindir
+rm -f ~/Bin; ln -s "$PWD" ~/Bin
 
 cd $dir
 
