@@ -13,6 +13,12 @@ rm -vrf \
     /System/Library/Caches/* \
     /private/var/db/BootCache.playlist \
     ~/Library/Caches/* \
-    ~/Library/FontCollections/*.fcache
+    ~/Library/FontCollections/*.fcache \
+    ~/Library/Prefereces/LSApplications \
+    ~/Library/Prefereces/LSClaimedTypes \
+    ~/Library/Prefereces/LSSchemes \
+    ~/Library/.LSApplications_Backup \
+    ~/Library/Prefereces/.LSClaimedTypes_Backup \
+    ~/Library/Prefereces/.LSSChemes_Backup
 
 reboot

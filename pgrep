@@ -3,5 +3,6 @@
 pattern = ARGV.shift
 
 ARGF.each_line do |line|
-  puts $1 if line =~ /(#{pattern})/
+  line.grep(/(#{pattern})/) { puts $1 }
+#  puts $1 while line =~ /(#{pattern})\G/
 end

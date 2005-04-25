@@ -171,6 +171,7 @@ alias cputime='ps -axo ruser,pid,cputime,command | sort -dr -k 3 | ${PAGER-more}
 alias cpumem='ps -axo ruser,pid,pmem,command | sort -drn -k 3 | ${PAGER-more}'
 alias lc='wc -l'
 alias lpr2up='enscript -2r'
+alias cleansh='env -i $SHELL --norc'
 
 ############################################################
 # General Functions:
@@ -186,6 +187,11 @@ ff () {
 
 fc () {
     find . -type f -print0 | xargs -0 egrep -c $* | grep -v :0 | sort -rn -k2 -t:
+}
+
+fact () {
+	n=$*
+	echo "$n[p]s2[lip/dli%0=1dvsr]s12sid2%0=13sidvsr[dli%0=1lrli2+dsi!>.]ds.xd1<2" | dc
 }
 
 psg () {

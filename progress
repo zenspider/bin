@@ -36,7 +36,7 @@ exit;
 sub wanted {
   my ($dev,$ino,$mode,$nlink,$uid,$gid) = lstat($_);
 
-  if (-f _ && $_ !~ m/\.pyc$|\.o$|~$/) {
+  if (-f _ && $_ !~ m/\.(pyc|o|log|diff)$|~$/) {
     return if -B _;
     if ($option{'dev'}) {
       return unless $File::Find::name =~ m%/dev/%;
