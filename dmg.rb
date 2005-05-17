@@ -16,4 +16,7 @@ volname = if ARGV.length == 0 then
 output = "#{File.basename dir}.dmg"
 
 # dmg the folder
-system "GZIP=-9 hdiutil create -fs HFS+ -srcfolder \"#{dir}\" -volname \"#{volname}\" \"#{output}\""
+cmd = "GZIP=-9 hdiutil create -fs HFS+ -srcfolder \"#{dir}\" -volname \"#{volname}\" \"#{output}\""
+puts "running: #{cmd}"
+sleep 3
+system cmd
