@@ -177,8 +177,8 @@ alias cleansh='env -i $SHELL --norc'
 # General Functions:
 ############################################################
 
-pidof() {
-    ps axc|awk "{if (\$5==\"$1\") print \$1}";
+f () {
+    find . -type f -print | egrep $*
 }
 
 ff () {
@@ -187,6 +187,10 @@ ff () {
 
 fc () {
     find . -type f -print0 | xargs -0 egrep -c $* | grep -v :0 | sort -rn -k2 -t:
+}
+
+fp() {
+    ps axc|awk "{if (\$5==\"$1\") print \$1}";
 }
 
 fact () {
