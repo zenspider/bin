@@ -1,5 +1,12 @@
 #!/bin/bash
 
+case `uname` in
+  Darwin )
+	emacsclient -n -a cmacs $*
+	exit 0
+	;;
+esac
+
 check_up() {
 
   if [ ! -z ${DISPLAY-} ]; then
