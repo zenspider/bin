@@ -28,7 +28,7 @@ if [ -n "${PS1-}" ]; then
   
   # Gives the pwd
   pwd() {
-    local target=$(abs "$*");
+    local target=$(abs "$@");
     
     
     if [ -f "$target" ]; then
@@ -178,15 +178,15 @@ alias cleansh='env -i $SHELL --norc'
 ############################################################
 
 f () {
-    find . -type f -print | egrep $*
+    find . -type f -print | egrep "$@"
 }
 
 ff () {
-    find . -type f -print0 | xargs -0 egrep $*
+    find . -type f -print0 | xargs -0 egrep "$@"
 }
 
 fc () {
-    find . -type f -print0 | xargs -0 egrep -c $* | grep -v :0 | sort -rn -k2 -t:
+    find . -type f -print0 | xargs -0 egrep -c "$@" | grep -v :0 | sort -rn -k2 -t:
 }
 
 fp() {
@@ -194,51 +194,41 @@ fp() {
 }
 
 fact () {
-	n=$*
+	n=$1
 	echo "$n[p]s2[lip/dli%0=1dvsr]s12sid2%0=13sidvsr[dli%0=1lrli2+dsi!>.]ds.xd1<2" | dc
 }
 
 psg () {
-    ps-all | grep $*
+    ps-all | grep "$@"
 }
 
 mylpr () {
-  pr -o4 -e4 -l60 $* | lpr 
+  pr -o4 -e4 -l60 "$@" | lpr 
 }
 
 l () {
-  ls -FCs $* | ${PAGER-more}
+  ls -FCs "$@" | ${PAGER-more}
 }
 
 la () {
-  ls -FCsa $* | ${PAGER-more} 
+  ls -FCsa "$@" | ${PAGER-more} 
 }
 
 unalias ll 2> /dev/null
 ll () {
-  ls -Fl $* | ${PAGER-more} 
+  ls -Fl "$@" | ${PAGER-more} 
 }
 
 lla () {
-  ls -Fla $* | ${PAGER-more} 
+  ls -Fla "$@" | ${PAGER-more} 
 }
 
 lll () {
-  ls -FlaR $* | ${PAGER-more}
+  ls -FlaR "$@" | ${PAGER-more}
 }
 
 lt () {
-  ls -Flt $* | ${PAGER-more} 
-}
-
-ee() {
-  for f in $*; do
-    gnuclient -eval '(find-file "'$(abs $f)'")'
-  done
-}
-
-cleans() {
-  DU -as $* | sort -rn | ${PAGER-more}
+  ls -Flt "$@" | ${PAGER-more} 
 }
 
 nuke() {
@@ -252,36 +242,14 @@ nuke() {
   done
 }
 
-mman() {
-  for file in $*; do
-    echo "$file::"
-    ${PAGER-more} ~/.mancache/$file
-  done
-}
-
 term() {
   TERM=$1
   export TERM
   tset
 }
 
-rot13() {
-  
-  if [ $# = 0 ] ; then
-    tr "[a-m][n-z][A-M][N-Z]" "[n-z][a-m][N-Z][A-M]"
-  else
-    tr "[a-m][n-z][A-M][N-Z]" "[n-z][a-m][N-Z][A-M]" < $1
-  fi
-}
-
 fromto() {
-  from=$1
-  to=$2
-  perl -e 'foreach (shift..shift) {print "$_ "}; print "\n";' $from $to
-}
-
-p4t() {
-  cd $(~/Bin/p4t)
+  echo "use seq or jot"
 }
 
 mem() {
