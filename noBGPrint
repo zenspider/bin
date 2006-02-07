@@ -1,4 +1,0 @@
-#!/bin/csh
-# - noBGPrint - suspends background processes if they print
-stty tostop
-#to reverse this, 'stty -tostop'

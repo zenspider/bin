@@ -9,7 +9,7 @@ default_language = languages.last
 tab_values       = %w(No 2 3 4 5 6 8)
 
 $l ||= default_language
-$n ||= ""
+$n ||= "zenspider"
 $s ||= ""
 $t ||= tab_values.first
 
