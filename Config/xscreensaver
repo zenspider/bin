@@ -32,7 +32,7 @@ dpmsOff:	0:30:00
 grabDesktopImages:  False
 grabVideoFrames:    False
 chooseRandomImages: True
-imageDirectory:	/usr/home/ryand/.bg
+imageDirectory:	/home/ryand/.bg
 
 mode:		random
 selected:	0
