@@ -39,6 +39,8 @@ args.each do |rev|
   
   puts
   puts `svn log -v -r#{rev} #{url}`.gsub(/\r/, '')
-  puts
-  puts `svn diff -r#{prev}:#{rev} #{url}`.gsub(/\r/, '')
+  unless defined? $q then
+    puts
+    puts `svn diff -r#{prev}:#{rev} #{url}`.gsub(/\r/, '')
+  end
 end

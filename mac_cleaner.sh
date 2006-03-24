@@ -19,6 +19,7 @@ rm -vrf \
     ~/Library/Preferences/LSSchemes \
     ~/Library/.LSApplications_Backup \
     ~/Library/Preferences/.LSClaimedTypes_Backup \
-    ~/Library/Preferences/.LSSChemes_Backup
+    ~/Library/Preferences/.LSSChemes_Backup \
+    /.Spotlight-V100
 
 reboot
