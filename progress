@@ -1,149 +1,144 @@
-#!/usr/bin/perl -w
+#!/usr/local/bin/ruby -w
 
-use strict;
-use File::Find;
-use Getopt::Long;
+require "find"
+require "getoptlong"
 
-$| = 1;
+class Options
 
-# TODO: figure out how to pipe through more ONLY if we are interactive
-sub I_am_interactive {
-    return -t STDIN && -t STDOUT;
-}
-
-my @check = ();
-#my $keywords = '(?<!SUF|PRE)F IX|H ACK|T ODO|(?<!P|O)D OC(?!UMENT|TYPE|_INSTALL)|RE FACTOR';
-my $keywords = '\b(F IX|H ACK|T ODO|D OC|R EFACTOR|R ETIRE|W ARN)\b';
-my %hit = ();
-my %word = ();
-my $total = 0;
-my $html = 0;
-
-my %option;
-&GetOptions(
-	    \%option,
-	    'html',
-	    'dev',
-	   );
-
-@ARGV = ('.') unless @ARGV;
-
-&find(\&wanted, @ARGV);
-&check;
-&report;
-exit;
-
-sub wanted {
-  my ($dev,$ino,$mode,$nlink,$uid,$gid) = lstat($_);
-
-  if (-f _ && $_ !~ m/\.(pyc|o|log|diff)$|~$/) {
-    return if -B _;
-    if ($option{'dev'}) {
-      return unless $File::Find::name =~ m%/dev/%;
+  def self.process(*options)
+    options = options.map { |option|
+      case option
+      when String then
+        option = "--#{option}" unless option =~ /^--/
+        [option, GetoptLong::NO_ARGUMENT]
+      when Array then
+        option[0] = "--#{option[0]}" unless option[0] =~ /^--/
+        option << GetoptLong::NO_ARGUMENT unless Fixnum === option.last
+        option
+      else
+        raise ArgumentError, "bad argument"
+      end
     }
-    push @check, $File::Find::name;
-  } else {
-    if ($File::Find::name # LEAVE THIS ON TWO LINES - rcs expansion nuking code
-	=~ m/CVS|\.svn|blib|html|vendor\/rails$/ || -l _) {
-      $File::Find::prune = 1;
+
+    result = {}
+    o = GetoptLong.new(*options)
+    o.each do |name, argument|
+      result[name.sub(/^-+/, '').intern] = argument
+    end
+
+    result
+  end
+
+end
+
+$option = Options.process("help", "html", "dev")
+$interactive = $stdin.tty? and $stdout.tty?
+$check    = []
+$keywords = '\b(F IX|H ACK|T ODO|D OC|R EFACTOR|R ETIRE|W ARN)\b';
+$ignore   = '(\.(pyc|o|log|diff|zip|gz|psd)|~)$' # TODO remove last 3 after -B
+$prune    = 'CVS|\.svn|blib|html|vendor/rails'
+$hit      = Hash.new { |h,k| h[k] = [] }
+$word     = Hash.new(0)
+$total    = 0
+$html     = false;
+
+def find
+  ARGV.push('.') if ARGV.length == 0
+  Find.find(*ARGV) do |f|
+    if test ?f, f then
+      # return if -B _; # TODO: find some way for ruby to emulate -B
+      $check << f unless f =~ /#{$ignore}/o
+    else
+      Find.prune if f =~ /#{$prune}/o or test ?l, f
+    end
+  end
+end
+
+def check
+  $stderr.puts "Found #{$check.length} files. Scanning..."
+
+  $check.each_with_index { |f, count|
+    IO.foreach(f) { |l|
+      if (l =~ /(#{$keywords})/xo) then
+	$hit[f] << "%4d: %s" % [$., l.strip]
+	$word[$1] += 1
+	$total += 1
+      end
     }
+
+    $stderr.print('x') if count % 10 == 0
   }
-}
+  $stderr.puts "done"
+end
 
-sub check {
+def report
 
-  print STDERR "Found ", scalar @check, " files. Scanning...\n";
+  summ = summary
 
-  my $count = 0;
-  foreach my $file (@check) {
-    open IN, $file || die "Couldn't open file '$file': $!";
-    my $line = 0;
-    while (<IN>) {
-      $line++;
+  if $interactive then
+    pager = ENV['PAGER'] || 'more';
+    more = IO.popen pager, "w"
+    oldstdout = $stdout
+    $stdout = more
+  end
 
-      if (m/($keywords)/xo) {
-	my $key = $1;
-	s/^\s+//;
-	s/\s+$//;
-	push @{$hit{$file}}, sprintf("%4d: %s", $line, $_);
-	$word{$key}++;
-	$total++;
-      }
-    }
-    close IN;
-    print STDERR 'x'
-      unless ++$count % 10;
+  print "<PRE>" if $option[:html];
+
+  puts summ
+
+  puts
+  puts "Detail:"
+  puts
+
+  $hit.sort_by { |file, hits| -hits.length }.each do |file, hits|
+    puts "#{file} (#{hits.length})"
+    puts
+    hits.each do | hit |
+
+      hit = hit.gsub(/&/, '&amp').gsub(/</, '&lt;').gsub(/>/, '&gt;').gsub(/(#{$keywords})/ox, '<B style="color:red">\1</B>') if $option[:html]
+      
+      puts hit
+    end
+    puts
+  end
+
+  puts summ
+
+  puts "</PRE>" if $option[:html]
+
+  if $interactive then
+    $stdout = oldstdout
+    more.close
+  end
+end
+
+def summary
+  s = []
+
+  checkcount = $check.length
+  hitcount = $hit.length
+
+  s << "Summary:\n"
+  s << "  %-24s : %4d" % ["Number of files checked", checkcount]
+  s << "  %-24s : %4d (%4.2f%%)" % ["Number of files marked", hitcount, hitcount / checkcount * 100]
+  s << "  %-24s : %4d" % ["Number of tags found", $total]
+
+  if (hitcount > 0) then
+    s << "  %-24s : %7.2f" % ["Tags per infected file", $total.to_f / hitcount]
+    s << "  %-24s : %7.2f" % ["Tags per all files", $total.to_f / checkcount]
+  end
+
+  s << ''
+  s << 'Occurances:'
+  $word.sort_by { |k,v| -v}.each { |word,count|
+    s << "%4d: %s" % [count, word]
   }
-  print STDERR "done\n\n";
+  s << ''
 
-  return %hit;
-}
+  return s.join("\n")
+end
 
-sub report {
-
-  my $summary = &summary;
-
-  local $SIG{PIPE} = sub { die "spooler pipe broke" };
-
-  if (I_am_interactive) {
-    my $pager = $ENV{'PAGER'} || 'more';
-    open OUT, "| $pager" || die "Couldn't open pipe: $!";
-  } else {
-    *OUT = *STDOUT;
-  }
-
-  print OUT "<PRE>"
-    if $option{'html'};
-
-  print OUT $summary;
-
-  print OUT "Detail:\n\n";
-  foreach my $file (sort {scalar @{$hit{$b}} <=> scalar @{$hit{$a}} || $a cmp $b} keys %hit) {
-    print OUT "${file} (", scalar(@{$hit{$file}}), "):\n\n";
-    foreach my $line (@{$hit{$file}}) {
-
-      if ($option{'html'}) {
-	$line =~ s|&|&amp;|g;
-	$line =~ s|<|&lt;|g;
-	$line =~ s|>|&gt;|g;
-	$line =~ s|($keywords)|<B>$1</B>|og;
-      }
-
-      print OUT $line, "\n";
-    }
-    print OUT "\n\n";
-  }
-
-  print OUT $summary;
-
-  print OUT "</PRE>\n"
-    if $option{'html'};
-
-  close OUT if I_am_interactive;
-}
-
-sub summary {
-
-  my $summary = '';
-  my $checkcount = scalar @check;
-  my $hitcount = scalar keys %hit;
-
-  $summary .= "Summary:\n\n";
-  $summary .= sprintf "  %-24s : %4d\n", "Number of tags found", $total;
-  $summary .= sprintf "  %-24s : %4d (%4.2f%%)\n", "Number of files marked", $hitcount, ($hitcount / $checkcount * 100);
-  $summary .= sprintf "  %-24s : %4d\n", "Number of files checked", $checkcount;
-
-  if ($hitcount > 0) {
-    $summary .= sprintf "  %-24s : %7.2f\n", "Tags per infected file", ($total / $hitcount);
-    $summary .= sprintf "  %-24s : %7.2f\n", "Tags per all files", ($total / $checkcount);
-  }
-
-  $summary .= "\n";
-  $summary .= "Occurances: \n";
-  foreach my $word (sort {$word{$b} <=> $word{$a}} keys %word) {
-    $summary .= sprintf "%4d: %s\n", $word{$word}, $word;
-  }
-  $summary .= "\n";
-
-  return $summary;
-}
+find
+check
+report
+exit
