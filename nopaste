@@ -39,6 +39,7 @@ data = order.map { |k|
   "#{CGI::escape k.to_s}=#{CGI::escape v}"
 }.join('&')
 
+# TODO: clean this up. ugh.
 headers = {
   'Content-Type' => 'application/x-www-form-urlencoded',
   'Referer' => 'http://www.rafb.net/paste/index.html',
@@ -59,7 +60,9 @@ Net::HTTP.start('www.rafb.net', 80) { |http|
   location = response['location']
 
   if location then
-    puts "http://www.rafb.net#{location}"
+    url = "http://www.rafb.net#{location}"
+    puts url
+    system "echo #{url} | pbcopy"
   else
     puts "ERROR:"
     puts "header:"

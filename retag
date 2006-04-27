@@ -1,0 +1,6 @@
+#!/bin/bash
+
+rm -f TAGS
+find . -name vendor -prune \
+    -o \( -name \*.[ch] -o -name \*.rb -o -name \*.el \) \
+    | xargs /opt/local/bin/etags -ae
