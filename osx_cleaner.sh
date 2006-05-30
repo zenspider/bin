@@ -13,6 +13,7 @@ rm -vrf \
     /System/Library/Caches/* \
     /private/var/db/BootCache.playlist \
     ~/Library/Caches/* \
+    ~/Library/Mail/IMAP*/* \
     ~/Library/FontCollections/*.fcache \
     ~/Library/Preferences/LSApplications \
     ~/Library/Preferences/LSClaimedTypes \

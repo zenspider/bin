@@ -1,0 +1,23 @@
+#!/usr/local/bin/ruby -wn
+
+# Adds the input and prints out the sum at the end
+
+BEGIN {
+  $total = 0
+}
+
+if $_ =~ /^\s*([\d\.-]+)/ then
+  n = $1.to_f
+  $total += Math.log10(n.abs) if n != 0.0
+  if $total < 0 then
+    puts $_
+    puts n.abs
+    puts "WHOA!"
+    exit 1
+  end
+  puts $total
+end
+
+END {
+  puts $total
+}

@@ -1,0 +1,36 @@
+#!/usr/local/bin/ruby -w
+
+require 'set'
+require 'fileutils'
+
+dead_dir = File.expand_path("~/dead")
+Dir.mkdir dead_dir unless test ?d, dead_dir
+
+catalog_dir = File.expand_path("~/Library/Application Support/Backup/Backup Library")
+
+known_backups = Set.new
+
+Dir.chdir File.expand_path("~/Backups") do
+  Dir["*"].each do |d|
+    known_backups << d
+  end
+end
+
+Dir.chdir "/Volumes/zenspider/Backup/" do
+  Dir["*"].each do |d|
+    known_backups << d
+  end
+end
+
+Dir.chdir catalog_dir do
+  Dir["*"].each do |set|
+    Dir.chdir set do
+      Dir["*"].each do |inst|
+        next if inst =~ /DVD/
+        next if known_backups.include? inst
+        puts inst
+        FileUtils.mv inst, dead_dir
+      end
+    end
+  end
+end
