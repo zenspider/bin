@@ -121,5 +121,5 @@ if defined? $u then
     f.puts msg
   end
   system "textutil -convert webarchive #{rootpath}.txt"
-  system "cp #{rootpath}.webarchive /Users/ryan/temp/Library/Mail/Signatures/36A0A9B3-878C-451C-BD35-1095247EEC7D.webarchive"
+  system "cp #{rootpath}.webarchive /Users/ryan/Library/Mail/Signatures/36A0A9B3-878C-451C-BD35-1095247EEC7D.webarchive"
 end
