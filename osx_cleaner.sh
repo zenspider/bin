@@ -5,6 +5,11 @@ if [ $(id -u) != 0 ]; then
     exit 1
 fi
 
+EXTRA=
+if [ "full" == "$1" ]; then
+  EXTRA=/.Spotlight-V100
+fi
+
 find ~ -name .DS_Store -print -exec rm "{}" \; 
 
 rm -vrf \
@@ -14,6 +19,7 @@ rm -vrf \
     /private/var/db/BootCache.playlist \
     ~/Library/Caches/* \
     ~/Library/Mail/IMAP*/* \
+    ~/Library/Safari/Icons/* \
     ~/Library/FontCollections/*.fcache \
     ~/Library/Preferences/LSApplications \
     ~/Library/Preferences/LSClaimedTypes \
@@ -21,6 +27,6 @@ rm -vrf \
     ~/Library/.LSApplications_Backup \
     ~/Library/Preferences/.LSClaimedTypes_Backup \
     ~/Library/Preferences/.LSSChemes_Backup \
-    /.Spotlight-V100
+    $EXTRA
 
 reboot

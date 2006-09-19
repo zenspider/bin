@@ -37,12 +37,12 @@ IFS=$oldIFS
 
 export SAVEPATH=$PATH
 
+shopt -s histappend
+PROMPT_COMMAND='history -a'
+
+
 ############################################################
 # Other Global environment stuff:
-
-# Don't make useless coredump files.  If you want a coredump,
-# say "ulimit -c unlimited" and then cause a segmentation fault.
-#ulimit -c 0
 
 # Set program datasize to be the max
 ulimit -d $(ulimit -Hd)

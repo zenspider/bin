@@ -75,7 +75,7 @@ avg = flat_dates.avg
 
 msg = "My backlog is currently #{count} items over #{days} days (avg #{Time.at(avg).strftime("%Y-%m-%d")})"
 
-if defined? $r then
+unless defined? $s then
 
   puts
   today = Time.now.to_i

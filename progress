@@ -3,8 +3,14 @@
 require "find"
 require "getoptlong"
 
-class Options
+class File
+  def self.binary? (path)
+    s = (File.read(path, 4096) || "").split(//)
+    ((s.size - s.grep(" ".."~").size) / s.size.to_f) > 0.30
+  end
+end
 
+class Options
   def self.process(*options)
     options = options.map { |option|
       case option
@@ -28,7 +34,6 @@ class Options
 
     result
   end
-
 end
 
 $option = Options.process("help", "html", "dev")
@@ -46,8 +51,7 @@ def find
   ARGV.push('.') if ARGV.length == 0
   Find.find(*ARGV) do |f|
     if test ?f, f then
-      # return if -B _; # TODO: find some way for ruby to emulate -B
-      $check << f unless f =~ /#{$ignore}/o
+      $check << f unless f =~ /#{$ignore}/o or File.binary? f
     else
       Find.prune if f =~ /#{$prune}/o or test ?l, f
     end
