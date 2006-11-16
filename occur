@@ -1,20 +1,24 @@
 #!/usr/local/bin/ruby -ws
 
-$n ||= false
 $b ||= false
+$g ||= false
+$h ||= false
+$l ||= false
+$n ||= false
 $o ||= false
 $p ||= false
-$h ||= false
 $s ||= false
 
 if $h then
   puts "#{File.basename($0)} [options] [files]"
   puts "  -b - strip leading and trailing whitespace, and blanks"
+  puts "  -g - print a simple histogram"
+  puts "  -h - show help"
+  puts "  -l - print the historgram logarithmically"
   puts "  -n - convert numbers to '<num>'"
   puts "  -o - skip lines that only occur once"
   puts "  -p - add percentage values to the output"
   puts "  -s - sort by line, rather than occurance"
-  puts "  -h - show help"
   exit 0
 end
 
@@ -53,10 +57,18 @@ end
 
 total = total.to_f
 
+if $g then
+  max_s = c.keys.map { |s| s.size }.max
+end
+
 sorted.each do |key|
   next if $o and c[key] == 1
   if $p then
     printf "%5d:%5.2f%%:%s\n", c[key], c[key] / total * 100.0, key
+  elsif $g then
+    n = c[key]
+    n = Math.log(n) if $l
+    printf "%*s: %s\n", max_s, key, "x" * n
   else
     printf "%5d: %s\n", c[key], key
   end

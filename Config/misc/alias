@@ -234,7 +234,7 @@ lt () {
 alias html4="onsgmls -s -B -D /opt/local/share/OpenSP -c html4.soc"
 
 function movie () {
-  curl "$@" | pgrep '[^\"]+\.(mov|wmv)' | sort -u | xargs wget
+  curl "$@" | pgrep "[^\"']+\.(mov|wmv)" | sort -u | xargs wget
 }
 
 nuke() {
