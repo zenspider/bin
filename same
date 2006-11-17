@@ -1,0 +1,7 @@
+#!/bin/sh
+
+SCRIPT_DIR=`dirname $0`
+JAVA_STD_CLASSES=`javaconfig DefaultClasspath`
+
+java -classpath $SCRIPT_DIR/same-classes.zip:$JAVA_STD_CLASSES \
+     same.textui.SameCLI $*

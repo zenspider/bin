@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -f TAGS
+find . \( -name \*.[ch] -o -name \*.rb -o -name \*.el \) \
+    | xargs /opt/local/bin/etags -ae
