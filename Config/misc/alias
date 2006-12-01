@@ -185,6 +185,10 @@ ff () {
     find . -name .svn -prune -o -type f -print0 | xargs -0 egrep "$@"
 }
 
+ffr () {
+    find . -name .svn -prune -o -name vendor -prune -o -type f -print0 | xargs -0 egrep "$@"
+}
+
 fc () {
     find . -name .svn -prune -o -type f -print0 | xargs -0 egrep -c "$@" | grep -v :0 | sort -rn -k2 -t:
 }
