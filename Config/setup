@@ -22,16 +22,20 @@ for l in bash_login bash_profile profile; do
     ln -s bashrc $l
 done
 
-rm -f emacs
+rm -f *~ emacs xinitrc ~/.ssh/config
 ln -s ../elisp/emacs.el emacs
-rm -f xinitrc
 ln -s xsession xinitrc
 
-for f in $( ls | grep -Ev "(\~|\#)" ) ; do
+if [ ! -d ~/.ssh ]; then
+    mkdir ~/.ssh
+fi
 
+chmod 700 ~/.ssh
+ln misc/ssh_config ~/.ssh/config
+
+for f in $( ls ) ; do
   if [ -f $f ]; then
     if [ $f != $cmd ]; then
-      
       if [ -L ~/.$f ]; then
 	echo Removing symlink ~/.$f
 	rm ~/.$f
@@ -44,8 +48,6 @@ for f in $( ls | grep -Ev "(\~|\#)" ) ; do
       
       echo Linking $p/$f from ~/.$f
       ln -s $p/$f ~/.$f
-      
     fi
   fi
-
 done

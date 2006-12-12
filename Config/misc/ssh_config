@@ -1,0 +1,19 @@
+Host *
+	ForwardAgent yes
+	CheckHostIP yes
+	Compression yes
+	Protocol 2
+	ControlMaster auto
+	ControlPath ~/.ssh/master-%r@%h:%p
+
+Host z
+	HostName greed.zenspider.com
+	User ryand
+
+Host z2
+	HostName zenspider.textdriven.com
+	User zenspider
+
+Host v
+	HostName vanity.zenspider.com
+	User ryan
