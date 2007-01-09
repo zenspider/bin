@@ -6,6 +6,16 @@ if [ $(id -u) != 0 ]; then
 fi
 
 EXTRA=
+
+if [ "ls" == "$1" -o "full" == "$1" ]; then
+  EXTRA=~/Library/Preferences/LSApplications \
+    ~/Library/Preferences/LSClaimedTypes \
+    ~/Library/Preferences/LSSchemes \
+    ~/Library/.LSApplications_Backup \
+    ~/Library/Preferences/.LSClaimedTypes_Backup \
+    ~/Library/Preferences/.LSSChemes_Backup
+fi
+
 if [ "full" == "$1" ]; then
   EXTRA=/.Spotlight-V100
 fi
@@ -21,12 +31,6 @@ rm -vrf \
     ~/Library/Mail/IMAP*/* \
     ~/Library/Safari/Icons/* \
     ~/Library/FontCollections/*.fcache \
-    ~/Library/Preferences/LSApplications \
-    ~/Library/Preferences/LSClaimedTypes \
-    ~/Library/Preferences/LSSchemes \
-    ~/Library/.LSApplications_Backup \
-    ~/Library/Preferences/.LSClaimedTypes_Backup \
-    ~/Library/Preferences/.LSSChemes_Backup \
     $EXTRA
 
 reboot

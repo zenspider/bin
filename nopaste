@@ -61,9 +61,8 @@ Net::HTTP.start('www.rafb.net', 80) { |http|
   location = response['location']
 
   if location then
-    url = "http://www.rafb.net#{location}"
-    puts url
-    system "echo #{url} | pbcopy"
+    puts location
+    system "echo #{location} | pbcopy"
   else
     puts "ERROR:"
     puts "header:"

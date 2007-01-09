@@ -19,7 +19,7 @@ max = (ARGV.shift || 1_000_000).to_i
 
 puts "# of iterations = #{max}"
 Benchmark::bm(20) do |x|
-  x.report("null_time") { 
+  x.report("null_time") {
     for i in 0..max do
       # do nothing
     end
@@ -29,7 +29,7 @@ EOM
 
 count.times do |n|
   print <<"EOM"
-  x.report("benchmark-#{n+1}") { 
+  x.report("benchmark-#{n+1}") {
     for i in 0..max do
       # insert code here
     end

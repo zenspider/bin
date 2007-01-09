@@ -3,17 +3,30 @@ Host *
 	CheckHostIP yes
 	Compression yes
 	Protocol 2
-	ControlMaster auto
-	ControlPath ~/.ssh/master-%r@%h:%p
+	#ControlMaster auto
+	#ControlPath ~/.ssh/master-%r@%h:%p
 
 Host z
-	HostName greed.zenspider.com
+	Hostname greed.zenspider.com
 	User ryand
 
+Host ztd
+	Hostname zenspider.textdriven.com
+	User zenspider
+
 Host z2
-	HostName zenspider.textdriven.com
+	Hostname zenspider.textdriven.com
 	User zenspider
 
 Host v
-	HostName vanity.zenspider.com
+	Hostname vanity.zenspider.com
+	User ryan
+
+Host wpn
+	Hostname 69.236.44.221
+	User ryan
+	Port 23
+
+Host bs
+	Hostname 216.168.63.37
 	User ryan
