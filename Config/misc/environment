@@ -47,12 +47,12 @@ PROMPT_COMMAND='history -a'
 # Set program datasize to be the max
 ulimit -d $(ulimit -Hd)
 
+export CDPATH=.:~/:~/Links:~/Work
+  
 case $- in
   
   # interactive shell
   *i*)
-  export CDPATH=.:~/:~/Links:~/Work
-  
   PS1='\! % '
   PS4='$0@$LINENO: '
   HISTCONTROL=ignoredups

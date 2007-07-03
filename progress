@@ -40,7 +40,7 @@ $option = Options.process("help", "html", "dev")
 $interactive = $stdin.tty? and $stdout.tty?
 $check    = []
 $keywords = '\b(F IX|H ACK|T ODO|D OC|R EFACTOR|R ETIRE|W ARN)\b';
-$ignore   = '(\.(pyc|o|log|diff|zip|gz|psd)|~)$' # TODO remove last 3 after -B
+$ignore   = '(\.(log|diff)|~)$'
 $prune    = 'CVS|\.svn|blib|html|vendor/rails'
 $hit      = Hash.new { |h,k| h[k] = [] }
 $word     = Hash.new(0)
@@ -100,7 +100,7 @@ def report
     hits.each do | hit |
 
       hit = hit.gsub(/&/, '&amp').gsub(/</, '&lt;').gsub(/>/, '&gt;').gsub(/(#{$keywords})/ox, '<B style="color:red">\1</B>') if $option[:html]
-      
+
       puts hit
     end
     puts

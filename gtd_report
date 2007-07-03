@@ -82,7 +82,7 @@ unless defined? $s then
 
   total = 0
   format = "%Y-%m-%d"
-  data.sort.each do |box, times|
+  data.sort_by { |b,t| b.sub(/GTD\/@/, 'z') }.each do |box, times|
     name = box.split(/\//).last
     unless times.empty? then
       last_date = Time.at(times.first)

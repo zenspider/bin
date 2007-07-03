@@ -6,6 +6,9 @@ Host *
 	#ControlMaster auto
 	#ControlPath ~/.ssh/master-%r@%h:%p
 
+Host rubyforge.org
+        User zenspider
+
 Host z
 	Hostname greed.zenspider.com
 	User ryand
@@ -30,3 +33,11 @@ Host wpn
 Host bs
 	Hostname 216.168.63.37
 	User ryan
+
+Host m
+	Hostname repo.motionbox.com
+	Port 234
+	User zenspider
+        ControlMaster auto
+        ControlPath ~/.ssh/master-%r@%h:%p
+	LocalForward 80:127.0.0.1:80

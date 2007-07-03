@@ -30,8 +30,8 @@ if [ ! -d ~/.ssh ]; then
     mkdir ~/.ssh
 fi
 
-chmod 700 ~/.ssh
 ln misc/ssh_config ~/.ssh/config
+chmod 700 ~/.ssh ~/.ssh/config
 
 for f in $( ls ) ; do
   if [ -f $f ]; then

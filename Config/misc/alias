@@ -186,7 +186,11 @@ ff () {
 }
 
 ffr () {
-    find . -name .svn -prune -o -name vendor -prune -o -type f -print0 | xargs -0 egrep "$@"
+    find . -name .svn -prune -o -name vendor -prune -o -type f -a \! -name TAGS -print0 | xargs -0 egrep "$@"
+}
+
+mdf () {
+    mdfind "kMDItemDisplayName=$@"
 }
 
 fc () {
