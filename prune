@@ -1,0 +1,60 @@
+#!/usr/local/bin/ruby -ws
+
+require 'date'
+require 'fileutils'
+
+# backup_dates - returns a list of dates of backups to keep
+#
+# 28+ previous dailies
+# 3 months of weeklies
+# 9 months of monthlies
+# 10 years of yearlies
+
+def backup_dates
+  day = Date.today
+  dates = []
+
+  goal = day - 28       # back 28 days
+  goal -= goal.day + 1  # then back to the previous 1st
+  (goal..day).each do |d|
+    dates << d
+  end
+  day = goal - 1
+
+  3.times do
+    day = Date.civil(day.year, day.month, 1)
+    dates << day
+    dates << Date.civil(day.year, day.month, 8)
+    dates << Date.civil(day.year, day.month, 15)
+    dates << Date.civil(day.year, day.month, 22)
+    day -= 1
+  end
+
+  9.times do
+    day = Date.civil(day.year, day.month, 1)
+    dates << day
+    day -= 1
+  end
+
+  10.times do
+    day = Date.civil(day.year, 1, 1)
+    dates << day
+    day -= 1
+  end
+
+  return dates.sort
+end
+
+keep = backup_dates
+
+$d ||= false
+
+ARGV.each do |path|
+  d = Date.civil(*File.mtime(path).to_a[3..5].reverse)
+  unless keep.include? d then
+    puts path
+    FileUtils.rm_rf path if $d
+  end
+end
+
+p keep.map { |d| d.to_s } if ARGV.empty?
