@@ -48,12 +48,17 @@ end
 keep = backup_dates
 
 $d ||= false
+$o ||= false
+
+death = {}
 
 ARGV.each do |path|
   d = Date.civil(*File.mtime(path).to_a[3..5].reverse)
-  unless keep.include? d then
+  if not keep.include? d or ($o and death[d]) then
     puts path
     FileUtils.rm_rf path if $d
+  elsif $o
+    death[d] = true
   end
 end
 
