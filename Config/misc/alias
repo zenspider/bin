@@ -8,6 +8,11 @@
 if [ -n "${PS1-}" ]; then
   # interactive shell
   
+  pts () 
+  { 
+      echo "$*" | parse_tree_show
+  }
+
   # Gives the absolute pathname for any path argument
   abs() {
     set -P
@@ -150,7 +155,7 @@ case "${HOSTTYPE}.${OSTYPE}" in
     alias ps-all='ps -ef'
     ;;
 
-  powerpc.darwin* )
+  *darwin* )
     alias ps-all='ps auxww'
     ;;
 

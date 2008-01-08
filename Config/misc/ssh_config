@@ -3,32 +3,43 @@ Host *
 	CheckHostIP yes
 	Compression yes
 	Protocol 2
+    GSSAPIAuthentication no
 	#ControlMaster auto
 	#ControlPath ~/.ssh/master-%r@%h:%p
-
-Host rubyforge.org
-        User zenspider
 
 Host z
 	Hostname greed.zenspider.com
 	User ryand
+	ControlMaster auto
+	ControlPath ~/.ssh/master-%r@%h:%p
 
-Host ztd
+Host z2
 	Hostname zenspider.textdriven.com
 	User zenspider
 
-Host z2
+Host zT
+	Hostname greed.zenspider.com
+	User ryand
+	DynamicForward 1999
+
+Host zenspider.textdriven.com
 	Hostname zenspider.textdriven.com
 	User zenspider
 
 Host v
 	Hostname vanity.zenspider.com
 	User ryan
+	ControlMaster auto
+	ControlPath ~/.ssh/master-%r@%h:%p
 
-Host wpn
-	Hostname 69.236.44.221
+Host e
+	Hostname envy.zenspider.com
 	User ryan
-	Port 23
+	ControlMaster auto
+	ControlPath ~/.ssh/master-%r@%h:%p
+
+Host rubyforge.org
+    User zenspider
 
 Host bs
 	Hostname 216.168.63.37
@@ -38,6 +49,4 @@ Host m
 	Hostname repo.motionbox.com
 	Port 234
 	User zenspider
-        ControlMaster auto
-        ControlPath ~/.ssh/master-%r@%h:%p
-	LocalForward 80:127.0.0.1:80
+	LocalForward 127.0.0.1:8080 repo.motionbox.com:80
