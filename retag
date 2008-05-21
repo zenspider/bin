@@ -1,16 +1,4 @@
 #!/bin/bash
 
 rm -f TAGS
-if [ -z "$1" ]; then
-    find . \
-        -name vendor -prune -o \
-        -name db -prune -o \
-        -name .svn -prune -o \
-        \( -name \*.[ch] -o -name \*.rb -o -name \*.el \) \
-        | xargs /opt/local/bin/etags -ae
-else
-    find . \
-        -name .svn -prune -o \
-        \( -name \*.[ch] -o -name \*.rb -o -name \*.el \) \
-        | xargs /opt/local/bin/etags -ae
-fi
+/opt/local/bin/ctags -Re --languages=Ruby,Lisp,YACC,C,C++ --exclude=".git|.svn|vendor|db" .
