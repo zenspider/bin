@@ -1,8 +1,9 @@
-#!/usr/local/bin/ruby -ws
+#!/usr/bin/env ruby -ws
 
 $b ||= false
 $g ||= false
 $h ||= false
+$i ||= false
 $l ||= false
 $n ||= false
 $o ||= false
@@ -15,6 +16,7 @@ if $h then
   puts "  -b - strip leading and trailing whitespace, and blanks"
   puts "  -g - print a simple histogram"
   puts "  -h - show help"
+  puts "  -i - strip ip numbers"
   puts "  -l - print the historgram logarithmically"
   puts "  -n - convert numbers to '<num>'"
   puts "  -x - convert hex numbers to '0x<num>'"
@@ -36,7 +38,11 @@ ARGF.each do |$_|
   # regex is split this way so you get all dots or dashes, not a mix
   gsub!(/(\d+((\.\d+)*|(\-\d+)*))/) do |match|
     if match.split(/[\.-]/).size >= 4 then # IP number
-      match
+      if $i then
+        "<ip>"
+      else
+        match
+      end
     else
       "<num>"
     end

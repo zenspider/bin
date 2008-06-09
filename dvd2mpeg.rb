@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby -ws
+#!/usr/bin/env ruby -ws
 
 path = ARGV.shift or raise "need a VIDEO_TS directory to process"
 root = File.dirname path

@@ -1,17 +1,6 @@
-#!/bin/csh
-# archdir - tar and compress a directory using tar & gzip
+#!/bin/bash
 
-if ($#argv < 1) then		# check num of arguments
-	echo "Usage: $com:t directory..."
-	exit 1
-endif
-
-# Do all file processing here:
-foreach File ($argv:gr)			# process multiple files
-
-	gzip -d $File
-	tar xf $File
-	/bin/rm $File
-
-end
+for tarball in "$@" ; do
+  (tar zxf "$tarball" && /bin/rm -f "$tarball")
+done
 

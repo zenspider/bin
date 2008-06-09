@@ -1,4 +1,6 @@
-#!/usr/local/bin/ruby -sw
+#!/usr/bin/env ruby -sw
+
+`syslog -s -l X nopaste #{ARGV.inspect}`
 
 require 'net/http'
 require 'pp'

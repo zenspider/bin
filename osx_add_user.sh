@@ -18,6 +18,7 @@ if [ -z $shell ]; then
 fi
 
 next_uid=$(($(nireport / /users uid | grep "5[0-9][0-9]" | sort -n | tail -1) + 1))
+next_gid=$(($(nireport / /groups gid | grep "5[0-9][0-9]" | sort -n | tail -1) + 1))
 
 echo "# creating user:"
 echo "# uid = $next_uid"
@@ -29,7 +30,7 @@ sudo niutil -createprop / /users/$login uid $next_uid
 sudo niutil -createprop / /users/$login realname $login
 sudo niutil -createprop / /users/$login home "/Users/$login"
 sudo niutil -createprop / /users/$login shell $shell
-sudo niutil -createprop / /users/$login gid $next_uid
+sudo niutil -createprop / /users/$login gid $next_gid
 sudo niutil -createprop / /users/$login passwd "*"
 sudo /usr/bin/ditto -rsrc /System/Library/User\ Template/English.lproj /Users/$login
 sudo chown -R $login:staff /Users/$login

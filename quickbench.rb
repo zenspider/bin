@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby -w
+#!/usr/bin/env ruby -w
 
 # TODO: while you are doing this, add an emacs method that toggles
 # between test file and implementation!
@@ -13,7 +13,7 @@ count = ARGV.shift.to_i || usage
 usage unless ARGV.empty?
 
 print <<'EOM'
-#!/usr/local/bin/ruby -w
+#!/usr/bin/env ruby -w
 
 require 'benchmark'
 

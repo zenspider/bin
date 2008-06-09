@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby -w
+#!/usr/bin/env ruby -w
 
 # usage error
 if ARGV.length < 1 or ARGV.length > 2 then

@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby -wns
+#!/usr/bin/env ruby -wns
 
 # Adds the input and prints out the sum at the end
 

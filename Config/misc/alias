@@ -195,7 +195,7 @@ ffr () {
 }
 
 mdf () {
-    mdfind "kMDItemDisplayName=$@"
+    mdfind -onlyin $PWD "kMDItemFSName == $@"
 }
 
 fc () {

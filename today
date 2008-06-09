@@ -1,9 +1,14 @@
-#!/usr/local/bin/ruby -w
+#!/usr/bin/env ruby -w
 
 shift = (ARGV.shift || 0).to_i * 86400
 t = Time.now + shift
+t = t.strftime("%Y-%m-%d")
 
-puts t.strftime("%Y-%m-%d")
+if $stdin.tty? then
+  puts t
+else
+  print t
+end
 
 
 

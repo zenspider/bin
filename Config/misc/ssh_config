@@ -50,3 +50,13 @@ Host m
 	Port 234
 	User zenspider
 	LocalForward 127.0.0.1:8080 repo.motionbox.com:80
+
+Host ey
+	Hostname 65.74.174.196
+	Port 8044
+	User ryan
+
+Host stats
+     Hostname 65.74.139.2
+     Port 8095
+     User zenspider

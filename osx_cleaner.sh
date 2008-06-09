@@ -23,14 +23,23 @@ fi
 find ~ -name .DS_Store -print -exec rm "{}" \; 
 
 rm -vrf \
-    /System/Library/Extensions.kextcache \
     /Library/Caches/* \
+    /System/Extensions/Caches/* \
     /System/Library/Caches/* \
+    /System/Library/Extensions.kextcache \
+    /System/Library/Extensions.mkext \
+    /private/tmp/* \
     /private/var/db/BootCache.playlist \
+    /private/var/folders/*/*/-Caches-/* \
+    /private/var/folders/*/*/-Tmp-/* \
+    /private/var/folders/*/*/TemporaryItems/* \
+    /private/var/tmp/* \
     ~/Library/Caches/* \
+    ~/Library/FontCollections/*.fcache \
     ~/Library/Mail/IMAP*/* \
     ~/Library/Safari/Icons/* \
-    ~/Library/FontCollections/*.fcache \
     $EXTRA
 
 reboot
+
+echo "Cleaning System Caches..."

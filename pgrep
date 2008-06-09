@@ -1,8 +1,7 @@
-#!/usr/local/bin/ruby -w
+#!/usr/bin/env ruby -w
 
 pattern = ARGV.shift
 
 ARGF.each_line do |line|
   line.grep(/(#{pattern})/) { puts $1 }
-#  puts $1 while line =~ /(#{pattern})\G/
 end
