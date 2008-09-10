@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby -ws
 
 $b ||= false
+$c ||= false
 $g ||= false
 $h ||= false
 $i ||= false
@@ -14,6 +15,7 @@ $x ||= false
 if $h then
   puts "#{File.basename($0)} [options] [files]"
   puts "  -b - strip leading and trailing whitespace, and blanks"
+  puts "  -c - cumulative percentages"
   puts "  -g - print a simple histogram"
   puts "  -h - show help"
   puts "  -i - strip ip numbers"
@@ -25,6 +27,8 @@ if $h then
   puts "  -s - sort by line, rather than occurance"
   exit 0
 end
+
+$p = true if $c
 
 c = {}
 c.default = 0
@@ -56,7 +60,7 @@ ARGF.each do |$_|
     $_.strip!
     next if $_.empty?
   end
-  
+
   c[$_] += 1
   total += 1
 end rescue nil # silence broken pipe errors
@@ -73,9 +77,14 @@ if $g then
   max_s = c.keys.map { |s| s.size }.max
 end
 
+curr = 0.0
+
 sorted.each do |key|
   next if $o and c[key] == 1
-  if $p then
+  if $c then
+    curr += c[key]
+    printf "%5d:%5.2f%%:%s\n", c[key], curr / total * 100.0, key
+  elsif $p then
     printf "%5d:%5.2f%%:%s\n", c[key], c[key] / total * 100.0, key
   elsif $g then
     n = c[key]
