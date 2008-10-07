@@ -22,7 +22,7 @@ tabs             = $t
 
 text =
   if ARGV.empty? then
-    $stdin.read
+    $stdin.tty? ? `pbpaste` : $stdin.read
   else
     description = ARGV.first if description == ""
     File.read(ARGV.shift)
