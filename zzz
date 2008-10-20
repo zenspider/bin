@@ -1,1 +1,0 @@
-osascript -e 'tell application "Finder" to sleep'
