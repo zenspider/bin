@@ -26,9 +26,11 @@ GetOptions(\%option,
 	   "nospam",
 	  );
 
-$option{'blackbox'} ||= 'BlackBox';
+$option{'blackbox'} ||= 'BlackBox.General.%Y-%m-%d';
 $option{'check'} ||= '';
 $option{'nospam'} ||= '';
+
+$option{'blackbox'} = time2str($option{'blackbox'}, time);
 
 # My Mail Policies:
 #
@@ -78,7 +80,7 @@ unless ($option{check}) {
       sleep $sleep;
       $mail->reject("This mail was identified as spam and rejected.");
     } else {
-      &save("BlackBox", "Spam box:", $to, $subject);
+      &save($option{'blackbox'}, "Spam box:", $to, $subject);
     }
   }
 }
@@ -118,7 +120,7 @@ while (<IN>) {
     $msg = '';
     $file = time2str($file, time);
   } elsif (m/^IGNORE\s+(?:\s+($isodate_re)\s+)?($field_re)\s+(.+)/o) {
-    $file = 'BlackBox';
+    $file = $option{'blackbox'};
     $isodate = $1 || '';
     $field = lc($2);
     $regex = $3;
