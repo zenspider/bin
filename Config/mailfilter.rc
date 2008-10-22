@@ -1,0 +1,81 @@
+# FORMAT:
+# ACCEPT FILE [ISODATE] FIELD REGEX
+# IGNORE      [ISODATE] FIELD REGEX
+#
+# FILE    = some/path (already in mail folder)
+# ISODATE = YYYY-MM-DD
+# FIELD   = (SUBJECT|FROM|TO|CC)
+# REGEX   = any perl regex
+#
+# EXAMPLES:
+#
+# Ignores any mail whose subject has "Alec Guiness" in it until 2000-09-01
+# IGNORE 2000-09-01 SUBJECT m/Alec Guiness/
+#
+# Accepts mail from "fred@domain.com" into "Personal/Fred"
+# ACCEPT Personal/Fred FROM m/fred@domain.com/
+#
+
+#CMD   FILE      ISODATE    FIELD   REGEX
+
+############################################################
+# Accept:
+
+# this needs to be before Amy's filter
+ACCEPT Personal/Bryan.%Y-%m     RCPT m/\@wuzzle.org/i
+
+ACCEPT Personal/Amy.%Y-%m       FROM m/Sweetbanana2?\@(cs|gmail).com/i
+ACCEPT Personal/Family.%Y-%m    FROM m/joejack(davis)?\@|peggy/i
+ACCEPT Personal/Family.%Y-%m    FROM m/sutra2501\@|voreis|cueayedee\@/i
+ACCEPT Personal/General.%Y-%m   FROM m/\@(oz|theriver)\.(net|com)/i
+ACCEPT Personal/General.%Y-%m   FROM m/btycll\@hotmail\.com/i
+ACCEPT Personal/General.%Y-%m   FROM m/stevenc\@/i
+ACCEPT Personal/Phil.%Y-%m      FROM m/pa?wilk|ctiee|wilk2\@llnl.gov/i
+
+ACCEPT UWRuby                   RCPT m/ryand-uwruby08\@zenspider\.com/i
+ACCEPT UWRuby                   RCPT m/ryand-uwruby\@zenspider\.com/i
+ACCEPT UWRuby                   RCPT m/uw-ruby\@zenspider\.com/i
+
+# Various Mailing Lists:
+ACCEPT Technical/Lang.%Y-%m     RCPT m/ll-discuss\@lists.csail.mit.edu/i
+ACCEPT Technical/Lang.%Y-%m     RCPT m/fonc\@vpri.org/i
+ACCEPT Technical/Lang.%Y-%m     RCPT m/ometa\@vpri.org/i
+ACCEPT Technical/Lang.%Y-%m     RCPT m/ryand-fonc\@zenspider.com/i
+ACCEPT Miscellaneous/Condo      RCPT m/corniche\@zenspider.com/i
+ACCEPT Technical/Rubinius.%Y-%m RCPT m/rubinius-dev\@googlegroups.com/i
+ACCEPT Technical/Ruby.%Y-%m     RCPT m/(ryand-)?ruby\@(greed\.)?zenspider\.com/i
+ACCEPT Technical/Ruby.%Y-%m     RCPT m/rubyzine\@lists.artima.com/i
+ACCEPT Technical/Ruby.%Y-%m     RCPT m/pdxruby\@kohalabs.com/i
+ACCEPT Technical/Ruby.%Y-%m     RCPT m/ruby2c\@zenspider.com/i
+ACCEPT Technical/Ruby.%Y-%m     RCPT m/parsetree\@zenspider.com/i
+ACCEPT Technical/Ruby.%Y-%m     RCPT m/rubyforge\@zenspider.com/i
+ACCEPT Technical/Ruby.%Y-%m     RCPT m/hackfest\@zenspider.com/i
+ACCEPT Technical/Ruby.%Y-%m     RCPT m/rubytests.*\@rubyforge.org/i
+ACCEPT Technical/RubyCore       RCPT m/ruby-core\@ruby-lang.org/i
+ACCEPT Technical/RubyDoc        RCPT m/ruby-doc\@ruby-lang.org/i
+ACCEPT Technical/RubyTalk       RCPT m/ruby-talk\@ruby-lang.org/i
+ACCEPT Technical/RubyGems       RCPT m/rubygems-developers\@rubyforge.org/i
+ACCEPT Technical/YARV           RCPT m/yarv-devel\@rubyforge.org/i
+
+# annoying that I have to have this after ruby, but whatever.
+ACCEPT Technical/Amazon.com     FROM m/\@amazon\.com/i
+
+# some ppl email from sourceforge to other lists I'm on.
+ACCEPT Technical/News           FROM m/\@.*?((xplain|versiontracker)\.com|(sourceforge|freshmeat)\.net)/i
+
+# Try to catch all cronjobs
+ACCEPT Technical/Progress       SUBJECT m/Current Progress/i
+ACCEPT Technical/Hacks.%Y-w%U   SUBJECT m/ACTIVE SYSTEM ATTACK/
+ACCEPT Technical/Cron.%Y-w%U    FROM    m/Cron Daemon|root\@.*?zenspider\.com/i
+ACCEPT Technical/Cron.%Y-w%U    SUBJECT m/system check/i
+
+# Support Email
+ACCEPT ZSS/Support              RCPT    m/support(-[a-z-]+)?\@/i
+
+# Accept mail from me
+ACCEPT INBOX                    FROM    m/ryand(-.+)?\@.*?zenspider\.com/i
+
+# If the to is not to me, it is probably spam, so save everything to me
+ACCEPT INBOX                    RCPT    m/ryand(-.+)?\@.*?zenspider\.com/i
+
+# Everything else is rejected by default
