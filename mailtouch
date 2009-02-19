@@ -5,15 +5,13 @@ require 'fileutils'
 date = Time.now.strftime("%Y-%m")
 
 mailboxen = %w(
-            Personal/Amy
-	    Personal/General
-	    Personal/Bryan
-	    Personal/Family
-	    Personal/Phil
-	    Technical/Ruby
-	    Technical/Rubinius
-	    ).map { |base| "#{base}.#{date}" }
+               Personal/Amy
+               Personal/General
+               Personal/Bryan
+               Personal/Family
+               Personal/Phil
+               Technical/Ruby
+              ).map { |base| "#{base}.#{date}" }
 
 Dir.chdir(File.expand_path("~/Mail"))
 FileUtils.touch mailboxen
-
