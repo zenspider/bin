@@ -23,7 +23,6 @@ for l in bash_login bash_profile profile; do
 done
 
 rm -f *~ emacs xinitrc ~/.ssh/config
-ln -s ../elisp/emacs.el emacs
 ln -s xsession xinitrc
 
 if [ ! -d ~/.ssh ]; then
@@ -33,21 +32,30 @@ fi
 ln misc/ssh_config ~/.ssh/config
 chmod 700 ~/.ssh ~/.ssh/config
 
+create_link() {
+  p=$1
+  f=$2
+
+  if [ -L ~/.$f ]; then
+    echo Removing symlink ~/.$f
+    rm ~/.$f
+  fi
+  
+  if [ -f ~/.$f ]; then
+    echo Moving ~/.$f to ~/.$f.old
+    mv ~/.$f ~/.$f.old
+  fi
+  
+  echo Linking $p/$f from ~/.$f
+  ln -s $p/$f ~/.$f
+}
+
 for f in $( ls ) ; do
   if [ -f $f ]; then
     if [ $f != $cmd ]; then
-      if [ -L ~/.$f ]; then
-	echo Removing symlink ~/.$f
-	rm ~/.$f
-      fi
-      
-      if [ -f ~/.$f ]; then
-	echo Moving ~/.$f to ~/.$f.old
-	mv ~/.$f ~/.$f.old
-      fi
-      
-      echo Linking $p/$f from ~/.$f
-      ln -s $p/$f ~/.$f
+      create_link $p $f
     fi
   fi
 done
+
+create_link ~/Bin/elisp emacs.el
