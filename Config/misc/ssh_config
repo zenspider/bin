@@ -28,7 +28,7 @@ Host zenspider.textdriven.com
 
 Host v
 	Hostname vanity.zenspider.com
-	User ryan
+	User ryand
 	ControlMaster auto
 	ControlPath ~/.ssh/master-%r@%h:%p
 
