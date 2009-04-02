@@ -188,6 +188,12 @@ sub save {
 
   if ($box eq 'INBOX') {
     $mail->accept($SPOOL);
+  } elsif ($box eq $option{'blackbox'} && $option{'nospam'}) {
+    # REFACTOR: dupe from above
+    my $sleep = int rand(5) + 5;
+    &log("Rejecting spam, sleeping $sleep seconds");
+    sleep $sleep;
+    $mail->reject("This mail was identified as spam and rejected.");
   } elsif ($box =~ m/^\//) {
     $mail->accept("$box");
   } else {
