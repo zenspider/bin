@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mailq | tail +2 | awk  'BEGIN { RS = "" } / MAILER-DAEMON|(mailman|hackfest|ruby.*)-bounces@(localhost.)?zenspider.com/ { print $1 }' | tr -d \'*\!\' | sudo postsuper -d -
