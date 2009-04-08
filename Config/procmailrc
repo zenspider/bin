@@ -7,11 +7,6 @@ LOGFILE     = $HOME/.procmail.log
 PMDIR       = $HOME/.procmail
 VERBOSE     = yes # Change to 'no' once you have it working
 LOGABSTRACT = all
-DELIVER     = /usr/local/libexec/dovecot/deliver
-# DEFAULT     = $HOME/INBOX
-# FORMAIL = /usr/local/bin/formail
-YEAR_MONTH  = `date +%Y-%m`
-YEAR_WEEK   = `date +%Y-w%U`
 
 :0 c:
 Backups
@@ -20,22 +15,21 @@ Backups
 * < 256000
 | spamassassin
 
-:0 w
-* ^X-Spam-Level: .*\*{10,}
-| ${DELIVER} -m spam3
+# TODO: brokey? * ^X-Spam-Level: \*{10,}
+# seems to work in egrep:
+#   spamassassin < sample-spam.txt | egrep "^X-Spam-Level: \*{10,}"
+:0:
+* ^X-Spam-Level:.\*\*\*\*\*\*+
+spam5
 
-:0 w
+:0:
 * ^X-Spam-Status: Yes
-| ${DELIVER} -m spam2
+spam
 
-:0 w
+:0:
 * ^List-Id:.*<\/[^.]+
-| ${DELIVER} -m Lists/$MATCH
+Lists/$MATCH
 
-:0 w
+:0:
 * ^X-ML-Name:.\/.+
-| ${DELIVER} -m Lists/$MATCH
-
-# default rule (last)
-:0 w
-| ${DELIVER}
+Lists/$MATCH
