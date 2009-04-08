@@ -32,8 +32,9 @@ ACCEPT Personal/General.%Y-%m   FROM m/btycll\@hotmail\.com/i
 ACCEPT Personal/General.%Y-%m   FROM m/stevenc\@/i
 ACCEPT Personal/Phil.%Y-%m      FROM m/pa?wilk|ctiee|wilk2\@llnl.gov/i
 
-ACCEPT UWRuby                   RCPT m/ryand-uwruby08\@zenspider\.com/i
-ACCEPT UWRuby                   RCPT m/ryand-uwruby\@zenspider\.com/i
+ACCEPT UWRuby 2009-04-01        RCPT m/ryand-uwruby08\@zenspider\.com/i
+ACCEPT UWRuby 2010-02-01        RCPT m/ryand-uwruby09\@zenspider\.com/i
+IGNORE                          RCPT m/ryand-uwruby\@zenspider\.com/i
 ACCEPT UWRuby                   RCPT m/uw-ruby\@zenspider\.com/i
 
 # Various Mailing Lists:
@@ -53,12 +54,13 @@ ACCEPT Technical/Ruby.%Y-%m     RCPT m/hackfest\@zenspider.com/i
 ACCEPT Technical/Ruby.%Y-%m     RCPT m/rubytests.*\@rubyforge.org/i
 ACCEPT Technical/RubyCore       RCPT m/ruby-core\@ruby-lang.org/i
 ACCEPT Technical/RubyDoc        RCPT m/ruby-doc\@ruby-lang.org/i
+ACCEPT Technical/SeattleTech    RCPT m/organize\@seattletechstartups.com/i
 ACCEPT Technical/RubyTalk       RCPT m/ruby-talk\@ruby-lang.org/i
 ACCEPT Technical/RubyGems       RCPT m/rubygems-developers\@rubyforge.org/i
 ACCEPT Technical/YARV           RCPT m/yarv-devel\@rubyforge.org/i
 
 # annoying that I have to have this after ruby, but whatever.
-ACCEPT Technical/Amazon.com     FROM m/\@amazon\.com/i
+ACCEPT Miscellaneous/Amazon     FROM m/\@amazon\.com/i
 
 # some ppl email from sourceforge to other lists I'm on.
 ACCEPT Technical/News           FROM m/\@.*?((xplain|versiontracker)\.com|(sourceforge|freshmeat)\.net)/i
