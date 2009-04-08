@@ -10,6 +10,8 @@ LOGABSTRACT = all
 DELIVER     = /usr/local/libexec/dovecot/deliver
 # DEFAULT     = $HOME/INBOX
 # FORMAIL = /usr/local/bin/formail
+YEAR_MONTH  = `date +%Y-%m`
+YEAR_WEEK   = `date +%Y-w%U`
 
 :0 c:
 Backups
@@ -28,6 +30,10 @@ Backups
 
 :0 w
 * ^List-Id:.*<\/[^.]+
+| ${DELIVER} -m Lists/$MATCH
+
+:0 w
+* ^X-ML-Name:.\/.+
 | ${DELIVER} -m Lists/$MATCH
 
 # default rule (last)
