@@ -1,13 +1,15 @@
+# -*- conf -*-
 # TODO: main.cf: mailbox_command = /usr/bin/procmail -a "$EXTENSION"
 
 PATH        = /usr/local/bin:/sbin:/bin
-SHELL       = /bin/sh
 MAILDIR     = $HOME/Mail
 LOGFILE     = $HOME/.procmail.log
+PMDIR       = $HOME/.procmail
 VERBOSE     = yes # Change to 'no' once you have it working
 LOGABSTRACT = all
 DELIVER     = /usr/local/libexec/dovecot/deliver
 DEFAULT     = $HOME/INBOX
+# FORMAIL = /usr/local/bin/formail
 
 :0 c:
 Backups
