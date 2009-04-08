@@ -1,0 +1,33 @@
+# TODO: main.cf: mailbox_command = /usr/bin/procmail -a "$EXTENSION"
+
+PATH        = /usr/local/bin:/sbin:/bin
+SHELL       = /bin/sh
+MAILDIR     = $HOME/Mail
+LOGFILE     = $HOME/.procmail.log
+VERBOSE     = yes # Change to 'no' once you have it working
+LOGABSTRACT = all
+DELIVER     = /usr/local/libexec/dovecot/deliver
+DEFAULT     = $HOME/INBOX
+
+:0 c:
+Backups
+
+:0fw: spamassassin.lock
+* < 256000
+| spamassassin
+
+:0 w
+* ^X-Spam-Level: .*\*{10,}
+| ${DELIVER} -m spam3
+
+:0 w
+* ^X-Spam-Status: Yes
+| ${DELIVER} -m spam2
+
+:0 w
+* ^List-Id:.*<\/[^.]+
+| ${DELIVER} -m Lists/$MATCH
+
+# default rule (last)
+:0 w
+| ${DELIVER} -m ${DEFAULT}
