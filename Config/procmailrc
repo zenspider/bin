@@ -8,7 +8,7 @@ PMDIR       = $HOME/.procmail
 VERBOSE     = yes # Change to 'no' once you have it working
 LOGABSTRACT = all
 DELIVER     = /usr/local/libexec/dovecot/deliver
-DEFAULT     = $HOME/INBOX
+# DEFAULT     = $HOME/INBOX
 # FORMAIL = /usr/local/bin/formail
 
 :0 c:
@@ -32,4 +32,4 @@ Backups
 
 # default rule (last)
 :0 w
-| ${DELIVER} -m ${DEFAULT}
+| ${DELIVER}
