@@ -43,7 +43,7 @@ create_link() {
   
   if [ -f ~/.$f ]; then
     echo Moving ~/.$f to ~/.$f.old
-    mv ~/.$f ~/.$f.old
+    mv -f ~/.$f ~/.$f.old
   fi
   
   echo Linking $p/$f from ~/.$f
@@ -59,3 +59,9 @@ for f in $( ls ) ; do
 done
 
 create_link ~/Bin/elisp emacs.el
+
+rm -f ~/.forward
+ln forward ~/.forward
+rm -f ~/.procmailrc
+ln procmailrc ~/.procmailrc
+chmod og-rw ~/.forward ~/.procmailrc
