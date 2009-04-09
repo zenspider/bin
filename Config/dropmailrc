@@ -1,0 +1,23 @@
+# -*- conf-unix -*-
+
+logfile "$HOME/.dropmail.log"
+
+cc "backups2"
+
+# if ($SIZE < 256000) {
+#   dotlock "spamassassin.lock" {
+#     xfilter "spamassassin"
+#   }
+# }
+# 
+# if (/^X-Spam-Level: \*{10,}/) {
+#   to "spam5"
+# }
+# 
+# if (/^X-Spam-Status: Yes/) {
+#   to "spam"
+# }
+# 
+# if (/^List-Id:.*<([^.]+)/) {
+#   to "Lists/$MATCH1"
+# }
