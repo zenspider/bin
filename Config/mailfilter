@@ -4,6 +4,16 @@ logfile "$HOME/.mailfilter.log"
 
 cc "Mail/backups"
 
+EX_NOUSER      = 67
+EX_TEMPFAIL    = 75
+EX_UNAVAILABLE = 69
+
+# if (/^Subject: test-bounce/)
+# {
+#   EXITCODE=$EX_NOUSER
+#   exit
+# }
+
 if ($SIZE < 512000)
 {
   dotlock "spamassassin.lock" {
@@ -11,7 +21,7 @@ if ($SIZE < 512000)
   }
 }
 
-if (/^X-Spam-Level: \*{10,}/)
+if (/^X-Spam-Level: \*{6,}/)
   to "Mail/spam5"
 
 if (/^X-Spam-Status: Yes/)
@@ -24,9 +34,9 @@ if (/^List-Id: .*<([^.]+)/)
 if (/^X-ML-Name: (.+)/)
   to "Mail/Lists/$MATCH1"
 
-TO_="(To|Cc|Bcc|Apparently(-Resent)?-To):"
-YEAR_MONTH=`date +%Y-%m`
-YEAR_WEEK=`date +%Y-w%U`
+TO_        = "(To|Cc|Bcc|Apparently(-Resent)?-To):"
+YEAR_MONTH = `date +%Y-%m`
+YEAR_WEEK  = `date +%Y-w%U`
 
 if (/^$TO_.*@wuzzle.org/)
   to "Mail/Personal/Bryan.$YEAR_MONTH"
@@ -56,7 +66,7 @@ if (/^$TO_.*ryand-uwruby08@zenspider\.com/)
   to "/dev/null"
 
 if (/^$TO_.*ryand-uwruby09@zenspider\.com/)
-  to "Mail/UWRuby"
+  to "Mail/Technical/UWRuby.$YEAR_MONTH"
 
 if (/^$TO_.*ryand-uwruby@zenspider\.com/)
   to "/dev/null"
