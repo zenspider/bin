@@ -14,7 +14,7 @@ mails.each do |mail|
   f, e, _ = from.split(/\s/, 3)
   h.sub!(/^date: /, 'Date: ') # lame, but necessary
   date = h.grep(/^Date: /).first
-  time = Time.parse(date)
+  time = date ? Time.parse(date) : Time.now
 
   h.sub!(/^From .*/, "#{f} #{e} #{time.strftime "%c"}")
 
