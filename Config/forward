@@ -1,1 +1,1 @@
-"|/usr/local/bin/procmail -f- || exit 75"
+"|/usr/local/bin/maildrop -d ${USER}"
