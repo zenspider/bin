@@ -1,10 +1,11 @@
-# -*-ksh-*-
+# -*- sh -*-
 # General Environment (ryand)
 
 #set -xv
 
 export P4EDITOR=gnuclient
 export P4CONFIG=.p4config
+export GEM_PATH=`gem env home`
 
 ############################################################
 # Pathing:
