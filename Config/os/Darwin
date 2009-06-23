@@ -1,4 +1,4 @@
-# -*-ksh-*-
+# -*- sh -*-
 
 OSPATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/opt/local/bin:/opt/local/sbin
 if [ -d /usr/X11R6 ]; then
@@ -12,6 +12,7 @@ case $- in
   *i*)
        export LESS=-FEm
        export MORE=$LESS
+       alias disasm="otool -t -V"
        ;;
   *)
      ;;
