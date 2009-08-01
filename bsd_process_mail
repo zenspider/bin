@@ -1,0 +1,13 @@
+#!/bin/sh
+
+HAM=Mail/ham
+
+if [ -s $HAM ]; then
+   spamassassin -k -d --mbox $HAM > $HAM.cleaned
+   rm $HAM
+   touch $HAM
+   sa-learn --mbox --ham $HAM.cleaned
+fi
+
+sa-learn --ham  --mbox /var/mail/ryand
+sa-learn --spam --mbox ~/Mail/spam ~/Mail/spam5
