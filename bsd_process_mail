@@ -9,5 +9,5 @@ if [ -s $HAM ]; then
    sa-learn --mbox --ham $HAM.cleaned
 fi
 
-sa-learn --ham  --mbox /var/mail/ryand
 sa-learn --spam --mbox ~/Mail/spam ~/Mail/spam5
+sa-learn --ham  --mbox /var/mail/ryand ~/Mail/Lists/* ~/Mail/Personal/* ~/Mail/Technical/*
