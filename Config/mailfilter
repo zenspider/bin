@@ -1,31 +1,13 @@
 # -*- conf-unix -*-
 
-logfile "$HOME/.mailfilter.log"
-
-cc "Mail/backups"
-
-EX_NOUSER      = 67
-EX_TEMPFAIL    = 75
-EX_UNAVAILABLE = 69
-
-# if (/^Subject: test-bounce/)
-# {
-#   EXITCODE=$EX_NOUSER
-#   exit
-# }
-
-if ($SIZE < 512000)
-{
-  dotlock "spamassassin.lock" {
-    xfilter "spamassassin"
-  }
-}
-
-if (/^X-Spam-Level: \*{6,}/)
-  to "Mail/spam5"
+# cc "Mail/backups"
 
 if (/^X-Spam-Status: Yes/)
   to "Mail/spam"
+
+# override mailing lists... moodle is stupid
+if (/^$TO_.*ryand-uw08@zenspider\.com/)
+  to "Mail/Technical/UW.$YEAR_MONTH"
 
 # TODO: maybe move below?
 if (/^List-Id: .*<([^.]+)/)
@@ -59,7 +41,7 @@ if (/^From.*btycll@hotmail\.com/)
 if (/^From.*stevenc@/)
   to "Mail/Personal/General.$YEAR_MONTH"
 
-if (/^From.*pa?wilk|ctiee|wilk2@llnl.gov/)
+if (/^From.*pa?wilk|theblueglow|wilk2@llnl.gov/)
   to "Mail/Personal/Phil.$YEAR_MONTH"
 
 if (/^$TO_.*ryand-uwruby08@zenspider\.com/)
@@ -71,13 +53,7 @@ if (/^$TO_.*ryand-uwruby09@zenspider\.com/)
 if (/^$TO_.*ryand-uwruby@zenspider\.com/)
   to "/dev/null"
 
-# if (/^$TO_.*uw-ruby@zenspider\.com/)
-#   to "Mail/UWRuby"
-
-# if (/^$TO_.*corniche@zenspider.com/)
-#   to "Mail/Miscellaneous/Condo"
-
-if (/^$TO_.*ryand-ruby@zenspider\.com/)
+if (/^$TO_.*ryand-ruby(forge)?@zenspider\.com/)
   to "Mail/Technical/Ruby.$YEAR_MONTH"
 
 if (/^From.*Cron Daemon|root@.*?zenspider\.com/)
@@ -86,37 +62,11 @@ if (/^From.*Cron Daemon|root@.*?zenspider\.com/)
 if (/^Subject: .*system check/)
   to "Mail/Technical/Cron.$YEAR_WEEK"
 
-# # Various Mailing Lists:
-# ACCEPT Technical/Lang.%Y-%m     RCPT m/ll-discuss\@lists.csail.mit.edu/i
-# ACCEPT Technical/Lang.%Y-%m     RCPT m/fonc\@vpri.org/i
-# ACCEPT Technical/Lang.%Y-%m     RCPT m/ometa\@vpri.org/i
-# ACCEPT Technical/Lang.%Y-%m     RCPT m/ryand-fonc\@zenspider.com/i
-# ACCEPT Technical/Rubinius.%Y-%m RCPT m/rubinius-dev\@googlegroups.com/i
-# ACCEPT Technical/Ruby.%Y-%m     RCPT m/rubyzine\@lists.artima.com/i
-# ACCEPT Technical/Ruby.%Y-%m     RCPT m/pdxruby\@kohalabs.com/i
-# ACCEPT Technical/Ruby.%Y-%m     RCPT m/ruby2c\@zenspider.com/i
-# ACCEPT Technical/Ruby.%Y-%m     RCPT m/parsetree\@zenspider.com/i
-# ACCEPT Technical/Ruby.%Y-%m     RCPT m/rubyforge\@zenspider.com/i
-# ACCEPT Technical/Ruby.%Y-%m     RCPT m/hackfest\@zenspider.com/i
-# ACCEPT Technical/Ruby.%Y-%m     RCPT m/rubytests.*\@rubyforge.org/i
-# ACCEPT Technical/RubyCore       RCPT m/ruby-core\@ruby-lang.org/i
-# ACCEPT Technical/RubyDoc        RCPT m/ruby-doc\@ruby-lang.org/i
-# ACCEPT Technical/SeattleTech    RCPT m/organize\@seattletechstartups.com/i
-# ACCEPT Technical/RubyTalk       RCPT m/ruby-talk\@ruby-lang.org/i
-# ACCEPT Technical/RubyGems       RCPT m/rubygems-developers\@rubyforge.org/i
-# ACCEPT Technical/YARV           RCPT m/yarv-devel\@rubyforge.org/i
-# # annoying that I have to have this after ruby, but whatever.
-# ACCEPT Miscellaneous/Amazon     FROM m/\@amazon\.com/i
-# # some ppl email from sourceforge to other lists I'm on.
-# ACCEPT Technical/News           FROM m/\@.*?((xplain|versiontracker)\.com|(sourceforge|freshmeat)\.net)/i
-# # Try to catch all cronjobs
-# ACCEPT Technical/Progress       SUBJECT m/Current Progress/i
-# ACCEPT Technical/Hacks.%Y-w%U   SUBJECT m/ACTIVE SYSTEM ATTACK/
-# # Support Email
-# ACCEPT ZSS/Support              RCPT    m/support(-[a-z-]+)?\@/i
+if (/^From.*@amazon.com/)
+  to "Mail/Miscellaneous/Amazon"
+
 # # Accept mail from me
 # ACCEPT INBOX                    FROM    m/ryand(-.+)?\@.*?zenspider\.com/i
 # # If the to is not to me, it is probably spam, so save everything to me
 # ACCEPT INBOX                    RCPT    m/ryand(-.+)?\@.*?zenspider\.com/i
 # # Everything else is rejected by default
-
