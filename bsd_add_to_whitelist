@@ -1,0 +1,4 @@
+#!/bin/bash
+
+spamdb -a $*
+spamd-setup 
