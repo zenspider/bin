@@ -1,4 +1,8 @@
 #!/bin/bash
 
 rm -f TAGS
-/opt/local/bin/ctags -Re --languages=Ruby,Lisp,YACC,C,C++ --exclude=".git|.svn|vendor|db" .
+CTAGS=/opt/local/bin/ctags
+if [ ! -f $CTAGS ]; then
+    CTAGS=/usr/local/bin/ctags
+fi
+$CTAGS -Re --languages=Ruby,Lisp,YACC,C,C++ --exclude=".git|.svn|vendor|db" .
