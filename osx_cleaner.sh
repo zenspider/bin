@@ -38,6 +38,9 @@ rm -vrf \
     ~/Library/FontCollections/*.fcache \
     ~/Library/Mail/IMAP*/* \
     ~/Library/Safari/Icons/* \
+    "~/Library/Preferences/Macromedia/Flash Player/macromedia.com" \
+    "~/Library/Preferences/Macromedia/Flash Player/#SharedObjects" \
+    $TMPDIR/../-*-/* \
     $EXTRA
 
 reboot
