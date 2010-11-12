@@ -1,6 +1,6 @@
 *Font:      -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
 *Font.Name: -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
-# for rxvt
+! for rxvt
 *font:      -adobe-courier-medium-r-*-*-14-*-*-*-*-*-*-*
 
 ! rxvt settings. hopefully turns on meta support for emacs

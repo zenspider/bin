@@ -1,5 +1,0 @@
-# -*-ksh-*-
-
-HOSTPATH=/usr/local/jdk1.1.8/bin
-export P4CLIENT=ryand
-export CLASSPATH=

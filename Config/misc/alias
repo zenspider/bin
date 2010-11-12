@@ -177,7 +177,7 @@ alias cpumem='ps -axo ruser,pid,pmem,command | sort -drn -k 3 | ${PAGER-more}'
 alias lc='wc -l'
 alias lpr2up='enscript -2r'
 alias newshell='env -i $SHELL --norc'
-alias rbx='~/.multiruby/install/rubinius/bin/rbx'
+alias gempath='export GEM_PATH=tmp/isolate/ruby-1.8; PATH=$PATH:$GEM_PATH/bin'
 
 ############################################################
 # General Functions:
@@ -247,10 +247,6 @@ lt () {
 
 alias html4="onsgmls -s -B -D /opt/local/share/OpenSP -c html4.soc"
 
-function movie () {
-  curl "$@" | pgrep "[^\"']+\.(mov|wmv)" | sort -u | xargs wget
-}
-
 nuke() {
   local pid
 
@@ -260,6 +256,10 @@ nuke() {
     kill $pid
     echo "slaughtered."
   done
+}
+
+stfu () {
+    eval $* 2> /dev/null
 }
 
 term() {

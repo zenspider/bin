@@ -1,10 +1,10 @@
 # -*- sh -*-
 
-OSPATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/opt/local/bin:/opt/local/sbin
+OSPATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/Developer/usr/bin
 if [ -d /usr/X11R6 ]; then
    OSPATH=$OSPATH:/usr/X11R6/bin
 fi
-export MANPATH=/usr/share/man:/usr/local/man:/usr/share/perl/man:/usr/local/lib/perl5/5.00503/man:/opt/local/man:/usr/X11R6/man:/opt/local/share/man
+export MANPATH=/usr/share/man:/usr/local/man:/usr/share/perl/man:/usr/local/lib/perl5/5.00503/man:/usr/X11R6/man:/usr/local/share/man
 
 case $- in
   

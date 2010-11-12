@@ -1,6 +1,0 @@
-# -*- ksh -*-
-export P4CLIENT=ryand-linux
-export QA_TEST_HOST=ryand
-alias ws=ws-dispatch
-HOSTPATH=/opt/amazon/dev-services/bin:/opt/amazon/quality-assurance/bin:/workplace/ryand/bin
-

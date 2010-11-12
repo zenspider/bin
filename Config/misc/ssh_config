@@ -68,3 +68,7 @@ Host buzzmail
   User rdavis
   LocalForward 40993 glnexm01:993
   LocalForward 40025 glnexm01:25
+
+Host ypdocs
+  Hostname docs.np.wc1.yellowpages.com
+  User rdavis

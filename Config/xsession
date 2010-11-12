@@ -16,21 +16,21 @@ echo $(date): starting xinitrc on $HOSTNAME.$DOMAIN >> $LOG
 
 xrdb -load ~/.Xresources
 
-if [ ! -f ~/.xmodmap.qwerty ]; then
-  xmodmap -pke > ~/.xmodmap.qwerty
-fi
+# if [ ! -f ~/.xmodmap.qwerty ]; then
+#   xmodmap -pke > ~/.xmodmap.qwerty
+# fi
+# 
+# xmodmap -e "remove Lock = Caps_Lock"
+# xmodmap ~/.xmodmap.dvorak
 
-xmodmap -e "remove Lock = Caps_Lock"
-xmodmap ~/.xmodmap.dvorak
-
-if [ $DOMAIN = "amazon.com" ]; then
+if [ "$DOMAIN" = "amazon.com" ]; then
   export PRINTER=rainier
 #  xhost +software-7 +website-build-1 +website-build-2 +mm-1-sun +remedy-1 +production-1 +production-2 +production-3 +software-batch-1 +remedy-1 +qa-tools-2 +qa-tools-3
   xscreensaver &
 fi
 
-if [ $DOMAIN = "zenspider.com" ]; then
-  if [ $HOSTNAME = "itsy" ]; then
+if [ "$DOMAIN" = "zenspider.com" ]; then
+  if [ "$HOSTNAME" = "itsy" ]; then
     xmodmap ~/.xmodmap.laptop
     xemacs -unmapped -f gnuserv-start &
   else
@@ -38,8 +38,7 @@ if [ $DOMAIN = "zenspider.com" ]; then
   fi
 fi
 
-rxvt &
-
-fvwm2
+# rxvt &
+# fvwm2
 
 echo $(date): quitting xinitrc on $HOSTNAME.$DOMAIN >> $LOG
