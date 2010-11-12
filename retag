@@ -1,8 +1,23 @@
-#!/bin/bash
+#!/usr/bin/ruby -w
 
-rm -f TAGS
-CTAGS=/opt/local/bin/ctags
-if [ ! -f $CTAGS ]; then
-    CTAGS=/usr/local/bin/ctags
-fi
-$CTAGS -Re --languages=Ruby,Lisp,YACC,C,C++ --exclude=".git|.svn|vendor|db" .
+require 'find'
+
+ctags = Dir["/{opt,usr}/local/bin/ctags"].first
+langs = "Ruby,Lisp,YACC,C,C++"
+excls = ".git|.svn|vendor|db"
+cmd   = "#{ctags} -Re --languages=#{langs} --exclude='#{excls}' ."
+
+ARGV.unshift '.' if ARGV.empty?
+
+ARGV.each do |dir|
+  Dir.chdir dir do
+    newest = Dir["**/*"].map { |f| File.mtime(f) if File.file?(f) }.compact.max
+    tags   = File.exist?("TAGS") ? File.mtime("TAGS") : Time.at(0)
+
+    if newest > tags then
+      warn "retagging #{dir}"
+      File.unlink "TAGS" if File.file?("TAGS")
+      system cmd
+    end
+  end
+end
