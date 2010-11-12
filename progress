@@ -40,20 +40,21 @@ $option = Options.process("help", "html", "dev")
 $interactive = $stdin.tty? and $stdout.tty?
 $check    = []
 $keywords = '\b(F IX|H ACK|T ODO|D OC|R EFACTOR|R ETIRE|W ARN)\b';
-$ignore   = '(\.(log|diff)|~)$'
-$prune    = 'CVS|\.svn|blib|html|vendor/rails'
+$ignore   = '(\.(log|diff)|~)'
+$prune    = 'CVS|\.svn|blib|html|vendor/rails|tmp|\.git'
 $hit      = Hash.new { |h,k| h[k] = [] }
 $word     = Hash.new(0)
 $total    = 0
 $html     = false;
 
 def find
-  ARGV.push('.') if ARGV.length == 0
+  ARGV.push '.' if ARGV.empty?
+
   Find.find(*ARGV) do |f|
-    if test ?f, f then
-      $check << f unless f =~ /#{$ignore}/o or File.binary? f
+    if File.file? f then
+      $check << f unless f =~ /#{$ignore}$/o or File.binary? f
     else
-      Find.prune if f =~ /#{$prune}/o or test ?l, f
+      Find.prune if f =~ /#{$prune}/o or File.symlink? f
     end
   end
 end
