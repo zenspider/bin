@@ -5,7 +5,7 @@ Host *
 	CheckHostIP yes
 	Compression yes
 	Protocol 2
-    GSSAPIAuthentication no
+  GSSAPIAuthentication no
 	#ControlMaster auto
 	#ControlPath ~/.ssh/master-%r@%h:%p
 
@@ -16,10 +16,6 @@ Host z
 	ControlPath ~/.ssh/master-%r@%h:%p
 
 Host z2
-	Hostname zenspider.textdriven.com
-	User zenspider
-
-Host zenspider.textdriven.com
 	Hostname zenspider.textdriven.com
 	User zenspider
 
@@ -38,36 +34,13 @@ Host e
 Host rubyforge.org
     User zenspider
 
-Host ey
-	Hostname 65.74.174.196
-	Port 8044
-	User ryan
-
 Host stats
   Hostname 65.74.139.2
   Port 8095
   User zenspider
 
-Host buzz
-  Hostname notbuzz.com
-  User rdavis
-  Port 21337
-
-Host trunk.notbuzz.com
-  Port 21337
-  User buzz
-
-Host www.notbuzz.com
-  Port 21337
-  User buzzwww
-
-# ssh -N -L 40993:glnexm01:993 -L 40025:glnexm01:25 sshproxy1.yellowpages.com
-
-Host buzzmail
-  Hostname sshproxy1.yellowpages.com
-  User rdavis
-  LocalForward 40993 glnexm01:993
-  LocalForward 40025 glnexm01:25
+Host github.com
+  IdentityFile ~/.ssh/passwordless
 
 Host ypdocs
   Hostname docs.np.wc1.yellowpages.com
