@@ -8,7 +8,8 @@ fi
 EXTRA=
 
 if [ "ls" == "$1" -o "full" == "$1" ]; then
-  EXTRA=~/Library/Preferences/LSApplications \
+  EXTRA=$EXTRA \
+    ~/Library/Preferences/LSApplications \
     ~/Library/Preferences/LSClaimedTypes \
     ~/Library/Preferences/LSSchemes \
     ~/Library/.LSApplications_Backup \
@@ -17,7 +18,10 @@ if [ "ls" == "$1" -o "full" == "$1" ]; then
 fi
 
 if [ "full" == "$1" ]; then
-  EXTRA=/.Spotlight-V100
+    mdutil -a -i off 
+    mdutil -E -a -v
+    rm -rf /Volumes/*/.Spotlight-V100
+    mdutil -a -i on
 fi
 
 find ~ -name .DS_Store -print -exec rm "{}" \; 
