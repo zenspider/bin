@@ -60,7 +60,7 @@ done
 
 create_link ~/Bin/elisp emacs.el
 
-rm -f ~/.forward ~/.mailfilter
-ln forward ~/.forward
-ln mailfilter ~/.mailfilter
-chmod og-rw ~/.forward ~/.mailfilter
+# rm -f ~/.forward ~/.mailfilter
+# ln forward ~/.forward
+# ln mailfilter ~/.mailfilter
+# chmod og-rw ~/.forward ~/.mailfilter
