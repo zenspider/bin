@@ -1,0 +1,10 @@
+#!/usr/bin/ruby
+
+Dir.chdir(File.expand_path("~/Downloads")) do
+  system "ruby sync.rb push"
+  unless ARGV.empty? then
+    curls = ARGV.map { |url| "curl -O \\\"#{url}\\\"" }.join " && "
+    system "ssh e \"sh -vxc 'cd ~/Downloads && #{curls}'\""
+  end
+  system "ruby sync.rb pull"
+end
