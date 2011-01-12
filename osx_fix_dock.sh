@@ -1,5 +1,7 @@
 #!/bin/bash
 
+defaults write -g NSInitialToolTipDelay -int 10000
+
 defaults write com.apple.dock pinning -string start
 defaults write com.apple.dock no-glass -boolean YES
 defaults delete com.apple.dock persistent-apps
