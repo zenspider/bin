@@ -7,6 +7,9 @@ export P4EDITOR=gnuclient
 export P4CONFIG=.p4config
 export GEM_PATH=`gem env home`
 
+export HISTFILESIZE=10000 # total
+export HISTSIZE=10000     # per session
+
 ############################################################
 # Pathing:
 
@@ -74,6 +77,10 @@ case $- in
   # ESHELL is what emacs will run for a shell
   export ESHELL=/bin/bash
   
+  export ACK_COLOR_FILENAME="reverse"
+  export ACK_COLOR_LINENO="blue"
+  export ACK_COLOR_MATCH="blue"
+
   # Globally set this, I don't care which platform I'm on
 #  stty intr '^c' kill '^u' susp '^z' # erase '^h'
   
