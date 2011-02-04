@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd
+rsync -avPCz --del $@ \
+      --exclude \*.build --exclude \*.ofocus-backup \
+      Documents Work \
+      rsync:backups/$(hostname -s)
