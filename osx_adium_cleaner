@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd ~/Library/Caches
+rm -rf com.adiumX.adiumX
+rm -rf Adium

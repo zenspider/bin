@@ -1,0 +1,29 @@
+#!/usr/bin/ruby -w
+
+require 'find'
+require 'fileutils'
+
+protected = %w(h_aja@hotmail.com
+               drbrainseg7
+               kushali00
+               eric.hodel@gmail.com
+               bohrium267
+               kaamile
+               sweetbanana2
+               passport@segment7.net)
+
+log_dir = File.expand_path "~/Library/Application\ Support/Adium\ 2.0/Users/Default/Logs/"
+Dir.chdir log_dir do
+  paths = `find . -type f -mtime +365 -print0`.split(/\0/)
+  paths.each do |path|
+    user = path.split(/\//)[2]
+    next if protected.include? user
+
+    FileUtils.rm path, :verbose => true
+  end
+
+  paths = `find . -empty -print0`.split(/\0/)
+  paths.each do |path|
+    FileUtils.rmdir path, :verbose => true
+  end
+end
