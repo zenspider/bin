@@ -1,7 +1,14 @@
 #!/bin/bash
 
+NAME=$(hostname -s)
+
+if [ $NAME = "YPCMC09457" ]; then
+  echo atti sucks, renaming machine
+  NAME=lust
+fi
+
 cd
 rsync -avPCz --del $@ \
       --exclude \*.build --exclude \*.ofocus-backup \
       Documents Work \
-      rsync:backups/$(hostname -s)
+      rsync:backups/$NAME
