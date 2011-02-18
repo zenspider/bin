@@ -1,14 +1,35 @@
-#!/bin/bash
+#!/usr/bin/ruby -s
 
-NAME=$(hostname -s)
+$n ||= false
 
-if [ $NAME = "YPCMC09457" ]; then
-  echo atti sucks, renaming machine
-  NAME=lust
-fi
+name = `hostname -s`.chomp
 
-cd
-rsync -avPCz --del $@ \
-      --exclude \*.build --exclude \*.ofocus-backup \
-      Documents Work \
-      rsync:backups/$NAME
+if name == "YPCMC09457" then
+  name = "lust"
+  warn "atti sucks, renaming machine to #{name}"
+end
+
+extra = ARGV.dup
+base = dirs = nil
+
+case name
+when "lust" then
+  dirs = %w(Documents Work)
+  base = File.expand_path "~"
+when "envy" then
+  dirs = %w(perforce www blog)
+  base = "/Volume/Users"
+else
+  abort "unknown machine #{name}"
+end
+
+Dir.chdir base
+
+cmd = ["rsync", "-avPCz", "--del", extra,
+       "--exclude", "*.build", "--exclude", "\*.ofocus-backup",
+       dirs,
+       "rsync:backups/#{name}"].flatten
+
+cmd.unshift "echo" if $n
+
+system(*cmd)
