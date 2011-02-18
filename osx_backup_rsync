@@ -18,7 +18,7 @@ when "lust" then
   base = File.expand_path "~"
 when "envy" then
   dirs = %w(perforce www blog)
-  base = "/Volume/Users"
+  base = "/Volumes/Users"
 else
   abort "unknown machine #{name}"
 end
