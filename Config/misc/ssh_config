@@ -45,3 +45,9 @@ Host github.com
 Host ypdocs
   Hostname docs.np.wc1.yellowpages.com
   User rdavis
+
+# password in keychain under sync.net
+Host rsync
+  Hostname usw-s004.rsync.net 
+  User 4295
+
