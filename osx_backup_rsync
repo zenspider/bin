@@ -1,6 +1,4 @@
-#!/usr/bin/ruby -s
-
-$n ||= false
+#!/usr/bin/ruby
 
 name = `hostname -s`.chomp
 
@@ -17,7 +15,7 @@ when "lust" then
   dirs = %w(Documents Work)
   base = File.expand_path "~"
 when "envy" then
-  dirs = %w(perforce www blog)
+  dirs = %w(perforce www blogs)
   base = "/Volumes/Users"
 else
   abort "unknown machine #{name}"
@@ -29,7 +27,5 @@ cmd = ["rsync", "-avPCz", "--del", extra,
        "--exclude", "*.build", "--exclude", "\*.ofocus-backup",
        dirs,
        "rsync:backups/#{name}"].flatten
-
-cmd.unshift "echo" if $n
 
 system(*cmd)
