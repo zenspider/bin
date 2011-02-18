@@ -180,6 +180,10 @@ alias newshell='env -i $SHELL --norc'
 alias gempath='export GEM_PATH=tmp/isolate/ruby-1.8; PATH=$PATH:$GEM_PATH/bin'
 alias ruby19="multiruby -1 1.9.2"
 
+dict () {
+    egrep -i "$@" /usr/share/dict/words
+}
+
 ############################################################
 # General Functions:
 ############################################################
@@ -199,6 +203,8 @@ ffr () {
 mdf () {
     mdfind -onlyin $PWD "kMDItemFSName == $@"
 }
+
+alias git=hub
 
 fc () {
     find . -name .svn -prune -o -type f -print0 | xargs -0 egrep -c "$@" | grep -v :0 | sort -rn -k2 -t:
