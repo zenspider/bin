@@ -179,6 +179,7 @@ alias lpr2up='enscript -2r'
 alias newshell='env -i $SHELL --norc'
 alias gempath='export GEM_PATH=tmp/isolate/ruby-1.8; PATH=$PATH:$GEM_PATH/bin'
 alias ruby19="multiruby -1 1.9.2"
+alias rake19="ruby19 -S rake"
 
 dict () {
     egrep -i "$@" /usr/share/dict/words
