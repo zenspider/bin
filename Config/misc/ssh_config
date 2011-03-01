@@ -51,3 +51,6 @@ Host rsync
   Hostname usw-s004.rsync.net 
   User 4295
 
+Host gems
+  Hostname rubygems.org
+  User zenspider
