@@ -84,7 +84,7 @@ end
 
 curr = 0.0
 
-mag = c[sorted.first].to_s.size
+mag = c[c.keys.max_by { |k| c[k] }].to_s.size
 
 sorted.each do |key|
   next if $o and c[key] == 1
