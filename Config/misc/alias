@@ -180,6 +180,11 @@ alias newshell='env -i $SHELL --norc'
 alias gempath='export GEM_PATH=tmp/isolate/ruby-1.8; PATH=$PATH:$GEM_PATH/bin'
 alias ruby19="multiruby -1 1.9.2"
 alias rake19="ruby19 -S rake"
+alias gem19="ruby19 -S gem"
+alias gem19t=~/.multiruby/install/mri_trunk/bin/gem 
+alias ruby19t=~/.multiruby/install/mri_trunk/bin/ruby
+alias rake19t=~/.multiruby/install/mri_trunk/bin/rake
+alias irb19t=~/.multiruby/install/mri_trunk/bin/irb
 
 dict () {
     egrep -i "$@" /usr/share/dict/words
