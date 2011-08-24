@@ -6,8 +6,8 @@ defaults write -g NSInitialToolTipDelay -int 30000
 defaults write com.apple.dock pinning -string start
 defaults write com.apple.dock autohide -boolean YES
 defaults write com.apple.dock no-glass -boolean YES
-defaults delete com.apple.dock persistent-apps
 defaults write com.apple.dock use-new-list-stack -boolean yes
+defaults delete com.apple.dock persistent-apps
 killall Dock
 
 defaults write com.apple.Finder QuitMenuItem -boolean YES
@@ -21,5 +21,8 @@ defaults write com.apple.iTunes show-store-link-arrows -bool YES
 defaults write com.apple.iTunes show-store-arrow-links -bool YES
 killall iTunes
 
+defaults write com.apple.screencapture disable-shadow -bool true
+
 sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "Property of Ryan Davis - ATTi - 206.999.9936"
 
+defaults write -g NSRecentDocumentsLimit -int 10
