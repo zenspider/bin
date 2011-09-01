@@ -1,4 +1,4 @@
-# -*- ksh -*-
+# -*- sh -*-
 
 #set -xv
 
@@ -36,5 +36,4 @@ if [[ $- == *i* ]]; then
   if [ -f $ALIAS_FILE ] ; then
     . $ALIAS_FILE
   fi
-  
 fi
