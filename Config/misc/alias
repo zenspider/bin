@@ -8,6 +8,10 @@
 if [ -n "${PS1-}" ]; then
   # interactive shell
   
+  fix_ssh_agent () {
+    export SSH_AUTH_SOCK=$(find /tmp/ssh-* -user `whoami` -name agent\* | tail -n 1)
+  }
+
   pts () 
   { 
       echo "$*" | parse_tree_show
