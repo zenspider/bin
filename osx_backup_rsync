@@ -23,9 +23,18 @@ end
 
 Dir.chdir base
 
-cmd = ["rsync", "-avPCz", "--del", extra,
-       "--exclude", "*.build", "--exclude", "\*.ofocus-backup",
+flags  = "-aCz"
+flags += "vP" if $stdin.tty? and $stdout.tty?
+
+cmd = ["rsync", flags, "--del", extra,
+       "--exclude", "tmp",
+       "--exclude", "pkg",
+       "--exclude", "*.build",
+       "--exclude", "\*.ofocus-backup",
        dirs,
        "rsync:backups/#{name}"].flatten
 
+puts "starting rsync backup"
+p cmd
 system(*cmd)
+puts "finished rsync backup"
