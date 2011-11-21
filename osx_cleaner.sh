@@ -5,17 +5,7 @@ if [ $(id -u) != 0 ]; then
     exit 1
 fi
 
-EXTRA=
-
-if [ "ls" == "$1" -o "full" == "$1" ]; then
-  EXTRA=$EXTRA \
-    ~/Library/Preferences/LSApplications \
-    ~/Library/Preferences/LSClaimedTypes \
-    ~/Library/Preferences/LSSchemes \
-    ~/Library/.LSApplications_Backup \
-    ~/Library/Preferences/.LSClaimedTypes_Backup \
-    ~/Library/Preferences/.LSSChemes_Backup
-fi
+DONE=
 
 if [ "full" == "$1" ]; then
     mdutil -a -i off 
@@ -24,28 +14,23 @@ if [ "full" == "$1" ]; then
     mdutil -a -i on
 fi
 
+locate -0 .DS_Store | xargs -0 rm
 find ~ -name .DS_Store -print -exec rm "{}" \; 
 
 rm -vrf \
     /Library/Caches/* \
-    /System/Extensions/Caches/* \
     /System/Library/Caches/* \
-    /System/Library/Extensions.kextcache \
-    /System/Library/Extensions.mkext \
     /private/tmp/* \
-    /private/var/db/BootCache.playlist \
-    /private/var/folders/*/*/-Caches-/* \
-    /private/var/folders/*/*/-Tmp-/* \
-    /private/var/folders/*/*/TemporaryItems/* \
+    /private/var/db/BootCache* \
+    /private/var/folders/*/*/?/* \
     /private/var/tmp/* \
-    ~/Library/Caches/* \
-    ~/Library/FontCollections/*.fcache \
-    ~/Library/Mail/IMAP*/* \
-    ~/Library/Safari/Icons/* \
-    "~/Library/Preferences/Macromedia/Flash Player/macromedia.com" \
-    "~/Library/Preferences/Macromedia/Flash Player/#SharedObjects" \
-    $TMPDIR/../-*-/* \
-    $EXTRA
+    /Users/*/Library/Caches/* \
+    /Volumes/*/tmp/* \
+    /Volumes/*/var/tmp/* \
+    /Library/Preferences/SystemConfiguration/com.apple.PowerManagement.plist \
+    ~/Library/Mail/V2/IMAP*/* \
+    ~/Library/Safari/WebpageIcons.db \
+    $DONE
 
 reboot
 
