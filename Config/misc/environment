@@ -81,16 +81,8 @@ case $- in
   export ACK_COLOR_LINENO="blue"
   export ACK_COLOR_MATCH="blue"
 
-  # Globally set this, I don't care which platform I'm on
-#  stty intr '^c' kill '^u' susp '^z' # erase '^h'
-  
-  if [ ! -z ${DISPLAY-} ] ; then
-    echo "export DISPLAY=$DISPLAY"
-  else
-    echo "No DISPLAY"
-  fi
   ;;
-  
+
   # not interactive
   *) 
     ;;
