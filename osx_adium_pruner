@@ -10,6 +10,7 @@ protected = %w(h_aja@hotmail.com
                bohrium267
                kaamile
                sweetbanana2
+               sprouted@gmail.com
                passport@segment7.net)
 
 log_dir = File.expand_path "~/Library/Application\ Support/Adium\ 2.0/Users/Default/Logs/"
