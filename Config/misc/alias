@@ -178,6 +178,7 @@ alias clean='DU -a . | sort -rn | ${PAGER-more}'
 alias cpu='ps -axo ruser,pid,pcpu,command | sort -drn -k 3 | ${PAGER-more}'
 alias cputime='ps -axo ruser,pid,cputime,command | sort -dr -k 3 | ${PAGER-more}'
 alias cpumem='ps -axo ruser,pid,pmem,command | sort -drn -k 3 | ${PAGER-more}'
+alias emacs="/usr/local/Cellar/emacs/23.3a/Emacs.app/Contents/MacOS/Emacs -nw"
 alias lc='wc -l'
 alias lpr2up='enscript -2r'
 alias newshell='env -i $SHELL --norc'
@@ -189,6 +190,7 @@ alias gem19t=~/.multiruby/install/mri_trunk/bin/gem
 alias ruby19t=~/.multiruby/install/mri_trunk/bin/ruby
 alias rake19t=~/.multiruby/install/mri_trunk/bin/rake
 alias irb19t=~/.multiruby/install/mri_trunk/bin/irb
+alias math="/MyApplications/Mathematica\ Home\ Edition.app/Contents/MacOS/MathKernel"
 
 dict () {
     egrep -i "$@" /usr/share/dict/words
