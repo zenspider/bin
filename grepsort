@@ -9,5 +9,5 @@ fi
 F=/tmp/grepsort.$$
 egrep "$1" "$2" > $F.1
 sort $F.1 > $F.2
-diff $A $F.1 $F.2
+diff -b $A $F.1 $F.2
 rm -f $F.1 $F.2
