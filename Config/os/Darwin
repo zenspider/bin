@@ -1,8 +1,11 @@
 # -*- sh -*-
 
-OSPATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/Developer/usr/bin:/MyApplications/dev/lisp/Racket/bin
+OSPATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/Developer/usr/bin
 if [ -d /usr/X11R6 ]; then
    OSPATH=$OSPATH:/usr/X11R6/bin
+fi
+if [ -d /MyApplications/dev/lisp/Racket/bin ]; then
+   OSPATH=$OSPATH:/MyApplications/dev/lisp/Racket/bin
 fi
 export MANPATH=/usr/share/man:/usr/local/man:/usr/share/perl/man:/usr/local/lib/perl5/5.00503/man:/usr/X11R6/man:/usr/local/share/man
 
