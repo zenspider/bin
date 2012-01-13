@@ -1,6 +1,6 @@
 # -*- sh -*-
 
-OSPATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/Developer/usr/bin
+OSPATH=/usr/local/sbin:/usr/local/bin:/sbin:/usr/sbin:/bin:/usr/bin:/Developer/usr/bin
 if [ -d /usr/X11R6 ]; then
    OSPATH=$OSPATH:/usr/X11R6/bin
 fi
