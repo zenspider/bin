@@ -27,6 +27,8 @@ flags  = "-aCz"
 flags += "vP" if $stdin.tty? and $stdout.tty?
 
 cmd = ["rsync", flags, "--del", extra,
+       "--include", ".git",
+       "--include", ".svn",
        "--exclude", "tmp",
        "--exclude", "pkg",
        "--exclude", "*.build",
