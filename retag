@@ -3,6 +3,9 @@
 require 'find'
 
 ctags = Dir["/{opt,usr}/local/bin/ctags"].first
+
+abort "Can't find ctags" unless ctags
+
 langs = "Ruby,Lisp,YACC,C,C++,Scheme"
 excls = ".git|.svn|vendor|db"
 cmd   = "#{ctags} -Re --languages=#{langs} --exclude='#{excls}' ."
