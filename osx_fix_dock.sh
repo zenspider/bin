@@ -10,6 +10,11 @@ defaults write com.apple.dock use-new-list-stack -boolean yes
 defaults delete com.apple.dock persistent-apps
 killall Dock
 
+defaults write com.omnigroup.OmniFocus RelativeDateFormatterShowTime YES
+defaults write com.omnigroup.OmniFocus RelativeDateFormatterDefaultWantsTruncatedTime NO
+defaults write com.omnigroup.OmniFocus RelativeDateFormatterUseRelativeDayNames YES
+defaults write com.omnigroup.OmniFocus RelativeDateFormatterDateFormatStyle short
+
 defaults write com.apple.Finder QuitMenuItem -boolean YES
 defaults write com.apple.finder QLEnableXRayFolders -boolean YES
 killall Finder
