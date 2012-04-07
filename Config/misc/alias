@@ -200,19 +200,50 @@ dict () {
 # General Functions:
 ############################################################
 
-f () {
-    find . -name .svn -prune -o -type f -print | egrep "$@"
-}
-
 ff () {
     find . -name .svn -prune -o -type f -print0 | xargs -0 egrep "$@"
 }
 
-ffr () {
-    find . -name .svn -prune -o -name vendor -prune -o -type f -a \! -name TAGS -print0 | xargs -0 egrep "$@"
+fff () {
+    c=
+    e=
+    type=
+    while true; do
+        case "$1" in
+            -f) type="-type f"      ;;
+            -d) type="-type d"      ;;
+            -a) type=               ;;
+            -c) type="-type d"; c=1 ;;
+            -e)
+                shift
+                e="$1"
+                ;;
+            --) break               ;;
+            *) break                ;;
+        esac
+        shift
+    done
+
+    if [ -n "$c" ]; then
+        cd $(find . $type -print0 | egrep -z "$*" | head -1)
+        echo $PWD
+    elif [ -z "$e" ]; then
+        find . $type | egrep "$*"
+    else
+        find . $type -print0 | egrep -zZ "$*" | xargs -0 $e
+    fi
 }
 
+alias f="fff -f"
+alias d="fff -d"
+alias c="fff -c"
+alias e="fff -f -e 'emacsclient -n'"
+
 mdf () {
+    mdfind -onlyin $PWD "$@"
+}
+
+mdfn () {
     mdfind -onlyin $PWD "kMDItemFSName == $@"
 }
 
