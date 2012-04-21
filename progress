@@ -41,7 +41,7 @@ $interactive = $stdin.tty? and $stdout.tty?
 $check    = []
 $keywords = '\b(F IX|H ACK|T ODO|D OC|R EFACTOR|R ETIRE|W ARN)\b';
 $ignore   = '(\.(log|diff)|~)'
-$prune    = 'CVS|\.svn|blib|html|vendor/rails|tmp|\.git'
+$prune    = 'CVS|\.svn|blib|html|vendor/rails|tmp|\.git|\.site'
 $hit      = Hash.new { |h,k| h[k] = [] }
 $word     = Hash.new(0)
 $total    = 0
