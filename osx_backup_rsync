@@ -1,4 +1,6 @@
-#!/usr/bin/ruby
+#!/usr/bin/ruby -s
+
+$n ||= false
 
 name = `hostname -s`.chomp
 
@@ -9,6 +11,9 @@ end
 
 extra = ARGV.dup
 base = dirs = nil
+
+flags  = ["-aCz"]
+flags << "-vP" if $stdin.tty? and $stdout.tty?
 
 case name
 when "lust" then
@@ -23,9 +28,6 @@ end
 
 Dir.chdir base
 
-flags  = "-aCz"
-flags += "vP" if $stdin.tty? and $stdout.tty?
-
 cmd = ["rsync", flags, "--del", extra,
        "--include", ".git",
        "--include", ".svn",
@@ -38,5 +40,5 @@ cmd = ["rsync", flags, "--del", extra,
 
 puts "starting rsync backup"
 p cmd
-system(*cmd)
+system(*cmd) unless $n
 puts "finished rsync backup"
