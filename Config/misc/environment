@@ -71,8 +71,6 @@ case $- in
     export PAGER=more
   fi
   
-  export RBX=rbx.colorize_backtraces=no
-
   # ESHELL is what emacs will run for a shell
   export ESHELL=/bin/bash
   
