@@ -3,36 +3,25 @@
 Host *
 	ForwardAgent yes
 	CheckHostIP yes
-	Compression yes
 	Protocol 2
-  GSSAPIAuthentication no
+	GSSAPIAuthentication no
+	Cipher blowfish
 	#ControlMaster auto
 	#ControlPath ~/.ssh/master-%r@%h:%p
-
-Host z
-	Hostname greed.zenspider.com
-	User ryand
-	ControlMaster auto
-	ControlPath ~/.ssh/master-%r@%h:%p
 
 Host z2
 	Hostname zenspider.textdriven.com
 	User zenspider
-
-Host v
-	Hostname vanity.zenspider.com
-	User ryand
-	ControlMaster auto
-	ControlPath ~/.ssh/master-%r@%h:%p
 
 Host e
 	Hostname envy.zenspider.com
 	User ryan
 	ControlMaster auto
 	ControlPath ~/.ssh/master-%r@%h:%p
+	ControlPersist 1h
 
 Host rubyforge.org
-    User zenspider
+	User zenspider
 
 Host stats
   Hostname 65.74.139.2
@@ -51,7 +40,13 @@ Host rsync
   Hostname usw-s004.rsync.net 
   IdentityFile ~/.ssh/rsync.net
   User 4295
+  ControlMaster auto
+  ControlPath ~/.ssh/master-%r@%h:%p
+  ControlPersist 1h
 
 Host gems
   Hostname rubygems.org
   User zenspider
+
+Host docs
+  Hostname docs.seattlerb.org
