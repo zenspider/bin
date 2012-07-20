@@ -4,14 +4,11 @@ require 'find'
 require 'fileutils'
 
 protected = %w(h_aja@hotmail.com
-               drbrainseg7
                kushali00
-               eric.hodel@gmail.com
                bohrium267
                kaamile
                sweetbanana2
-               sprouted@gmail.com
-               passport@segment7.net)
+               sprouted@gmail.com)
 
 log_dir = File.expand_path "~/Library/Application\ Support/Adium\ 2.0/Users/Default/Logs/"
 Dir.chdir log_dir do
