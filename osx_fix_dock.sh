@@ -31,7 +31,7 @@ killall iTunes
 
 defaults write com.apple.screencapture disable-shadow -bool true
 
-sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "Property of Ryan Davis - ATTi - 206.999.9936"
+sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "Property of Ryan Davis - 206.999.9936"
 
 defaults write -g NSRecentDocumentsLimit -int 10
 
