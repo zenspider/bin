@@ -18,8 +18,8 @@ defaults write com.omnigroup.OmniFocus RelativeDateFormatterDefaultWantsTruncate
 defaults write com.omnigroup.OmniFocus RelativeDateFormatterUseRelativeDayNames YES
 defaults write com.omnigroup.OmniFocus RelativeDateFormatterDateFormatStyle short
 
-defaults write com.apple.Finder QuitMenuItem -boolean YES
-defaults write com.apple.finder QLEnableXRayFolders -boolean YES
+defaults write com.apple.finder QuitMenuItem -bool YES
+defaults write com.apple.finder QLEnableXRayFolders -bool YES
 killall Finder
 
 defaults write com.apple.iphoto MapScrollWheel -bool YES
