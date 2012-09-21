@@ -185,6 +185,7 @@ alias lc='wc -l'
 alias lpr2up='enscript -2r'
 alias math="/MyApplications/Mathematica\ Home\ Edition.app/Contents/MacOS/MathKernel"
 alias newshell='env -i $SHELL --norc'
+alias rsyncmv="rsync --remove-source-files"
 
 dict () {
     egrep -i "$@" /usr/share/dict/words
@@ -312,11 +313,8 @@ term() {
   tset
 }
 
-fromto() {
-  echo "use seq or jot"
-}
+alias fromto=seq
 
 mem() {
   ps -efo rss,vsz,user,args | perl -pi -e 'if (m/^(\S+)M/) { $mem = $1 * 1024; s/^(\S+)M/${mem}K/ }; s/^(\S+)K/$1/; ' | sort -n
 }
-
