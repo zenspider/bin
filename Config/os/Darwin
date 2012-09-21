@@ -1,13 +1,14 @@
 # -*- sh -*-
 
 OSPATH=/usr/local/sbin:/usr/local/bin:/sbin:/usr/sbin:/bin:/usr/bin
-if [ -d /usr/X11R6 ]; then
+
+if [ -d /usr/X11R6 -a ! -e /usr/X11R6/bin/xstub ]; then
    OSPATH=$OSPATH:/usr/X11R6/bin
 fi
+
 if [ -d /MyApplications/dev/lisp/Racket/bin ]; then
    OSPATH=$OSPATH:/MyApplications/dev/lisp/Racket/bin
 fi
-export MANPATH=/usr/share/man:/usr/local/man:/usr/share/perl/man:/usr/local/lib/perl5/5.00503/man:/usr/X11R6/man:/usr/local/share/man
 
 case $- in
   
@@ -20,6 +21,3 @@ case $- in
   *)
      ;;
 esac
-
-export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.5/Home/
-
