@@ -17,6 +17,7 @@ case $- in
        export LESS=-FEm
        export MORE=$LESS
        alias disasm="otool -t -V"
+       export COPYFILE_DISABLE=true
        ;;
   *)
      ;;
