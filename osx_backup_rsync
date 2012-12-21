@@ -1,13 +1,6 @@
-#!/usr/bin/ruby -s
-
-$n ||= false
+#!/usr/bin/ruby
 
 name = `hostname -s`.chomp
-
-if name == "YPCMC09457" then
-  name = "lust"
-  warn "atti sucks, renaming machine to #{name}"
-end
 
 extra = ARGV.dup
 base = dirs = nil
@@ -28,15 +21,23 @@ end
 
 Dir.chdir base
 
-cmd = ["rsync", flags, "--del", extra,
+del = if extra.grep(/del/).empty? then
+        "--del"
+      else
+        nil
+      end
+
+cmd = ["rsync", flags, del, extra,
        "--include", ".git",
        "--include", ".svn",
        "--exclude", "tmp",
        "--exclude", "pkg",
        "--exclude", "*.build",
+       "--exclude", "backups",
+       # "--exclude", "\*.noindex",
        "--exclude", "\*.ofocus-backup",
        dirs,
-       "rsync:backups/#{name}"].flatten
+       "rsync:backups/#{name}"].flatten.compact
 
 puts "starting rsync backup"
 p cmd
