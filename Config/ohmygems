@@ -1,9 +1,13 @@
-export ORIG_GEM_PATH=${GEM_PATH:-}
-export ORIG_GEM_HOME=${GEM_HOME:-}
-export ORIG_PATH=${PATH}
+# -*- sh -*-
 
 ohmygems() {
     name=${1:-}
+
+    if [ -z "${ORIG_GEM_PATH:-}" ]; then
+        export ORIG_GEM_PATH=${GEM_PATH:-}
+        export ORIG_GEM_HOME=${GEM_HOME:-}
+        export ORIG_PATH=${PATH}
+    fi
 
     if [ -z "$name" ]; then
         echo "usage: ohmygems <name or reset>"
