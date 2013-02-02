@@ -5,7 +5,7 @@ require 'fileutils'
 
 # backup_dates - returns a list of dates of backups to keep
 #
-# 28+ previous dailies
+# 28 previous dailies
 # 3 months of weeklies
 # 9 months of monthlies
 # 10 years of yearlies
@@ -14,14 +14,14 @@ def backup_dates
   day = Date.today
   dates = []
 
-  goal = day - 28       # back 28 days
-  goal -= goal.day + 1  # then back to the previous 1st
-  (goal..day).each do |d|
+  goal = day - 28               # back 28 days
+
+  (goal..day).each do |d|       # dailies 28+ days
     dates << d
   end
-  day = goal - 1
 
-  3.times do
+  day = goal - 1
+  3.times do                    # weeklies for 3 months
     day = Date.civil(day.year, day.month, 1)
     dates << day
     dates << Date.civil(day.year, day.month, 8)
@@ -30,19 +30,19 @@ def backup_dates
     day -= 1
   end
 
-  9.times do
+  9.times do # monthlies for 9+ months
     day = Date.civil(day.year, day.month, 1)
     dates << day
     day -= 1
   end
 
-  10.times do
+  10.times do                   # yearlies for 10 years
     day = Date.civil(day.year, 1, 1)
     dates << day
     day -= 1
   end
 
-  return dates.sort
+  return dates.uniq.sort
 end
 
 keep = backup_dates
@@ -62,4 +62,24 @@ ARGV.each do |path|
   end
 end
 
-p keep.map { |d| d.to_s } if ARGV.empty?
+if ARGV.empty? then
+  require 'pp'
+
+  # y1, y2, m1, m2, m3
+
+  keep.map!(&:to_s)
+
+  y, m, w, d = keep[0..9], keep[10..18], keep[19..-29], keep[-28..-1]
+
+  puts "Yearly:"
+  puts y.each_slice(5).map { |a| a.join(" ") }
+  puts
+  puts "Monthly:"
+  puts m.each_slice(5).map { |a| a.join(" ") }
+  puts
+  puts "Weekly:"
+  puts w.each_slice(4).map { |a| a.join(" ") }
+  puts
+  puts "Daily:"
+  puts d.each_slice(5).map { |a| a.join(" ") }
+end
