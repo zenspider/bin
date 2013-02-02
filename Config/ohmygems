@@ -17,7 +17,7 @@ ohmygems() {
         echo "  but new gem installs will install into ~/.gems/repos/<name>."
         echo "  Use 'reset' to go back to normal."
         echo
-        echo "Available repos:"
+        echo "Available repos in ~/.gem/repos:"
         echo
         ls ~/.gem/repos | pr -o2 -l1
         echo
