@@ -21,6 +21,10 @@ end
 
 Dir.chdir base
 
+args = %W[find  ( -name .DS_Store -o -name *~ ) -print -delete]
+args[1,0] = dirs
+system(*args)
+
 del = if extra.grep(/del/).empty? then
         "--del"
       else
@@ -41,7 +45,4 @@ cmd = ["rsync", flags, del, extra,
        dirs,
        "rsync:backups/#{name}"].flatten.compact
 
-puts "starting rsync backup"
-p cmd
 system(*cmd) unless $n
-puts "finished rsync backup"
