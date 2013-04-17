@@ -179,7 +179,6 @@ alias cpu='ps -axo ruser,pid,pcpu,command | sort -drn -k 3 | ${PAGER-more}'
 alias cpumem='ps -axo ruser,pid,pmem,command | sort -drn -k 3 | ${PAGER-more}'
 alias cputime='ps -axo ruser,pid,cputime,command | sort -dr -k 3 | ${PAGER-more}'
 alias emacs="/MyApplications/Emacs.app/Contents/MacOS/Emacs -nw"
-alias gempath='export GEM_PATH=tmp/isolate/ruby-1.8; PATH=$PATH:$GEM_PATH/bin'
 alias icloud="scutil --dns | grep icloud | sed -n 's/.* : *\(.*\)$/\1/p'"
 alias lc='wc -l'
 alias lpr2up='enscript -2r'
@@ -319,4 +318,4 @@ mem() {
   ps -efo rss,vsz,user,args | perl -pi -e 'if (m/^(\S+)M/) { $mem = $1 * 1024; s/^(\S+)M/${mem}K/ }; s/^(\S+)K/$1/; ' | sort -n
 }
 
-. ~/.ohmygems
+. $(gem env gemdir)/gems/ohmygems-*/ohmygems

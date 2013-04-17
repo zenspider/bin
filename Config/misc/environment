@@ -5,9 +5,6 @@
 
 export P4EDITOR=gnuclient
 export P4CONFIG=.p4config
-export GEM_HOME=`gem env home`
-export GEM_PATH=
-
 export HISTFILESIZE=10000 # total
 export HISTSIZE=10000     # per session
 
