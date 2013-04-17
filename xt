@@ -1,5 +1,0 @@
-#!/bin/csh
-
-foreach host ($argv)
-  xterm -fn 8x13 +cn -j -sb -sl 1000 -ls -n $host -T $host -e rlogin $host &
-end
