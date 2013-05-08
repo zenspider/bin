@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec rsync -avPNAXx --fileflags --force-change --protect-decmpfs --protect-args $@
