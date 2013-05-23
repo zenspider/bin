@@ -34,15 +34,19 @@ del = if extra.grep(/del/).empty? then
 cmd = ["rsync", flags, del, extra,
        "--include", ".git",
        "--include", ".svn",
+
        "--exclude", "tmp",
+       "--exclude", ".DS_Store",
+       "--exclude", "*~",
        "--exclude", "pkg",
+       "--exclude", ".ext",
        "--exclude", "*.build",
        "--exclude", "backups",
+       "--exclude", "*.dbf", # maglev files
        "--exclude", "gauntlet\*.noindex\*",
-       # "--exclude", "logs",
-       # "--exclude", "\*.noindex",
        "--exclude", "\*.ofocus-backup",
        dirs,
        "rsync:backups/#{name}"].flatten.compact
 
-system(*cmd) unless $n
+warn cmd.join " "
+system(*cmd)
