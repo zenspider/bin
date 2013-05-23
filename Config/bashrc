@@ -37,3 +37,7 @@ if [[ $- == *i* ]]; then
     . $ALIAS_FILE
   fi
 fi
+
+. /usr/local/etc/bash_completion.d/brew_bash_completion.sh
+. /usr/local//git/contrib/completion/git-completion.bash
+. /usr/local/etc/bash_completion.d/hub.bash_completion.sh
