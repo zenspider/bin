@@ -38,6 +38,10 @@ if [[ $- == *i* ]]; then
   fi
 fi
 
-. /usr/local/etc/bash_completion.d/brew_bash_completion.sh
-. /usr/local//git/contrib/completion/git-completion.bash
-. /usr/local/etc/bash_completion.d/hub.bash_completion.sh
+if [ -d /usr/local/etc/bash_completion.d ]; then
+    . /usr/local/etc/bash_completion.d/brew_bash_completion.sh
+    . /usr/local/etc/bash_completion.d/hub.bash_completion.sh
+fi
+if [ -d /usr/local/git/contrib/completion ]; then
+    . /usr/local/git/contrib/completion/git-completion.bash
+fi
