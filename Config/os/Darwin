@@ -17,6 +17,7 @@ case $- in
        export LESS=-FEm
        export MORE=$LESS
        alias disasm="otool -t -V"
+       alias hfs_compress="afsctool -9c"
        export COPYFILE_DISABLE=true
        ;;
   *)
