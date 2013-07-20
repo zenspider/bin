@@ -1,0 +1,33 @@
+# -*- sh -*-
+
+# 1.9 GC optimizations/tweaks
+
+export RUBY_HEAP_MIN_SLOTS=1000000
+export RUBY_HEAP_SLOTS_INCREMENT=1000000
+export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
+export RUBY_GC_MALLOC_LIMIT=100000000
+export RUBY_HEAP_FREE_MIN=500000
+
+# I need these loaded at all times
+
+alias gem19=~/.multiruby/install/1.9.3-p194/bin/gem
+alias irb19=~/.multiruby/install/1.9.3-p194/bin/irb
+alias rake19=~/.multiruby/install/1.9.3-p194/bin/rake
+alias ri19=~/.multiruby/install/1.9.3-p194/bin/ri
+alias ruby19=~/.multiruby/install/1.9.3-p194/bin/ruby
+
+alias gem20=~/.multiruby/install/2.0.0-p195/bin/gem 
+alias irb20=~/.multiruby/install/2.0.0-p195/bin/irb
+alias rake20=~/.multiruby/install/2.0.0-p195/bin/rake
+alias ri20=~/.multiruby/install/2.0.0-p195/bin/ri
+alias ruby20=~/.multiruby/install/2.0.0-p195/bin/ruby
+
+alias rakeall="rake && rake19 && rake20"
+
+rbenv() {
+    unset GEM_HOME
+    unset GEM_PATH
+    unset rbenv
+    . ~/Bin/load_rbenv
+    rbenv versions
+}
