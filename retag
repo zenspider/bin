@@ -7,8 +7,14 @@ ctags = Dir["/{opt,usr}/local/bin/ctags"].first
 abort "Can't find ctags" unless ctags
 
 langs = "Ruby,Lisp,YACC,C,C++,Scheme"
-excls = ".git|.svn|vendor|db"
-cmd   = "#{ctags} -Re --languages=#{langs} --exclude='#{excls}' ."
+excls = ".git|.svn|vendor|tmp|db|gauntlet*"
+cmd   = "#{ctags} -Re --languages=#{langs}"
+
+excls.split(/\|/).each do |excl|
+  cmd << " --exclude='#{excl}'"
+end
+
+puts cmd
 
 ARGV.unshift '.' if ARGV.empty?
 
@@ -20,7 +26,7 @@ ARGV.each do |dir|
     if newest > tags then
       warn "retagging #{dir}"
       File.unlink "TAGS" if File.file?("TAGS")
-      system cmd
+      system "#{cmd} #{dir}"
     end
   end
 end
