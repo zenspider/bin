@@ -22,7 +22,11 @@ rm -vrf \
     /System/Library/Caches/* \
     /private/tmp/* \
     /private/var/db/BootCache* \
-    /private/var/folders/* \
+    /private/var/folders/*/*/-Caches-/* \
+    /private/var/folders/*/*/-Tmp-/* \
+    /private/var/folders/*/*/C/* \
+    /private/var/folders/*/*/T/* \
+    /private/var/folders/*/*/TemporaryItems/* \
     /private/var/tmp/* \
     /Users/*/Library/Caches/* \
     /Volumes/*/tmp/* \
