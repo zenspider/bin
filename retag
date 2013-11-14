@@ -10,6 +10,8 @@ langs = "Ruby,Lisp,YACC,C,C++,Scheme"
 excls = ".git|.svn|vendor|tmp|db|gauntlet*"
 cmd   = "#{ctags} -Re --languages=#{langs}"
 
+cmd << " --langmap=Scheme:+.rkt"
+
 excls.split(/\|/).each do |excl|
   cmd << " --exclude='#{excl}'"
 end
