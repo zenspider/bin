@@ -8,13 +8,19 @@ export MAGLEV_HOME=/Users/ryan/Work/git/maglev
 
 # 1.9 GC optimizations/tweaks
 
-export RUBY_HEAP_MIN_SLOTS=1000000
-export RUBY_HEAP_SLOTS_INCREMENT=1000000
-export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
-export RUBY_GC_MALLOC_LIMIT=100000000
-export RUBY_HEAP_FREE_MIN=500000
+# export RUBY_HEAP_MIN_SLOTS=1000000
+# export RUBY_HEAP_SLOTS_INCREMENT=1000000
+# export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
+# export RUBY_GC_MALLOC_LIMIT=100000000
+# export RUBY_HEAP_FREE_MIN=500000
 
 # I need these loaded at all times
+
+alias gem18=~/.rbenv/versions/1.8.7-p374/bin/gem
+alias irb18=~/.rbenv/versions/1.8.7-p374/bin/irb
+alias rake18=~/.rbenv/versions/1.8.7-p374/bin/rake
+alias ri18=~/.rbenv/versions/1.8.7-p374/bin/ri
+alias ruby18=~/.rbenv/versions/1.8.7-p374/bin/ruby
 
 alias gem19=~/.multiruby/install/1.9.3-p194/bin/gem
 alias irb19=~/.multiruby/install/1.9.3-p194/bin/irb
