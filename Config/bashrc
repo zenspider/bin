@@ -45,3 +45,6 @@ fi
 if [ -d /usr/local/git/contrib/completion ]; then
     . /usr/local/git/contrib/completion/git-completion.bash
 fi
+
+# OPAM configuration
+. /Users/ryan/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
