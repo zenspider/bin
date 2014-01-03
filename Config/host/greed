@@ -34,7 +34,7 @@ alias rake20=~/.multiruby/install/2.0.0-p195/bin/rake
 alias ri20=~/.multiruby/install/2.0.0-p195/bin/ri
 alias ruby20=~/.multiruby/install/2.0.0-p195/bin/ruby
 
-alias rakeall="rake && rake19 && rake20"
+alias rakeall="rake20 && rake19 && rake18"
 
 alias me="mosh e"
 alias gsub="perl -pi -e"
