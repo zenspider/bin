@@ -39,14 +39,12 @@ c.default = 0
 total = 0
 
 ARGF.each do |line|
-  $_ = line # cheating because ruby 1.9 won't let me put it in block args
-  chomp
-
-  gsub!(/\c[\[\d+m/, '')
-  gsub!(/0x(\d|[a-f])+/i, '0x<num>') if $x
+  line = line.chomp
+  line.gsub!(/\c[\[\d+m/, '')
+  line.gsub!(/0x(\d|[a-f])+/i, '0x<num>') if $x
 
   # regex is split this way so you get all dots or dashes, not a mix
-  gsub!(/(\d+((\.\d+)*|(\-\d+)*))/) do |match|
+  line.gsub!(/(\d+((\.\d+)*|(\-\d+)*))/) do |match|
     if match.split(/[\.-]/).size >= 4 then # IP number
       if $i then
         "<ip>"
@@ -58,16 +56,16 @@ ARGF.each do |line|
     end
   end if $n
 
-  gsub!(/<num>x<num>/, '0x<num>') if $x
+  line.gsub!(/<num>x<num>/, '0x<num>') if $x
 
-  gsub!(/\s{2,}/, ' ') unless $w
+  line.gsub!(/\s{2,}/, ' ') unless $w
 
   if $b then
-    $_.strip!
-    next if $_.empty?
+    line.strip!
+    next if line.empty?
   end
 
-  c[$_] += 1
+  c[line] += 1
   total += 1
 end rescue nil # silence broken pipe errors
 
