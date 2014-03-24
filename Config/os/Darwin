@@ -14,7 +14,7 @@ case $- in
   
   # interactive shell
   *i*)
-       export LESS=-FEm
+       export LESS=-RFEm
        export MORE=$LESS
        alias disasm="otool -t -V"
        alias hfs_compress="afsctool -9c"
