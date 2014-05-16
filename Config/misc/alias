@@ -182,7 +182,7 @@ alias emacs="/MyApplications/Emacs.app/Contents/MacOS/Emacs -nw"
 alias icloud="scutil --dns | grep icloud | sed -n 's/.* : *\(.*\)$/\1/p'"
 alias lc='wc -l'
 alias lpr2up='enscript -2r'
-alias math="/MyApplications/Mathematica\ Home\ Edition.app/Contents/MacOS/MathKernel"
+alias math="/MyApplications/Mathematica.app/Contents/MacOS/MathKernel"
 alias newshell='env -i $SHELL --norc'
 alias rsyncmv="rsync --remove-source-files"
 
