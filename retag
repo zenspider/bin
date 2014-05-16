@@ -7,7 +7,7 @@ ctags = Dir["/{opt,usr}/local/bin/ctags"].first
 abort "Can't find ctags" unless ctags
 
 langs = "Ruby,Lisp,YACC,C,C++,Scheme"
-excls = ".git|.svn|vendor|tmp|db|gauntlet*"
+excls = ".git|.svn|vendor|tmp|db|pkg|gauntlet*"
 cmd   = "#{ctags} -Re --languages=#{langs}"
 
 cmd << " --langmap=Scheme:+.rkt"
