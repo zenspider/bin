@@ -4,5 +4,5 @@ pattern = ARGV.shift
 pattern = "(#{pattern})" unless pattern =~ /\(.+\)/
 
 ARGF.each_line do |line|
-  line.grep(/#{pattern}/) { puts $1 }
+  line.lines.grep(/#{pattern}/) { puts $1 }
 end
