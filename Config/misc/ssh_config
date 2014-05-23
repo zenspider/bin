@@ -8,32 +8,16 @@ Host *
 	Cipher blowfish
 	#ControlMaster auto
 	#ControlPath ~/.ssh/master-%r@%h:%p
-
-Host z2
-	Hostname zenspider.textdriven.com
-	User zenspider
+        #ControlPersist 1h
 
 Host e
 	Hostname envy.zenspider.com
 	User ryan
 	ControlMaster auto
 	ControlPath ~/.ssh/master-%r@%h:%p
-	ControlPersist 1h
-
-Host rubyforge.org
-	User zenspider
-
-Host stats
-  Hostname 65.74.139.2
-  Port 8095
-  User zenspider
 
 Host github.com
   IdentityFile ~/.ssh/passwordless
-
-Host ypdocs
-  Hostname docs.np.wc1.yellowpages.com
-  User rdavis
 
 # password in keychain under sync.net
 Host rsync
@@ -44,9 +28,9 @@ Host rsync
   ControlPath ~/.ssh/master-%r@%h:%p
   ControlPersist 1h
 
-Host gems
-  Hostname rubygems.org
-  User zenspider
-
 Host docs
   Hostname docs.seattlerb.org
+
+Host drobo
+  Hostname 10.0.1.99
+  User root
