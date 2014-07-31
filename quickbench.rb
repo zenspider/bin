@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby -w
 
-# TODO: while you are doing this, add an emacs method that toggles
-# between test file and implementation!
-
 def usage
   puts "quickbench number-of-benchmarks"
   exit 1
@@ -15,30 +12,22 @@ usage unless ARGV.empty?
 print <<'EOM'
 #!/usr/bin/env ruby -w
 
-require 'benchmark'
+require 'benchmark/ips'
 
-max = (ARGV.shift || 1_000_000).to_i
-
-puts "# of iterations = #{max}"
-Benchmark::bm(20) do |x|
-  x.report("null_time") do
-    for i in 0..max do
-      # do nothing
-    end
-  end
-
+Benchmark.ips do |x|
+  # x.options
 EOM
 
 count.times do |n|
   print <<"EOM"
-  x.report("benchmark-#{n+1}") do
-    for i in 0..max do
+
+  x.report("benchmark-#{n+1}") do |max|
+    max.times do
       # insert code here
     end
   end
-
 EOM
 end
 
+puts "  x.compare!"
 puts "end"
-
