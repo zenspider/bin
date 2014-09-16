@@ -22,19 +22,25 @@ alias rake18=~/.rbenv/versions/1.8.7-p374/bin/rake
 alias ri18=~/.rbenv/versions/1.8.7-p374/bin/ri
 alias ruby18=~/.rbenv/versions/1.8.7-p374/bin/ruby
 
-alias gem19=~/.multiruby/install/1.9.3-p194/bin/gem
-alias irb19=~/.multiruby/install/1.9.3-p194/bin/irb
-alias rake19=~/.multiruby/install/1.9.3-p194/bin/rake
-alias ri19=~/.multiruby/install/1.9.3-p194/bin/ri
-alias ruby19=~/.multiruby/install/1.9.3-p194/bin/ruby
+alias gem19=~/.rbenv/versions/1.9.3-p545/bin/gem
+alias irb19=~/.rbenv/versions/1.9.3-p545/bin/irb
+alias rake19=~/.rbenv/versions/1.9.3-p545/bin/rake
+alias ri19=~/.rbenv/versions/1.9.3-p545/bin/ri
+alias ruby19=~/.rbenv/versions/1.9.3-p545/bin/ruby
 
-alias gem20=~/.multiruby/install/2.0.0-p195/bin/gem 
-alias irb20=~/.multiruby/install/2.0.0-p195/bin/irb
-alias rake20=~/.multiruby/install/2.0.0-p195/bin/rake
-alias ri20=~/.multiruby/install/2.0.0-p195/bin/ri
-alias ruby20=~/.multiruby/install/2.0.0-p195/bin/ruby
+alias gem20=~/.rbenv/versions/2.0.0-p451/bin/gem 
+alias irb20=~/.rbenv/versions/2.0.0-p451/bin/irb
+alias rake20=~/.rbenv/versions/2.0.0-p451/bin/rake
+alias ri20=~/.rbenv/versions/2.0.0-p451/bin/ri
+alias ruby20=~/.rbenv/versions/2.0.0-p451/bin/ruby
 
-alias rakeall="rake20 && rake19 && rake18"
+alias gem21=~/.rbenv/versions/2.1.1/bin/gem 
+alias irb21=~/.rbenv/versions/2.1.1/bin/irb
+alias rake21=~/.rbenv/versions/2.1.1/bin/rake
+alias ri21=~/.rbenv/versions/2.1.1/bin/ri
+alias ruby21=~/.rbenv/versions/2.1.1/bin/ruby
+
+alias rakeall="rake21 && rake20 && rake19 && rake18"
 
 alias me="mosh e"
 alias gsub="perl -pi -e"
