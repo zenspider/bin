@@ -234,11 +234,11 @@ alias c="fff -c"
 alias e="fff -f -e 'emacsclient -n'"
 
 mdf () {
-    mdfind -onlyin $PWD "$@"
+    mdfind -onlyin . "$@"
 }
 
 mdfn () {
-    mdfind -onlyin $PWD "kMDItemFSName == $@"
+    mdfind -onlyin . "kMDItemFSName=$@"
 }
 
 alias git=hub
