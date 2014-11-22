@@ -33,6 +33,8 @@ defaults write com.apple.screencapture disable-shadow -bool true
 
 sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "Property of Ryan Davis - 206.999.9936"
 
+sudo defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+
 defaults write -g NSRecentDocumentsLimit -int 10
 
 defaults write com.google.Keystone.Agent checkInterval 0
