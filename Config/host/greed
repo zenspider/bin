@@ -1,20 +1,7 @@
 # -*- sh -*-
 export RS_HOME=/Library/Frameworks/R.framework/Resources
-# export CHICKEN_REPOSITORY=~/.chicken/lib/chicken/5
-
-export NODE_PATH=/usr/local/lib/node_modules
 
 export MAGLEV_HOME=/Users/ryan/Work/git/maglev
-
-# 1.9 GC optimizations/tweaks -- faster but HELLISHLY noisy
-
-# export RUBY_HEAP_MIN_SLOTS=1000000
-# export RUBY_HEAP_SLOTS_INCREMENT=1000000
-# export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
-# export RUBY_GC_MALLOC_LIMIT=100000000
-# export RUBY_HEAP_FREE_MIN=500000
-
-# I need these loaded at all times
 
 rb_18=$(cd ~/.rbenv/versions; ls -d 1.8* | tail -1)
 # rb_19=$(cd ~/.rbenv/versions; ls -d 1.9* | tail -1) # I don't do 1.9
@@ -45,11 +32,6 @@ alias irb22=~/.rbenv/versions/$rb_22/bin/irb
 alias rake22=~/.rbenv/versions/$rb_22/bin/rake
 alias ri22=~/.rbenv/versions/$rb_22/bin/ri
 alias ruby22=~/.rbenv/versions/$rb_22/bin/ruby
-
-alias rakeall="rake21 && rake20 && rake19 && rake18"
-
-alias me="mosh e"
-alias gsub="perl -pi -e"
 
 maglev() {
     unset GEM_HOME
