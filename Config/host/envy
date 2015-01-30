@@ -1,33 +1,41 @@
 # -*- sh -*-
 
-# 1.9 GC optimizations/tweaks
+rb_18=$(cd ~/.rbenv/versions; ls -d 1.8* | tail -1)
+# rb_19=$(cd ~/.rbenv/versions; ls -d 1.9* | tail -1) # I don't do 1.9
+rb_20=$(cd ~/.rbenv/versions; ls -d 2.0* | tail -1)
+rb_21=$(cd ~/.rbenv/versions; ls -d 2.1* | tail -1)
+rb_22=$(cd ~/.rbenv/versions; ls -d 2.2* | tail -1)
 
-# export RUBY_HEAP_MIN_SLOTS=1000000
-# export RUBY_HEAP_SLOTS_INCREMENT=1000000
-# export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
-# export RUBY_GC_MALLOC_LIMIT=100000000
-# export RUBY_HEAP_FREE_MIN=500000
+alias gem18=~/.rbenv/versions/$rb_18/bin/gem
+alias irb18=~/.rbenv/versions/$rb_18/bin/irb
+alias rake18=~/.rbenv/versions/$rb_18/bin/rake
+alias ri18=~/.rbenv/versions/$rb_18/bin/ri
+alias ruby18=~/.rbenv/versions/$rb_18/bin/ruby
 
-# I need these loaded at all times
+alias gem20=~/.rbenv/versions/$rb_20/bin/gem 
+alias irb20=~/.rbenv/versions/$rb_20/bin/irb
+alias rake20=~/.rbenv/versions/$rb_20/bin/rake
+alias ri20=~/.rbenv/versions/$rb_20/bin/ri
+alias ruby20=~/.rbenv/versions/$rb_20/bin/ruby
 
-alias gem19=~/.multiruby/install/1.9.3-p194/bin/gem
-alias irb19=~/.multiruby/install/1.9.3-p194/bin/irb
-alias rake19=~/.multiruby/install/1.9.3-p194/bin/rake
-alias ri19=~/.multiruby/install/1.9.3-p194/bin/ri
-alias ruby19=~/.multiruby/install/1.9.3-p194/bin/ruby
+alias gem21=~/.rbenv/versions/$rb_21/bin/gem 
+alias irb21=~/.rbenv/versions/$rb_21/bin/irb
+alias rake21=~/.rbenv/versions/$rb_21/bin/rake
+alias ri21=~/.rbenv/versions/$rb_21/bin/ri
+alias ruby21=~/.rbenv/versions/$rb_21/bin/ruby
 
-alias gem20=~/.multiruby/install/2.0.0-p195/bin/gem 
-alias irb20=~/.multiruby/install/2.0.0-p195/bin/irb
-alias rake20=~/.multiruby/install/2.0.0-p195/bin/rake
-alias ri20=~/.multiruby/install/2.0.0-p195/bin/ri
-alias ruby20=~/.multiruby/install/2.0.0-p195/bin/ruby
-
-alias rakeall="rake && rake19 && rake20"
+alias gem22=~/.rbenv/versions/$rb_22/bin/gem 
+alias irb22=~/.rbenv/versions/$rb_22/bin/irb
+alias rake22=~/.rbenv/versions/$rb_22/bin/rake
+alias ri22=~/.rbenv/versions/$rb_22/bin/ri
+alias ruby22=~/.rbenv/versions/$rb_22/bin/ruby
 
 rbenv() {
     unset GEM_HOME
     unset GEM_PATH
     unset rbenv
-    . ~/Bin/load_rbenv
+    (cd ~/.rbenv/plugins/ruby-build && git down)
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
     rbenv versions
 }
