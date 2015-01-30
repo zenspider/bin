@@ -6,7 +6,7 @@ export NODE_PATH=/usr/local/lib/node_modules
 
 export MAGLEV_HOME=/Users/ryan/Work/git/maglev
 
-# 1.9 GC optimizations/tweaks
+# 1.9 GC optimizations/tweaks -- faster but HELLISHLY noisy
 
 # export RUBY_HEAP_MIN_SLOTS=1000000
 # export RUBY_HEAP_SLOTS_INCREMENT=1000000
@@ -16,23 +16,35 @@ export MAGLEV_HOME=/Users/ryan/Work/git/maglev
 
 # I need these loaded at all times
 
-alias gem18=~/.rbenv/versions/1.8.7-p374/bin/gem
-alias irb18=~/.rbenv/versions/1.8.7-p374/bin/irb
-alias rake18=~/.rbenv/versions/1.8.7-p374/bin/rake
-alias ri18=~/.rbenv/versions/1.8.7-p374/bin/ri
-alias ruby18=~/.rbenv/versions/1.8.7-p374/bin/ruby
+rb_18=$(cd ~/.rbenv/versions; ls -d 1.8* | tail -1)
+# rb_19=$(cd ~/.rbenv/versions; ls -d 1.9* | tail -1) # I don't do 1.9
+rb_20=$(cd ~/.rbenv/versions; ls -d 2.0* | tail -1)
+rb_21=$(cd ~/.rbenv/versions; ls -d 2.1* | tail -1)
+rb_22=$(cd ~/.rbenv/versions; ls -d 2.2* | tail -1)
 
-alias gem20=~/.rbenv/versions/2.0.0-p451/bin/gem 
-alias irb20=~/.rbenv/versions/2.0.0-p451/bin/irb
-alias rake20=~/.rbenv/versions/2.0.0-p451/bin/rake
-alias ri20=~/.rbenv/versions/2.0.0-p451/bin/ri
-alias ruby20=~/.rbenv/versions/2.0.0-p451/bin/ruby
+alias gem18=~/.rbenv/versions/$rb_18/bin/gem
+alias irb18=~/.rbenv/versions/$rb_18/bin/irb
+alias rake18=~/.rbenv/versions/$rb_18/bin/rake
+alias ri18=~/.rbenv/versions/$rb_18/bin/ri
+alias ruby18=~/.rbenv/versions/$rb_18/bin/ruby
 
-alias gem21=~/.rbenv/versions/2.1.1/bin/gem 
-alias irb21=~/.rbenv/versions/2.1.1/bin/irb
-alias rake21=~/.rbenv/versions/2.1.1/bin/rake
-alias ri21=~/.rbenv/versions/2.1.1/bin/ri
-alias ruby21=~/.rbenv/versions/2.1.1/bin/ruby
+alias gem20=~/.rbenv/versions/$rb_20/bin/gem 
+alias irb20=~/.rbenv/versions/$rb_20/bin/irb
+alias rake20=~/.rbenv/versions/$rb_20/bin/rake
+alias ri20=~/.rbenv/versions/$rb_20/bin/ri
+alias ruby20=~/.rbenv/versions/$rb_20/bin/ruby
+
+alias gem21=~/.rbenv/versions/$rb_21/bin/gem 
+alias irb21=~/.rbenv/versions/$rb_21/bin/irb
+alias rake21=~/.rbenv/versions/$rb_21/bin/rake
+alias ri21=~/.rbenv/versions/$rb_21/bin/ri
+alias ruby21=~/.rbenv/versions/$rb_21/bin/ruby
+
+alias gem22=~/.rbenv/versions/$rb_22/bin/gem 
+alias irb22=~/.rbenv/versions/$rb_22/bin/irb
+alias rake22=~/.rbenv/versions/$rb_22/bin/rake
+alias ri22=~/.rbenv/versions/$rb_22/bin/ri
+alias ruby22=~/.rbenv/versions/$rb_22/bin/ruby
 
 alias rakeall="rake21 && rake20 && rake19 && rake18"
 
@@ -51,6 +63,8 @@ rbenv() {
     unset GEM_HOME
     unset GEM_PATH
     unset rbenv
-    . ~/Bin/load_rbenv
+    (cd ~/.rbenv/plugins/ruby-build && git down)
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
     rbenv versions
 }
