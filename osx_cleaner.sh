@@ -20,7 +20,11 @@ find ~ -name .DS_Store -print -exec rm "{}" \;
 rm -vrf \
     /Library/Caches/* \
     /System/Library/Caches/* \
+    /System/Library/Extensions.kextcache \
+    /System/Library/Extensions.mkext \
+    /System/Library/Extensions/Caches/* \
     /private/tmp/* \
+    /private/var/db/BootCache.playlist \
     /private/var/db/BootCache* \
     /private/var/folders/*/*/-Caches-/* \
     /private/var/folders/*/*/-Tmp-/* \
@@ -35,6 +39,10 @@ rm -vrf \
     ~/Library/Mail/V2/IMAP*/* \
     ~/Library/Safari/WebpageIcons.db \
     $DONE
+
+# TODO?
+# /bin/rm /var/db/SystemConfiguration/com.apple.PowerManagement.xml
+# /bin/rm /Library/Preferences/SystemConfiguration/com.apple.PowerManagement.plist
 
 reboot
 
