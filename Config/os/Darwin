@@ -18,6 +18,9 @@ case $- in
        export MORE=$LESS
        alias disasm="otool -t -V"
        alias hfs_compress="afsctool -9c"
+       alias emacs="/MyApplications/Emacs.app/Contents/MacOS/Emacs -nw"
+       alias icloud="scutil --dns | grep icloud | sed -n 's/.* : *\(.*\)$/\1/p'"
+       alias math="/MyApplications/Mathematica.app/Contents/MacOS/MathKernel"
        export COPYFILE_DISABLE=true
        ;;
   *)

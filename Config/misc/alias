@@ -8,6 +8,10 @@
 if [ -n "${PS1-}" ]; then
   # interactive shell
   
+  count () { 
+    grep -r "$@" | wc -l
+  }
+
   fix_ssh_agent () {
     export SSH_AUTH_SOCK=$(find /tmp/ssh-* -user `whoami` -name agent\* | tail -n 1)
   }
@@ -178,13 +182,11 @@ alias clean='DU -a . | sort -rn | ${PAGER-more}'
 alias cpu='ps -axo ruser,pid,pcpu,command | sort -drn -k 3 | ${PAGER-more}'
 alias cpumem='ps -axo ruser,pid,pmem,command | sort -drn -k 3 | ${PAGER-more}'
 alias cputime='ps -axo ruser,pid,cputime,command | sort -dr -k 3 | ${PAGER-more}'
-alias emacs="/MyApplications/Emacs.app/Contents/MacOS/Emacs -nw"
-alias icloud="scutil --dns | grep icloud | sed -n 's/.* : *\(.*\)$/\1/p'"
 alias lc='wc -l'
 alias lpr2up='enscript -2r'
-alias math="/MyApplications/Mathematica.app/Contents/MacOS/MathKernel"
 alias newshell='env -i $SHELL --norc'
 alias rsyncmv="rsync --remove-source-files"
+alias agrb="ag -G .rb"
 
 dict () {
     egrep -i "$@" /usr/share/dict/words
