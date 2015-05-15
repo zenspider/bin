@@ -8,6 +8,11 @@
 if [ -n "${PS1-}" ]; then
   # interactive shell
   
+  pathing () { # eg: ruby $(pathing -I */lib) script.rb
+    flag=$1; shift;
+    (IFS=:; echo "$flag$*")
+  }
+
   count () { 
     grep -r "$@" | wc -l
   }
