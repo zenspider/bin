@@ -2,6 +2,7 @@
 export RS_HOME=/Library/Frameworks/R.framework/Resources
 
 export MAGLEV_HOME=/Users/ryan/Work/git/maglev
+export PGDATA=/usr/local/var/postgres
 
 rb_18=$(cd ~/.rbenv/versions; ls -d 1.8* | tail -1)
 # rb_19=$(cd ~/.rbenv/versions; ls -d 1.9* | tail -1) # I don't do 1.9
