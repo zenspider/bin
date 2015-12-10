@@ -18,6 +18,10 @@ if [ -n "${PS1-}" ]; then
     t update "so like... we're meeting 'n stuff. you should show up. code. talk. have coffee. vivace 7-9. rawr. http://www.seattlerb.org/join-us"
   }
 
+  study () {
+    t set active searbsg
+    t update "Remember: Study Group Tonight! show up. talk. have coffee. vivace 6-7. https://groups.google.com/forum/#!forum/seattlerb-study"
+  }
 
   pathing () { # eg: ruby $(pathing -I */lib) script.rb
     flag=$1; shift;
