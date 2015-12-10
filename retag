@@ -8,7 +8,7 @@ abort "Can't find ctags" unless ctags
 
 langs = "Ruby,Lisp,YACC,C,C++,Scheme"
 excls = ".git|.svn|vendor|tmp|db|pkg|gauntlet*"
-cmd   = "#{ctags} -Re --languages=#{langs}"
+cmd   = "#{ctags} -Re --languages=#{langs} --links=no"
 
 cmd << " --langmap=Scheme:+.rkt"
 
