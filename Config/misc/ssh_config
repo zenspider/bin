@@ -34,3 +34,7 @@ Host docs
 Host drobo
   Hostname 10.0.1.99
   User root
+
+Host maglev
+  Hostname 172.16.79.137
+  User ryan
