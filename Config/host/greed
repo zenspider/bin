@@ -4,17 +4,10 @@ export RS_HOME=/Library/Frameworks/R.framework/Resources
 export MAGLEV_HOME=/Users/ryan/Work/git/maglev
 export PGDATA=/usr/local/var/postgres
 
-rb_18=$(cd ~/.rbenv/versions; ls -d 1.8* | tail -1)
-# rb_19=$(cd ~/.rbenv/versions; ls -d 1.9* | tail -1) # I don't do 1.9
 rb_20=$(cd ~/.rbenv/versions; ls -d 2.0* | tail -1)
 rb_21=$(cd ~/.rbenv/versions; ls -d 2.1* | tail -1)
 rb_22=$(cd ~/.rbenv/versions; ls -d 2.2* | tail -1)
-
-alias gem18=~/.rbenv/versions/$rb_18/bin/gem
-alias irb18=~/.rbenv/versions/$rb_18/bin/irb
-alias rake18=~/.rbenv/versions/$rb_18/bin/rake
-alias ri18=~/.rbenv/versions/$rb_18/bin/ri
-alias ruby18=~/.rbenv/versions/$rb_18/bin/ruby
+rb_23=$(cd ~/.rbenv/versions; ls -d 2.3* | tail -1)
 
 alias gem20=~/.rbenv/versions/$rb_20/bin/gem 
 alias irb20=~/.rbenv/versions/$rb_20/bin/irb
@@ -33,6 +26,12 @@ alias irb22=~/.rbenv/versions/$rb_22/bin/irb
 alias rake22=~/.rbenv/versions/$rb_22/bin/rake
 alias ri22=~/.rbenv/versions/$rb_22/bin/ri
 alias ruby22=~/.rbenv/versions/$rb_22/bin/ruby
+
+alias gem23=~/.rbenv/versions/$rb_23/bin/gem 
+alias irb23=~/.rbenv/versions/$rb_23/bin/irb
+alias rake23=~/.rbenv/versions/$rb_23/bin/rake
+alias ri23=~/.rbenv/versions/$rb_23/bin/ri
+alias ruby23=~/.rbenv/versions/$rb_23/bin/ruby
 
 maglev() {
     unset GEM_HOME
