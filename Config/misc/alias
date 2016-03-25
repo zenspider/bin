@@ -328,6 +328,10 @@ stfu () {
     eval $* 2> /dev/null
 }
 
+STFU () {
+    eval $* &> /dev/null
+}
+
 term() {
   TERM=$1
   export TERM
