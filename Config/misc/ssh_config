@@ -7,14 +7,14 @@ Host *
 	GSSAPIAuthentication no
 	Cipher blowfish
 	#ControlMaster auto
-	#ControlPath ~/.ssh/master-%r@%h:%p
+	#ControlPath ~/.ssh/master-%C
         #ControlPersist 1h
 
 Host e
 	Hostname envy.zenspider.com
 	User ryan
 	ControlMaster auto
-	ControlPath ~/.ssh/master-%r@%h:%p
+	ControlPath ~/.ssh/master-%C
 
 Host github.com
   IdentityFile ~/.ssh/passwordless
@@ -25,7 +25,7 @@ Host rsync
   IdentityFile ~/.ssh/rsync.net
   User 4295
   ControlMaster auto
-  ControlPath ~/.ssh/master-%r@%h:%p
+  ControlPath ~/.ssh/master-%C
   ControlPersist 1h
 
 Host docs
