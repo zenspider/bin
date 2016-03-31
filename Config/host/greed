@@ -4,6 +4,8 @@ export RS_HOME=/Library/Frameworks/R.framework/Resources
 export MAGLEV_HOME=/Users/ryan/Work/git/maglev
 export PGDATA=/usr/local/var/postgres
 
+export MT_NO_ISOLATE=1
+
 rb_20=$(cd ~/.rbenv/versions; ls -d 2.0* | tail -1)
 rb_21=$(cd ~/.rbenv/versions; ls -d 2.1* | tail -1)
 rb_22=$(cd ~/.rbenv/versions; ls -d 2.2* | tail -1)
