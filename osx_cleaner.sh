@@ -10,7 +10,9 @@ DONE=
 if [ "full" == "$1" ]; then
     mdutil -a -i off 
     mdutil -E -a -v
+    launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
     rm -rf /Volumes/*/.Spotlight-V100
+    launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
     mdutil -a -i on
 fi
 
