@@ -39,7 +39,9 @@ if [[ $- == *i* ]]; then
 fi
 
 if [ -d /usr/local/etc/bash_completion.d ]; then
-    . /usr/local/etc/bash_completion.d/brew_bash_completion.sh
+    # . /usr/local/etc/bash_completion.d/ag.bashcomp.sh # warnings on load
+    . /usr/local/etc/bash_completion.d/brew
+    . /usr/local/etc/bash_completion.d/git-completion.bash
     . /usr/local/etc/bash_completion.d/hub.bash_completion.sh
 fi
 if [ -d /usr/local/git/contrib/completion ]; then
