@@ -1,0 +1,75 @@
+# -*- ruby -*-
+
+tap 'caskroom/cask'
+tap 'homebrew/binary'
+tap 'homebrew/bundle'
+tap 'homebrew/core'
+tap 'homebrew/dupes'
+tap 'homebrew/versions'
+tap 'manastech/crystal'
+
+## utilities
+
+brew "afsctool"                                    # transparent compression
+brew "aspell"                                      # emacs spellchecker
+brew "fdupes"                                      # clean out junk and nuke backups
+brew "homebrew/dupes/rsync"                        # file sync
+brew "ical-buddy"                                  # getting calendar items on my desktop
+brew "lzop"                                        # fast compression
+brew "the_silver_searcher"                         # better grep
+
+## development
+
+brew "cloc"                                        # code analysis
+brew "cproto"                                      # generate / clean headers
+brew "ctags"                                       # tag ruby and lisp
+brew "emacs", args: ["cocoa"]                      # the god editor
+brew "exercism"                                    # fun, but not terribly useful
+brew "git"                                         # git. duh.
+brew "heroku"                                      # deployment and debugging
+brew "homebrew/binary/perforce"                    # perforce... duh
+brew "hub"                                         # most useful git extension
+brew "jq"                                          # grep json
+brew "postgresql"                                  # fat db of choice
+brew "regex-opt"                                   # helps craft regexps
+
+## graphics
+
+brew "freeimage"                                   # really just for image_science
+brew "graphviz"                                    # maddening but useful graphs
+brew "sdl_image", args: %w[universal without-webp] # needed for graphics gem
+brew "sdl_mixer", args: %w[universal with-smpeg]   # needed for graphics gem
+brew "sdl_net"                                     # needed for graphics gem
+brew "sdl_ttf", args: ["universal"]                # needed for graphics gem
+
+## networking
+
+brew "aria2"                                       # torrents on the go
+brew "mobile-shell"                                # good for ssh in cafe
+brew "mtr"                                         # diagnose bad networks
+brew "nmap"                                        # scan machines
+brew "tidy-html5"                                  # helps me sanitize html
+brew "visitors"                                    # scan httpd logs
+brew "w3m"                                         # emacs web browser
+
+## experimenting
+
+# brew "ddrescue"                                  # TODO: not sure I need this anymore?
+brew "git-fresh"                                   # possibly use for better process?
+brew "git-imerge"                                  # incremental merge, might be useful on messy projs
+brew "rust"                                        # interesting language
+# brew "testdisk"                                  # don't think I use this anymore
+
+## unknown -- look at removing
+
+# brew "dwatch"                                    # on my laptop?? no clue
+# brew "fcgi"                                      # no clue why I have this
+# brew "fswatch"                                   # possibly useful for tools
+# brew "libffi"                                    # TODO: dunno why I have this, ruby?
+# brew "libyaml"                                   # TODO: dunno why I have this, ruby?
+# brew "llvm"                                      # dunno why I'd keep using this
+# brew "sqlite-analyzer"                           # maybe interesting for db
+# brew "tcc"                                       # TODO: cute, but maddening.
+# brew "re2c"                                      # TODO: don't actually want... experimenting
+
+cask "handbrakecli"
