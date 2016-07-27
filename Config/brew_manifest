@@ -32,6 +32,7 @@ brew "hub"                                         # most useful git extension
 brew "jq"                                          # grep json
 brew "postgresql"                                  # fat db of choice
 brew "regex-opt"                                   # helps craft regexps
+brew "libyaml"                                     # for rbenv rubies
 
 ## graphics
 
