@@ -1,5 +1,8 @@
 #!/usr/bin/ruby -ws
 
+ENV["HOME"] = "/Users/ryan"
+ENV["PATH"] = "#{ENV["PATH"]}:/Users/ryan/Bin"
+
 $n ||= false
 
 require "time"
