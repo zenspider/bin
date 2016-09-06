@@ -37,7 +37,11 @@ def tweet user, text
 end
 
 def study
-  tweet "searbsg", "Remember: Study Group Tonight! show up. talk. have coffee. vivace 6-7. https://groups.google.com/forum/#!forum/seattlerb-study"
+  tweet "searbsg", "Remember: Study Group Tonight! show up. talk. have coffee. learn. vivace 6-7. https://groups.google.com/forum/#!forum/seattlerb-study"
+end
+
+def monthly_study
+  tweet "searbsg", "Remember: Study Group Tonight! show up. talk. learn. substantial 6-7. https://groups.google.com/forum/#!forum/seattlerb-study"
 end
 
 def so_like desc
@@ -64,10 +68,11 @@ first_tues = Calendar.new(today.year, today.month).tuesday.first
 
 case today.wday
 when 2
-  study
   if today == first_tues then
+    monthly_study
     monthly
   else
+    study
     weekly
   end
 else
