@@ -36,12 +36,16 @@ def tweet user, text
   run "t update #{text.inspect}"
 end
 
+def study_group desc
+  "Remember: Study Group Tonight! show up. learn. #{desc}. https://groups.google.com/forum/#!forum/seattlerb-study"
+end
+
 def study
-  tweet "searbsg", "Remember: Study Group Tonight! show up. talk. have coffee. learn. vivace 6-7. https://groups.google.com/forum/#!forum/seattlerb-study"
+  tweet "searbsg", study_group("have coffee. vivace 6-7")
 end
 
 def monthly_study
-  tweet "searbsg", "Remember: Study Group Tonight! show up. talk. learn. substantial 6-7. https://groups.google.com/forum/#!forum/seattlerb-study"
+  tweet "searbsg", study_group("not have coffee. substantial 6-7")
 end
 
 def so_like desc
