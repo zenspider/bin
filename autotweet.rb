@@ -80,8 +80,5 @@ when 2
     weekly
   end
 else
-  puts "nothing to do"
+  puts "nothing to do" if $n
 end
-
-puts "DONE"
-puts
