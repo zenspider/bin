@@ -4,11 +4,8 @@ shift = (ARGV.shift || 0).to_i * 86400
 t = Time.now + shift
 t = t.strftime("%Y-%m-%d")
 
-if $stdin.tty? then
+if $stdin.tty? || ENV["NL"] then
   puts t
 else
   print t
 end
-
-
-
