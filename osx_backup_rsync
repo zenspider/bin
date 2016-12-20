@@ -35,6 +35,7 @@ cmd = ["rsync", flags, del, extra,
        "--include", ".git",
        "--include", ".svn",
 
+       "--delete-excluded",
        "--exclude", "tmp",
        "--exclude", ".DS_Store",
        "--exclude", "*~",
