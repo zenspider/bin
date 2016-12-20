@@ -5,7 +5,6 @@ Host *
 	CheckHostIP yes
 	Protocol 2
 	GSSAPIAuthentication no
-	Cipher blowfish
 	#ControlMaster auto
 	#ControlPath ~/.ssh/master-%C
         #ControlPersist 1h
