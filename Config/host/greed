@@ -4,24 +4,13 @@ export RS_HOME=/Library/Frameworks/R.framework/Resources
 export MAGLEV_HOME=/Users/ryan/Work/git/maglev
 export PGDATA=/usr/local/var/postgres
 
+export BREW_CASK_OPTS='--appdir=/MyApplications'
+
 export MT_NO_ISOLATE=1
 
-rb_20=$(cd ~/.rbenv/versions; ls -d 2.0* | tail -1)
-rb_21=$(cd ~/.rbenv/versions; ls -d 2.1* | tail -1)
 rb_22=$(cd ~/.rbenv/versions; ls -d 2.2* | tail -1)
 rb_23=$(cd ~/.rbenv/versions; ls -d 2.3* | tail -1)
-
-alias gem20=~/.rbenv/versions/$rb_20/bin/gem 
-alias irb20=~/.rbenv/versions/$rb_20/bin/irb
-alias rake20=~/.rbenv/versions/$rb_20/bin/rake
-alias ri20=~/.rbenv/versions/$rb_20/bin/ri
-alias ruby20=~/.rbenv/versions/$rb_20/bin/ruby
-
-alias gem21=~/.rbenv/versions/$rb_21/bin/gem 
-alias irb21=~/.rbenv/versions/$rb_21/bin/irb
-alias rake21=~/.rbenv/versions/$rb_21/bin/rake
-alias ri21=~/.rbenv/versions/$rb_21/bin/ri
-alias ruby21=~/.rbenv/versions/$rb_21/bin/ruby
+rb_24=$(cd ~/.rbenv/versions; ls -d 2.4* | tail -1)
 
 alias gem22=~/.rbenv/versions/$rb_22/bin/gem 
 alias irb22=~/.rbenv/versions/$rb_22/bin/irb
@@ -34,6 +23,12 @@ alias irb23=~/.rbenv/versions/$rb_23/bin/irb
 alias rake23=~/.rbenv/versions/$rb_23/bin/rake
 alias ri23=~/.rbenv/versions/$rb_23/bin/ri
 alias ruby23=~/.rbenv/versions/$rb_23/bin/ruby
+
+alias gem24=~/.rbenv/versions/$rb_24/bin/gem 
+alias irb24=~/.rbenv/versions/$rb_24/bin/irb
+alias rake24=~/.rbenv/versions/$rb_24/bin/rake
+alias ri24=~/.rbenv/versions/$rb_24/bin/ri
+alias ruby24=~/.rbenv/versions/$rb_24/bin/ruby
 
 maglev() {
     unset GEM_HOME
