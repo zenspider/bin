@@ -99,6 +99,6 @@ sorted.each do |key|
     n = Math.log(n) if $l
     printf "%*s: %s\n", max_s, key, "x" * n
   else
-    printf "%#{mag}d: %s\n", c[key], key
+    printf "%#{mag}d:%s\n", c[key], key
   end
 end rescue nil # silence broken pipe errors
