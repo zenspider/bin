@@ -23,7 +23,6 @@ brew "the_silver_searcher"                         # better grep
 brew "cloc"                                        # code analysis
 brew "cproto"                                      # generate / clean headers
 brew "ctags"                                       # tag ruby and lisp
-brew "emacs", args: ["cocoa"]                      # the god editor
 brew "exercism"                                    # fun, but not terribly useful
 brew "git"                                         # git. duh.
 brew "heroku"                                      # deployment and debugging
@@ -43,6 +42,12 @@ brew "sdl_mixer", args: %w[universal with-smpeg]   # needed for graphics gem
 brew "sdl_net"                                     # needed for graphics gem
 brew "sdl_ttf", args: ["universal"]                # needed for graphics gem
 
+# brew "sdl2",       args: %w[universal]
+# brew "sdl2_image", args: %w[universal without-webp] # needed for graphics gem
+# brew "sdl2_mixer", args: %w[universal with-smpeg2]  # needed for graphics gem
+# brew "sdl2_net",   args: %w[universal]              # needed for graphics gem
+# brew "sdl2_ttf",   args: %w[universal]              # needed for graphics gem
+
 ## networking
 
 brew "aria2"                                       # torrents on the go
@@ -55,11 +60,12 @@ brew "w3m"                                         # emacs web browser
 
 ## experimenting
 
-# brew "ddrescue"                                  # TODO: not sure I need this anymore?
-brew "git-fresh"                                   # possibly use for better process?
 brew "git-imerge"                                  # incremental merge, might be useful on messy projs
 brew "rust"                                        # interesting language
-# brew "testdisk"                                  # don't think I use this anymore
+brew "ffmpeg"
+brew "media-info"
+brew "smlnj"
+brew "brightness"
 
 ## unknown -- look at removing
 
@@ -74,3 +80,7 @@ brew "rust"                                        # interesting language
 # brew "re2c"                                      # TODO: don't actually want... experimenting
 
 cask "handbrakecli"
+cask "subler"
+cask "sublercli"
+cask "handbrake"
+cask "emacs"
