@@ -39,12 +39,11 @@ if [[ $- == *i* ]]; then
 fi
 
 if [ -d /usr/local/etc/bash_completion.d ]; then
-    # . /usr/local/etc/bash_completion.d/ag.bashcomp.sh # warnings on load
     . /usr/local/etc/bash_completion.d/brew
-    . /usr/local/etc/bash_completion.d/git-completion.bash
     . /usr/local/etc/bash_completion.d/hub.bash_completion.sh
 fi
 if [ -d /usr/local/git/contrib/completion ]; then
+    # need to keep this as it has functions that the others depend on?!?
     . /usr/local/git/contrib/completion/git-completion.bash
 fi
 
