@@ -1,0 +1,26 @@
+#!/usr/bin/ruby -w
+
+require "csv"
+require "time"
+
+min = Time.now - (3*86_400)
+
+system "t set active seattlerb"
+
+csv = `t mentions --csv | cut -f1-3 -d, | grep ,pete_higgins`
+
+mentions = CSV.parse csv
+
+mentions.map!    { |id, date, _| [id, Time.parse(date)] }
+mentions.select! { |_, date, _| date > min }
+
+puts "Retweeting:"
+puts
+mentions.each do |id, date|
+  puts "#{id} #{date}"
+end
+puts
+
+system "t retweet #{mentions.map(&:first).join " "}"
+
+system "t set active the_zenspider"
