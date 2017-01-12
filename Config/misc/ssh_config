@@ -1,6 +1,7 @@
 # -*- conf-space -*-
 
 Host *
+	AddKeysToAgent yes
 	ForwardAgent yes
 	CheckHostIP yes
 	Protocol 2
@@ -14,6 +15,8 @@ Host e
 	User ryan
 	ControlMaster auto
 	ControlPath ~/.ssh/master-%C
+        #IdentityFile ~/.ssh/id_dsa
+        #IdentitiesOnly yes
 
 Host github.com
   IdentityFile ~/.ssh/passwordless

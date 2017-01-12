@@ -38,13 +38,4 @@ maglev() {
     unset maglev
 }
 
-rbenv() {
-    echo loading rbenv, unsetting GEM_HOME
-    unset GEM_HOME
-    unset GEM_PATH
-    unset rbenv
-    # (cd ~/.rbenv/plugins/ruby-build && git down)
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
-    rbenv versions
-}
+export HOSTPATH="$HOME/.rbenv/bin"

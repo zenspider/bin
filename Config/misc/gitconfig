@@ -1,0 +1,50 @@
+[user]
+  name = Ryan Davis
+  email = ryand-ruby@zenspider.com
+[core]
+  editor       = /MyApplications/Emacs.app/Contents/MacOS/Emacs
+  excludesfile = /Users/ryan/.gitignore_global
+  quotepath    = false
+[alias]
+  spull     = svn rebase
+  spullall  = svn fetch
+  sfetch    = svn fetch
+  spush     = svn dcommit
+  sclone    = svn clone -s --prefix=svn/ 
+  sdiff     = diff svn/trunk
+  st        = status -uno
+  sta       = status
+  ci        = commit
+  down      = pull --rebase
+  onup      = push
+  up        = push
+  rollback  = reset HEAD^
+  l         = log --abbrev-commit --pretty=oneline
+  loggrep   = log -S
+  skinny    = !"git gc; git repack -Ad; git prune"
+  topic     = checkout -b
+  prune     = remote update --prune
+  sweep     = !git branch -r --merged | grep -v master | sed \"s/origin\\///\" | xargs -n 1 echo git push --delete origin
+  s         = status -sb
+  run       = !"git rev-list --reverse --abbrev-commit master | while read -r SHA ; do git checkout --quiet $SHA; echo SHA=$SHA; "$@"; done; git checkout --quiet master; true"
+  runv      = !"git rev-list --reverse --abbrev-commit master | while read -r SHA ; do git checkout --quiet $SHA; echo ===; git show -s --oneline $SHA; echo; $@; echo; done; git checkout --quiet master; true"
+  churn     = !"git log --all -M -C --name-only --format='format:' "$@" | sort | grep -v '^$' | uniq -c | sort | awk 'BEGIN {print "count\tfile"} {print $1 "\t" $2}' | sort -g"
+[push]
+  default = matching
+[diff]
+  compactionHeuristic = true
+[merge]
+  keepBackup = false;
+  summary = true
+  tool = p4merge
+[mergetool "p4merge"]
+  cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+  keepBackup      = false
+  trustExitCode   = false
+  keepTemporaries = false
+[credential]
+  helper = osxkeychain
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true

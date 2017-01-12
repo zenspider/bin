@@ -39,7 +39,7 @@ IFS=$oldIFS
 export SAVEPATH=$PATH
 
 shopt -s histappend
-PROMPT_COMMAND='history -a'
+PROMPT_COMMAND='history -a; history -n'
 
 ############################################################
 # Other Global environment stuff:
@@ -81,3 +81,6 @@ case $- in
   *) 
     ;;
 esac
+
+# needs to be after HOSTPATH is merged
+eval "$(rbenv init -)"

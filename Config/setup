@@ -31,6 +31,7 @@ fi
 
 ln misc/ssh_config ~/.ssh/config
 chmod 700 ~/.ssh ~/.ssh/config
+ln misc/gitconfig ~/.gitconfig
 
 create_link() {
   p=$1
