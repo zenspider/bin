@@ -204,7 +204,7 @@ alias cpumem='ps -axo ruser,pid,pmem,command | sort -drn -k 3 | ${PAGER-more}'
 alias cputime='ps -axo ruser,pid,cputime,command | sort -dr -k 3 | ${PAGER-more}'
 alias lc='wc -l'
 alias lpr2up='enscript -2r'
-alias newshell='env -i $SHELL --norc'
+alias newshell='env -i HOME=$HOME $SHELL --norc'
 alias rsyncmv="rsync --remove-source-files"
 alias agrb="ag -G .rb"
 
