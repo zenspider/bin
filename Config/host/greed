@@ -39,3 +39,8 @@ maglev() {
 }
 
 export HOSTPATH="$HOME/.rbenv/bin"
+
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+# /usr/bin/ssh-add -K ~/.ssh/id_rsa
+# /usr/bin/ssh-add -A
