@@ -48,6 +48,10 @@ def monthly_study
   tweet "searbsg", study_group("not have coffee. substantial 6-7")
 end
 
+def holiday_study
+  tweet "searbsg", "No study group tonight due to holiday!"
+end
+
 def so_like desc
   "so like... we're meeting 'n stuff. you should show up. #{desc}. rawr. http://www.seattlerb.org/join-us"
 end
@@ -60,6 +64,10 @@ def monthly
   tweet "seattlerb", so_like("watch talks. not have coffee. substantial 7-9")
 end
 
+def holiday
+  tweet "seattlerb", "No nerd party tonight due to holiday!"
+end
+
 arg = ARGV.first
 
 today = if arg
@@ -68,10 +76,16 @@ today = if arg
           Date.today
         end
 
-first_tues = Calendar.new(today.year, today.month).tuesday.first
+mm_dd = today.to_s[5..-1]
 
-case today.wday
-when 2
+holidays = %w[07-04 10-31 12-25 12-31]
+
+if holidays.include?(mm_dd) then
+  holiday_study
+  holiday
+elsif today.wday == 2
+  first_tues = Calendar.new(today.year, today.month).tuesday.first
+
   if today == first_tues then
     monthly_study
     monthly
