@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ $(id -u) != 0 ]; then
+    echo "Please run this as root or with sudo"
+    exit 1
+fi
+
+PATH=$PATH:/sbin
+
+echo BEFORE:
+ipfw list
+echo CLEANING:
+ipfw delete $(ipfw list | cut -f 1 -d\  | grep -v 65535 )
+echo ADDING:
+for IP in $(grep screensharingd.*FAILED /var/log/system.log | ~ryan/Bin/pgrep "Viewer Address: (\S+)" | grep -v 75.146.57 | sort -u); do
+    ipfw -q add deny all from $IP to any
+done
+
+for IP in $(grep sshd.*PAM..authentication.error.for.root /var/log/system.log | ~ryan/Bin/pgrep "for root from (\S+)" | sort -u); do
+    ipfw -q add deny all from $IP to any
+done
+
+echo AFTER:
+ipfw list
+  
