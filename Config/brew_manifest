@@ -13,7 +13,7 @@ tap 'manastech/crystal'
 brew "afsctool"                                    # transparent compression
 brew "aspell"                                      # emacs spellchecker
 brew "fdupes"                                      # clean out junk and nuke backups
-brew "homebrew/dupes/rsync"                        # file sync
+brew "rsync"                                       # file sync
 brew "ical-buddy"                                  # getting calendar items on my desktop
 brew "lzop"                                        # fast compression
 brew "the_silver_searcher"                         # better grep
@@ -32,6 +32,8 @@ brew "jq"                                          # grep json
 brew "postgresql"                                  # fat db of choice
 brew "regex-opt"                                   # helps craft regexps
 brew "libyaml"                                     # for rbenv rubies
+brew "libxml2"                                     # for nokogiri
+brew "gist"                                        # cmdline gist w/ 2FA support
 
 ## graphics
 
@@ -60,12 +62,13 @@ brew "w3m"                                         # emacs web browser
 
 ## experimenting
 
-brew "git-imerge"                                  # incremental merge, might be useful on messy projs
 brew "rust"                                        # interesting language
+brew "ghc"                                         # interesting language
+brew "smlnj"
 brew "ffmpeg"
 brew "media-info"
-brew "smlnj"
 brew "brightness"
+brew "highlight"                                   # quicklook dependency
 
 ## unknown -- look at removing
 
