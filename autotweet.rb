@@ -61,7 +61,7 @@ def weekly
 end
 
 def monthly
-  tweet "seattlerb", so_like("watch talks. not have coffee. substantial 7-9")
+  tweet "seattlerb", "It's our monthly! Come watch talks, not have coffee, and share something for show and tell. substantial 7-9. http://www.seattlerb.org/join-us"
 end
 
 def holiday
