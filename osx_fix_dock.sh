@@ -31,10 +31,18 @@ killall iTunes
 
 defaults write com.apple.screencapture disable-shadow -bool true
 
+echo "running sudo to set preferences and hostname"
 sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "Property of Ryan Davis - 206.999.9936"
+FULLNAME=wrath.zenspider.com
+sudo hostname $FULLNAME
+sudo scutil --set HostName $FULLNAME>
 
 sudo defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
 defaults write -g NSRecentDocumentsLimit -int 10
 
 defaults write com.google.Keystone.Agent checkInterval 0
+
+echo "fixing keychain support for ssh keys:"
+
+/usr/bin/ssh-add -KA # ~/.ssh/id_rsa
