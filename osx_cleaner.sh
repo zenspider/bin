@@ -20,31 +20,25 @@ locate -0 .DS_Store | xargs -0 rm
 find ~ -name .DS_Store -print -exec rm "{}" \; 
 
 rm -vrf \
-    /Library/Caches/* \
-    /System/Library/Caches/* \
-    /System/Library/Extensions.kextcache \
-    /System/Library/Extensions.mkext \
-    /System/Library/Extensions/Caches/* \
-    /private/tmp/* \
-    /private/var/db/BootCache.playlist \
-    /private/var/db/BootCache* \
-    /private/var/folders/*/*/-Caches-/* \
-    /private/var/folders/*/*/-Tmp-/* \
-    /private/var/folders/*/*/C/* \
-    /private/var/folders/*/*/T/* \
-    /private/var/folders/*/*/TemporaryItems/* \
-    /private/var/tmp/* \
-    /Users/*/Library/Caches/* \
-    /Volumes/*/tmp/* \
-    /Volumes/*/var/tmp/* \
     /Library/Preferences/SystemConfiguration/com.apple.PowerManagement.plist \
-    ~/Library/Mail/V2/IMAP*/* \
-    ~/Library/Safari/WebpageIcons.db \
+    /Volumes/*/Library/Caches/* \
+    /Volumes/*/System/Extensions/Caches/* \
+    /Volumes/*/System/Library/Caches/* \
+    /Volumes/*/System/Library/Extensions.kextcache \
+    /Volumes/*/System/Library/Extensions.mkext \
+    /Volumes/*/System/Library/Extensions/Caches/* \
+    /Volumes/*/Users/*/Library/Caches/* \
+    /Volumes/*/Users/*/Library/Mail/V2/IMAP*/* \
+    /Volumes/*/Users/*/Library/Safari/WebpageIcons.db \
+    /Volumes/*/private/tmp/* \
+    /Volumes/*/private/var/folders/*/*/-Caches-/* \
+    /Volumes/*/private/var/folders/*/*/-Tmp-/* \
+    /Volumes/*/private/var/folders/*/*/C/* \
+    /Volumes/*/private/var/folders/*/*/T/* \
+    /Volumes/*/private/var/folders/*/*/TemporaryItems/* \
+    /Volumes/*/private/var/tmp/* \
+    /Volumes/*/private/var/db/BootCache* \
     $DONE
-
-# TODO?
-# /bin/rm /var/db/SystemConfiguration/com.apple.PowerManagement.xml
-# /bin/rm /Library/Preferences/SystemConfiguration/com.apple.PowerManagement.plist
 
 reboot
 
