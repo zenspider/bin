@@ -9,7 +9,7 @@ flags  = ["-aCz"]
 flags << "-vP" if $stdin.tty? and $stdout.tty?
 
 case name
-when "lust", "greed" then
+when "lust", "greed", "wrath" then
   dirs = %w(Documents Work)
   base = File.expand_path "~"
 when "envy" then
@@ -43,6 +43,7 @@ cmd = ["rsync", flags, del, extra,
        "--exclude", ".ext",
        "--exclude", "*.build",
        "--exclude", "backups",
+       "--exclude", "compiled",
        "--exclude", "*.dbf", # maglev files
        "--exclude", "gauntlet\*.noindex\*",
        "--exclude", "\*.ofocus-backup",
