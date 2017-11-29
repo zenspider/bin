@@ -20,6 +20,8 @@ brew "the_silver_searcher"                         # better grep
 
 ## development
 
+brew "autoconf"                                    # for C dev
+brew "automake"                                    # for C dev
 brew "cloc"                                        # code analysis
 brew "cproto"                                      # generate / clean headers
 brew "ctags"                                       # tag ruby and lisp
@@ -62,9 +64,8 @@ brew "w3m"                                         # emacs web browser
 
 ## experimenting
 
-brew "rust"                                        # interesting language
 brew "ghc"                                         # interesting language
-brew "smlnj"
+brew "cabal-install"                               # tool for haskell
 brew "ffmpeg"
 brew "media-info"
 brew "brightness"
