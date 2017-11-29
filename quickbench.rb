@@ -12,7 +12,7 @@ usage unless ARGV.empty?
 print <<'EOM'
 #!/usr/bin/env ruby -w
 
-require 'benchmark/ips'
+require "benchmark/ips"
 
 Benchmark.ips do |x|
   # x.options
