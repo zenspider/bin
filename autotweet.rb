@@ -80,13 +80,14 @@ mm_dd = today.to_s[5..-1]
 
 holidays = %w[07-04 10-31 12-25 12-31]
 
-if holidays.include?(mm_dd) then
-  holiday_study
-  holiday
-elsif today.wday == 2
+if today.wday == 2 then
   first_tues = Calendar.new(today.year, today.month).tuesday.first
 
-  if today == first_tues then
+  case
+  when holidays.include?(mm_dd) then
+    holiday_study
+    holiday
+  when today == first_tues then
     monthly_study
     monthly
   else
