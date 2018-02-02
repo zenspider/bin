@@ -1,7 +1,7 @@
 #!/bin/bash
 
 N=$1; shift;
-CMD="$*"
+CMD="$@"
 
 for n in $(jot $N 1); do
     $CMD
