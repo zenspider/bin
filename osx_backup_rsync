@@ -44,6 +44,7 @@ cmd = ["rsync", flags, del, extra,
        "--exclude", "*.build",
        "--exclude", "backups",
        "--exclude", "compiled",
+       "--exclude", "unreadable*",
        "--exclude", "*.dbf", # maglev files
        "--exclude", "gauntlet\*.noindex\*",
        "--exclude", "\*.ofocus-backup",
