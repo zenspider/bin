@@ -18,6 +18,14 @@ Host e
         #IdentityFile ~/.ssh/id_dsa
         #IdentitiesOnly yes
 
+Host g
+	Hostname greed.zenspider.com
+	User ryan
+	ControlMaster auto
+	ControlPath ~/.ssh/master-%C
+        #IdentityFile ~/.ssh/id_dsa
+        #IdentitiesOnly yes
+
 Host github.com
   IdentityFile ~/.ssh/passwordless
 
@@ -36,7 +44,3 @@ Host docs
 Host drobo
   Hostname 10.0.1.99
   User root
-
-Host maglev
-  Hostname 172.16.79.137
-  User ryan
