@@ -31,9 +31,9 @@ def run cmd
   system cmd unless $n
 end
 
-def tweet user, text
+def tweet user, *text
   run "t set active #{user}"
-  run "t update #{text.inspect}"
+  run "t update #{text.join(" ").inspect}"
 end
 
 def study_group desc
@@ -68,6 +68,26 @@ def holiday
   tweet "seattlerb", "No nerd party tonight due to holiday!"
 end
 
+def birfday!
+  age = Time.now.year - 2002
+
+  suffix = case age % 10
+           when 1 then
+             "st"
+           when 2 then
+             "nd"
+           when 3 then
+             "rd"
+           else
+             "th"
+           end
+
+  tweet("seattlerb",
+        "Happy #{age}#{suffix} Birfday to Seattle.rb!",
+        "Thanks to @the_zenspider, @drbrain, and @PatEyler",
+        "(and everyone who followed them) for making this happen!")
+end
+
 arg = ARGV.first
 
 today = if arg
@@ -96,4 +116,8 @@ if today.wday == 2 then
   end
 else
   puts "nothing to do" if $n
+end
+
+if today.month == 2 && today.day == 28 then
+  birfday!
 end
