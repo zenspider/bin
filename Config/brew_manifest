@@ -87,3 +87,26 @@ cask "subler"
 cask "sublercli"
 cask "handbrake"
 cask "emacs"
+
+host "greed", "envy" do
+  tap "zenspider/mailman"
+
+  brew "dwatch"                                    # TODO: remove & use launchd
+  brew "gnuplot"                                   # TODO: dunno what this is for
+  brew "mailman"                                   # mailing list
+  brew "perforce-server"                           # perforce server, duh
+  brew "python"                                    # for certs & mailman
+  brew "znc"                                       # for IRC proxy
+end
+
+## dependencies or cruft?
+# brew "gettext"
+# brew "gfortran"
+# brew "gmp"
+# brew "libiconv"
+# brew "libtool"
+# brew "libxml2"
+# brew "libyaml"
+# brew "lynx"
+# brew "makedepend"
+# brew "pkg-config"
