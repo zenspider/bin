@@ -93,7 +93,7 @@ host "greed", "envy" do
 
   brew "dwatch"                                    # TODO: remove & use launchd
   brew "gnuplot"                                   # TODO: dunno what this is for
-  brew "mailman"                                   # mailing list
+  brew "zenspider/mailman/mailman"                 # mailing list
   brew "perforce-server"                           # perforce server, duh
   brew "python"                                    # for certs & mailman
   brew "znc"                                       # for IRC proxy
