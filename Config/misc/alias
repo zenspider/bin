@@ -207,6 +207,8 @@ alias lpr2up='enscript -2r'
 alias newshell='env -i HOME=$HOME $SHELL --norc'
 alias rsyncmv="rsync --remove-source-files"
 alias agrb="ag -G .rb"
+alias json2yaml="ruby -ryaml -rjson -e 'puts YAML.dump JSON.load ARGF.read'"
+alias yaml2json="ruby -ryaml -rjson -e 'puts JSON.dump YAML.load ARGF.read'"
 
 dict () {
     egrep -i "$@" /usr/share/dict/words
