@@ -1,14 +1,16 @@
 #!/usr/bin/env ruby -ws
 
-require 'date'
-require 'fileutils'
+$d ||= false
+
+require "date"
+require "fileutils"
 
 # backup_dates - returns a list of dates of backups to keep
 #
-# 28 previous dailies
-# 3 months of weeklies
-# 9 months of monthlies
-# 10 years of yearlies
+# 28   days of dailies
+#  3 months of weeklies
+#  9 months of monthlies
+# 10  years of yearlies
 
 def backup_dates
   day = Date.today
@@ -47,28 +49,7 @@ end
 
 keep = backup_dates
 
-$d ||= false
-$o ||= false
-
-death = {}
-
-ARGV.each do |path|
-  d = Date.civil(*File.mtime(path).to_a[3..5].reverse)
-  if not keep.include? d or ($o and death[d]) then
-    puts path
-    FileUtils.rm_rf path if $d
-  elsif $o
-    death[d] = true
-  end
-end
-
 if ARGV.empty? then
-  require 'pp'
-
-  # y1, y2, m1, m2, m3
-
-  keep.map!(&:to_s)
-
   y, m, w, d = keep[0..9], keep[10..18], keep[19..-29], keep[-28..-1]
 
   puts "Yearly:"
@@ -82,4 +63,20 @@ if ARGV.empty? then
   puts
   puts "Daily:"
   puts d.each_slice(5).map { |a| a.join(" ") }
+else
+  all = Dir[*ARGV].
+    sort_by { |f| -File.mtime(f).to_f }.
+    map { |f| [f, File.mtime(f).to_date] }.
+    to_h
+
+  good = keep.map { |t0| all.values.min_by { |t1| (t0 - t1).abs } }.uniq
+  bad  = all.select { |_, t| not good.include? t }
+
+  if $d then
+    deleted = File.unlink(*bad.map(&:first))
+
+    puts "Deleted #{deleted} files"
+  else
+    puts "Deleted #{bad.size} files (no-op)"
+  end
 end
