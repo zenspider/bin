@@ -11,6 +11,7 @@ export MT_NO_ISOLATE=1
 rb_22=$(cd ~/.rbenv/versions; ls -d 2.2* | tail -1)
 rb_23=$(cd ~/.rbenv/versions; ls -d 2.3* | tail -1)
 rb_24=$(cd ~/.rbenv/versions; ls -d 2.4* | tail -1)
+rb_25=$(cd ~/.rbenv/versions; ls -d 2.5* | tail -1)
 
 alias gem22=~/.rbenv/versions/$rb_22/bin/gem 
 alias irb22=~/.rbenv/versions/$rb_22/bin/irb
@@ -30,13 +31,11 @@ alias rake24=~/.rbenv/versions/$rb_24/bin/rake
 alias ri24=~/.rbenv/versions/$rb_24/bin/ri
 alias ruby24=~/.rbenv/versions/$rb_24/bin/ruby
 
-maglev() {
-    unset GEM_HOME
-    unset GEM_PATH
-    . ~/Bin/load_rbenv 
-    rbenv shell maglev-git
-    unset maglev
-}
+alias gem25=~/.rbenv/versions/$rb_25/bin/gem 
+alias irb25=~/.rbenv/versions/$rb_25/bin/irb
+alias rake25=~/.rbenv/versions/$rb_25/bin/rake
+alias ri25=~/.rbenv/versions/$rb_25/bin/ri
+alias ruby25=~/.rbenv/versions/$rb_25/bin/ruby
 
 export HOSTPATH="$HOME/.rbenv/bin:$HOME/.cabal/bin"
 
