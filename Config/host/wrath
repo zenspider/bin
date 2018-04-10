@@ -40,6 +40,7 @@ alias ruby25=~/.rbenv/versions/$rb_25/bin/ruby
 export HOSTPATH="$HOME/.rbenv/bin:$HOME/.cabal/bin"
 
 export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_SANDBOX=1
 
 # /usr/bin/ssh-add -K ~/.ssh/id_rsa
 # /usr/bin/ssh-add -A
