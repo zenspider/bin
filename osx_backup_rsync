@@ -9,10 +9,10 @@ flags  = ["-aCz"]
 flags << "-vP" if $stdin.tty? and $stdout.tty?
 
 case name
-when "lust", "greed", "wrath" then
+when "wrath" then
   dirs = %w(Documents Work)
   base = File.expand_path "~"
-when "envy" then
+when "greed" then
   dirs = %w(perforce www blogs)
   base = "/Users"
 else
