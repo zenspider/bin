@@ -78,5 +78,7 @@ else
     puts "Deleted #{deleted} files"
   else
     puts "Deleted #{bad.size} files (no-op)"
+    puts
+    puts bad.keys.sort
   end
 end
