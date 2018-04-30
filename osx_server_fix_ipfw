@@ -12,11 +12,11 @@ ipfw list
 echo CLEANING:
 ipfw delete $(ipfw list | cut -f 1 -d\  | grep -v 65535 )
 echo ADDING:
-for IP in $(grep screensharingd.*FAILED /var/log/system.log | ~ryan/Bin/pgrep "Viewer Address: (\S+)" | egrep -v "75.146.57|zenspider" | sort -u); do
+for IP in $(grep screensharingd.*FAILED /var/log/system.log | ~ryan/Bin/pgrep "Viewer Address: (\S+)" | egrep -v "75.146.57|104.152.105.202|zenspider" | sort -u); do
     ipfw -q add deny all from $IP to any
 done
 
-for IP in $(grep sshd.*PAM..authentication.error.for.root /var/log/system.log | ~ryan/Bin/pgrep "for root from (\S+)" | egrep -v "75.146.57|zenspider" | sort -u); do
+for IP in $(grep sshd.*PAM..authentication.error.for.root /var/log/system.log | ~ryan/Bin/pgrep "for root from (\S+)" | egrep -v "75.146.57|104.152.105.202|zenspider" | sort -u); do
     ipfw -q add deny all from $IP to any
 done
 
