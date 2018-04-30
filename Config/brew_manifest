@@ -63,12 +63,14 @@ brew "w3m"                                         # emacs web browser
 
 ## experimenting
 
+host "wrath" do
 brew "ghc"                                         # interesting language
 brew "cabal-install"                               # tool for haskell
 brew "ffmpeg"
 brew "media-info"
 brew "brightness"
 brew "highlight"                                   # quicklook dependency
+end
 
 ## unknown -- look at removing
 
@@ -91,6 +93,7 @@ cask "emacs"
 host "greed", "envy" do
   tap "zenspider/mailman"
 
+  brew "imapsync"
   brew "dwatch"                                    # TODO: remove & use launchd
   brew "gnuplot"                                   # TODO: dunno what this is for
   brew "zenspider/mailman/mailman"                 # mailing list
