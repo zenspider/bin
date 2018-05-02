@@ -11,7 +11,7 @@ tap "homebrew/versions"
 
 brew "afsctool"                                    # transparent compression
 brew "aspell"                                      # emacs spellchecker
-brew "fdupes"                                      # clean out junk and nuke backups
+brew "rdfind"                                      # clean out junk and nuke backups
 brew "rsync"                                       # file sync
 brew "ical-buddy"                                  # getting calendar items on my desktop
 brew "lzop"                                        # fast compression
