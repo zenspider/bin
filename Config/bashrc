@@ -46,6 +46,3 @@ if [ -d /usr/local/git/contrib/completion ]; then
     # need to keep this as it has functions that the others depend on?!?
     . /usr/local/git/contrib/completion/git-completion.bash
 fi
-
-# OPAM configuration
-. /Users/ryan/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
