@@ -31,7 +31,7 @@ Host github.com
 
 # password in keychain under sync.net
 Host rsync
-  Hostname usw-s004.rsync.net 
+  Hostname usw-s004.rsync.net
   IdentityFile ~/.ssh/rsync.net
   User 4295
   ControlMaster auto
