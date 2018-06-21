@@ -1,0 +1,45 @@
+#!/usr/bin/ruby -ws
+
+$y ||= nil
+$y &&= ""
+
+abort "usage: #{File.basename $0} path ..." if ARGV.empty?
+
+ARGV.each do |path|
+  dirs = Dir["/Volumes/*Backups*/Backups.backupdb/*/*"]
+
+  to_compare = []
+
+  dirs.each do |dir|
+    date = File.basename dir
+
+    glob = File.join(dir,
+                     "*",
+                     Dir.pwd,
+                     path)
+
+    Dir[glob].each do |file|
+      name = File.basename file
+      target = "#{name}.#{date}"
+      to_compare << target
+      system "cp \"#{file}\" \"#{target}\""
+    end
+  end
+
+  unless to_compare.empty? then
+    to_compare.sort!
+
+    a = to_compare.first
+    puts a
+    to_compare.each do |b|
+      next if a == b
+
+      if system "cmp -s \"#{a}\" \"#{b}\"" then
+        File.unlink b
+      else
+        a = b
+        puts a
+      end
+    end
+  end
+end
