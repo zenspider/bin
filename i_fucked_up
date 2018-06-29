@@ -37,8 +37,13 @@ ARGV.each do |path|
       if system "cmp -s \"#{a}\" \"#{b}\"" then
         File.unlink b
       else
+        puts "\n\n\n"
+        cmd = "diff -u \"#{a}\" \"#{b}\""
+        puts "# #{cmd}"
+        puts
+        system cmd
+
         a = b
-        puts a
       end
     end
   end
