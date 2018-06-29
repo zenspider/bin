@@ -29,8 +29,10 @@ if [ ! -d ~/.ssh ]; then
     mkdir ~/.ssh
 fi
 
+rm -f ~/.ssh/config
 ln misc/ssh_config ~/.ssh/config
 chmod 700 ~/.ssh ~/.ssh/config
+rm -f ~/.gitconfig
 ln misc/gitconfig ~/.gitconfig
 
 create_link() {
