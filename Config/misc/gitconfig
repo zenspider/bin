@@ -1,3 +1,5 @@
+[include]
+  path = ~/.gitconfig.github
 [user]
   name = Ryan Davis
   email = ryand-ruby@zenspider.com
@@ -22,13 +24,26 @@
   l         = log --abbrev-commit --pretty=oneline
   loggrep   = log -S
   skinny    = !"git gc; git repack -Ad; git prune"
-  topic     = checkout -b
+  topic     = checkout -t -b
   prune     = remote update --prune
   sweep     = !git branch -r --merged | grep -v master | sed \"s/origin\\///\" | xargs -n 1 echo git push --delete origin
   s         = status -sb
   run       = !"git rev-list --reverse --abbrev-commit master | while read -r SHA ; do git checkout --quiet $SHA; echo SHA=$SHA; "$@"; done; git checkout --quiet master; true"
   runv      = !"git rev-list --reverse --abbrev-commit master | while read -r SHA ; do git checkout --quiet $SHA; echo ===; git show -s --oneline $SHA; echo; $@; echo; done; git checkout --quiet master; true"
   churn     = !"git log --all -M -C --name-only --format='format:' "$@" | sort | grep -v '^$' | uniq -c | sort | awk 'BEGIN {print "count\tfile"} {print $1 "\t" $2}' | sort -g"
+
+# remove locals that have already been pruned remotely
+# git remote update --prune
+# prune remote merged
+# $ git checkout master && git branch -r --merged | grep -v master | sed -e 's/origin\//:/' | xargs git push origin
+# prune local merged
+# $ git checkout master && git branch --merged | grep -v master | xargs git branch -d
+
+# another possibility:
+# git remote update --prune
+# git fetch --all --prune
+# git pull --all
+
 [push]
   default = matching
 [diff]
@@ -45,6 +60,11 @@
 [credential]
   helper = osxkeychain
 [filter "lfs"]
-  clean = git-lfs clean %f
-  smudge = git-lfs smudge %f
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
   required = true
+[branch]
+	autosetupmerge = true
+[fetch]
+	recurseSubmodules = true
