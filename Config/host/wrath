@@ -8,16 +8,9 @@ export BREW_CASK_OPTS='--appdir=/MyApplications'
 
 export MT_NO_ISOLATE=1
 
-rb_22=$(cd ~/.rbenv/versions; ls -d 2.2* | tail -1)
 rb_23=$(cd ~/.rbenv/versions; ls -d 2.3* | tail -1)
 rb_24=$(cd ~/.rbenv/versions; ls -d 2.4* | tail -1)
 rb_25=$(cd ~/.rbenv/versions; ls -d 2.5* | tail -1)
-
-alias gem22=~/.rbenv/versions/$rb_22/bin/gem 
-alias irb22=~/.rbenv/versions/$rb_22/bin/irb
-alias rake22=~/.rbenv/versions/$rb_22/bin/rake
-alias ri22=~/.rbenv/versions/$rb_22/bin/ri
-alias ruby22=~/.rbenv/versions/$rb_22/bin/ruby
 
 alias gem23=~/.rbenv/versions/$rb_23/bin/gem 
 alias irb23=~/.rbenv/versions/$rb_23/bin/irb
