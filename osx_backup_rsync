@@ -13,7 +13,7 @@ when "wrath" then
   dirs = %w(Documents Work)
   base = File.expand_path "~"
 when "greed" then
-  dirs = %w(perforce www blogs)
+  dirs = %w(perforce www)
   base = "/Users"
 else
   abort "unknown machine #{name}"
