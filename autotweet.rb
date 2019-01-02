@@ -98,7 +98,7 @@ today = if arg
 
 mm_dd = today.to_s[5..-1]
 
-holidays = %w[07-04 10-31 12-25 12-31]
+holidays = %w[01-01 07-04 10-31 12-25 12-31]
 
 if today.wday == 2 then
   first_tues = Calendar.new(today.year, today.month).tuesday.first
