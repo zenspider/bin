@@ -42,6 +42,7 @@ export HOSTPATH="$HOME/.rbenv/bin:/Applications/Server.app/Contents/ServerRoot/u
 
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_SANDBOX=1
+export HOMEBREW_AUTO_UPDATE_SECS=8640000
 
 # /usr/bin/ssh-add -K ~/.ssh/id_rsa
 # /usr/bin/ssh-add -A
