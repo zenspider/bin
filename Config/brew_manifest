@@ -33,23 +33,18 @@ brew "jq"                                          # grep json
 brew "postgresql"                                  # fat db of choice
 brew "regex-opt"                                   # helps craft regexps
 brew "libyaml"                                     # for rbenv rubies
-brew "libxml2"                                     # for nokogiri
 brew "gist"                                        # cmdline gist w/ 2FA support
 
 ## graphics
 
 brew "freeimage"                                   # really just for image_science
 brew "graphviz"                                    # maddening but useful graphs
-brew "sdl_image", args: %w[universal without-webp] # needed for graphics gem
-brew "sdl_mixer", args: %w[universal with-smpeg]   # needed for graphics gem
-brew "sdl_net"                                     # needed for graphics gem
-brew "sdl_ttf", args: ["universal"]                # needed for graphics gem
 
-# brew "sdl2",       args: %w[universal]
-# brew "sdl2_image", args: %w[universal without-webp] # needed for graphics gem
-# brew "sdl2_mixer", args: %w[universal with-smpeg2]  # needed for graphics gem
-# brew "sdl2_net",   args: %w[universal]              # needed for graphics gem
-# brew "sdl2_ttf",   args: %w[universal]              # needed for graphics gem
+brew "sdl2"
+brew "sdl2_image", args: %w[without-webp]          # needed for graphics gem
+brew "sdl2_mixer"                                  # needed for graphics gem
+brew "sdl2_ttf"                                    # needed for graphics gem
+brew "sdl2_gfx"                                    # needed for graphics gem
 
 ## networking
 
@@ -58,32 +53,24 @@ brew "mobile-shell"                                # good for ssh in cafe
 brew "mtr"                                         # diagnose bad networks
 brew "nmap"                                        # scan machines
 brew "tidy-html5"                                  # helps me sanitize html
+brew "linklint"                                    # to check my website
 brew "visitors"                                    # scan httpd logs
 brew "w3m"                                         # emacs web browser
 
 ## experimenting
 
 host "wrath" do
-brew "ghc"                                         # interesting language
-brew "cabal-install"                               # tool for haskell
 brew "ffmpeg"
 brew "media-info"
 brew "brightness"
 brew "highlight"                                   # quicklook dependency
+brew "rbspy"                                       # interesting ruby profiler?
+brew "swiftlint"                                   # check swift code. PITA
 end
 
 ## unknown -- look at removing
 
-# brew "dwatch"                                    # on my laptop?? no clue
-# brew "fcgi"                                      # no clue why I have this
-# brew "fswatch"                                   # possibly useful for tools
-# brew "libffi"                                    # TODO: dunno why I have this, ruby?
-# brew "libyaml"                                   # TODO: dunno why I have this, ruby?
-# brew "llvm"                                      # dunno why I'd keep using this
-# brew "sqlite-analyzer"                           # maybe interesting for db
-# brew "tcc"                                       # TODO: cute, but maddening.
-# brew "re2c"                                      # TODO: don't actually want... experimenting
-
+brew "tcc"                                       # TODO: cute, but maddening.
 cask "handbrakecli"
 cask "subler"
 cask "sublercli"
@@ -101,15 +88,3 @@ host "greed", "envy" do
   brew "python"                                    # for certs & mailman
   brew "znc"                                       # for IRC proxy
 end
-
-## dependencies or cruft?
-# brew "gettext"
-# brew "gfortran"
-# brew "gmp"
-# brew "libiconv"
-# brew "libtool"
-# brew "libxml2"
-# brew "libyaml"
-# brew "lynx"
-# brew "makedepend"
-# brew "pkg-config"
