@@ -1,14 +1,25 @@
 # -*- sh -*-
 
-OSPATH=/usr/local/sbin:/usr/local/bin:/sbin:/usr/sbin:/bin:/usr/bin
+add_os_path ~/.rbenv/bin
+add_os_path ~/.rbenv/shims
+
+add_os_path "/usr/local/sbin"
+add_os_path "/usr/local/bin"
+add_os_path "/sbin"
+add_os_path "/usr/sbin"
+add_os_path "/bin"
+add_os_path "/usr/bin"
 
 if [ -d /usr/X11R6 -a ! -e /usr/X11R6/bin/xstub ]; then
-   OSPATH=$OSPATH:/usr/X11R6/bin
+    add_os_path "/usr/X11R6/bin"
 fi
 
 if [ -d /MyApplications/dev/lisp/Racket/bin ]; then
-   OSPATH=$OSPATH:/MyApplications/dev/lisp/Racket/bin
+    add_os_path "/MyApplications/dev/lisp/Racket/bin"
 fi
+
+# Removing PATH from this eval and adding it manually to force my ordering
+eval "$(~/.rbenv/bin/rbenv init - --no-rehash | grep -v PATH)"
 
 case $- in
   

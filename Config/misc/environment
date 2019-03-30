@@ -81,6 +81,3 @@ case $- in
   *) 
     ;;
 esac
-
-# needs to be after HOSTPATH is merged
-eval "$(rbenv init -)"

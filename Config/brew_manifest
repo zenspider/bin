@@ -15,6 +15,7 @@ brew "rdfind"                                      # clean out junk and nuke bac
 brew "rsync"                                       # file sync
 brew "ical-buddy"                                  # getting calendar items on my desktop
 brew "lzop"                                        # fast compression
+brew "lrzip"                                       # fast and good compression
 brew "the_silver_searcher"                         # better grep
 
 ## development
@@ -79,6 +80,7 @@ cask "emacs"
 
 host "greed", "envy" do
   tap "zenspider/mailman"
+  tap "caskroom/cask/perforce" # perforce-server
 
   brew "imapsync"
   brew "dwatch"                                    # TODO: remove & use launchd

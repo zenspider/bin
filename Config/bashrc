@@ -17,8 +17,40 @@
 umask 002	# no writes for others, otherwise fully open
 set -P		# Turn off bash's relative pwd
 set -u		# Break when undefined variable is used.
+set -o pipefail
 
 CONFIG=$HOME/Bin/Config
+
+export HOSTPATH=""
+export DOMAINPATH=""
+export OSPATH=""
+
+add_host_path () {
+    dir=$1
+    if [ -d $dir ]; then
+        HOSTPATH="$HOSTPATH:$dir"
+    else
+        echo "warning: HOSTPATH dir does not exist: $dir" 1>&2
+    fi
+}
+
+add_domain_path () {
+    dir=$1
+    if [ -d $dir ]; then
+        DOMAINPATH="$DOMAINPATH:$dir"
+    else
+        echo "warning: DOMAINPATH dir does not exist: $dir" 1>&2
+    fi
+}
+
+add_os_path () {
+    dir=$1
+    if [ -d $dir ]; then
+        OSPATH="$OSPATH:$dir"
+    else
+        echo "warning: OSPATH dir does not exist: $dir" 1>&2
+    fi
+}
 
 export DOMAIN=$(hostname | /usr/bin/perl -pe 's/^.*?([^\.]+\.[^\.]+)$/$1/;')
 export HOSTNAME=$(hostname -s)
