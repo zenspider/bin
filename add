@@ -1,21 +1,43 @@
 #!/usr/bin/env ruby -wns
 
+$m ||= false
+$v ||= false
+
 # Adds the input and prints out the sum at the end
 
 BEGIN {
+  module Enumerable
+    def mean
+      sum / length
+    end
+
+    def sample_variance
+      m = mean
+      sum = inject(0.0) { |accum, i| accum + (i - m) ** 2 }
+      sum / (length - 1)
+    end
+
+    def standard_deviation
+      Math.sqrt sample_variance
+    end
+  end
+
   $total = 0.0
   $count = 0
+  $values = []
+
+  $stdout.sync = true
 }
 
 if $_ =~ /^\s*([-\d\.]+)/ then
+  $values << $1.to_f
   $total += $1.to_f
   $count += 1
+
+  print "sum=%0.6f mean=%0.6f sd=%0.6f" % [$values.sum, $values.mean, $values.standard_deviation]
+  print "\r"
 end
 
 END {
-  if defined? $m then
-    puts $total / $count
-  else
-    puts $total
-  end
+  puts
 }
