@@ -41,7 +41,7 @@ $interactive = $stdin.tty? and $stdout.tty?
 $check    = []
 $keywords = '\b(F IX|H ACK|T ODO|D OC|R EFACTOR|R ETIRE|W ARN)\b';
 $ignore   = '(\.(log|diff)|~)'
-$prune    = 'CVS|\.svn|blib|html|vendor/rails|tmp|\.git|\.site'
+$prune    = 'CVS|\.svn|blib|html|vendor|tmp|\.git|\.site|node_modules'
 $hit      = Hash.new { |h,k| h[k] = [] }
 $word     = Hash.new(0)
 $total    = 0
@@ -54,6 +54,7 @@ def find
     if File.file? f then
       $check << f unless f =~ /#{$ignore}$/o or File.binary? f
     else
+      warn "prune: #{f}" if f =~ /#{$prune}/o or File.symlink? f
       Find.prune if f =~ /#{$prune}/o or File.symlink? f
     end
   end
@@ -63,13 +64,17 @@ def check
   $stderr.puts "Found #{$check.length} files. Scanning..."
 
   $check.each_with_index { |f, count|
-    IO.foreach(f) { |l|
-      if (l =~ /(#{$keywords})/xo) then
-	$hit[f] << "%4d: %s" % [$., l.strip]
-	$word[$1] += 1
-	$total += 1
-      end
-    }
+    begin
+      IO.foreach(f) { |l|
+        if (l =~ /(#{$keywords})/xo) then
+          $hit[f] << "%4d: %s" % [$., l.strip]
+          $word[$1] += 1
+          $total += 1
+        end
+      }
+    rescue => e
+      warn "Error in #{f}: #{e.message}. Skipping"
+    end
 
     $stderr.print('x') if count % 10 == 0
   }
