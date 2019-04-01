@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby -w
 
+$stdout.sync = true
+
 pattern = ARGV.shift
 pattern = "(#{pattern})" unless pattern =~ /\(.+\)/
 
-ARGF.each_line do |line|
-  line.lines.grep(/#{pattern}/) { puts $1 }
-end
+ARGF.each_line.grep(/#{pattern}/o) { puts $1 }
