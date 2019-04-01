@@ -1,3 +1,10 @@
 #!/bin/bash
 
-exec rsync -NAXx --fileflags --force-change --protect-decmpfs --protect-args "$@"
+FLAGS="-NAXx --fileflags --force-change --protect-decmpfs --protect-args"
+EXCLS=".DS_Store .fseventsd .Trashes .Spotlight-V100 .com.apple.timemachine\* .DocumentRevisions-V100 .TemporaryItems"
+
+for dir in $EXCLS; do
+    FLAGS="$FLAGS --exclude $dir"
+done
+
+exec rsync $FLAGS "$@"
