@@ -1,10 +1,13 @@
 # -*- ruby -*-
 
-tap "caskroom/cask"
+tap "heroku/brew"
 tap "homebrew/bundle"
+tap "homebrew/cask"
 tap "homebrew/core"
-tap "homebrew/dupes"
-tap "homebrew/versions"
+tap "homebrew/services"
+
+# brew untap homebrew/cask-versions
+# brew untap homebrew/versions
 
 ## utilities
 
@@ -27,7 +30,7 @@ brew "ctags"                                       # tag ruby and lisp
 brew "exercism"                                    # fun, but not terribly useful
 brew "git"                                         # git. duh.
 brew "heroku"                                      # deployment and debugging
-# brew "homebrew/binary/perforce"                    # perforce... duh
+cask "perforce"                                    # perforce... duh
 brew "hub"                                         # most useful git extension
 brew "jq"                                          # grep json
 brew "postgresql"                                  # fat db of choice
@@ -62,6 +65,7 @@ brew "w3m"                                         # emacs web browser
 ## experimenting
 
 host "wrath" do
+cask "qlcolorcode"                                 # syntax highlight for quicklook
 brew "ffmpeg"
 brew "media-info"
 brew "brightness"
@@ -78,7 +82,6 @@ cask "subler"
 cask "sublercli"
 cask "handbrake"
 cask "emacs"
-cask "perforce"
 
 host "greed", "envy" do
   tap "zenspider/mailman"
