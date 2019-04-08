@@ -68,11 +68,8 @@ brew "brightness"
 brew "highlight"                                   # quicklook dependency
 brew "rbspy"                                       # interesting ruby profiler?
 brew "swiftlint"                                   # check swift code. PITA
+brew "tcc"                                         # TODO: cute, but maddening.
 end
-
-## unknown -- look at removing
-
-brew "tcc"                                       # TODO: cute, but maddening.
 
 ## casks:
 
