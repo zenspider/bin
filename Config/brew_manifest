@@ -1,7 +1,6 @@
 # -*- ruby -*-
 
 tap "caskroom/cask"
-tap "homebrew/binary"
 tap "homebrew/bundle"
 tap "homebrew/core"
 tap "homebrew/dupes"
@@ -28,7 +27,7 @@ brew "ctags"                                       # tag ruby and lisp
 brew "exercism"                                    # fun, but not terribly useful
 brew "git"                                         # git. duh.
 brew "heroku"                                      # deployment and debugging
-brew "homebrew/binary/perforce"                    # perforce... duh
+# brew "homebrew/binary/perforce"                    # perforce... duh
 brew "hub"                                         # most useful git extension
 brew "jq"                                          # grep json
 brew "postgresql"                                  # fat db of choice
@@ -72,11 +71,15 @@ end
 ## unknown -- look at removing
 
 brew "tcc"                                       # TODO: cute, but maddening.
+
+## casks:
+
 cask "handbrakecli"
 cask "subler"
 cask "sublercli"
 cask "handbrake"
 cask "emacs"
+cask "perforce"
 
 host "greed", "envy" do
   tap "zenspider/mailman"
