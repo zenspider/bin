@@ -40,11 +40,13 @@ brew "gist"                                        # cmdline gist w/ 2FA support
 brew "freeimage"                                   # really just for image_science
 brew "graphviz"                                    # maddening but useful graphs
 
+host "wrath" do
 brew "sdl2"
 brew "sdl2_image", args: %w[without-webp]          # needed for graphics gem
 brew "sdl2_mixer"                                  # needed for graphics gem
 brew "sdl2_ttf"                                    # needed for graphics gem
 brew "sdl2_gfx"                                    # needed for graphics gem
+end
 
 ## networking
 
@@ -92,4 +94,5 @@ host "greed", "envy" do
   brew "perforce-server"                           # perforce server, duh
   brew "python"                                    # for certs & mailman
   brew "znc"                                       # for IRC proxy
+  brew "swaks"                                     # for testing email servers
 end
