@@ -8,7 +8,7 @@ format = "%Y-%m"
 now = Time.now.strftime(format)
 
 Dir['*'].each do |f|
-  next if f =~ /^\d\d\d\d-\d\d/
+  next if f =~ /^\d\d\d\d-\d\d|^@/
   dir = File.mtime(f).strftime(format)
   p :skip => [f, dir] if dir == now
   next if dir == now
