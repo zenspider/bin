@@ -73,6 +73,7 @@ brew "highlight"                                   # quicklook dependency
 brew "rbspy"                                       # interesting ruby profiler?
 brew "swiftlint"                                   # check swift code. PITA
 brew "tcc"                                         # TODO: cute, but maddening.
+brew "entr"                                        # experimental event runner
 end
 
 ## casks:
