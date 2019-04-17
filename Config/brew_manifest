@@ -86,13 +86,13 @@ cask "emacs"
 
 host "greed", "envy" do
   tap "zenspider/mailman"
-  tap "caskroom/cask/perforce" # perforce-server
+
+  # perforce server (p4d) is now provided by perforce cask above
 
   brew "imapsync"
   brew "dwatch"                                    # TODO: remove & use launchd
   brew "gnuplot"                                   # TODO: dunno what this is for
   brew "zenspider/mailman/mailman"                 # mailing list
-  brew "perforce-server"                           # perforce server, duh
   brew "python"                                    # for certs & mailman
   brew "znc"                                       # for IRC proxy
   brew "swaks"                                     # for testing email servers
