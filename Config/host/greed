@@ -1,45 +1,43 @@
 # -*- sh -*-
-export RS_HOME=/Library/Frameworks/R.framework/Resources
 
-export MAGLEV_HOME=/Users/ryan/Work/git/maglev
 export PGDATA=/usr/local/var/postgres
-
-export BREW_CASK_OPTS='--appdir=/MyApplications'
 
 export MT_NO_ISOLATE=1
 
-rb_22=$(cd ~/.rbenv/versions; ls -d 2.2* | tail -1)
 rb_23=$(cd ~/.rbenv/versions; ls -d 2.3* | tail -1)
 rb_24=$(cd ~/.rbenv/versions; ls -d 2.4* | tail -1)
 rb_25=$(cd ~/.rbenv/versions; ls -d 2.5* | tail -1)
+rb_26=$(cd ~/.rbenv/versions; ls -d 2.6* | tail -1)
 
-alias gem22=~/.rbenv/versions/$rb_22/bin/gem 
-alias irb22=~/.rbenv/versions/$rb_22/bin/irb
-alias rake22=~/.rbenv/versions/$rb_22/bin/rake
-alias ri22=~/.rbenv/versions/$rb_22/bin/ri
-alias ruby22=~/.rbenv/versions/$rb_22/bin/ruby
-
-alias gem23=~/.rbenv/versions/$rb_23/bin/gem 
+alias gem23=~/.rbenv/versions/$rb_23/bin/gem
 alias irb23=~/.rbenv/versions/$rb_23/bin/irb
 alias rake23=~/.rbenv/versions/$rb_23/bin/rake
 alias ri23=~/.rbenv/versions/$rb_23/bin/ri
 alias ruby23=~/.rbenv/versions/$rb_23/bin/ruby
 
-alias gem24=~/.rbenv/versions/$rb_24/bin/gem 
+alias gem24=~/.rbenv/versions/$rb_24/bin/gem
 alias irb24=~/.rbenv/versions/$rb_24/bin/irb
 alias rake24=~/.rbenv/versions/$rb_24/bin/rake
 alias ri24=~/.rbenv/versions/$rb_24/bin/ri
 alias ruby24=~/.rbenv/versions/$rb_24/bin/ruby
 
-alias gem25=~/.rbenv/versions/$rb_25/bin/gem 
+alias gem25=~/.rbenv/versions/$rb_25/bin/gem
 alias irb25=~/.rbenv/versions/$rb_25/bin/irb
 alias rake25=~/.rbenv/versions/$rb_25/bin/rake
 alias ri25=~/.rbenv/versions/$rb_25/bin/ri
 alias ruby25=~/.rbenv/versions/$rb_25/bin/ruby
 
-export HOSTPATH="$HOME/.rbenv/bin:/Applications/Server.app/Contents/ServerRoot/usr/sbin:/Applications/Server.app/Contents/ServerRoot/usr/bin"
+alias gem26=~/.rbenv/versions/$rb_26/bin/gem
+alias irb26=~/.rbenv/versions/$rb_26/bin/irb
+alias rake26=~/.rbenv/versions/$rb_26/bin/rake
+alias ri26=~/.rbenv/versions/$rb_26/bin/ri
+alias ruby26=~/.rbenv/versions/$rb_26/bin/ruby
 
+if [ -d /MyApplications/dev/lisp/Racket/bin ]; then
+    add_host_path "/MyApplications/dev/lisp/Racket/bin"
+fi
 
+export BREW_CASK_OPTS='--appdir=/MyApplications'
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_SANDBOX=1
 export HOMEBREW_AUTO_UPDATE_SECS=86400000
@@ -48,3 +46,9 @@ export HOMEBREW_NO_ANALYTICS=1
 
 # /usr/bin/ssh-add -K ~/.ssh/id_rsa
 # /usr/bin/ssh-add -A
+
+# I got tired of cleaning this up over and over
+if [ -d ~/Applications ]; then
+    rm ~/Applications/.localized
+    rmdir ~/Applications
+fi

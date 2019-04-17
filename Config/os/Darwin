@@ -3,6 +3,11 @@
 add_os_path ~/.rbenv/bin
 add_os_path ~/.rbenv/shims
 
+# needs to come after rbenv/shims to get my ruby
+add_os_path /Applications/Server.app/Contents/ServerRoot/usr/sbin
+add_os_path /Applications/Server.app/Contents/ServerRoot/usr/bin
+
+# needs to be DEAD LAST to allow the above to override apache+ruby+etc.
 add_os_path "/usr/local/sbin"
 add_os_path "/usr/local/bin"
 add_os_path "/sbin"
@@ -12,10 +17,6 @@ add_os_path "/usr/bin"
 
 if [ -d /usr/X11R6 -a ! -e /usr/X11R6/bin/xstub ]; then
     add_os_path "/usr/X11R6/bin"
-fi
-
-if [ -d /MyApplications/dev/lisp/Racket/bin ]; then
-    add_os_path "/MyApplications/dev/lisp/Racket/bin"
 fi
 
 # Removing PATH from this eval and adding it manually to force my ordering
