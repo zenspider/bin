@@ -73,9 +73,17 @@ else
   bad  = all.select { |_, t| not good.include? t }
 
   if $d then
-    deleted = File.unlink(*bad.map(&:first))
+    bad = bad.map(&:first)
 
-    puts "Deleted #{deleted} files"
+    bad_files, bad_dirs = bad.partition { |f| File.file? f }
+
+    deleted = File.unlink(*bad_files)
+
+    puts "Deleted #{deleted} files" unless deleted.zero?
+
+    FileUtils.rm_r bad_dirs
+
+    puts "Deleted #{bad_dirs.size} directories"
   else
     puts "Deleted #{bad.size} files (no-op)"
     puts
