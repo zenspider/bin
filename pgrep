@@ -5,4 +5,4 @@ $stdout.sync = true
 pattern = ARGV.shift
 pattern = "(#{pattern})" unless pattern =~ /\(.+\)/
 
-ARGF.each_line.grep(/#{pattern}/o) { puts $1 }
+ARGF.each_line.grep(/#{pattern}/o) { puts $1 || $& }
