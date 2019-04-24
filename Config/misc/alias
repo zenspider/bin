@@ -255,7 +255,6 @@ fff () {
 alias f="fff -f"
 alias d="fff -d"
 alias c="fff -c"
-alias e="fff -f -e 'emacsclient -n'"
 
 mdf () {
     mdfind -onlyin . "$@"
