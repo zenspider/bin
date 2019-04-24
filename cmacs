@@ -1,0 +1,11 @@
+#!/bin/sh
+
+for dir in Applications MyApplications; do
+    bin=/$dir/Emacs.app/Contents/MacOS/Emacs
+    if [ -x $bin ]; then
+        exec $bin $*
+    fi
+done
+
+echo "Couldn't find an emacs GUI to run"
+exit 1
