@@ -1,0 +1,29 @@
+# -*- sh -*-
+
+rb_25=$(cd ~/.rbenv/versions; ls -d 2.5* | tail -1)
+rb_26=$(cd ~/.rbenv/versions; ls -d 2.6* | tail -1)
+
+alias gem25=~/.rbenv/versions/$rb_25/bin/gem
+alias irb25=~/.rbenv/versions/$rb_25/bin/irb
+alias rake25=~/.rbenv/versions/$rb_25/bin/rake
+alias ri25=~/.rbenv/versions/$rb_25/bin/ri
+alias ruby25=~/.rbenv/versions/$rb_25/bin/ruby
+
+alias gem26=~/.rbenv/versions/$rb_26/bin/gem
+alias irb26=~/.rbenv/versions/$rb_26/bin/irb
+alias rake26=~/.rbenv/versions/$rb_26/bin/rake
+alias ri26=~/.rbenv/versions/$rb_26/bin/ri
+alias ruby26=~/.rbenv/versions/$rb_26/bin/ruby
+
+export BREW_CASK_OPTS='--appdir=/MyApplications'
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_SANDBOX=1
+export HOMEBREW_AUTO_UPDATE_SECS=86400000
+export HOMEBREW_NO_INSTALL_CLEANUP=1
+export HOMEBREW_NO_ANALYTICS=1
+
+# I got tired of cleaning this up over and over
+if [ -d ~/Applications ]; then
+    rm ~/Applications/.localized
+    rmdir ~/Applications
+fi
