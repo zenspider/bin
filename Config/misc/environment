@@ -56,11 +56,7 @@ case $- in
   PS4='$0@$LINENO: '
   HISTCONTROL=ignoredups
   
-  if [ ! -z ${DISPLAY-} ] ; then
-    export EDITOR="~/Bin/e"
-  else
-    export EDITOR=emacs
-  fi
+  export EDITOR="~/Bin/e"
 
   if test ${TERM-} = "emacs" -o ${TERM-} = "dumb" ; then
     export PAGER=cat
