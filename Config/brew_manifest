@@ -27,24 +27,27 @@ brew "automake"                                    # for C dev
 brew "cloc"                                        # code analysis
 brew "cproto"                                      # generate / clean headers
 brew "ctags"                                       # tag ruby and lisp
-brew "exercism"                                    # fun, but not terribly useful
 brew "git"                                         # git. duh.
 brew "heroku"                                      # deployment and debugging
 cask "perforce"                                    # perforce... duh
 brew "hub"                                         # most useful git extension
 brew "jq"                                          # grep json
+brew "gist"                                        # cmdline gist w/ 2FA support
+
+host "wrath" do
+brew "exercism"                                    # fun, but not terribly useful
+brew "libyaml"                                     # for rbenv rubies
 brew "postgresql"                                  # fat db of choice
 brew "regex-opt"                                   # helps craft regexps
-brew "libyaml"                                     # for rbenv rubies
-brew "gist"                                        # cmdline gist w/ 2FA support
+end
 
 ## graphics
 
-brew "freeimage"                                   # really just for image_science
 brew "graphviz"                                    # maddening but useful graphs
 
 host "wrath" do
-brew "sdl2"
+brew "freeimage"                                   # really just for image_science
+brew "sdl2"                                        # needed for graphics gem
 brew "sdl2_image", args: %w[without-webp]          # needed for graphics gem
 brew "sdl2_mixer"                                  # needed for graphics gem
 brew "sdl2_ttf"                                    # needed for graphics gem
@@ -53,14 +56,17 @@ end
 
 ## networking
 
-brew "aria2"                                       # torrents on the go
 brew "mobile-shell"                                # good for ssh in cafe
 brew "mtr"                                         # diagnose bad networks
 brew "nmap"                                        # scan machines
+brew "w3m"                                         # emacs web browser
+
+host "wrath" do
+brew "aria2"                                       # torrents on the go
 brew "tidy-html5"                                  # helps me sanitize html
 brew "linklint"                                    # to check my website
 brew "visitors"                                    # scan httpd logs
-brew "w3m"                                         # emacs web browser
+end
 
 ## experimenting
 
@@ -78,11 +84,13 @@ end
 
 ## casks:
 
+host "wrath" do
 cask "handbrakecli"
 cask "subler"
 cask "sublercli"
 cask "handbrake"
 cask "emacs"
+end
 
 host "greed", "envy" do
   tap "zenspider/mailman"
@@ -96,4 +104,10 @@ host "greed", "envy" do
   brew "python"                                    # for certs & mailman
   brew "znc"                                       # for IRC proxy
   brew "swaks"                                     # for testing email servers
+end
+
+host "chef-zenspider" do
+  # brew tap "chef/okta_aws"
+  brew "rbenv"
+  cask "kitematic"
 end
