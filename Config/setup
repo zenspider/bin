@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/bin/bash
 
 cmd=$(basename "$0")
 dir=$(dirname  "$0")
@@ -22,8 +22,7 @@ for l in bash_login bash_profile profile; do
     ln -s bashrc $l
 done
 
-rm -f *~ emacs xinitrc ~/.ssh/config
-ln -s xsession xinitrc
+rm -f *~ emacs xinitrc
 
 if [ ! -d ~/.ssh ]; then
     mkdir ~/.ssh
@@ -62,8 +61,3 @@ for f in $( ls ) ; do
 done
 
 create_link ~/Bin/elisp emacs.el
-
-# rm -f ~/.forward ~/.mailfilter
-# ln forward ~/.forward
-# ln mailfilter ~/.mailfilter
-# chmod og-rw ~/.forward ~/.mailfilter
