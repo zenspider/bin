@@ -6,9 +6,6 @@ tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
 
-# brew untap homebrew/cask-versions
-# brew untap homebrew/versions
-
 ## utilities
 
 brew "afsctool"                                    # transparent compression
@@ -35,10 +32,10 @@ brew "jq"                                          # grep json
 brew "gist"                                        # cmdline gist w/ 2FA support
 
 host "wrath" do
-brew "exercism"                                    # fun, but not terribly useful
-brew "libyaml"                                     # for rbenv rubies
-brew "postgresql"                                  # fat db of choice
-brew "regex-opt"                                   # helps craft regexps
+  brew "exercism"                                  # fun, but not terribly useful
+  brew "libyaml"                                   # for rbenv rubies
+  brew "postgresql"                                # fat db of choice
+  brew "regex-opt"                                 # helps craft regexps
 end
 
 ## graphics
@@ -46,12 +43,12 @@ end
 brew "graphviz"                                    # maddening but useful graphs
 
 host "wrath" do
-brew "freeimage"                                   # really just for image_science
-brew "sdl2"                                        # needed for graphics gem
-brew "sdl2_image", args: %w[without-webp]          # needed for graphics gem
-brew "sdl2_mixer"                                  # needed for graphics gem
-brew "sdl2_ttf"                                    # needed for graphics gem
-brew "sdl2_gfx"                                    # needed for graphics gem
+  brew "freeimage"                                 # really just for image_science
+  brew "sdl2"                                      # needed for graphics gem
+  brew "sdl2_image", args: %w[without-webp]        # needed for graphics gem
+  brew "sdl2_mixer"                                # needed for graphics gem
+  brew "sdl2_ttf"                                  # needed for graphics gem
+  brew "sdl2_gfx"                                  # needed for graphics gem
 end
 
 ## networking
@@ -62,34 +59,34 @@ brew "nmap"                                        # scan machines
 brew "w3m"                                         # emacs web browser
 
 host "wrath" do
-brew "aria2"                                       # torrents on the go
-brew "tidy-html5"                                  # helps me sanitize html
-brew "linklint"                                    # to check my website
-brew "visitors"                                    # scan httpd logs
+  brew "aria2"                                     # torrents on the go
+  brew "tidy-html5"                                # helps me sanitize html
+  brew "linklint"                                  # to check my website
+  brew "visitors"                                  # scan httpd logs
 end
 
 ## experimenting
 
 host "wrath" do
-cask "qlcolorcode"                                 # syntax highlight for quicklook
-brew "ffmpeg"
-brew "media-info"
-brew "brightness"
-brew "highlight"                                   # quicklook dependency
-brew "rbspy"                                       # interesting ruby profiler?
-brew "swiftlint"                                   # check swift code. PITA
-brew "tcc"                                         # TODO: cute, but maddening.
-brew "entr"                                        # experimental event runner
+  cask "qlcolorcode"                               # syntax highlight for quicklook
+  brew "ffmpeg"
+  brew "media-info"
+  brew "brightness"
+  brew "highlight"                                 # quicklook dependency
+  brew "rbspy"                                     # interesting ruby profiler?
+  brew "swiftlint"                                 # check swift code. PITA
+  brew "tcc"                                       # TODO: cute, but maddening.
+  brew "entr"                                      # experimental event runner
 end
 
 ## casks:
 
 host "wrath" do
-cask "handbrakecli"
-cask "subler"
-cask "sublercli"
-cask "handbrake"
-cask "emacs"
+  cask "handbrakecli"
+  cask "subler"
+  cask "sublercli"
+  cask "handbrake"
+  cask "emacs"
 end
 
 host "greed", "envy" do
