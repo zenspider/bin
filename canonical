@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby -w
+
+ARGV.each do |path|
+  puts File.realpath path
+end
