@@ -1,43 +1,38 @@
-#!/usr/bin/env ruby -wns
+#!/usr/bin/env ruby -wn
 
-$m ||= false
-$v ||= false
-
-# Adds the input and prints out the sum at the end
-
-BEGIN {
-  module Enumerable
-    def mean
-      sum / length
-    end
-
-    def sample_variance
-      m = mean
-      sum = inject(0.0) { |accum, i| accum + (i - m) ** 2 }
-      sum / (length - 1)
-    end
-
-    def standard_deviation
-      Math.sqrt sample_variance
-    end
+module Enumerable
+  def mean
+    sum / length
   end
 
-  $total = 0.0
-  $count = 0
-  $values = []
+  def sample_variance
+    m = mean
+    sum = sum(0.0) { |i| (i - m) ** 2 }
+    sum / (length - 1)
+  end
 
-  $stdout.sync = true
-}
-
-if $_ =~ /^\s*([-\d\.]+)/ then
-  $values << $1.to_f
-  $total += $1.to_f
-  $count += 1
-
-  print "sum=%0.6f mean=%0.6f sd=%0.6f" % [$values.sum, $values.mean, $values.standard_deviation]
-  print "\r"
+  def stddev
+    Math.sqrt sample_variance
+  end
 end
 
-END {
-  puts
-}
+FMT1 = "\rcount = %4d sum = %9.3f mean = %9.3f sd = %9.3f"
+FMT2 = "%-5s = %9.3f"
+
+values = []
+
+ARGF.each_line do |line|
+  if line =~ /^\s*([-\d\.]+)/ then
+    values << $1.to_f
+
+    print FMT1 % [values.size, values.sum, values.mean, values.stddev]
+  end
+end
+
+print "\r"
+print " " * 50
+print "\r"
+puts FMT2 % ["sum",   values.sum]
+puts FMT2 % ["mean",  values.mean]
+puts FMT2 % ["sd",    values.stddev]
+puts FMT2 % ["count", values.size]
