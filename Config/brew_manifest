@@ -25,11 +25,13 @@ brew "cloc"                                        # code analysis
 brew "cproto"                                      # generate / clean headers
 brew "ctags"                                       # tag ruby and lisp
 brew "git"                                         # git. duh.
+brew "git-absorb"                                  # git game changer
 brew "heroku"                                      # deployment and debugging
 cask "perforce"                                    # perforce... duh
 brew "hub"                                         # most useful git extension
 brew "jq"                                          # grep json
 brew "gist"                                        # cmdline gist w/ 2FA support
+brew "entr"                                        # experimental event runner
 
 host "wrath" do
   brew "exercism"                                  # fun, but not terribly useful
@@ -76,7 +78,6 @@ host "wrath" do
   brew "rbspy"                                     # interesting ruby profiler?
   brew "swiftlint"                                 # check swift code. PITA
   brew "tcc"                                       # TODO: cute, but maddening.
-  brew "entr"                                      # experimental event runner
 end
 
 ## casks:
@@ -107,4 +108,5 @@ host "chef-zenspider" do
   # brew tap "chef/okta_aws"
   brew "rbenv"
   cask "kitematic"
+  cask "vagrant"
 end
