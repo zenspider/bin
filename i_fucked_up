@@ -10,7 +10,7 @@ ARGV.each do |path|
 
   to_compare = []
 
-  dirs.each do |dir|
+  dirs.sort.reverse_each do |dir|
     date = File.basename dir
 
     glob = File.join(dir,
@@ -18,10 +18,11 @@ ARGV.each do |path|
                      Dir.pwd,
                      path)
 
-    Dir[glob].each do |file|
+    Dir[glob].sort.reverse_each do |file|
       name = File.basename file
       target = "#{name}.#{date}"
       to_compare << target
+      warn target
       system "cp \"#{file}\" \"#{target}\""
     end
   end
