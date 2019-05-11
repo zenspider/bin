@@ -66,5 +66,8 @@
   required = true
 [branch]
 	autosetupmerge = true
+	autosetuprebase = always
 [fetch]
 	recurseSubmodules = true
+[pull]
+	rebase = true
