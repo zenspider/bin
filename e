@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# if [[ -v INSIDE_EMACS ]]; then
+#     export EDITOR="emacsclient"
+# else
+#     # Regular shell
+#     export EDITOR="emacsclient -t"
+# fi
+
 case `uname` in
     Darwin )
         DIR=/MyApplications/Emacs.app/Contents/MacOS
