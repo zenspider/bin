@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby -w
+
+require "rbconfig"
+
+begin
+  ARGF.each_line do |line|
+    puts line.gsub(/#{Dir.pwd}/o, ".").
+      gsub(/#{RbConfig::CONFIG["rubylibdir"]}/o, "RUBYLIB").
+      gsub(/#{RbConfig::CONFIG["sitedir"]}/o, "RUBYSITE")
+  end
+rescue Exception
+  warn ""
+  warn "Interrupted... done"
+  abort "done"
+  exit(74)
+end
