@@ -3,6 +3,7 @@
 # oh god do I hate tooltips
 defaults write -g NSInitialToolTipDelay -int 30000
 
+defaults write .GlobalPreferences AppleTextBreakLocale en_US_POSIX
 defaults write com.apple.dock pinning -string start
 defaults write com.apple.dock autohide -boolean YES
 defaults write com.apple.dock no-glass -boolean YES
