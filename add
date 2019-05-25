@@ -18,6 +18,7 @@ end
 
 FMT1 = "\rcount = %4d sum = %9.3f mean = %9.3f sd = %9.3f"
 FMT2 = "%-5s = %9.3f"
+FMT3 = "%-5s = %5d"
 
 values = []
 
@@ -33,6 +34,6 @@ print "\r"
 print " " * 50
 print "\r"
 puts FMT2 % ["sum",   values.sum]
+puts FMT3 % ["count", values.size]
 puts FMT2 % ["mean",  values.mean]
 puts FMT2 % ["sd",    values.stddev]
-puts FMT2 % ["count", values.size]
