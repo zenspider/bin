@@ -1,13 +1,15 @@
 #!/usr/bin/env ruby -w
 
 require "rbconfig"
+require "tmpdir"
 
 begin
   ARGF.each_line do |line|
     puts line.gsub(/#{Dir.pwd}/o, ".").
       gsub(/#{RbConfig::CONFIG["rubylibdir"]}/o, "RUBYLIB").
       gsub(/#{RbConfig::CONFIG["sitedir"]}/o, "RUBYSITE").
-      gsub(/#{Gem.dir}.gems/o, "GEMS")
+      gsub(/#{Gem.dir}.gems/o, "GEMS").
+      gsub(/#{Dir.tmpdir}/o, "TMPDIR")
   end
 rescue Exception
   warn ""
