@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby -w
 
 Dir.chdir(File.expand_path("~/Downloads")) do
   system "ruby sync.rb push"
