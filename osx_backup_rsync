@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby -w
 
+require "shellwords"
+
 name = `hostname -s`.chomp
 
 extra = ARGV.dup
@@ -23,7 +25,10 @@ Dir.chdir base
 
 args = %W[find  ( -name .DS_Store -o -name *~ ) -print -delete]
 args[1,0] = dirs
-system(*args)
+cmd = "#{args.shelljoin} 2> /dev/null"
+
+puts cmd
+system cmd
 
 del = if extra.grep(/del/).empty? then
         "--del"
@@ -36,6 +41,7 @@ cmd = ["rsync", flags, del, extra,
        "--include", ".svn",
 
        "--delete-excluded",
+
        "--exclude", "tmp",
        "--exclude", ".DS_Store",
        "--exclude", "*~",
@@ -48,6 +54,8 @@ cmd = ["rsync", flags, del, extra,
        "--exclude", "*.dbf", # maglev files
        "--exclude", "gauntlet\*.noindex\*",
        "--exclude", "\*.ofocus-backup",
+       "--exclude", "Keychains",
+       "--exclude", "com.apple.LaunchServices",
        dirs,
        "rsync:backups/#{name}"].flatten.compact
 
