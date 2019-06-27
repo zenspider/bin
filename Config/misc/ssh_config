@@ -1,22 +1,17 @@
 # -*- conf-space -*-
 
 Host *
-	AddKeysToAgent yes
-	ForwardAgent yes
-	CheckHostIP yes
-	Protocol 2
-	GSSAPIAuthentication no
-	#ControlMaster auto
-	#ControlPath ~/.ssh/master-%C
-        #ControlPersist 1h
+  IdentityFile ~/.ssh/id_rsa
+  UseKeychain yes
+  AddKeysToAgent yes
+  ForwardAgent yes
+  CheckHostIP yes
 
 Host g
 	Hostname greed.zenspider.com
 	User ryan
 	ControlMaster auto
 	ControlPath ~/.ssh/master-%C
-        #IdentityFile ~/.ssh/id_dsa
-        #IdentitiesOnly yes
 
 Host github.com
   IdentityFile ~/.ssh/passwordless
