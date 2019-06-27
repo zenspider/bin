@@ -75,7 +75,6 @@ host "wrath" do
   brew "media-info"
   brew "brightness"
   brew "highlight"                                 # quicklook dependency
-  brew "rbspy"                                     # interesting ruby profiler?
   brew "swiftlint"                                 # check swift code. PITA
   brew "tcc"                                       # TODO: cute, but maddening.
 end
