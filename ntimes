@@ -2,7 +2,12 @@
 
 N=$1; shift;
 CMD="$@"
+BAD=0
 
 for n in $(jot $N 1); do
-    $CMD
+    if ! $CMD ; then
+        BAD=$(($BAD + 1))
+    fi
 done
+
+echo "BAD = $BAD"
