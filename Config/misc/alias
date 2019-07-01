@@ -215,10 +215,6 @@ dict () {
     egrep -i "$@" /usr/share/dict/words
 }
 
-qmacs () {
-    emacs -q --eval "(setq frame-background-mode 'dark)" "$@"
-}
-
 ############################################################
 # General Functions:
 ############################################################
