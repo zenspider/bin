@@ -81,13 +81,18 @@ end
 
 ## casks:
 
-host "wrath" do
+host "wrath" do # my main laptop
+  cask "emacs"
+  cask "handbrake"
   cask "handbrakecli"
+  cask "makemkv"
   cask "subler"
   cask "sublercli"
-  cask "handbrake"
-  cask "emacs"
 end
+
+## Combinations:
+
+### my server and main laptop
 
 host "greed", "envy" do
   tap "zenspider/mailman"
@@ -103,9 +108,18 @@ host "greed", "envy" do
   brew "swaks"                                     # for testing email servers
 end
 
+### my work machine
+
 host "chef-zenspider" do
   # brew tap "chef/okta_aws"
   brew "rbenv"
   cask "kitematic"
   cask "vagrant"
+end
+
+### my dev machines
+
+host "wrath", "chef-zenspider" do
+  tap "suin/suin"
+  brew "git-remind"
 end
