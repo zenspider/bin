@@ -39,8 +39,7 @@ class Omnifocus
   def run type, args = ARGV
     title, what, where, order = self.send "#{type}_cmd", args
 
-    where = "(pi.folderEffectiveActive IS NULL OR pi.folderEffectiveActive = 1)
-      AND (pi.status IS NULL OR pi.status = 'active')
+    where = "(pi.status IS NULL OR pi.status = 'active')
       AND #{where}"
 
     results = runsql what, where, order
