@@ -4,16 +4,9 @@ export PGDATA=/usr/local/var/postgres
 
 export MT_NO_ISOLATE=1
 
-rb_23=$(cd ~/.rbenv/versions; ls -d 2.3* | tail -1)
 rb_24=$(cd ~/.rbenv/versions; ls -d 2.4* | tail -1)
 rb_25=$(cd ~/.rbenv/versions; ls -d 2.5* | tail -1)
 rb_26=$(cd ~/.rbenv/versions; ls -d 2.6* | tail -1)
-
-alias gem23=~/.rbenv/versions/$rb_23/bin/gem
-alias irb23=~/.rbenv/versions/$rb_23/bin/irb
-alias rake23=~/.rbenv/versions/$rb_23/bin/rake
-alias ri23=~/.rbenv/versions/$rb_23/bin/ri
-alias ruby23=~/.rbenv/versions/$rb_23/bin/ruby
 
 alias gem24=~/.rbenv/versions/$rb_24/bin/gem
 alias irb24=~/.rbenv/versions/$rb_24/bin/irb
