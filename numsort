@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby -ws
+
+$r ||= false
+
+class Array
+  def human_sort
+    sort_by { |item| item.to_s.split(/(\d+)/).map { |e| [e.to_i, e] } }
+  end
+end
+
+res = ARGF.readlines.human_sort
+res = res.reverse if $r
+puts res
