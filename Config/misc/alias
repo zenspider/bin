@@ -219,10 +219,6 @@ dict () {
 # General Functions:
 ############################################################
 
-ff () {
-    find . -name .svn -prune -o -type f -print0 | xargs -0 egrep "$@"
-}
-
 fff () {
     c=
     e=
@@ -247,7 +243,7 @@ fff () {
         cd $(find . $type -print0 | egrep -z "$@" | head -1)
         echo $PWD
     elif [ -z "$e" ]; then
-        find . $type | egrep "$@"
+        find . $type | egrep "$@" | sort -fd
     else
         find . $type -print0 | egrep -zZ "$@" | xargs -0 $e
     fi
