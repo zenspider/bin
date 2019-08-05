@@ -11,12 +11,12 @@ case `uname` in
     Darwin )
         DIR=/MyApplications/Emacs.app/Contents/MacOS
         if [ -d $DIR ]; then
-            $DIR/bin/emacsclient -n -a cmacs "$@"
+            $DIR/bin/emacsclient -a cmacs "$@"
         else
-            emacsclient -n -a cmacs "$@"
+            emacsclient -a cmacs "$@"
         fi
 	    ;;
     *)
-        emacsclient -n -a emacs "$@"
+        emacsclient -a emacs "$@"
         ;;
 esac
