@@ -82,7 +82,6 @@ end
 ## casks:
 
 host "wrath" do # my main laptop
-  cask "emacs"
   cask "handbrake"
   cask "handbrakecli"
   cask "makemkv"
@@ -111,8 +110,7 @@ end
 ### my work machine
 
 host "chef-zenspider" do
-  # brew tap "chef/okta_aws"
-  brew "rbenv"
+  brew "rbenv" # not sure I like this via brew
   cask "kitematic"
   cask "vagrant"
 end
@@ -120,6 +118,7 @@ end
 ### my dev machines
 
 host "wrath", "chef-zenspider" do
+  cask "emacs"
   tap "suin/suin"
   brew "git-remind"
 end
