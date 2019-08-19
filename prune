@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby -ws
 
+$q ||= false
 $d ||= false
 
 require "date"
@@ -79,11 +80,11 @@ else
 
     deleted = File.unlink(*bad_files)
 
-    puts "Deleted #{deleted} files" unless deleted.zero?
+    puts "Deleted #{deleted} files" unless deleted.zero? unless $q
 
     FileUtils.rm_r bad_dirs
 
-    puts "Deleted #{bad_dirs.size} directories"
+    puts "Deleted #{bad_dirs.size} directories" unless $q
   else
     puts "Deleted #{bad.size} files (no-op)"
     puts
