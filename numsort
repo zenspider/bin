@@ -1,10 +1,12 @@
 #!/usr/bin/env ruby -ws
 
 $r ||= false
+$h ||= false
 
 class Array
   def human_sort
-    sort_by { |item| item.to_s.split(/(\d+)/).map { |e| [e.to_i, e] } }
+    base = $h ? 16 : 10
+    sort_by { |item| item.to_s.split(/(\d+)/).map { |e| [e.to_i(base), e] } }
   end
 end
 
