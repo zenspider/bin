@@ -30,8 +30,10 @@ ARGF.each_line do |line|
   end
 end
 
+final = FMT1 % [values.size, values.sum, values.mean, values.stddev]
+
 print "\r"
-print " " * 50
+print " " * final.length
 print "\r"
 puts FMT2 % ["sum",   values.sum]
 puts FMT3 % ["count", values.size]
