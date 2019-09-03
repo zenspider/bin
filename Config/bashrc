@@ -52,7 +52,7 @@ add_os_path () {
     fi
 }
 
-export DOMAIN=$(hostname | /usr/bin/perl -pe 's/^.*?([^\.]+\.[^\.]+)$/$1/;')
+export DOMAIN=$(hostname -f | cut -f2- -d.)
 export HOSTNAME=$(hostname -s)
 
 for f in $CONFIG/os/$(uname) $CONFIG/domain/$DOMAIN $CONFIG/host/$HOSTNAME $CONFIG/misc/environment; do
