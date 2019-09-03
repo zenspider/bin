@@ -1,9 +1,5 @@
 # -*- sh -*-
 
-add_os_path ~/.rbenv/bin
-add_os_path ~/.rbenv/shims
-
-# needs to come after rbenv/shims to get my ruby
 if [ -d /Applications/Server.app ]; then
     add_os_path /Applications/Server.app/Contents/ServerRoot/usr/sbin
     add_os_path /Applications/Server.app/Contents/ServerRoot/usr/bin
@@ -20,9 +16,6 @@ add_os_path "/usr/bin"
 if [ -d /usr/X11R6 -a ! -e /usr/X11R6/bin/xstub ]; then
     add_os_path "/usr/X11R6/bin"
 fi
-
-# Removing PATH from this eval and adding it manually to force my ordering
-eval "$(~/.rbenv/bin/rbenv init - --no-rehash | grep -v PATH)"
 
 EMACS="/MyApplications/Emacs.app/Contents/MacOS"
 alias emacsclient="$EMACS/bin/emacsclient"

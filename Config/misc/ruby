@@ -1,0 +1,33 @@
+# -*- sh -*-
+
+export MT_NO_ISOLATE=1
+
+rb_dir=~/.rubies
+
+rb_24=$(cd $rb_dir; ls -d *2.4* | sort -n | tail -1)
+rb_25=$(cd $rb_dir; ls -d *2.5* | sort -n | tail -1)
+rb_26=$(cd $rb_dir; ls -d *2.6* | sort -n | tail -1)
+gem_dir=$(ls -d ~/.gem/ruby/* | sort -n | tail -1)
+
+alias gem24=$rb_dir/$rb_24/bin/gem
+alias irb24=$rb_dir/$rb_24/bin/irb
+alias rake24=$rb_dir/$rb_24/bin/rake
+alias ri24=$rb_dir/$rb_24/bin/ri
+alias ruby24=$rb_dir/$rb_24/bin/ruby
+
+alias gem25=$rb_dir/$rb_25/bin/gem
+alias irb25=$rb_dir/$rb_25/bin/irb
+alias rake25=$rb_dir/$rb_25/bin/rake
+alias ri25=$rb_dir/$rb_25/bin/ri
+alias ruby25=$rb_dir/$rb_25/bin/ruby
+
+alias gem26=$rb_dir/$rb_26/bin/gem
+alias irb26=$rb_dir/$rb_26/bin/irb
+alias rake26=$rb_dir/$rb_26/bin/rake
+alias ri26=$rb_dir/$rb_26/bin/ri
+alias ruby26=$rb_dir/$rb_26/bin/ruby
+
+add_host_path "${gem_dir}/bin" # TODO: question this
+add_host_path "/Users/ryan/.rubies/${rb_26}/bin"
+
+unset rb_dir gem_dir rb_24 rb_25 rb_26

@@ -2,29 +2,7 @@
 
 export PGDATA=/usr/local/var/postgres
 
-export MT_NO_ISOLATE=1
-
-rb_24=$(cd ~/.rbenv/versions; ls -d 2.4* | tail -1)
-rb_25=$(cd ~/.rbenv/versions; ls -d 2.5* | tail -1)
-rb_26=$(cd ~/.rbenv/versions; ls -d 2.6* | tail -1)
-
-alias gem24=~/.rbenv/versions/$rb_24/bin/gem
-alias irb24=~/.rbenv/versions/$rb_24/bin/irb
-alias rake24=~/.rbenv/versions/$rb_24/bin/rake
-alias ri24=~/.rbenv/versions/$rb_24/bin/ri
-alias ruby24=~/.rbenv/versions/$rb_24/bin/ruby
-
-alias gem25=~/.rbenv/versions/$rb_25/bin/gem
-alias irb25=~/.rbenv/versions/$rb_25/bin/irb
-alias rake25=~/.rbenv/versions/$rb_25/bin/rake
-alias ri25=~/.rbenv/versions/$rb_25/bin/ri
-alias ruby25=~/.rbenv/versions/$rb_25/bin/ruby
-
-alias gem26=~/.rbenv/versions/$rb_26/bin/gem
-alias irb26=~/.rbenv/versions/$rb_26/bin/irb
-alias rake26=~/.rbenv/versions/$rb_26/bin/rake
-alias ri26=~/.rbenv/versions/$rb_26/bin/ri
-alias ruby26=~/.rbenv/versions/$rb_26/bin/ruby
+. $CONFIG/misc/ruby
 
 if [ -d /MyApplications/dev/lisp/Racket/bin ]; then
     add_host_path "/MyApplications/dev/lisp/Racket/bin"
