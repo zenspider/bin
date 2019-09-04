@@ -125,6 +125,4 @@ end
 
 host "wrath", "chef-zenspider" do
   cask "emacs"
-  tap "suin/suin"
-  brew "git-remind"
 end
