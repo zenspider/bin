@@ -13,6 +13,11 @@ Host g
 	ControlMaster auto
 	ControlPath ~/.ssh/master-%C
 
+# tunnel to home personal laptop via server
+Host gw
+  HostName wrath.local
+  ProxyCommand ssh -W %h:%p g
+
 Host github.com
   IdentityFile ~/.ssh/passwordless
 
