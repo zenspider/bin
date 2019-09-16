@@ -8,15 +8,8 @@
   excludesfile = /Users/ryan/.gitignore_global
   quotepath    = false
 [alias]
-  spull     = svn rebase
-  spullall  = svn fetch
-  sfetch    = svn fetch
-  spush     = svn dcommit
-  sclone    = svn clone -s --prefix=svn/ 
-  sdiff     = diff svn/trunk
   st        = status -uno
   sta       = status
-  ci        = commit
   down      = pull --rebase
   onup      = push
   up        = push
@@ -24,13 +17,17 @@
   l         = log --abbrev-commit --pretty=oneline
   loggrep   = log -S
   skinny    = !"git gc; git repack -Ad; git prune"
+  new-pr    = !"hub pull-request --no-edit -o"
   topic     = checkout -t -b
+  sha       = rev-parse --short
   prune     = remote update --prune
   sweep     = !git branch -r --merged | grep -v master | sed \"s/origin\\///\" | xargs -n 1 echo git push --delete origin
   s         = status -sb
+  name      = !"git symbolic-ref HEAD | cut -f3- -d/"
   run       = !"git rev-list --reverse --abbrev-commit master | while read -r SHA ; do git checkout --quiet $SHA; echo SHA=$SHA; "$@"; done; git checkout --quiet master; true"
   runv      = !"git rev-list --reverse --abbrev-commit master | while read -r SHA ; do git checkout --quiet $SHA; echo ===; git show -s --oneline $SHA; echo; $@; echo; done; git checkout --quiet master; true"
   churn     = !"git log --all -M -C --name-only --format='format:' "$@" | sort | grep -v '^$' | uniq -c | sort | awk 'BEGIN {print "count\tfile"} {print $1 "\t" $2}' | sort -g"
+  unrebase  = reset --hard ORIG_HEAD
 
 # remove locals that have already been pruned remotely
 # git remote update --prune
@@ -71,3 +68,9 @@
 	recurseSubmodules = true
 [pull]
 	rebase = true
+[absorb]
+        maxStack=20
+[gc]
+	auto = 256
+[remind]
+	paths = /Users/ryan/Work/git/zenspider/*,/Users/ryan/Work/seattlerb/*,/Users/ryan/Work/searbsg/*,/Users/ryan/Work/git/chef/*,/Users/ryan/Work/git/inspec/*
