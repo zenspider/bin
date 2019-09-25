@@ -15,7 +15,7 @@ rm -f ~/Bin; ln -s "$PWD" ~/Bin
 
 cd $dir
 
-p=$(perl -e 'use Cwd; $cwd = cwd(); $cwd =~ s|^/tmp_mnt||; print $cwd;')
+p=$(ruby -e 'puts Dir.pwd.delete_prefix("/tmp_mnt")')
 
 for l in bash_login bash_profile profile; do
     rm -f $l
