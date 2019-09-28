@@ -4,6 +4,7 @@ export MT_NO_ISOLATE=1
 
 rb_dir=~/.rubies
 
+rb_23=$(cd $rb_dir; ls -d *2.3* | sort -n | tail -1)
 rb_24=$(cd $rb_dir; ls -d *2.4* | sort -n | tail -1)
 rb_25=$(cd $rb_dir; ls -d *2.5* | sort -n | tail -1)
 rb_26=$(cd $rb_dir; ls -d *2.6* | sort -n | tail -1)
@@ -12,6 +13,12 @@ gem_dir=
 if [ -d ~/.gem/ruby/* ]; then
     gem_dir=$(ls -d ~/.gem/ruby/* | sort -n | tail -1)
 fi
+
+alias gem23=$rb_dir/$rb_23/bin/gem
+alias irb23=$rb_dir/$rb_23/bin/irb
+alias rake23=$rb_dir/$rb_23/bin/rake
+alias ri23=$rb_dir/$rb_23/bin/ri
+alias ruby23=$rb_dir/$rb_23/bin/ruby
 
 alias gem24=$rb_dir/$rb_24/bin/gem
 alias irb24=$rb_dir/$rb_24/bin/irb
