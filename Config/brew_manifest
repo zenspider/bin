@@ -32,7 +32,6 @@ brew "hub"                                         # most useful git extension
 brew "jq"                                          # grep json
 brew "gist"                                        # cmdline gist w/ 2FA support
 brew "entr"                                        # experimental event runner
-brew "ruby-install"                                # installer for ruby
 brew "gdbm"                                        # dependency for ruby-install
 brew "sqlite"                                      # dependency for ruby-install
 brew "bison"                                       # dependency for ruby-install
