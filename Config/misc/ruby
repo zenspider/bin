@@ -8,6 +8,7 @@ rb_23=$(cd $rb_dir; ls -d *2.3* | sort -n | tail -1)
 rb_24=$(cd $rb_dir; ls -d *2.4* | sort -n | tail -1)
 rb_25=$(cd $rb_dir; ls -d *2.5* | sort -n | tail -1)
 rb_26=$(cd $rb_dir; ls -d *2.6* | sort -n | tail -1)
+rb_27=$(cd $rb_dir; ls -d *tru* | sort -n | tail -1)
 
 gem_dir=
 if [ -d ~/.gem/ruby/* ]; then
@@ -38,9 +39,15 @@ alias rake26=$rb_dir/$rb_26/bin/rake
 alias ri26=$rb_dir/$rb_26/bin/ri
 alias ruby26=$rb_dir/$rb_26/bin/ruby
 
+alias gem27=$rb_dir/$rb_27/bin/gem
+alias irb27=$rb_dir/$rb_27/bin/irb
+alias rake27=$rb_dir/$rb_27/bin/rake
+alias ri27=$rb_dir/$rb_27/bin/ri
+alias ruby27=$rb_dir/$rb_27/bin/ruby
+
 if [ ! -z "$gem_dir" ]; then
     add_host_path "${gem_dir}/bin" # TODO: question this
 fi
 add_host_path "/Users/ryan/.rubies/${rb_26}/bin"
 
-unset rb_dir gem_dir rb_24 rb_25 rb_26
+unset rb_dir gem_dir rb_24 rb_25 rb_26 rb_27
