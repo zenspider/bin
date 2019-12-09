@@ -13,6 +13,12 @@ Host g
 	ControlMaster auto
 	ControlPath ~/.ssh/master-%C
 
+Host w
+	Hostname wrath.local
+	User ryan
+	ControlMaster auto
+	ControlPath ~/.ssh/master-%C
+
 # tunnel to home personal laptop via server
 Host gw
   HostName wrath.local
