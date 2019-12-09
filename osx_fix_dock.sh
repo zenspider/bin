@@ -36,7 +36,7 @@ echo "running sudo to set preferences and hostname"
 sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "Property of Ryan Davis - 206.999.9936"
 FULLNAME=wrath.zenspider.com
 sudo hostname $FULLNAME
-sudo scutil --set HostName $FULLNAME>
+sudo scutil --set HostName $FULLNAME
 
 sudo defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
