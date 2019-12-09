@@ -9,7 +9,7 @@ tap "homebrew/services"
 ## utilities
 
 brew "afsctool"                                    # transparent compression
-brew "aspell"                                      # emacs spellchecker
+cask "cocoaspell"                                  # emacs spellchecker
 brew "rdfind"                                      # clean out junk and nuke backups
 brew "rsync"                                       # file sync
 brew "ical-buddy"                                  # getting calendar items on my desktop
