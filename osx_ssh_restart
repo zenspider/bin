@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 rm -f ~/.ssh/master-ryan@envy.zenspider.com:22
 launchctl stop  com.zenspider.ssh-tunnel
