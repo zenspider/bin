@@ -35,6 +35,7 @@ brew "entr"                                        # experimental event runner
 brew "gdbm"                                        # dependency for ruby-install
 brew "sqlite"                                      # dependency for ruby-install
 brew "bison"                                       # dependency for ruby-install
+brew "shellcheck"                                  # trying to clean up my shit
 
 host "wrath" do
   brew "exercism"                                  # fun, but not terribly useful
