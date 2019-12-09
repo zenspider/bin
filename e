@@ -7,7 +7,7 @@
 #     export EDITOR="emacsclient -t"
 # fi
 
-case `uname` in
+case $(uname) in
     Darwin )
         DIR=/MyApplications/Emacs.app/Contents/MacOS
         if [ -d $DIR ]; then

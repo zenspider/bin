@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-function usage() {
+usage() {
     pgm=$(basename $0)
     echo "usage: $pgm login [shell]"
     exit 1

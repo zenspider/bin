@@ -2,27 +2,26 @@
 
 cmd=$(basename "$0")
 dir=$(dirname  "$0")
-cd "$dir"
+cd "$dir" || exit 1
 dir=$PWD
 bindir=$(dirname "$dir")
 
-echo cmd is $cmd
-echo dir is $dir
-echo bin is $bindir
-
-cd $bindir
+echo "cmd is $cmd"
+echo "dir is $dir"
+echo "bin is $bindir"
+cd "$bindir" || exit 1
 rm -f ~/Bin; ln -s "$PWD" ~/Bin
 
-cd $dir
+cd "$dir" || exit 1
 
 p=$(ruby -e 'puts Dir.pwd.delete_prefix("/tmp_mnt")')
 
 for l in bash_login bash_profile profile; do
-    rm -f $l
+    rm -f -- $l
     ln -s bashrc $l
 done
 
-rm -f *~ emacs xinitrc
+rm -f -- *~ emacs xinitrc
 
 if [ ! -d ~/.ssh ]; then
     mkdir ~/.ssh
@@ -38,24 +37,24 @@ create_link() {
   p=$1
   f=$2
 
-  if [ -L ~/.$f ]; then
-    echo Removing symlink ~/.$f
-    rm ~/.$f
+  if [ -L "$HOME/.$f" ]; then
+    echo "Removing symlink ~/.$f"
+    rm "$HOME/.$f"
   fi
   
-  if [ -f ~/.$f ]; then
-    echo Moving ~/.$f to ~/.$f.old
-    mv -f ~/.$f ~/.$f.old
+  if [ -f "$HOME/.$f" ]; then
+    echo "Moving ~/.$f to ~/.$f.old"
+    mv -f "$HOME/.$f" "$HOME/.$f".old
   fi
   
-  echo Linking $p/$f from ~/.$f
-  ln -s $p/$f ~/.$f
+  echo "Linking $p/$f from ~/.$f"
+  ln -s "$p/$f" "$HOME/.$f"
 }
 
-for f in $( ls ) ; do
-  if [ -f $f ]; then
-    if [ $f != $cmd ]; then
-      create_link $p $f
+for f in * ; do
+  if [ -f "$f" ]; then
+    if [ "$f" != "$cmd" ]; then
+      create_link "$p" "$f"
     fi
   fi
 done

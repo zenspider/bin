@@ -1,4 +1,4 @@
-# -*- sh -*-
+#!/usr/bin/bash
 # General Environment (ryand)
 
 #set -xv
@@ -11,7 +11,8 @@ export HISTSIZE=10000     # per session
 # Pathing:
 
 export OLDPATH=$PATH
-PATH=''
+# shellcheck disable=SC2123
+PATH=""
 MYPATH=~/Bin:${HOSTPATH-}:${DOMAINPATH-}:${OSPATH-}
 
 shopt -qs extglob
@@ -30,7 +31,7 @@ for p in $MYPATH ; do
     fi
   else
     if [ -n "$p" ]; then
-      echo Path $p not found
+      echo "Path $p not found"
     fi
   fi
 done
@@ -45,7 +46,7 @@ shopt -s histappend
 # Other Global environment stuff:
 
 # Set program datasize to be the max
-ulimit -d $(ulimit -Hd)
+ulimit -d "$(ulimit -Hd)"
 
 case $- in
   
@@ -56,12 +57,12 @@ case $- in
   PS4='$0@$LINENO: '
   HISTCONTROL=ignoredups
   
-  export EDITOR="~/Bin/e"
+  export EDITOR="$HOME/Bin/e"
 
-  if test ${TERM-} = "emacs" -o ${TERM-} = "dumb" ; then
+  if test "${TERM-}" = "emacs" -o "${TERM-}" = "dumb" ; then
     export PAGER=cat
 
-    if [ -n ${INSIDE_EMACS:-} ]; then
+    if [ -n "${INSIDE_EMACS:-}" ]; then
         TERM=${TERM}-256color
     fi
   else

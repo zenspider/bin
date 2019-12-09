@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 for dir in Applications MyApplications; do
     bin=/$dir/Emacs.app/Contents/MacOS/Emacs
     if [ -x $bin ]; then
-        exec $bin $*
+        exec $bin "$@"
     fi
 done
 

@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd ~/Library/Caches
+cd ~/Library/Caches || exit 1
 rm -rf com.adiumX.adiumX
 rm -rf Adium

@@ -1,13 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 
-if [ $(id -u) != 0 ]; then
+if [ "$(id -u)" != 0 ]; then
     echo "Please run this as root or with sudo"
     exit 1
 fi
 
 DONE=
 
-if [ "full" == "$1" ]; then
+if [ "full" = "$1" ]; then
     mdutil -a -i off 
     mdutil -E -a -v
     launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist

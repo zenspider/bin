@@ -2,9 +2,9 @@
     
 for dir in "${@%/}" ; do
   if [ ! -d "$dir" ]; then
-    echo "Error: $File is not a directory"
+    echo "Error: $dir is not a directory"
+  else
+    (tar zcf "$dir.tgz" "$dir" && /bin/rm -rf "$dir")
   fi
-
-  (tar zcf "$dir.tgz" "$dir" && /bin/rm -rf "$dir")
 done
 
