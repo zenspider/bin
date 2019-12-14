@@ -24,18 +24,24 @@ brew "automake"                                    # for C dev
 brew "cloc"                                        # code analysis
 brew "cproto"                                      # generate / clean headers
 brew "ctags"                                       # tag ruby and lisp
+brew "entr"                                        # experimental event runner
+brew "gist"                                        # cmdline gist w/ 2FA support
 brew "git"                                         # git. duh.
 brew "git-absorb"                                  # git game changer
 brew "heroku"                                      # deployment and debugging
-cask "perforce"                                    # perforce... duh
 brew "hub"                                         # most useful git extension
 brew "jq"                                          # grep json
-brew "gist"                                        # cmdline gist w/ 2FA support
-brew "entr"                                        # experimental event runner
-brew "gdbm"                                        # dependency for ruby-install
-brew "sqlite"                                      # dependency for ruby-install
+brew "shellcheck"                                  # bash linter
+brew "sqlite"                                      # lightweight sql
+cask "perforce"                                    # perforce... duh
+
+### ruby-install listed deps for ruby on brew:
 brew "bison"                                       # dependency for ruby-install
-brew "shellcheck"                                  # trying to clean up my shit
+brew "gdbm"                                        # dependency for ruby-install
+brew "libffi"                                      # dependency for ruby-install
+brew "libyaml"                                     # dependency for ruby-install
+brew "openssl"                                     # dependency for ruby-install
+brew "readline"                                    # dependency for ruby-install
 
 host "wrath" do
   brew "exercism"                                  # fun, but not terribly useful
