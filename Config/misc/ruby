@@ -40,6 +40,9 @@ alias rake27=$rb_dir/$rb_27/bin/rake
 alias ri27=$rb_dir/$rb_27/bin/ri
 alias ruby27=$rb_dir/$rb_27/bin/ruby
 
-add_host_path "/Users/ryan/.rubies/${rb_26}/bin"
+if [ ! -e ~/.rubies.current ]; then
+    ln -s .rubies/ruby-2.6* .rubies.current
+fi
+add_host_path "/Users/ryan/.rubies.current/bin"
 
 unset rb_dir gem_dir rb_24 rb_25 rb_26 rb_27
