@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set +xv
+
+chmod u+w $(gem env home)/*
+"$@"
+chmod u-w $(gem env home)/*
+
