@@ -1,5 +1,3 @@
-#!/bin/csh
-# xit - make file executable
-foreach F ($argv)
-	chmod a+w $F
-end
+#!/bin/bash
+
+chmod u+w "$@"
