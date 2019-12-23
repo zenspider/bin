@@ -91,7 +91,6 @@ host "wrath" do
   brew "media-info"
   brew "brightness"
   brew "highlight"                                 # quicklook dependency
-  brew "swiftlint"                                 # check swift code. PITA
   brew "tcc"                                       # TODO: cute, but maddening.
   tap "jzelinskie/faq"
   brew "faq"                                       # alternative to jq
@@ -102,7 +101,6 @@ end
 host "wrath" do # my main laptop
   cask "handbrake"
   cask "handbrakecli"
-  cask "makemkv"
   cask "subler"
   cask "sublercli"
 end
