@@ -9,6 +9,8 @@ tap "homebrew/services"
 ## utilities
 
 brew "afsctool"                                    # transparent compression
+# NOTE: you must modify /usr/local/etc/aspell.conf
+# NOTE: and set dict-dir to work properly!!!
 cask "cocoaspell"                                  # emacs spellchecker
 brew "rdfind"                                      # clean out junk and nuke backups
 brew "rsync"                                       # file sync
