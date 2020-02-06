@@ -16,3 +16,7 @@ if [ -d ~/Applications ]; then
     rm ~/Applications/.localized
     rmdir ~/Applications
 fi
+
+if [[ $- == *i* ]]; then
+    eval "$(direnv hook bash)"
+fi
