@@ -1,13 +1,3 @@
 #!/bin/bash
 
-A=""
-if [ "$1" == "-u" ]; then
-    A=-u
-    shift;
-fi
-
-F=/tmp/grepsort.$$
-grep -E "$1" "$2" > $F.1
-sort $F.1 > $F.2
-diff -b $A $F.1 $F.2
-rm -f $F.1 $F.2
+exec diff -bu <(grep -E "$@") <(grep -E "$@" | sort)
