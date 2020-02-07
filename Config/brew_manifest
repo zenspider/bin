@@ -96,7 +96,6 @@ host "wrath" do
   brew "media-info"
   brew "brightness"
   brew "highlight"                                 # quicklook dependency
-  brew "tcc"                                       # TODO: cute, but maddening.
   tap "jzelinskie/faq"
   brew "faq"                                       # alternative to jq
 end
