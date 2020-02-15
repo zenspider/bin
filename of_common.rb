@@ -1,32 +1,49 @@
 require "csv"
 
 class Omnifocus
-  db = File.expand_path ["~/Library/Containers",
-                         "com.omnigroup.OmniFocus3/Data/Library",
-                         "Application Support",
-                         "OmniFocus/OmniFocus Caches",
-                         "OmniFocusDatabase"].join "/"
 
-  unless File.file? db
-    db = File.expand_path ["~/Library/Containers",
-                           "com.omnigroup.OmniFocus2/Data/Library",
-                           "Caches", "com.omnigroup.OmniFocus2",
-                           "OmniFocusDatabase2"].join "/"
-  end
+  dbs = [
+    ["~/Library/Group Containers", # omnifocus 3.5
+     "34YW5XSRB7.com.omnigroup.OmniFocus",
+     "com.omnigroup.OmniFocus3",
+     "com.omnigroup.OmniFocusModel",
+     "OmniFocusDatabase.db"],
 
-  OFQUERY="sqlite3 -csv %p" % [db]
+    ["~/Library/Containers",       # omnifocus 3
+     "com.omnigroup.OmniFocus3",
+     "Data/Library",
+     "Application Support",
+     "OmniFocus/OmniFocus Caches",
+     "OmniFocusDatabase"],
 
+    ["~/Library/Containers",       # omnifocus 2 ... should this go?
+     "com.omnigroup.OmniFocus2",
+     "Data/Library/Caches",
+     "com.omnigroup.OmniFocus2",
+     "OmniFocusDatabase2"]
+  ]
+
+  DB = dbs
+    .map  { |ary| File.expand_path ary.join "/" }
+    .find { |path| File.file? path }
+
+  # puts "DB = #{DB}"
+
+  OFQUERY   = "sqlite3 -csv %p" % [DB]
   UNIXEPOCH = Time.utc 1970, 1, 1, 0, 0, 0
   OSXEPOCH  = Time.utc 2001, 1, 1, 0, 0, 0
   YEARZERO  = OSXEPOCH.to_i - UNIXEPOCH.to_i
 
   def runsql what, where, order = nil
+    where = "(pi.status IS NULL OR pi.status = 'active')
+      AND #{where}"
+
     order ||= "t.effectiveDateDue ASC, proj.name ASC, t.name ASC"
 
     sql = ["SELECT #{what}",
            "FROM task t",
-           "LEFT JOIN task proj ON t.parent=proj.persistentIdentifier",
-           "LEFT JOIN projectinfo pi ON t.containingprojectinfo=pi.pk",
+           "LEFT JOIN task        proj ON t.parent=proj.persistentIdentifier",
+           "LEFT JOIN projectinfo pi   ON t.containingprojectinfo=pi.pk",
            "WHERE #{where}",
            "ORDER BY #{order}",
           ].join " "
@@ -36,11 +53,14 @@ class Omnifocus
     CSV.parse `#{cmd}`
   end
 
+  def results type, args = ARGV
+    _title, what, where, order = self.send "#{type}_cmd", args
+
+    runsql what, where, order
+  end
+
   def run type, args = ARGV
     title, what, where, order = self.send "#{type}_cmd", args
-
-    where = "(pi.status IS NULL OR pi.status = 'active')
-      AND #{where}"
 
     results = runsql what, where, order
 
@@ -85,6 +105,10 @@ class Omnifocus
     ["Due Soon", "t.name", soon]
   end
 
+  def count_soon_cmd args
+    [nil, "COUNT(*)", due_and_soon]
+  end
+
   ############################################################
 
   def done hours
@@ -101,6 +125,10 @@ class Omnifocus
 
   def soon
     incomplete "t.effectiveDateDue >= #{now_t} and t.effectiveDateDue < #{soon_t}"
+  end
+
+  def due_and_soon
+    incomplete "t.effectiveDateDue < #{soon_t}"
   end
 
   ############################################################
