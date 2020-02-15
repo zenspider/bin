@@ -18,26 +18,20 @@ fi
 
 locate -0 .DS_Store | xargs -0 rm
 find ~ -name .DS_Store -print -exec rm "{}" \; 
+find /Volumes/*/Users/*/Library/Safari/LocalStorage -mtime +52w -print -delete
 
 rm -vrf \
-    /Library/Preferences/SystemConfiguration/com.apple.PowerManagement.plist \
+    $(grep -l IMAP4 ~/Library/Mail/V6/*/.mboxCache.plist | xargs -n 1 dirname) \
+    /Library/Updates/* \
     /Volumes/*/Library/Caches/* \
-    /Volumes/*/System/Extensions/Caches/* \
     /Volumes/*/System/Library/Caches/* \
-    /Volumes/*/System/Library/Extensions.kextcache \
-    /Volumes/*/System/Library/Extensions.mkext \
-    /Volumes/*/System/Library/Extensions/Caches/* \
     /Volumes/*/Users/*/Library/Caches/* \
-    /Volumes/*/Users/*/Library/Mail/V2/IMAP*/* \
-    /Volumes/*/Users/*/Library/Safari/WebpageIcons.db \
+    ~/Library/Caches/com.apple.appstore/* \
+    ~/Library/Caches/com.apple.appstoreagent/* \
     /Volumes/*/private/tmp/* \
-    /Volumes/*/private/var/folders/*/*/-Caches-/* \
-    /Volumes/*/private/var/folders/*/*/-Tmp-/* \
     /Volumes/*/private/var/folders/*/*/C/* \
     /Volumes/*/private/var/folders/*/*/T/* \
-    /Volumes/*/private/var/folders/*/*/TemporaryItems/* \
     /Volumes/*/private/var/tmp/* \
-    /Volumes/*/private/var/db/BootCache* \
     $DONE
 
 reboot
