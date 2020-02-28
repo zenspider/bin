@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -xv
+
 # if [[ -v INSIDE_EMACS ]]; then
 #     export EDITOR="emacsclient"
 # else
@@ -9,14 +11,20 @@
 
 case $(uname) in
     Darwin )
-        DIR=/MyApplications/Emacs.app/Contents/MacOS
-        if [ -d $DIR ]; then
-            $DIR/bin/emacsclient -a cmacs "$@"
-        else
-            emacsclient -a cmacs "$@"
-        fi
-	    ;;
+        # MY_APP_DIR defined in Bin/Config/os/Darwin
+        DIR="${MY_APP_DIR}/Emacs.app/Contents/MacOS"
+        EMACSCLIENT="${DIR}/bin/emacsclient"
+        ALT=cmacs
+	;;
     *)
-        emacsclient -a emacs "$@"
+        EMACSCLIENT=emacsclient
+        ALT=emacs
         ;;
 esac
+
+if [ -n "#{SSH_CLIENT:-}" ]; then
+    $EMACSCLIENT -a $ALT "$@"
+else
+    # just let the PATH deal with it
+    emacs -q "$@"
+fi

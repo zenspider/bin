@@ -17,11 +17,23 @@ if [ -d /usr/X11R6 -a ! -e /usr/X11R6/bin/xstub ]; then
     add_os_path "/usr/X11R6/bin"
 fi
 
-EMACS="/MyApplications/Emacs.app/Contents/MacOS"
-alias emacsclient="$EMACS/bin/emacsclient"
-emacs () {
-    $EMACS/Emacs -nw -q --eval "(setq frame-background-mode 'dark)" "$@"
-}
+if [ -d /MyApplications ]; then
+    export MY_APP_DIR=/MyApplications
+else
+    export MY_APP_DIR=/Applications/MyApplications
+fi
+
+EMACS="${MY_APP_DIR}/Emacs.app/Contents/MacOS"
+
+add_os_path "$EMACS/bin"
+
+if [[ -n "${INSIDE_EMACS:-}" ]]; then
+    alias emacs=emacsclient
+else
+    emacs () {
+        $EMACS/Emacs -nw -q --eval "(setq frame-background-mode 'dark)" "$@"
+    }
+fi
 
 case $- in
   # interactive shell
@@ -31,8 +43,9 @@ case $- in
        alias disasm="otool -t -V"
        alias hfs_compress="afsctool -9c"
        alias icloud="scutil --dns | grep icloud | sed -n 's/.* : *\(.*\)$/\1/p'"
-       alias math="/MyApplications/Mathematica.app/Contents/MacOS/MathKernel"
+       alias math="${MY_APP_DIR}/Mathematica.app/Contents/MacOS/MathKernel"
        export COPYFILE_DISABLE=true
+       export BASH_SILENCE_DEPRECATION_WARNING=1
        ;;
   *)
      ;;
