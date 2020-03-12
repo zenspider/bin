@@ -46,6 +46,7 @@ case $- in
        alias math="${MY_APP_DIR}/Mathematica.app/Contents/MacOS/MathKernel"
        export COPYFILE_DISABLE=true
        export BASH_SILENCE_DEPRECATION_WARNING=1
+       alias man="stfu command man"
        ;;
   *)
      ;;
