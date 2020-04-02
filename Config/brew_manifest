@@ -37,7 +37,7 @@ brew "jq"                                          # grep json
 brew "sqlite"                                      # lightweight sql
 cask "perforce"                                    # perforce... duh
 
-host "wrath", "chef-zenspider" do
+host "wrath" do
   brew "entr"                                      # experimental event runner
   brew "git-absorb"                                # git game changer
   brew "shellcheck"                                # bash linter
@@ -98,6 +98,7 @@ host "wrath" do
   tap "jzelinskie/faq"
   brew "faq"                                       # alternative to jq
   brew "ansible"
+  cask "multipass"
 end
 
 ## casks:
@@ -113,7 +114,7 @@ end
 
 ### my server and main laptop
 
-host "greed", "envy" do
+host "greed" do
   tap "zenspider/mailman"
   brew "zenspider/mailman/mailman"                 # mailing list
 
@@ -128,17 +129,9 @@ host "greed", "envy" do
   brew "swaks"                                     # for testing email servers
 end
 
-### my work machine
-
-host "chef-zenspider" do
-  cask "kitematic"
-  cask "vagrant"
-  brew "direnv"                                    # directory env "hooks"
-end
-
 ### my dev machines
 
-host "wrath", "chef-zenspider", "greed" do
+host "wrath", "greed" do
   # brew "ruby-build" # I'm currently running my own version
   cask "emacs"
 end
