@@ -92,12 +92,12 @@ end
 
 host "wrath" do
   cask "qlcolorcode"                               # syntax highlight for quicklook
-  brew "ffmpeg"
   brew "media-info"
   brew "brightness"
   brew "highlight"                                 # quicklook dependency
   tap "jzelinskie/faq"
   brew "faq"                                       # alternative to jq
+  brew "ansible"
 end
 
 ## casks:
