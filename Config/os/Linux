@@ -1,7 +1,14 @@
-OSPATH=/sbin:/usr/sbin:/usr/bin:/bin:/usr/X11R6/bin:/usr/local/bin:/opt/third-party/bin:/usr/X11R6/bin:/usr/X11R6/bin
+add_os_path "/sbin"
+add_os_path "/usr/sbin"
+add_os_path "/usr/bin"
+add_os_path "/bin"
+add_os_path "/usr/local/bin"
+
+if [ -d /usr/X11R6 ]; then
+    add_os_path "/usr/X11R6/bin"
+fi
 
 PAGER=less
 
-# this was just needed magically one day... not sure why, MAYBE only
-# for amazon or specific versions of bash.
-bind 'set convert-meta on'
+complete -r # remove all default completions?
+# shopt -u progcomp # or just nuke programmable completions
