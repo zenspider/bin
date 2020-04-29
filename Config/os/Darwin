@@ -5,6 +5,8 @@ if [ -d /Applications/Server.app ]; then
     add_os_path /Applications/Server.app/Contents/ServerRoot/usr/bin
 fi
 
+add_os_path ~/Work/git/zenspider/brew-cook
+
 # needs to be DEAD LAST to allow the above to override apache+ruby+etc.
 add_os_path "/usr/local/sbin"
 add_os_path "/usr/local/bin"
