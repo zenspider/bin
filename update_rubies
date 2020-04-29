@@ -1,0 +1,54 @@
+#!/usr/bin/env ruby -w
+
+require "open-uri"
+require "net/http" # avoid require issues in threads
+require "net/https"
+
+base_url = "https://cache.ruby-lang.org/pub/ruby"
+
+versions = ("2.3".."2.7").to_a
+
+versions = versions.map { |ver|
+  Thread.new {
+    URI
+      .parse("#{base_url}/#{ver}/")
+      .read
+      .scan(/ruby-\d+\.\d+\.\d+[-\w.]*?.tar.gz/)
+      .last
+      .delete_prefix("ruby-")
+      .delete_suffix ".tar.gz"
+  }
+}.map(&:value).sort
+
+old_versions = Dir.chdir File.expand_path "~/.rubies" do
+  Dir["ruby-*"].map { |s| s.delete_prefix "ruby-" }.sort
+end
+
+good    = versions & old_versions
+install = versions - old_versions
+delete  = old_versions - versions
+
+puts "# Good   : #{good.reverse.join " "}"
+puts "# Install: #{install.reverse.join " "}"
+puts "# Delete : #{delete.join " "}"
+puts
+puts "set -e"
+# puts %(export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib")
+# puts %(export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include")
+puts
+install.reverse_each do |ver|
+  gem = "~/.rubies/ruby-#{ver}/bin/gem"
+
+  puts "echo #{ver}"
+  puts "ruby-install -c --no-reinstall --no-install-deps -j8 ruby #{ver} &> /tmp/#{ver}.log && \\"
+  puts "  #{gem} uninstall power_assert test-unit && \\"
+  puts "  #{gem} install rubygems-cleanroom hoe hoe-seattlerb isolate minitest minitest-autotest minitest-sprint minitest-proveit benchmark-ips flay flog racc ruby2ruby && \\"
+  puts "  chmod u-w $(#{gem} env home)/*"
+  puts
+end
+
+delete.each do |ver|
+  gem = "~/.rubies/ruby-#{ver}/bin/gem"
+  puts "chmod u+w $(#{gem} env home)/*"
+  puts "rm -rf ~/.rubies/ruby-#{ver}"
+end
