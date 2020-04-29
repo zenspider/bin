@@ -1,6 +1,5 @@
 # -*- ruby -*-
 
-tap "heroku/brew"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
@@ -9,6 +8,7 @@ tap "homebrew/services"
 ## utilities
 
 brew "afsctool"                                    # transparent compression
+brew "direnv"                                      # directory env "hooks"
 brew "fd"                                          # better find
 brew "hyperfine"                                   # cmdline benchmarking
 brew "ical-buddy"                                  # getting calendar items on my desktop
@@ -31,13 +31,15 @@ brew "cproto"                                      # generate / clean headers
 brew "ctags"                                       # tag ruby and lisp
 brew "gist"                                        # cmdline gist w/ 2FA support
 brew "git"                                         # git. duh.
-brew "heroku"                                      # deployment and debugging
 brew "hub"                                         # most useful git extension
 brew "jq"                                          # grep json
 brew "sqlite"                                      # lightweight sql
 cask "perforce"                                    # perforce... duh
 
 host "wrath" do
+  tap "heroku/brew"
+  brew "heroku"                                    # deployment and debugging
+
   brew "entr"                                      # experimental event runner
   brew "git-absorb"                                # git game changer
   brew "shellcheck"                                # bash linter
