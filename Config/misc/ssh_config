@@ -22,7 +22,7 @@ Host w
 Host l
 	IdentityFile ~/.ssh/id_rsa
 	Hostname lust.zenspider.com
-	User root
+	User ryan
 	ControlMaster auto
 	ControlPath ~/.ssh/master-%C
 
