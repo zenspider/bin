@@ -33,6 +33,7 @@ killall iTunes
 defaults write com.apple.screencapture disable-shadow -bool true
 
 echo "running sudo to set preferences and hostname"
+sudo nvram StartupMute=%00
 sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText "Property of Ryan Davis - 206.999.9936"
 FULLNAME=wrath.zenspider.com
 sudo hostname $FULLNAME
