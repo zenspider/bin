@@ -1,0 +1,26 @@
+# -*- sh -*-
+
+export PGDATA=/usr/local/var/postgres
+
+. $CONFIG/misc/ruby
+
+if [ -d /MyApplications/dev/lisp/Racket/bin ]; then
+    add_host_path "/MyApplications/dev/lisp/Racket/bin"
+fi
+
+export BREW_CASK_OPTS='--appdir=/MyApplications'
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_SANDBOX=1
+export HOMEBREW_AUTO_UPDATE_SECS=86400000
+export HOMEBREW_NO_INSTALL_CLEANUP=1
+export HOMEBREW_NO_ANALYTICS=1
+
+# I got tired of cleaning this up over and over
+if [ -d ~/Applications ]; then
+    rm ~/Applications/.localized
+    rmdir ~/Applications
+fi
+
+if [[ $- == *i* ]]; then
+    eval "$(direnv hook bash)"
+fi
