@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for tarball in "$@" ; do
-  (tar zxf "$tarball" && /bin/rm -f "$tarball")
+for arch in "$@" ; do
+  lrzuntar "$arch" && rm -f "$arch"
 done
 

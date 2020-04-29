@@ -4,7 +4,7 @@ for dir in "${@%/}" ; do
   if [ ! -d "$dir" ]; then
     echo "Error: $dir is not a directory"
   else
-    (tar zcf "$dir.tgz" "$dir" && /bin/rm -rf "$dir")
+    lrztar "$dir" && rm -rf "$dir"
   fi
 done
 
