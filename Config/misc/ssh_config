@@ -31,6 +31,11 @@ Host gw
   HostName wrath.local
   ProxyCommand ssh -W %h:%p g
 
+# tunnel to work laptop (at home) via server
+Host gc
+  HostName chef-zenspider.local
+  ProxyCommand ssh -W %h:%p g
+
 Host github.com
   IdentityFile ~/.ssh/passwordless
 
