@@ -16,7 +16,7 @@
   rollback  = reset HEAD^
   l         = log --abbrev-commit --pretty=oneline
   loggrep   = log -S
-  skinny    = !"git gc; git repack -Ad; git prune"
+  skinny    = !"git gc; git repack -Ad; git gc; git prune; git prune-packed"
   new-pr    = !"hub pull-request --no-edit -o"
   topic     = checkout -t -b
   sha       = rev-parse --short
