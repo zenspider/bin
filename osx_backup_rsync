@@ -25,7 +25,7 @@ Dir.chdir base
 
 args = %W[find  ( -name .DS_Store -o -name *~ ) -print -delete]
 args[1,0] = dirs
-cmd = "#{args.shelljoin} 2> /dev/null"
+cmd = args.shelljoin
 
 puts cmd
 system cmd
