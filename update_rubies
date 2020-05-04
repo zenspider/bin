@@ -8,19 +8,29 @@ base_url = "https://cache.ruby-lang.org/pub/ruby"
 
 versions = ("2.3".."2.7").to_a
 
+class Array
+  def human_sort
+    sort_by { |item| item.to_s.split(/(\d+)/).map { |e| [e.to_i, e] } }
+  end
+end
+
 versions = versions.map { |ver|
   Thread.new {
     URI
       .parse("#{base_url}/#{ver}/")
       .read
       .scan(/ruby-\d+\.\d+\.\d+[-\w.]*?.tar.gz/)
+      .human_sort
       .last
       .delete_prefix("ruby-")
       .delete_suffix ".tar.gz"
   }
 }.map(&:value).sort
 
-old_versions = Dir.chdir File.expand_path "~/.rubies" do
+rubies = File.expand_path "~/.rubies"
+Dir.mkdir rubies unless File.directory? rubies
+
+old_versions = Dir.chdir rubies do
   Dir["ruby-*"].map { |s| s.delete_prefix "ruby-" }.sort
 end
 
