@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -xv
+# set -xv
 
 # if [[ -v INSIDE_EMACS ]]; then
 #     export EDITOR="emacsclient"
@@ -23,7 +23,7 @@ case $(uname) in
 esac
 
 if [ -n "#{SSH_CLIENT:-}" ]; then
-    $EMACSCLIENT -a $ALT "$@"
+    $EMACSCLIENT -a $ALT -n "$@"
 else
     # just let the PATH deal with it
     emacs -q "$@"
