@@ -19,7 +19,7 @@ brew "rsync"                                       # file sync
 brew "the_silver_searcher"                         # better grep
 
 # NOTE: you must modify /usr/local/etc/aspell.conf
-# NOTE: and set dict-dir to work properly!!!
+# NOTE: and set dict-dir to /Library/Application Support/cocoAspell/aspell*
 cask "cocoaspell"                                  # emacs spellchecker
 
 ## development
@@ -136,4 +136,15 @@ end
 host "wrath", "greed" do
   # brew "ruby-build" # I'm currently running my own version
   cask "emacs"
+end
+
+host "25257-ryan" do
+  brew "docker"
+  brew "snappy"
+  brew "mysql"
+  brew "libidn"
+  brew "icu4c"
+  cask "google-cloud-sdk"
+  cask "vagrant"
+  cask "virtualbox"
 end
