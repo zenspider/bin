@@ -50,7 +50,8 @@ brew "bison"                                       # dependency for ruby-install
 brew "gdbm"                                        # dependency for ruby-install
 brew "libffi"                                      # dependency for ruby-install
 brew "libyaml"                                     # dependency for ruby-install
-brew "openssl"                                     # dependency for ruby-install
+brew "openssl@1.0"                                 # dependency for ruby-install (2.3)
+brew "openssl@1.1"                                 # dependency for ruby-install
 brew "readline"                                    # dependency for ruby-install
 
 host "wrath" do
@@ -144,6 +145,7 @@ host "25257-ryan" do
   brew "mysql"
   brew "libidn"
   brew "icu4c"
+  brew "go-jira"
   cask "google-cloud-sdk"
   cask "vagrant"
   cask "virtualbox"
