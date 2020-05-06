@@ -2,12 +2,13 @@
 
 export PGDATA=/usr/local/var/postgres
 
-. $CONFIG/misc/ruby
+eval "$($CONFIG/misc/ruby)"
 
 if [ -d /MyApplications/dev/lisp/Racket/bin ]; then
     add_host_path "/MyApplications/dev/lisp/Racket/bin"
 fi
 
+# TODO: fix this?
 export BREW_CASK_OPTS='--appdir=/MyApplications'
 export HOMEBREW_AUTO_UPDATE_SECS=86400000
 export HOMEBREW_NO_ANALYTICS=1
