@@ -1,48 +1,44 @@
-# -*- sh -*-
+#!/usr/bin/env ruby -w
 
-export MT_NO_ISOLATE=1
+active_ruby = ENV["CURRENT_RUBY"] || "2.6"
+versions    = %w[2.3 2.4 2.5 2.6 2.7]
 
-rb_dir=~/.rubies
+class Array
+  def human_sort
+    sort_by { |item| item.to_s.split(/(\d+)/).map { |e| [e.to_i, e] } }
+  end
+end
 
-rb_23=$(cd $rb_dir; ls -d *2.3* | sort -n | tail -1)
-rb_24=$(cd $rb_dir; ls -d *2.4* | sort -n | tail -1)
-rb_25=$(cd $rb_dir; ls -d *2.5* | sort -n | tail -1)
-rb_26=$(cd $rb_dir; ls -d *2.6* | sort -n | tail -1)
-rb_27=$(cd $rb_dir; ls -d *2.7* | sort -n | tail -1)
+puts "export MT_NO_ISOLATE=1"
+puts
 
-alias gem23=$rb_dir/$rb_23/bin/gem
-alias irb23=$rb_dir/$rb_23/bin/irb
-alias rake23=$rb_dir/$rb_23/bin/rake
-alias ri23=$rb_dir/$rb_23/bin/ri
-alias ruby23=$rb_dir/$rb_23/bin/ruby
+rb_dir = File.expand_path "~/.rubies"
 
-alias gem24=$rb_dir/$rb_24/bin/gem
-alias irb24=$rb_dir/$rb_24/bin/irb
-alias rake24=$rb_dir/$rb_24/bin/rake
-alias ri24=$rb_dir/$rb_24/bin/ri
-alias ruby24=$rb_dir/$rb_24/bin/ruby
+versions.each do |ver|
+  Dir.chdir "#{rb_dir}" do
+    current = Dir["*#{ver}*"].human_sort.last
+    short   = ver.delete "."
+    var     = "RUBY#{short}"
 
-alias gem25=$rb_dir/$rb_25/bin/gem
-alias irb25=$rb_dir/$rb_25/bin/irb
-alias rake25=$rb_dir/$rb_25/bin/rake
-alias ri25=$rb_dir/$rb_25/bin/ri
-alias ruby25=$rb_dir/$rb_25/bin/ruby
+    unless current then
+      warn "# ruby #{ver} not found, skipping."
+      next
+    end
 
-alias gem26=$rb_dir/$rb_26/bin/gem
-alias irb26=$rb_dir/$rb_26/bin/irb
-alias rake26=$rb_dir/$rb_26/bin/rake
-alias ri26=$rb_dir/$rb_26/bin/ri
-alias ruby26=$rb_dir/$rb_26/bin/ruby
+    puts "export #{var}=#{rb_dir}/#{current}"
+    puts "alias gem#{short}=$#{var}/bin/gem"
+    puts "alias irb#{short}=$#{var}/bin/irb"
+    puts "alias rake#{short}=$#{var}/bin/rake"
+    puts "alias ri#{short}=$#{var}/bin/ri"
+    puts "alias ruby#{short}=$#{var}/bin/ruby"
+    puts
+  end
+end
 
-alias gem27=$rb_dir/$rb_27/bin/gem
-alias irb27=$rb_dir/$rb_27/bin/irb
-alias rake27=$rb_dir/$rb_27/bin/rake
-alias ri27=$rb_dir/$rb_27/bin/ri
-alias ruby27=$rb_dir/$rb_27/bin/ruby
+puts "export RUBY=$RUBY#{active_ruby.delete "."}"
+puts "if [ ! -e ~/.rubies.current ]; then"
+puts "    ln -s .rubies/ruby-#{active_ruby}* .rubies.current"
+puts "fi"
 
-if [ ! -e ~/.rubies.current ]; then
-    ln -s .rubies/ruby-2.6* .rubies.current
-fi
-add_host_path ~/.rubies.current/bin
-
-unset rb_dir gem_dir rb_24 rb_25 rb_26 rb_27
+puts
+puts "add_host_path ~/.rubies.current/bin"
