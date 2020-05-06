@@ -41,7 +41,6 @@ host "wrath" do
   brew "heroku"                                    # deployment and debugging
 
   brew "entr"                                      # experimental event runner
-  brew "git-absorb"                                # git game changer
   brew "shellcheck"                                # bash linter
 end
 
@@ -149,4 +148,8 @@ host "25257-ryan" do
   cask "google-cloud-sdk"
   cask "vagrant"
   cask "virtualbox"
+end
+
+host "wrath", "25257-ryan" do
+  brew "git-absorb"                                # git game changer
 end
