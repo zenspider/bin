@@ -52,29 +52,21 @@ add_os_path () {
     fi
 }
 
+maybe_source () {
+    f=$1
+    if [ -f $f ] ; then
+        . $f
+    fi
+}
+
 export DOMAIN=$(hostname -f | cut -f2- -d.)
 export HOSTNAME=$(hostname -s)
 
 for f in $CONFIG/os/$(uname) $CONFIG/domain/$DOMAIN $CONFIG/host/$HOSTNAME $CONFIG/misc/environment; do
-  if [ -f $f ] ; then
-    . $f
-  fi
+  maybe_source $f
 done
 
-if [[ $- == *i* ]]; then
-  # interactive shell
-  
-  ALIAS_FILE=$CONFIG/misc/alias
-  if [ -f $ALIAS_FILE ] ; then
-    . $ALIAS_FILE
-  fi
-fi
-
-if [ -d /usr/local/etc/bash_completion.d ]; then
-    . /usr/local/etc/bash_completion.d/brew
-    . /usr/local/etc/bash_completion.d/hub.bash_completion.sh
-fi
-if [ -d /usr/local/git/contrib/completion ]; then
-    # need to keep this as it has functions that the others depend on?!?
-    . /usr/local/git/contrib/completion/git-completion.bash
+if [[ $- == *i* ]]; then # interactive shell
+  maybe_source $CONFIG/misc/alias
+  maybe_source ~/.bash.local
 fi
