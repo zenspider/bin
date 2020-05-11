@@ -35,7 +35,6 @@ versions.each do |ver|
   end
 end
 
-puts "export RUBY=$RUBY#{active_ruby.delete "."}"
 puts "if [ ! -e ~/.rubies.current ]; then"
 puts "    ln -s .rubies/ruby-#{active_ruby}* .rubies.current"
 puts "fi"
