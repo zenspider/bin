@@ -17,6 +17,7 @@ brew "lzop"                                        # fast compression
 brew "rdfind"                                      # clean out junk and nuke backups
 brew "rsync"                                       # file sync
 brew "the_silver_searcher"                         # better grep
+brew "ripgrep"                                     # rg > ag ?
 
 # NOTE: you must modify /usr/local/etc/aspell.conf
 # NOTE: and set dict-dir to /Library/Application Support/cocoAspell/aspell*
