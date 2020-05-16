@@ -70,8 +70,10 @@ case $- in
     if [ -n "${INSIDE_EMACS:-}" ]; then
         TERM=${TERM}-256color
     fi
-  else
-    export PAGER=more
+  fi
+
+  if [ -z "$PAGER" ]; then
+      export PAGER=more
   fi
   
   # ESHELL is what emacs will run for a shell
