@@ -33,7 +33,7 @@ if [[ -n "${INSIDE_EMACS:-}" ]]; then
     alias emacs=emacsclient
 else
     emacs () {
-        $EMACS/Emacs -nw -q --eval "(setq frame-background-mode 'dark)" "$@"
+        $EMACS/Emacs -nw --eval "(setq frame-background-mode 'dark)" "$@"
     }
 fi
 
