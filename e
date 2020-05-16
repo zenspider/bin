@@ -23,7 +23,7 @@ case $(uname) in
 esac
 
 if [ -n "#{SSH_CLIENT:-}" ]; then
-    $EMACSCLIENT -a $ALT -n "$@"
+    $EMACSCLIENT -a $ALT "$@"
 else
     # just let the PATH deal with it
     emacs -q "$@"
