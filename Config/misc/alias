@@ -179,7 +179,7 @@ case "${HOSTTYPE}.${OSTYPE}" in
     alias ps-all='ps aux'
     ;;
 
-  i[3456]86.[Ll]inux* )
+  "x86_64.linux-gnu" | i[3456]86.[Ll]inux* )
     alias ps-all='ps -ef'
     ;;
 
