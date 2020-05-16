@@ -72,7 +72,7 @@ case $- in
     fi
   fi
 
-  if [ -z "$PAGER" ]; then
+  if [ -z "${PAGER-}" ]; then
       export PAGER=more
   fi
   
