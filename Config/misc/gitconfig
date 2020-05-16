@@ -4,7 +4,7 @@
   name = Ryan Davis
   email = ryand-ruby@zenspider.com
 [core]
-  editor       = /MyApplications/Emacs.app/Contents/MacOS/Emacs
+  editor       = e
   excludesfile = /Users/ryan/.gitignore_global
   quotepath    = false
 [alias]
@@ -43,7 +43,7 @@
 # git pull --all
 
 [push]
-  default = matching
+  default = current
 [diff]
   compactionHeuristic = true
 [merge]
