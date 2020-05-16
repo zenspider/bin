@@ -1,3 +1,4 @@
+# -*- sh -*-                                                                    
 add_os_path "/sbin"
 add_os_path "/usr/sbin"
 add_os_path "/usr/bin"
@@ -8,7 +9,8 @@ if [ -d /usr/X11R6 ]; then
     add_os_path "/usr/X11R6/bin"
 fi
 
-PAGER=less
+export PAGER=less
+export LESS=-XRFEm
 
 complete -r # remove all default completions?
 # shopt -u progcomp # or just nuke programmable completions
