@@ -79,10 +79,6 @@ case $- in
   # ESHELL is what emacs will run for a shell
   export ESHELL=/bin/bash
   
-  export ACK_COLOR_FILENAME="reverse"
-  export ACK_COLOR_LINENO="blue"
-  export ACK_COLOR_MATCH="blue"
-
   ;;
 
   # not interactive
