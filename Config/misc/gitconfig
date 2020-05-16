@@ -28,6 +28,7 @@
   runv      = !"git rev-list --reverse --abbrev-commit master | while read -r SHA ; do git checkout --quiet $SHA; echo ===; git show -s --oneline $SHA; echo; $@; echo; done; git checkout --quiet master; true"
   churn     = !"git log --all -M -C --name-only --format='format:' "$@" | sort | grep -v '^$' | uniq -c | sort | awk 'BEGIN {print "count\tfile"} {print $1 "\t" $2}' | sort -g"
   unrebase  = reset --hard ORIG_HEAD
+  unpull    = reset --hard HEAD@{1}
 
 # remove locals that have already been pruned remotely
 # git remote update --prune
