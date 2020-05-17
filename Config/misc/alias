@@ -219,52 +219,25 @@ dict () {
 # General Functions:
 ############################################################
 
-fff () {
-    c=
-    e=
-    type=
-    while true; do
-        case "$1" in
-            -f) type="-type f"      ;;
-            -d) type="-type d"      ;;
-            -a) type=               ;;
-            -c) type="-type d"; c=1 ;;
-            -e)
-                shift
-                e="$1"
-                ;;
-            --) break               ;;
-            *) break                ;;
-        esac
-        shift
-    done
-
-    if [ -n "$c" ]; then
-        cd $(find . $type -print0 | egrep -z "$@" | head -1)
-        echo $PWD
-    elif [ -z "$e" ]; then
-        find . $type | egrep "$@" | sort -fd
-    else
-        find . $type -print0 | egrep -zZ "$@" | xargs -0 $e
-    fi
+switchto () {
+    echo "use $1" 1>&2 && false
 }
 
-alias f="fff -f"
-alias d="fff -d"
-alias c="fff -c"
+export RIPGREP_CONFIG_PATH=~/.rgrc
+alias ag="switchto g"
+alias g=rg
+alias f="fd -Itf"
+alias d="fd -td"
+alias mdfn="switchto f"
 
 mdf () {
     mdfind -onlyin . "$@"
 }
 
-mdfn () {
-    mdfind -onlyin . "kMDItemFSName=$@"
-}
-
 alias git=hub
 
 fc () {
-    find . -name .svn -prune -o -type f -print0 | xargs -0 egrep -c "$@" | grep -v :0 | sort -rn -k2 -t:
+    f "$@" | sort -rn -k2 -t:
 }
 
 fp() {
