@@ -4,6 +4,7 @@ tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
+tap "rbenv/tap" # openssl@1.0 for ruby 2.3 only. :(
 
 ## utilities
 
