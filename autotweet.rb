@@ -57,11 +57,13 @@ def so_like desc
 end
 
 def weekly
-  tweet "seattlerb", so_like("code. talk. have coffee. vivace 7-9")
+  # tweet "seattlerb", so_like("code. talk. have coffee. vivace 7-9")
+  tweet "seattlerb", "Hi! Seattle.rb is still alive and doing weekly nerd party virtually! Join us! https://meet.jit.si/NerdParty"
 end
 
 def monthly
-  tweet "seattlerb", "It's our monthly! Come watch talks, not have coffee, and share something for show and tell. substantial 7-9. http://www.seattlerb.org/join-us"
+  # tweet "seattlerb", "It's our monthly! Come watch talks, not have coffee, and share something for show and tell. substantial 7-9. http://www.seattlerb.org/join-us"
+  tweet "seattlerb", "Hi! Seattle.rb is still alive and doing our monthly virtually! Join us! https://meet.jit.si/NerdParty"
 end
 
 def holiday
@@ -108,10 +110,10 @@ if today.wday == 2 then
     holiday_study
     holiday
   when today == first_tues then
-    monthly_study
+    # monthly_study
     monthly
   else
-    study
+    # study
     weekly
   end
 else
