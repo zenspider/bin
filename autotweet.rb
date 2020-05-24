@@ -1,9 +1,11 @@
-#!/usr/bin/env ruby -ws
+#!/usr/bin/env ruby
+
+$-w = true
 
 ENV["HOME"] = "/Users/ryan"
 ENV["PATH"] = "#{ENV["PATH"]}:/Users/ryan/Bin"
 
-$n ||= false
+$n = ARGV.delete "-n" # FUCK I hate linux
 
 require "time"
 require "date"
