@@ -2,8 +2,8 @@
 
 $-w = true
 
-ENV["HOME"] = "/Users/ryan"
-ENV["PATH"] = "#{ENV["PATH"]}:/Users/ryan/Bin"
+my_bin = File.expand_path "~/Bin/"
+ENV["PATH"] += ":#{my_bin}"
 
 $n = ARGV.delete "-n" # FUCK I hate linux
 
