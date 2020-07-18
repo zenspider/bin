@@ -150,6 +150,8 @@ host "25257-ryan" do
   cask "google-cloud-sdk"
   cask "vagrant"
   cask "virtualbox"
+  brew "imagemagick" # ugh
+  brew "gnupg"
 end
 
 host "wrath", "25257-ryan" do
