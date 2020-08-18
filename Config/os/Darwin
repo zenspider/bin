@@ -22,7 +22,7 @@ fi
 if [ -d /MyApplications ]; then
     export MY_APP_DIR=/MyApplications
 else
-    export MY_APP_DIR=/Applications/MyApplications
+    export MY_APP_DIR=~/Applications
 fi
 
 EMACS="${MY_APP_DIR}/Emacs.app/Contents/MacOS"
