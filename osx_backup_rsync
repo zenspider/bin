@@ -11,7 +11,7 @@ flags  = ["-aCz"]
 flags << "-vP" if $stdin.tty? and $stdout.tty?
 
 case name
-when "wrath" then
+when "wrath", "envy" then
   dirs = %w(Documents Work)
   base = File.expand_path "~"
 when "greed" then
