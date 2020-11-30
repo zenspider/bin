@@ -7,8 +7,8 @@ Host *
   ForwardAgent yes
   CheckHostIP yes
 
-Host g
-	Hostname greed.zenspider.com
+Host e
+	Hostname envy.zenspider.com
 	User ryan
 	ControlMaster auto
 	ControlPath ~/.ssh/master-%C
