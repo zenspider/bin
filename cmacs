@@ -1,7 +1,7 @@
 #!/bin/bash
 
-for dir in MyApplications Applications/MyApplications Applications; do
-    bin=/$dir/Emacs.app/Contents/MacOS/Emacs
+for dir in /MyApplications /Applications/MyApplications ~/Applications; do
+    bin=$dir/Emacs.app/Contents/MacOS/Emacs
     if [ -x $bin ]; then
         exec $bin "$@"
     fi
