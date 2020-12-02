@@ -25,16 +25,8 @@ else
     export MY_APP_DIR=~/Applications
 fi
 
-EMACS="${MY_APP_DIR}/Emacs.app/Contents/MacOS"
-
-add_os_path "$EMACS/bin"
-
 if [[ -n "${INSIDE_EMACS:-}" ]]; then
     alias emacs=emacsclient
-else
-    emacs () {
-        $EMACS/Emacs -nw --eval "(setq frame-background-mode 'dark)" "$@"
-    }
 fi
 
 case $- in
