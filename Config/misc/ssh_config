@@ -8,13 +8,7 @@ Host *
   CheckHostIP yes
 
 Host e
-	Hostname envy.zenspider.com
-	User ryan
-	ControlMaster auto
-	ControlPath ~/.ssh/master-%C
-
-Host w
-	Hostname wrath.local
+	Hostname envy.local
 	User ryan
 	ControlMaster auto
 	ControlPath ~/.ssh/master-%C
@@ -29,16 +23,6 @@ Host work.local
 	User ryan.davis
 	ControlMaster auto
 	ControlPath ~/.ssh/master-%C
-
-# tunnel to home personal laptop via server
-Host gw
-  HostName wrath.local
-  ProxyCommand ssh -W %h:%p g
-
-# tunnel to work laptop (at home) via server
-Host gc
-  HostName chef-zenspider.local
-  ProxyCommand ssh -W %h:%p g
 
 Host github.com
   IdentityFile ~/.ssh/passwordless
