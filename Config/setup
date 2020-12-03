@@ -60,8 +60,7 @@ for f in * ; do
 done
 
 mkdir -p .emacs.d
-rm -f ~/.emacs.el # old location
-rm -f ~/.emacs.d/init.el
-ln -s ~/Bin/elisp/emacs.el ~/.emacs.d/init.el
-ln -s ~/Bin/elisp/emacs.el ~/.emacs.d/init.el
-ln -s ~/Bin/elisp/early-init.el  ~/.emacs.d/
+if [ -f ~/.emacs.el ]; then rm -f ~/.emacs.el; fi # old location
+rm -f ~/.emacs.d/init.el ~/.emacs.d/early-init.el
+ln -s ~/Bin/elisp/emacs.el      ~/.emacs.d/init.el
+ln -s ~/Bin/elisp/early-init.el ~/.emacs.d/early-init.el
