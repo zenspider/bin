@@ -25,15 +25,15 @@ else
     export MY_APP_DIR=~/Applications
 fi
 
-if [[ -n "${INSIDE_EMACS:-}" ]]; then
-    alias emacs=emacsclient
-fi
-
 case $- in
   # interactive shell
   *i*)
        export LESS=-RFEm
        export MORE=$LESS
+       alias ec="emacsclient -a emacs"
+       alias en="e -n"
+       alias eq="e -Q"
+       alias et="ec -t"
        alias disasm="otool -t -V"
        alias hfs_compress="afsctool -9c"
        alias icloud="scutil --dns | grep icloud | sed -n 's/.* : *\(.*\)$/\1/p'"
