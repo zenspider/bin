@@ -18,4 +18,6 @@ if [ -z "${SSH_CLIENT:-}" ]; then
     done
 fi
 
-exec emacs -nw --eval "(setq frame-background-mode 'dark)" "$@"
+EMACS="emacs -nw --eval \"(setq frame-background-mode 'dark)\""
+
+exec emacsclient -a "$EMACS" "$@"
