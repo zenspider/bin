@@ -1,5 +1,10 @@
 # -*- ruby -*-
 
+home     = %w[ wrath envy ]
+home_dev = %w[ wrath envy ]
+work_dev = %w[ 25257-ryan ]
+all_dev  = home_dev + work_dev
+
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
@@ -38,7 +43,7 @@ brew "jq"                                          # grep json
 brew "sqlite"                                      # lightweight sql
 cask "perforce"                                    # perforce... duh
 
-host "wrath" do
+host home_dev do
   tap "heroku/brew"
   brew "heroku"                                    # deployment and debugging
 
@@ -55,7 +60,7 @@ brew "openssl@1.0"                                 # dependency for ruby-install
 brew "openssl@1.1"                                 # dependency for ruby-install
 brew "readline"                                    # dependency for ruby-install
 
-host "wrath" do
+host home_dev do
   brew "exercism"                                  # fun, but not terribly useful
   brew "libyaml"                                   # for rbenv rubies
   brew "postgresql"                                # fat db of choice
@@ -66,7 +71,7 @@ end
 
 brew "graphviz"                                    # maddening but useful graphs
 
-host "wrath" do
+host home_dev do
   brew "freeimage"                                 # really just for image_science
   brew "sdl2"                                      # needed for graphics gem
   brew "sdl2_image", args: %w[without-webp]        # needed for graphics gem
@@ -82,19 +87,19 @@ brew "mtr"                                         # diagnose bad networks
 brew "nmap"                                        # scan machines
 brew "w3m"                                         # emacs web browser
 
-host "wrath" do
+host home_dev do
   brew "tidy-html5"                                # helps me sanitize html
   brew "linklint"                                  # to check my website
   brew "visitors"                                  # scan httpd logs
 end
 
-host "wrath", "greed" do
+host home do
   brew "aria2"                                     # torrents on the go
 end
 
 ## experimenting
 
-host "wrath" do
+host home do
   cask "qlcolorcode"                               # syntax highlight for quicklook
   brew "media-info"
   brew "brightness"
@@ -107,7 +112,7 @@ end
 
 ## casks:
 
-host "wrath" do # my main laptop
+host home do # my main laptop
   cask "handbrake"
   cask "handbrakecli"
   cask "subler"
@@ -116,31 +121,14 @@ end
 
 ## Combinations:
 
-### my server and main laptop
-
-host "greed" do
-  tap "zenspider/mailman"
-  brew "zenspider/mailman/mailman"                 # mailing list
-
-  # perforce server (p4d) is now provided by perforce cask above
-
-  brew "certbot" # TODO: until I know I have everything covered by my forks
-  brew "imapsync"
-  brew "dwatch"                                    # TODO: remove & use launchd
-  brew "gnuplot"                                   # TODO: dunno what this is for
-  brew "python"                                    # for certs & mailman
-  brew "znc"                                       # for IRC proxy
-  brew "swaks"                                     # for testing email servers
-end
-
 ### my dev machines
 
-host "wrath", "greed" do
+host dev do
   # brew "ruby-build" # I'm currently running my own version
   cask "emacs"
 end
 
-host "25257-ryan" do
+host work_dev do
   brew "docker"
   brew "snappy"
   brew "mysql"
@@ -154,6 +142,7 @@ host "25257-ryan" do
   brew "gnupg"
 end
 
-host "wrath", "25257-ryan" do
+host dev do
   brew "git-absorb"                                # git game changer
+  brew "git-imerge"
 end
