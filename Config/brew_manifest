@@ -119,11 +119,15 @@ host home do # my main laptop
   cask "sublercli"
 end
 
+brew "git-delta"                                   # EXPERIMENT: better git diff
+brew "shellcheck"                                  # EXPERIMENT: lint bash scripts
+brew "yamllint"                                    # EXPERIMENT: lint yaml files
+
 ## Combinations:
 
 ### my dev machines
 
-host dev do
+host all_dev do
   # brew "ruby-build" # I'm currently running my own version
   cask "emacs"
 end
@@ -142,7 +146,7 @@ host work_dev do
   brew "gnupg"
 end
 
-host dev do
+host all_dev do
   brew "git-absorb"                                # git game changer
   brew "git-imerge"
 end
