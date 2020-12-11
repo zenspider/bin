@@ -10,6 +10,7 @@ tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
 tap "rbenv/tap" # openssl@1.0 for ruby 2.3 only. :(
+tap "railwaycat/emacsmacport"
 
 ## utilities
 
@@ -129,7 +130,7 @@ brew "yamllint"                                    # EXPERIMENT: lint yaml files
 
 host all_dev do
   # brew "ruby-build" # I'm currently running my own version
-  cask "emacs"
+  cask "emacs-mac"
 end
 
 host work_dev do
