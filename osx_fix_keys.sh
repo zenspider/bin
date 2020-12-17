@@ -1,5 +1,12 @@
 #!/usr/bin/env ruby -w
 
+# glossary:
+#
+# @ = command
+# ~ = option
+# ^ = ctrl
+# $ = shift
+
 {
   "com.apple.iWork.Keynote" => {
     "Collapse All"             => "@~0",
