@@ -101,7 +101,8 @@ end
 ## experimenting
 
 host home do
-  cask "qlcolorcode"                               # syntax highlight for quicklook
+  cask "qlcolorcode"                               # quicklook for code(?)
+  cask "qlmarkdown"                                # quicklook for markdown
   brew "media-info"
   brew "brightness"
   brew "highlight"                                 # quicklook dependency
