@@ -4,11 +4,30 @@ require "open-uri"
 require "net/http" # avoid require issues in threads
 require "net/https"
 
+versions = %w[ 2.3 2.4 2.5 2.6 2.7 3.0 ]
+versions = %w[         2.5 2.6 2.7 3.0 ]
+
+my_gems = %w[
+             rubygems-cleanroom
+             hoe
+             hoe-seattlerb
+             isolate
+             minitest
+             minitest-autotest
+             minitest-sprint
+             minitest-proveit
+             benchmark-ips
+             flay
+             flog
+             racc
+             ruby2ruby
+            ]
+
 cpus = `sysctl -n hw.logicalcpu`.to_i
 
 base_url = "https://cache.ruby-lang.org/pub/ruby"
 
-versions = ("2.3".."2.7").to_a
+gem_version = `gem search rubygems-update -v "~> 3.0"`[/\d+\.\d+\.\d+/]
 
 class Array
   def human_sort
@@ -50,15 +69,20 @@ puts "# Install: #{install.reverse.join " "}"
 puts "# Delete : #{delete.join " "}"
 puts
 puts "set -e"
-
 puts
 install.reverse_each do |ver|
   gem = "~/.rubies/ruby-#{ver}/bin/gem"
 
   puts "echo #{ver}"
   puts "ruby-install -c --no-reinstall --no-install-deps -j#{cpus} -s /tmp/ ruby #{ver} -- #{extra[ver]} &> /tmp/#{ver}.log && \\"
+  puts "  #{gem} update --system #{gem_version} -N && \\"
+  puts "  #{gem} uninstall rubygems-update && \\"
   puts "  #{gem} uninstall power_assert test-unit && \\"
-  puts "  #{gem} install rubygems-cleanroom hoe hoe-seattlerb isolate minitest minitest-autotest minitest-sprint minitest-proveit benchmark-ips flay flog racc ruby2ruby && \\"
+  puts "  find -d $(#{gem} env home) -name bundler\* -delete && \\"
+  puts "  find -d $(#{gem} env home) -name bundler\* -exec rm -rf {} \\; && \\"
+  puts "  #{gem} install #{my_gems.join " "} && \\"
+  puts "  #{gem} clean && \\"
+  puts "  echo #{gem} install bundler -v '~> 1.17.0' --force && \\"
   puts "  chmod u-w $(#{gem} env home)/*"
   puts
 end
