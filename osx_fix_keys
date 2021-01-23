@@ -11,7 +11,7 @@
   "com.apple.iWork.Keynote" => {
     "Collapse All"             => "@~0",
     "Expand All"               => "@~9",
-    "Fit in Window"            => "@~=>",
+    "Fit in Window"            => "@~=>", # cmd-opt > ... why the =?
     "Light Table"              => "@~l",
     "Navigator"                => "@~n",
     "Outline"                  => "@~u",
