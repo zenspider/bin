@@ -19,7 +19,8 @@ Host l
 	ControlMaster auto
 	ControlPath ~/.ssh/master-%C
 
-Host work.local
+Host work.local w
+        Hostname work.local
 	User ryan.davis
 	ControlMaster auto
 	ControlPath ~/.ssh/master-%C
