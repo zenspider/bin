@@ -1,7 +1,7 @@
 # -*- ruby -*-
 
-home     = %w[ wrath envy ]
-home_dev = %w[ wrath envy ]
+home     = %w[ envy ]
+home_dev = %w[ envy ]
 work_dev = %w[ 25257-ryan ]
 all_dev  = home_dev + work_dev
 
@@ -50,6 +50,7 @@ host home_dev do
 
   brew "entr"                                      # experimental event runner
   brew "shellcheck"                                # bash linter
+  # brew "llvm"                                      # big sur's llvm == bad?
 end
 
 ### ruby-install listed deps for ruby on brew:
