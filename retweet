@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby -ws
 
-$n ||= false
+$y ||= false
 
 require "csv"
 require "time"
@@ -23,6 +23,6 @@ mentions.reverse_each do |id, date|
   puts
 end
 
-system "t retweet #{mentions.map(&:first).reverse.join " "}" unless $n
+system "t retweet #{mentions.map(&:first).reverse.join " "}" if $y
 
 system "t set active the_zenspider"
