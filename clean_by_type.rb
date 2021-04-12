@@ -12,12 +12,17 @@ Dir["*"].each do |f|
   if File.file? f then
     ext = File.extname(f).delete_prefix "."
 
+    if ext.empty? then
+      warn "# skipping file      #{f}"
+      next
+    end
+
     files[ext] << f
   elsif File.directory? f then
     d = f
 
     unless d =~ /^[a-z]+$/ then
-      warn "# skipping #{d}"
+      warn "# skipping directory #{d}"
       next
     end
 
