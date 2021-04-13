@@ -3,8 +3,10 @@
 $t ||= false
 
 require 'fileutils'
+FU = FileUtils::Verbose
 
-system 'find . -maxdepth 1 -empty -type d -exec rmdir {} \;'
+FU.rm Dir["**/.DS_Store"]
+FU.rm_r Dir["*"].select { |d| File.directory?(d) && Dir.children(d).empty? }
 
 format = "%Y-%m"
 now = Time.now.strftime(format)
@@ -12,12 +14,12 @@ now = Time.now.strftime(format)
 Dir['*'].each do |f|
   next if f =~ /^\d\d\d\d-\d\d$|^@/
   dir = File.mtime(f).strftime(format)
-  p :skip => [f, dir] if dir == now
+
   next if dir == now
 
   Dir.mkdir(dir) unless File.exist? dir
   unless File.exist? File.join(dir, f) then
-    FileUtils.mv f, dir
+    FU.mv f, dir
   else
     puts "file #{f} exists in #{dir}"
   end
