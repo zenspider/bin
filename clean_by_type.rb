@@ -21,10 +21,7 @@ Dir["*"].each do |f|
   elsif File.directory? f then
     d = f
 
-    unless d =~ /^[a-z]+$/ then
-      warn "# skipping directory #{d}"
-      next
-    end
+    next unless d =~ /^[a-z]+$/
 
     underfiles = Dir["#{d}/*.#{d}"]
 
