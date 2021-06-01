@@ -8,7 +8,7 @@
   excludesfile = /Users/ryan/.gitignore_global
   quotepath    = false
 [alias]
-  main      = "!git symbolic-ref refs/remotes/origin/HEAD | cut -f4 -d/"
+  main      = "!git symbolic-ref refs/remotes/origin/HEAD | cut -f3- -d/"
   name      = branch --show-current
   st        = status -uno
   sta       = status
@@ -24,7 +24,6 @@
   new-pr    = !"hub pull-request --no-edit -o"
   topic     = checkout -t -b
   sha       = rev-parse --short
-  rprune    = remote update --prune
   sweep     = !git branch -r --merged | grep -v master | sed \"s/origin\\///\" | xargs -n 1 echo git push --delete origin
   s         = status -sb
   run       = !"git rev-list --reverse --abbrev-commit master | while read -r SHA ; do git checkout --quiet $SHA; echo SHA=$SHA; "$@"; done; git checkout --quiet master; true"
@@ -35,18 +34,6 @@
   files     = !"git diff --name-only"
   bfiles    = !"git bfiles $(git main).."
   empty     = !"SHA=$(git rev-parse --short HEAD); git rollback; git commit -C $SHA --allow-empty"
-
-# remove locals that have already been pruned remotely
-# git remote update --prune
-# prune remote merged
-# $ git checkout master && git branch -r --merged | grep -v master | sed -e 's/origin\//:/' | xargs git push origin
-# prune local merged
-# $ git checkout master && git branch --merged | grep -v master | xargs git branch -d
-
-# another possibility:
-# git remote update --prune
-# git fetch --all --prune
-# git pull --all
 
 [push]
   default = current
@@ -73,6 +60,7 @@
 	autosetuprebase = always
 [fetch]
 	recurseSubmodules = true
+	prune = true
 [pull]
 	rebase = true
 [absorb]
@@ -86,3 +74,12 @@
 	autostash = true
 [delta]
     plus-empty-line-marker-style = normal
+    keep-plus-minus-markers = true
+
+    plus-style          = normal auto
+    plus-non-emph-style = normal normal
+    plus-emph-style     = auto auto
+
+    minus-style          = normal auto
+    minus-non-emph-style = normal normal
+    minus-emph-style     = auto auto
