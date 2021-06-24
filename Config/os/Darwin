@@ -1,5 +1,9 @@
 # -*- sh -*-
 
+if [ -d /opt/homebrew/opt/llvm/bin ]; then
+    add_os_path /opt/homebrew/opt/llvm/bin
+fi
+
 if [ -d /Applications/Server.app ]; then
     add_os_path /Applications/Server.app/Contents/ServerRoot/usr/sbin
     add_os_path /Applications/Server.app/Contents/ServerRoot/usr/bin
@@ -8,6 +12,8 @@ fi
 add_os_path ~/Work/git/zenspider/brew-cook
 
 # needs to be DEAD LAST to allow the above to override apache+ruby+etc.
+add_os_path "/opt/homebrew/sbin"
+add_os_path "/opt/homebrew/bin"
 add_os_path "/usr/local/sbin"
 add_os_path "/usr/local/bin"
 add_os_path "/sbin"
@@ -41,6 +47,7 @@ case $- in
        export COPYFILE_DISABLE=true
        export BASH_SILENCE_DEPRECATION_WARNING=1
        alias man="stfu command man"
+       alias intel="arch -arch x86_64"
        ;;
   *)
      ;;
