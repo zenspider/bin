@@ -13,11 +13,20 @@ export BREW_CASK_OPTS=--appdir=~/Applications
 export HOMEBREW_AUTO_UPDATE_SECS=86400000
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_BOOTSNAP=1
+export HOMEBREW_NO_COLOR=1
+export HOMEBREW_NO_COMPAT=1
+export HOMEBREW_NO_EMOJI=1
 export HOMEBREW_NO_GITHUB_API=1
+export HOMEBREW_NO_INSECURE_REDIRECT=1
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 export HOMEBREW_NO_SANDBOX=1
 export HOMEBREW_NO_UPDATE_CLEANUP=1
 
 if [[ $- == *i* ]]; then
-    eval "$(direnv hook bash)"
+    if [ -d /opt/homebrew ]; then
+        eval "$(/opt/homebrew/bin/direnv hook bash)"
+    else
+        eval "$(direnv hook bash)"
+    fi
 fi
