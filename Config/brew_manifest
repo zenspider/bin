@@ -1,5 +1,7 @@
 # -*- ruby -*-
 
+M1 = `arch` =~ /arm64/
+
 home     = %w[ envy ]
 home_dev = %w[ envy ]
 work_dev = %w[ 25257-ryan ]
@@ -23,7 +25,6 @@ brew "lrzip"                                       # fast and good compression
 brew "lzop"                                        # fast compression
 brew "rdfind"                                      # clean out junk and nuke backups
 brew "rsync"                                       # file sync
-brew "the_silver_searcher"                         # better grep
 brew "ripgrep"                                     # rg > ag ?
 
 # NOTE: you must modify /usr/local/etc/aspell.conf
@@ -48,8 +49,7 @@ host home_dev do
   tap "heroku/brew"
   brew "heroku"                                    # deployment and debugging
 
-  brew "entr"                                      # experimental event runner
-  brew "shellcheck"                                # bash linter
+  brew "shellcheck" unless M1                      # bash linter
   # brew "llvm"                                      # big sur's llvm == bad?
 end
 
@@ -58,7 +58,7 @@ brew "bison"                                       # dependency for ruby-install
 brew "gdbm"                                        # dependency for ruby-install
 brew "libffi"                                      # dependency for ruby-install
 brew "libyaml"                                     # dependency for ruby-install
-brew "openssl@1.0"                                 # dependency for ruby-install (2.3)
+brew "openssl@1.0" unless M1                       # dependency for ruby-install (2.3)
 brew "openssl@1.1"                                 # dependency for ruby-install
 brew "readline"                                    # dependency for ruby-install
 
@@ -67,6 +67,8 @@ host home_dev do
   brew "libyaml"                                   # for rbenv rubies
   brew "postgresql"                                # fat db of choice
   brew "regex-opt"                                 # helps craft regexps
+  brew "git-delta"                                 # EXPERIMENT: better git diff
+  brew "yamllint"                                  # EXPERIMENT: lint yaml files
 end
 
 ## graphics
@@ -76,7 +78,7 @@ brew "graphviz"                                    # maddening but useful graphs
 host home_dev do
   brew "freeimage"                                 # really just for image_science
   brew "sdl2"                                      # needed for graphics gem
-  brew "sdl2_image", args: %w[without-webp]        # needed for graphics gem
+  brew "sdl2_image"                                # needed for graphics gem
   brew "sdl2_mixer"                                # needed for graphics gem
   brew "sdl2_ttf"                                  # needed for graphics gem
   brew "sdl2_gfx"                                  # needed for graphics gem
@@ -104,27 +106,23 @@ end
 host home do
   cask "qlcolorcode"                               # quicklook for code(?)
   cask "qlmarkdown"                                # quicklook for markdown
+  # ffmpeg manually installed?
   brew "media-info"
   brew "brightness"
   brew "highlight"                                 # quicklook dependency
   tap "jzelinskie/faq"
   brew "faq"                                       # alternative to jq
   brew "ansible"
-  cask "multipass"
+  cask "multipass" unless M1                       # clean virtualization
 end
 
 ## casks:
 
 host home do # my main laptop
   cask "handbrake"
-  cask "handbrakecli"
   cask "subler"
   cask "sublercli"
 end
-
-brew "git-delta"                                   # EXPERIMENT: better git diff
-brew "shellcheck"                                  # EXPERIMENT: lint bash scripts
-brew "yamllint"                                    # EXPERIMENT: lint yaml files
 
 ## Combinations:
 
@@ -132,7 +130,7 @@ brew "yamllint"                                    # EXPERIMENT: lint yaml files
 
 host all_dev do
   # brew "ruby-build" # I'm currently running my own version
-  cask "emacs-mac"
+  # cask "emacs-mac"
 end
 
 host work_dev do
