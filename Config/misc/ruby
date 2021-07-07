@@ -2,6 +2,7 @@
 
 active_ruby = ENV["CURRENT_RUBY"] || "2.7"
 versions    = %w[2.3 2.4 2.5 2.6 2.7 3.0]
+versions    = versions.drop 3 if `hostname`.chomp == "25257-ryan.davis"
 
 class Array
   def human_sort
