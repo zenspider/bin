@@ -1,11 +1,18 @@
-#!/usr/bin/env ruby -w
+#!/usr/bin/env ruby -ws
+
+$l ||= false # legacy  - do older ruby verisons
+$B ||= false # bundler - keep bundler?!?
 
 require "open-uri"
 require "net/http" # avoid require issues in threads
 require "net/https"
 
-versions = %w[ 2.3 2.4 2.5 2.6 2.7 3.0 ]
-versions = %w[         2.5 2.6 2.7 3.0 ]
+versions = %w[ 2.5 2.6 2.7 3.0 ]
+
+if $l then
+  versions.unshift "2.4"
+  versions.unshift "2.3"
+end
 
 my_gems = %w[
              rubygems-cleanroom
@@ -71,15 +78,19 @@ puts
 puts "set -e"
 puts
 install.reverse_each do |ver|
-  gem = "~/.rubies/ruby-#{ver}/bin/gem"
+  dir = "~/.rubies/ruby-#{ver}"
+  gem = "#{dir}/bin/gem"
 
   puts "echo #{ver}"
   puts "ruby-install -c --no-reinstall --no-install-deps -j#{cpus} -s /tmp/ ruby #{ver} -- #{extra[ver]} &> /tmp/#{ver}.log && \\"
   puts "  #{gem} update --system #{gem_version} -N && \\"
   puts "  #{gem} uninstall rubygems-update && \\"
   puts "  #{gem} uninstall power_assert test-unit && \\"
-  puts "  find -d $(#{gem} env home) -name bundler\* -delete && \\"
-  puts "  find -d $(#{gem} env home) -name bundler\* -exec rm -rf {} \\; && \\"
+  unless $B then
+    puts "  find -d $(#{gem} env home) -name bundler\* -delete && \\"
+    puts "  find -d #{dir}             -name bundler\* -delete && \\"
+    puts "  find -d $(#{gem} env home) -name bundler\* -exec rm -rf {} \\; && \\"
+  end
   puts "  #{gem} install #{my_gems.join " "} && \\"
   puts "  #{gem} clean && \\"
   puts "  echo #{gem} install bundler -v '~> 1.17.0' --force && \\"
