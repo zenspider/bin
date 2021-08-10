@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby -ws
 
 $b ||= false
+$B ||= false
 $c ||= false
 $g ||= false
 $h ||= false
@@ -16,19 +17,25 @@ $x ||= false
 
 if $h then
   puts "#{File.basename($0)} [options] [files]"
-  puts "  -b - strip leading and trailing whitespace, and blanks"
-  puts "  -c - cumulative percentages"
-  puts "  -g - print a simple histogram"
   puts "  -h - show help"
+  puts "  -B - force input encoding to binary"
+  puts "  -o - skip lines that only occur once"
+  puts "  -s - sort by line, rather than occurrence"
+  puts
+  puts "  -b - strip leading and trailing whitespace, and blanks"
+  puts "  -t - format with tabs so it is pastable into a spreadsheet"
+  puts "  -w - preserve whitespace as-is"
+  puts
   puts "  -i - strip ip numbers"
-  puts "  -l - print the historgram logarithmically"
   puts "  -n - convert numbers to '<num>'"
   puts "  -x - convert hex numbers to '0x<num>'"
-  puts "  -w - preserve whitespace as-is"
-  puts "  -o - skip lines that only occur once"
+  puts
+  puts "  -c - cumulative percentages"
   puts "  -p - add percentage values to the output"
-  puts "  -s - sort by line, rather than occurance"
-  puts "  -t - format with tabs so it is pastable into a spreadsheet"
+  puts
+  puts "  -g - print a simple histogram"
+  puts "  -l - print the histogram logarithmically"
+
   exit 0
 end
 
@@ -38,7 +45,9 @@ c = {}
 c.default = 0
 total = 0
 
-ARGF.each do |line|
+ARGF.set_encoding("binary") if $B
+
+ARGF.each_line do |line|
   line = line.chomp
   line.gsub!(/\c[\[\d+m/, '')
   line.gsub!(/0x(\d|[a-f])+/i, '0x<num>') if $x
