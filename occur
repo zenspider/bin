@@ -9,7 +9,7 @@ $i ||= false
 $l ||= false
 $n ||= false
 $o ||= false
-$p ||= false
+$p ||= $c
 $w ||= false
 $s ||= false
 $t ||= false
@@ -38,8 +38,6 @@ if $h then
 
   exit 0
 end
-
-$p = true if $c
 
 c = {}
 c.default = 0
@@ -98,7 +96,9 @@ sorted.each do |key|
   next if $o and c[key] == 1
   if $c then
     curr += c[key]
-    printf "%#{mag}d:%5.2f%%:%s\n", c[key], curr / total * 100.0, key
+    cul = curr / total * 100.0
+    pct = c[key] / total * 100.0
+    printf "%#{mag}d:%5.2f%%:%5.2f%%:%s\n", c[key], pct, cul, key
   elsif $p then
     printf "%#{mag}d:%5.2f%%:%s\n", c[key], c[key] / total * 100.0, key
   elsif $t then
