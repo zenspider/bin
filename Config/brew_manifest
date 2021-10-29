@@ -21,7 +21,7 @@ brew "direnv"                                      # directory env "hooks"
 brew "fd"                                          # better find
 brew "hyperfine"                                   # cmdline benchmarking
 brew "ical-buddy"                                  # getting calendar items on my desktop
-brew "lrzip"                                       # fast and good compression
+brew "zstd"                                        # fast and good compression
 brew "lzop"                                        # fast compression
 brew "rdfind"                                      # clean out junk and nuke backups
 brew "rsync"                                       # file sync
@@ -40,16 +40,19 @@ brew "cproto"                                      # generate / clean headers
 brew "ctags"                                       # tag ruby and lisp
 brew "gist"                                        # cmdline gist w/ 2FA support
 brew "git"                                         # git. duh.
+brew "git-delta"                                   # better(?) diffs
 brew "hub"                                         # most useful git extension
 brew "jq"                                          # grep json
+brew "shellcheck"                                  # bash linter
 brew "sqlite"                                      # lightweight sql
+brew "yamllint"                                    # EXPERIMENT: lint yaml files
+cask "devdocs"                                     # desktop app for doco
 cask "perforce"                                    # perforce... duh
 
 host home_dev do
   tap "heroku/brew"
   brew "heroku"                                    # deployment and debugging
 
-  brew "shellcheck" unless M1                      # bash linter
   # brew "llvm"                                      # big sur's llvm == bad?
 end
 
@@ -67,8 +70,6 @@ host home_dev do
   brew "libyaml"                                   # for rbenv rubies
   brew "postgresql"                                # fat db of choice
   brew "regex-opt"                                 # helps craft regexps
-  brew "git-delta"                                 # EXPERIMENT: better git diff
-  brew "yamllint"                                  # EXPERIMENT: lint yaml files
 end
 
 ## graphics
@@ -130,7 +131,7 @@ end
 
 host all_dev do
   # brew "ruby-build" # I'm currently running my own version
-  # cask "emacs-mac"
+  cask "emacs-mac"
 end
 
 host work_dev do
