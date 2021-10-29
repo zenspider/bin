@@ -111,8 +111,6 @@ host home do
   brew "media-info"
   brew "brightness"
   brew "highlight"                                 # quicklook dependency
-  tap "jzelinskie/faq"
-  brew "faq"                                       # alternative to jq
   brew "ansible"
   cask "multipass" unless M1                       # clean virtualization
 end
