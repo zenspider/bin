@@ -2,9 +2,14 @@
 
 require "date"
 
+class Date
+  def next_monday
+    (self..(self+7)).find { |day| day.wday == 1 }
+  end
+end
+
 LOCATION = {
   :home => "530 Broadway E\nSeattle WA 98102\nUnited States",
-  :gym  => "1666 E Olive Way\nSeattle WA 98102\nUnited States"
 }
 
 sun, mon, tue, wed, thu, fri, sat = (0..6).to_a
@@ -15,7 +20,7 @@ d = Date.new(year, 1, 1)
 
 week = (d..(d+6)).to_a
 
-first_weekday = week.find { |day| d.wday.between? mon, fri }
+first_weekday = week.find { |day| day.wday.between? mon, fri }
 
 first = week.rotate(-d.wday)
 
@@ -28,22 +33,41 @@ def t n_or_a
   end
 end
 
-def all_day date, title
-  puts "-- %s all day %s" % [date, title]
+def new_event title, t0, t1, where, repeat:nil
+  puts "set theEvent to create event event store theStore destination calendar theCal event summary %p starting date (date %p) ending date (date %p) %s" % [title, t0, t1, where]
 
-  date = Date.parse(date) if String === date
-  fmt = "%m/%d/%Y"
-  d = date.to_time.strftime fmt
+  case repeat
+  when :weekly, :weekdays then
+    puts "modify recurrence event theEvent event frequency do weekly event interval 1 repeats until endOfYear"
+  when :yearly then
+    puts "modify recurrence event theEvent event frequency do yearly event interval 1 repeats for 10"
+  else
+    # do nothing
+  end
 
-  puts "set theEvent to create event event store theStore destination calendar theCal event summary %p starting date (date %p) ending date (date %p) with runs all day" % [title, d, d]
   puts "store event event theEvent event store theStore"
+
+  if repeat == :weekdays then
+    puts "my setToWeekdays(event_external_ID of (event info for event theEvent))"
+  end
+
   puts
 end
 
-def event date, start, stop, repeat, title, where = nil
-  puts "-- %s %s-%s %-8s %s" % [date, t(start), t(stop), repeat, title]
-
+def all_day date, title
   date = Date.parse(date) if String === date
+
+  puts "-- %s all day %s" % [date, title]
+
+  d = date.to_time.strftime "%D"
+
+  new_event title, d, d, "with runs all day"
+end
+
+def event date, start, stop, repeat, title, where = nil
+  date = Date.parse(date) if String === date
+
+  puts "-- %s %s-%s %-8s %s" % [date, t(start), t(stop), repeat, title]
 
   h0, m0 = start
   h1, m1 = stop
@@ -57,17 +81,7 @@ def event date, start, stop, repeat, title, where = nil
   t0 = (date.to_time + (h0 * 3600) + (m0 * 60)).strftime fmt
   t1 = (date.to_time + (h1 * 3600) + (m1 * 60)).strftime fmt
 
-  puts "set theEvent to create event event store theStore destination calendar theCal event summary %p starting date (date %p) ending date (date %p) %s" % [title, t0, t1, where]
-
-  case repeat
-  when :weekly, :weekdays then
-    puts "modify recurrence event theEvent event frequency do weekly event interval 1 repeats until endOfYear"
-  when :yearly then
-    puts "modify recurrence event theEvent event frequency do yearly event interval 1 repeats for 10"
-  else
-    raise "UNKNOWN: #{repeat}"
-  end
-  puts "store event event theEvent event store theStore"
+  new_event title, t0, t1, where, repeat:repeat
 
   if repeat == :weekdays then
     puts "my setToWeekdays(event_external_ID of (event info for event theEvent))"
@@ -90,8 +104,15 @@ event first[fri],    18,      23,      :weekly,   "Me Night",   :home
 # event first_weekday, 12,      13,      :weekdays, "Get Moving", :home
 # event first_weekday, 13,      [13,30], :weekdays, "Standup",    :home
 
-event "4/23",        12,      [12,30], :yearly,   "Pay Property Taxes"
-event "10/23",       12,      [12,30], :yearly,   "Pay Property Taxes"
+may_taxes = Date.new(year,  4, 15).next_monday
+oct_taxes = Date.new(year, 10, 15).next_monday
+
+event may_taxes,     12,      [12,30], :yearly,   "Schedule Property Tax Payment"
+event oct_taxes,     12,      [12,30], :yearly,   "Schedule Property Tax Payment"
+event "4/23",        12,      [12,30], :yearly,   "No, Really! Pay Property Taxes"
+event "10/23",       12,      [12,30], :yearly,   "No, Really! Pay Property Taxes"
+
+event "1/1",         12,      [12,30], :yearly,   "Run setup_calendar_fast.rb"
 
 all_day "4/30",                                   "Property Taxes"
 all_day "10/31",                                  "Property Taxes"
