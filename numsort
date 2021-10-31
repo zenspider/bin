@@ -5,8 +5,9 @@ $h ||= false
 
 class Array
   def human_sort
-    base = $h ? 16 : 10
-    sort_by { |item| item.to_s.split(/(\d+)/).map { |e| [e.to_i(base), e] } }
+    regexp = $h ? /(\h+)/ : /(\d+)/
+    base   = $h ? 16      : 10
+    sort_by { |item| item.to_s.split(regexp).map { |e| [e.to_i(base), e] } }
   end
 end
 
