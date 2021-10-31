@@ -4,7 +4,7 @@ for dir in "${@%/}" ; do
   if [ ! -d "$dir" ]; then
     echo "Error: $dir is not a directory"
   else
-    lrztar "$dir" && rm -rf "$dir"
+    tar c "$dir" | zstd -5 -T0 --long > "$dir.tar.zst" && rm -rf "$dir"
   fi
 done
 
