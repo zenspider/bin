@@ -36,7 +36,7 @@ del = if extra.grep(/del/).empty? then
         nil
       end
 
-cmd = ["rsync", flags, del, extra,
+cmd = ["/opt/homebrew/bin/rsync", flags, del, extra,
        "--include", ".git",
        "--include", ".svn",
 
