@@ -1,6 +1,17 @@
 #!/bin/bash
 
 for arch in "$@" ; do
-  lrzuntar "$arch" && rm -f "$arch"
+    file=$(basename $arch)
+    ext=${file##*.}
+
+    case $ext in
+        "zst" )
+            zstd -dc "$arch" | tar x && rm -f "$arch"
+            ;;
+        "lrztar" )
+            lrzuntar "$arch" && rm -f "$arch"
+            ;;
+    esac
+    # 
 done
 
