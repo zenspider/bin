@@ -133,6 +133,7 @@ host all_dev do
 end
 
 host work_dev do
+  brew "dhall"
   brew "docker"
   brew "snappy"
   brew "mysql"
