@@ -1,4 +1,5 @@
 # -*- conf-space -*-
+Include config.local
 
 Host *
   IdentityFile ~/.ssh/id_rsa
