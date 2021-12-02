@@ -134,6 +134,7 @@ end
 
 host work_dev do
   brew "dhall"
+  brew "dhall-json"
   brew "docker"
   brew "gnupg"
   brew "go-jira"
