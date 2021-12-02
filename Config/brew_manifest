@@ -135,16 +135,16 @@ end
 host work_dev do
   brew "dhall"
   brew "docker"
-  brew "snappy"
-  brew "mysql"
-  brew "libidn"
-  brew "icu4c"
+  brew "gnupg"
   brew "go-jira"
+  brew "icu4c"
+  brew "imagemagick" # ugh
+  brew "libidn"
+  brew "mysql"
+  brew "snappy"
   cask "google-cloud-sdk"
   cask "vagrant"
   cask "virtualbox"
-  brew "imagemagick" # ugh
-  brew "gnupg"
 end
 
 host all_dev do
