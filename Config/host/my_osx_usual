@@ -8,8 +8,7 @@ if [ -d ~/Applications/dev/lisp/Racket/bin ]; then
     add_host_path ~/Applications/dev/lisp/Racket/bin
 fi
 
-export BREW_CASK_OPTS=--appdir=~/Applications
-export HOMEBREW_AUTO_UPDATE_SECS=86400000
+export HOMEBREW_CASK_OPTS=--appdir=~/Applications
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_COLOR=1
@@ -17,10 +16,11 @@ export HOMEBREW_NO_COMPAT=1
 export HOMEBREW_NO_EMOJI=1
 export HOMEBREW_NO_GITHUB_API=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
+export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 export HOMEBREW_NO_INSTALL_UPGRADE=1
-export HOMEBREW_NO_SANDBOX=1
 export HOMEBREW_NO_UPDATE_CLEANUP=1
+export HOMEBREW_UPDATE_REPORT_ONLY_INSTALLED=1
 
 if [[ $- == *i* ]]; then
     if [ -d /opt/homebrew ]; then
