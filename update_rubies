@@ -3,6 +3,7 @@
 $l ||= false # legacy  - do older ruby verisons
 $B ||= false # bundler - keep bundler?!?
 
+require "etc"
 require "open-uri"
 require "net/http" # avoid require issues in threads
 require "net/https"
@@ -28,9 +29,11 @@ my_gems = %w[
              flog
              racc
              ruby2ruby
+             pry
+             pry-byebug
             ]
 
-cpus = `sysctl -n hw.logicalcpu`.to_i
+cpus = Etc.nprocessors
 
 base_url = "https://cache.ruby-lang.org/pub/ruby"
 
@@ -66,6 +69,14 @@ good    = versions & old_versions
 install = versions - old_versions
 delete  = old_versions - versions
 
+unless ARGV.empty? then
+  version_re = Regexp.union ARGV
+
+  good    = good.grep version_re
+  install = install.grep version_re
+  delete  = delete.grep version_re
+end
+
 # https://github.com/postmodern/ruby-install/issues/363#issuecomment-580699347
 extra = {
   "2.3.8" => "--with-openssl-dir=$(brew --prefix openssl@1.0) --with-static-linked-ext",
@@ -74,6 +85,7 @@ extra = {
 puts "# Good   : #{good.reverse.join " "}"
 puts "# Install: #{install.reverse.join " "}"
 puts "# Delete : #{delete.join " "}"
+
 puts
 puts "set -e"
 puts
@@ -86,7 +98,7 @@ install.reverse_each do |ver|
   puts "  #{gem} update --system #{gem_version} -N && \\"
   puts "  #{gem} uninstall rubygems-update && \\"
   puts "  #{gem} uninstall power_assert test-unit && \\"
-  unless $B then
+  unless $B or ver =~ /^3\./ then
     puts "  find -d $(#{gem} env home) -name bundler\* -delete && \\"
     puts "  find -d #{dir}             -name bundler\* -delete && \\"
     puts "  find -d $(#{gem} env home) -name bundler\* -exec rm -rf {} \\; && \\"
