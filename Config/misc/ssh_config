@@ -3,10 +3,11 @@ Include config.local
 
 Host *
   IdentityFile ~/.ssh/id_rsa
-  UseKeychain yes
-  AddKeysToAgent yes
   ForwardAgent yes
   CheckHostIP yes
+Match exec "uname -s | grep Darwin"
+  UseKeychain yes
+  AddKeysToAgent yes
 
 Host e
 	Hostname envy.local
