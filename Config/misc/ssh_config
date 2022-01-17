@@ -5,7 +5,7 @@ Host *
   IdentityFile ~/.ssh/id_rsa
   ForwardAgent yes
   CheckHostIP yes
-Match exec "uname -s | grep Darwin"
+  IgnoreUnknown UseKeychain,AddKeysToAgent
   UseKeychain yes
   AddKeysToAgent yes
 
