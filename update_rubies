@@ -8,12 +8,10 @@ require "open-uri"
 require "net/http" # avoid require issues in threads
 require "net/https"
 
-versions = %w[ 2.5 2.6 2.7 3.0 ]
+versions = %w[ 2.7 3.0 3.1 ]
+legacy   = %w[ 2.4 2.5 2.6 ]
 
-if $l then
-  versions.unshift "2.4"
-  versions.unshift "2.3"
-end
+versions.concat legacy if $l
 
 my_gems = %w[
              rubygems-cleanroom
@@ -29,6 +27,7 @@ my_gems = %w[
              flog
              racc
              ruby2ruby
+             rake-compiler
              pry
              pry-byebug
             ]
@@ -78,8 +77,14 @@ unless ARGV.empty? then
 end
 
 # https://github.com/postmodern/ruby-install/issues/363#issuecomment-580699347
-extra = {
-  "2.3.8" => "--with-openssl-dir=$(brew --prefix openssl@1.0) --with-static-linked-ext",
+extra_args = {
+  "2.3" => "--with-openssl-dir=$(brew --prefix openssl@1.0) --with-static-linked-ext",
+}
+
+# https://github.com/postmodern/ruby-install/issues/399#issuecomment-829153466
+extra_env = {
+  "2.4" => "CFLAGS=-Wno-error=implicit-function-declaration",
+  "2.5" => "CFLAGS=-Wno-error=implicit-function-declaration",
 }
 
 puts "# Good   : #{good.reverse.join " "}"
@@ -90,11 +95,14 @@ puts
 puts "set -e"
 puts
 install.reverse_each do |ver|
+  short_ver = ver[/^\d+\.\d+/]
+
   dir = "~/.rubies/ruby-#{ver}"
   gem = "#{dir}/bin/gem"
 
   puts "echo #{ver}"
-  puts "ruby-install -c --no-reinstall --no-install-deps -j#{cpus} -s /tmp/ ruby #{ver} -- #{extra[ver]} &> /tmp/#{ver}.log && \\"
+  print "#{extra_env[short_ver]} " if extra_env[short_ver]
+  puts "ruby-install -c --no-reinstall --no-install-deps -j#{cpus} -s /tmp/ ruby #{ver} -- #{extra_args[short_ver]} &> /tmp/#{ver}.log && \\"
   puts "  #{gem} update --system #{gem_version} -N && \\"
   puts "  #{gem} uninstall rubygems-update && \\"
   puts "  #{gem} uninstall power_assert test-unit && \\"
