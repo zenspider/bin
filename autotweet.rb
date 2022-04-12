@@ -60,12 +60,12 @@ end
 
 def weekly
   # tweet "seattlerb", so_like("code. talk. have coffee. vivace 7-9")
-  tweet "seattlerb", "Hi! Seattle.rb is still alive and doing weekly nerd party virtually! Join us! https://meet.jit.si/NerdParty"
+  tweet "seattlerb", so_like("code. talk. drink beer. optimism 7-9")
 end
 
 def monthly
   # tweet "seattlerb", "It's our monthly! Come watch talks, not have coffee, and share something for show and tell. substantial 7-9. http://www.seattlerb.org/join-us"
-  tweet "seattlerb", "Hi! Seattle.rb is still alive and doing our monthly virtually! Join us! https://meet.jit.si/NerdParty"
+  tweet "seattlerb", so_like("code. talk. drink beer. optimism 7-9")
 end
 
 def holiday
