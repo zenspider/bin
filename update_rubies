@@ -87,6 +87,8 @@ extra_env = {
   "2.5" => "CFLAGS=-Wno-error=implicit-function-declaration",
 }
 
+latest = versions.last
+
 puts "# Good   : #{good.reverse.join " "}"
 puts "# Install: #{install.reverse.join " "}"
 puts "# Delete : #{delete.join " "}"
@@ -94,6 +96,10 @@ puts "# Delete : #{delete.join " "}"
 puts
 puts "set -e"
 puts
+
+puts "ln -shF .rubies/ruby-#{latest}  ~/.rubies.current"
+puts
+
 install.reverse_each do |ver|
   short_ver = ver[/^\d+\.\d+/]
 
