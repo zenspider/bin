@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby -w
 
-active_ruby = ENV["CURRENT_RUBY"] || "3.1"
-versions    = %w[2.3 2.4 2.5 2.6 2.7 3.0 3.1]
-versions    = versions.drop 3 if `hostname`.chomp == "25257-ryan.davis"
+versions    = %w[2.4 2.5 2.6 2.7 3.0 3.1]
+versions    = versions.drop 2 if `hostname`.chomp == "25257-ryan.davis"
+active_ruby = ENV["CURRENT_RUBY"] || versions.last
 
 class Array
   def human_sort
