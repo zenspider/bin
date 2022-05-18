@@ -93,11 +93,12 @@ end
 puts DATA.read
 puts
 event first[mon],    18,      23,      :weekly,   "Me Night",   :home
-event first[mon],    10,      [10,30], :weekly,   "Weekly Planning"
-event first[thu],    [10,30], 11,      :weekly,   "1:1"
+event first[mon],    [10,30], 11,      :weekly,   "Weekly Planning"
+event first[mon],    11,      [11,30], :weekly,   "1:1"
 event first[tue],    18,      19,      :weekly,   "Study Group"
 event first[tue],    19,      21,      :weekly,   "Nerd Party"
-event first[wed],    12,      [12,30], :weekly,   "Ryan & Phil Call"
+event first[wed],    18,      23,      :weekly,   "Me Night",   :home
+# event first[wed],    12,      [12,30], :weekly,   "Ryan & Phil Call"
 event first[thu],    18,      23,      :weekly,   "Kai"
 event first[fri],    18,      23,      :weekly,   "Me Night",   :home
 
