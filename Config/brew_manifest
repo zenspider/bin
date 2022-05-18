@@ -41,7 +41,8 @@ brew "ctags"                                       # tag ruby and lisp
 brew "gist"                                        # cmdline gist w/ 2FA support
 brew "git"                                         # git. duh.
 brew "git-delta"                                   # better(?) diffs
-brew "hub"                                         # most useful git extension
+brew "hub"                                         # TODO: remove
+brew "gh"                                          # most useful git extension
 brew "jq"                                          # grep json
 brew "shellcheck"                                  # bash linter
 brew "sqlite"                                      # lightweight sql
@@ -53,7 +54,11 @@ host home_dev do
   tap "heroku/brew"
   brew "heroku"                                    # deployment and debugging
 
+  tap "unisonweb/unison"
+  brew "unison-language"
+
   # brew "llvm"                                      # big sur's llvm == bad?
+  brew "zig"
 end
 
 ### ruby-install listed deps for ruby on brew:
@@ -87,7 +92,7 @@ end
 
 ## networking
 
-brew "mobile-shell"                                # good for ssh in cafe
+brew "mosh"                                        # good for ssh in cafe
 brew "mtr"                                         # diagnose bad networks
 brew "nmap"                                        # scan machines
 brew "w3m"                                         # emacs web browser
