@@ -1,0 +1,5 @@
+#!/bin/bash
+
+defaults delete com.stclairsoft.AppTamer
+defaults write com.stclairsoft.AppTamer hideWhenIdle 1
+defaults write com.stclairsoft.AppTamer minutesUntilHide 1
