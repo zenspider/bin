@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby -ws
 
-$l ||= false # legacy  - do older ruby verisons
 $B ||= false # bundler - keep bundler?!?
 
 require "etc"
@@ -9,9 +8,6 @@ require "net/http" # avoid require issues in threads
 require "net/https"
 
 versions = %w[ 2.7 3.0 3.1 ]
-legacy   = %w[ 2.4 2.5 2.6 ]
-
-versions.concat legacy if $l
 
 my_gems = %w[
              rubygems-cleanroom
