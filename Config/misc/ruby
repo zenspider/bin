@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby -w
 
-versions    = %w[2.4 2.5 2.6 2.7 3.0 3.1]
-versions    = versions.drop 2 if `hostname`.chomp == "25257-ryan.davis"
+versions    = %w[2.7 3.0 3.1]
 active_ruby = ENV["CURRENT_RUBY"] || versions.last
 
 class Array
