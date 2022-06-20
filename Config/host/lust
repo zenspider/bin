@@ -1,0 +1,1 @@
+eval "$($CONFIG/misc/ruby -q)"
