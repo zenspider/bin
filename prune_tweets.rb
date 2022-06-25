@@ -3,6 +3,7 @@
 $y ||= false # yes, actually delete
 $V ||= false # verboser, show kept & deleted tweets
 $v ||= $V    # verbose, show deleted tweets
+$q ||= false # quiet, ONLY show deletions if they happen
 
 require "isolate"
 Isolate.now! name:"prune_tweets-2021-01-23", system:false do
@@ -58,7 +59,7 @@ oldest_tweet_id = 9_000_000_000_000_000_000
 # :include_rts         = Specifies that the timeline should include native retweets in addition to regular tweets. Note: If you're using the trim_user parameter in conjunction with include_rts, the retweets will no longer contain a full user object.
 
 while got_tweets do
-  $stderr.print "."
+  $stderr.print "." unless $q
   begin
     new_tweets = client.user_timeline(TWITTER_USER,
                                       :count            => TWEETS_PER_REQUEST,
@@ -88,7 +89,7 @@ while got_tweets do
     skipped += 1
   end
 end if tweets.empty?
-$stderr.puts "done"
+$stderr.puts "done" unless $q
 
 deleted = 0
 skipped = 0
@@ -145,5 +146,7 @@ rescue StandardError => e
   warn e.inspect
   exit 1
 end
+deleted = 1
 
-warn "Deleted %d, skipped %d, kept %d" % [deleted, skipped, kept]
+warn "Deleted %d, skipped %d, kept %d" % [deleted, skipped, kept] unless
+  $q && (deleted+skipped).zero?
