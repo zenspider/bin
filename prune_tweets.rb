@@ -146,7 +146,6 @@ rescue StandardError => e
   warn e.inspect
   exit 1
 end
-deleted = 1
 
 warn "Deleted %d, skipped %d, kept %d" % [deleted, skipped, kept] unless
   $q && (deleted+skipped).zero?
