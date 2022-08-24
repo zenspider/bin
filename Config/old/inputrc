@@ -1,7 +1,9 @@
+$if Bash
+  Space: magic-space
+$endif
 $if mode=emacs
-"\C-b": backward-word
-"\C-f": forward-word
 "\ee" : shell-expand-line
+"\M-e" : shell-expand-line
 "\C-q": quoted-insert
 "\C-v": operate-and-get-next
-#endif
+$endif
