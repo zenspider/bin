@@ -10,22 +10,22 @@ Host *
   AddKeysToAgent yes
 
 Host e
-	Hostname envy.local
-	User ryan
-	ControlMaster auto
-	ControlPath ~/.ssh/master-%C
+  Hostname envy.local
+  User ryan
+  ControlMaster auto
+  ControlPath ~/.ssh/master-%C
 
 Host l
-	Hostname lust.zenspider.com
-	User ryan
-	ControlMaster auto
-	ControlPath ~/.ssh/master-%C
+  Hostname lust.zenspider.com
+  User ryan
+  ControlMaster auto
+  ControlPath ~/.ssh/master-%C
 
 Host work.local w
-        Hostname work.local
-	User ryan.davis
-	ControlMaster auto
-	ControlPath ~/.ssh/master-%C
+  Hostname work.local
+  User ryan.davis
+  ControlMaster auto
+  ControlPath ~/.ssh/master-%C
 
 Host github.com
   IdentityFile ~/.ssh/passwordless
