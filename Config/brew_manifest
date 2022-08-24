@@ -14,15 +14,19 @@ tap "homebrew/services"
 tap "rbenv/tap" # openssl@1.0 for ruby 2.3 only. :(
 tap "railwaycat/emacsmacport"
 
+tap "1password/tap"
+
 ## utilities
 
 brew "afsctool"                                    # transparent compression
 brew "direnv"                                      # directory env "hooks"
+brew "entr"                                        # evented execution--fswatch is fussy
 brew "fd"                                          # better find
+brew "fswatch"                                     # evented execution
 brew "hyperfine"                                   # cmdline benchmarking
 brew "ical-buddy"                                  # getting calendar items on my desktop
+cask "1password-cli"                               # one-password CLI (op)
 brew "zstd"                                        # fast and good compression
-brew "lzop"                                        # fast compression
 brew "rdfind"                                      # clean out junk and nuke backups
 brew "rsync"                                       # file sync
 brew "ripgrep"                                     # rg > ag ?
@@ -30,6 +34,7 @@ brew "ripgrep"                                     # rg > ag ?
 # NOTE: you must modify /usr/local/etc/aspell.conf
 # NOTE: and set dict-dir to /Library/Application Support/cocoAspell/aspell*
 cask "cocoaspell"                                  # emacs spellchecker
+brew "aspell"
 
 ## development
 
@@ -57,8 +62,9 @@ host home_dev do
   tap "unisonweb/unison"
   brew "unison-language"
 
-  # brew "llvm"                                      # big sur's llvm == bad?
-  brew "zig"
+  brew "llvm"                                      # big sur's llvm == bad?
+  brew "cmake"                                     # for building zig
+  # brew "zig" # new language, but I'm building edge
 end
 
 ### ruby-install listed deps for ruby on brew:
@@ -73,7 +79,6 @@ brew "readline"                                    # dependency for ruby-install
 host home_dev do
   brew "exercism"                                  # fun, but not terribly useful
   brew "libyaml"                                   # for rbenv rubies
-  brew "postgresql"                                # fat db of choice
   brew "regex-opt"                                 # helps craft regexps
 end
 
@@ -95,7 +100,6 @@ end
 brew "mosh"                                        # good for ssh in cafe
 brew "mtr"                                         # diagnose bad networks
 brew "nmap"                                        # scan machines
-brew "w3m"                                         # emacs web browser
 
 host home_dev do
   brew "tidy-html5"                                # helps me sanitize html
