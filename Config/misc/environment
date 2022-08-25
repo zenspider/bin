@@ -67,10 +67,6 @@ case $- in
 
   if test "${TERM-}" = "emacs" -o "${TERM-}" = "dumb" ; then
     export PAGER=cat
-
-    if [ -n "${INSIDE_EMACS:-}" ]; then
-        TERM=${TERM}-256color
-    fi
   fi
 
   if [ -z "${PAGER-}" ]; then
