@@ -11,11 +11,14 @@ fi
 
 add_os_path ~/Work/git/zenspider/brew-cook
 
+add_os_path "/Library/Developer/CommandLineTools/usr/bin"
+
 # needs to be DEAD LAST to allow the above to override apache+ruby+etc.
 if [ -d /opt/homebrew ]; then
     add_os_path "/opt/homebrew/sbin"
     add_os_path "/opt/homebrew/bin"
 fi
+
 add_os_path "/usr/local/sbin"
 add_os_path "/usr/local/bin"
 add_os_path "/sbin"
