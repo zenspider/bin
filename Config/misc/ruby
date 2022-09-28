@@ -17,6 +17,11 @@ puts
 
 rb_dir = File.expand_path "~/.rubies"
 
+unless File.directory? rb_dir then
+  warn "echo no rubies found, bailing..."
+  exit
+end
+
 versions.each do |ver|
   Dir.chdir "#{rb_dir}" do
     current = Dir["*#{ver}*"].human_sort.last
