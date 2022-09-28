@@ -12,6 +12,7 @@ fi
 add_os_path ~/Work/git/zenspider/brew-cook
 
 add_os_path "/Library/Developer/CommandLineTools/usr/bin"
+export SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
 
 # needs to be DEAD LAST to allow the above to override apache+ruby+etc.
 if [ -d /opt/homebrew ]; then
