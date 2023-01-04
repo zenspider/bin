@@ -11,7 +11,6 @@ tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
-tap "rbenv/tap" # openssl@1.0 for ruby 2.3 only. :(
 tap "railwaycat/emacsmacport"
 
 tap "1password/tap"
@@ -61,10 +60,6 @@ host home_dev do
 
   tap "unisonweb/unison"
   brew "unison-language"
-
-  brew "llvm"                                      # big sur's llvm == bad?
-  brew "cmake"                                     # for building zig
-  # brew "zig" # new language, but I'm building edge
 end
 
 ### ruby-install listed deps for ruby on brew:
@@ -72,7 +67,6 @@ brew "bison"                                       # dependency for ruby-install
 brew "gdbm"                                        # dependency for ruby-install
 brew "libffi"                                      # dependency for ruby-install
 brew "libyaml"                                     # dependency for ruby-install
-brew "openssl@1.0" unless M1                       # dependency for ruby-install (2.3)
 brew "openssl@1.1"                                 # dependency for ruby-install
 brew "readline"                                    # dependency for ruby-install
 
