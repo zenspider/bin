@@ -13,7 +13,8 @@ add_os_path ~/Work/git/zenspider/brew-cook
 
 if command xcode-select --version &> /dev/null ; then
     add_os_path "/Library/Developer/CommandLineTools/usr/bin"
-    export SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
+    # if you uncomment this, ruby + graphics gem builds will break
+    # export SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
 else
     echo "Install devtools when you can with xcode-select --install"
 fi
