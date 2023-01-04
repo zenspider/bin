@@ -19,6 +19,7 @@
   rollback  = reset HEAD^
   l         = log --abbrev-commit --pretty=oneline
   CO        = checkout --ignore-other-worktrees
+  lol       = log --graph --oneline
   loggrep   = log -S
   skinny    = !"git gc; git repack -Ad; git gc; git prune; git prune-packed"
   new-pr    = !"hub pull-request --no-edit -o"
@@ -55,20 +56,19 @@
 [branch]
 	autosetupmerge = true
 	autosetuprebase = always
+        sort=-committerdate
 [fetch]
 	recurseSubmodules = true
 	prune = true
 [pull]
 	rebase = true
-[absorb]
-        maxStack=20
-[gc]
-	auto = 256
-[remind]
-	paths = /Users/ryan/Work/git/zenspider/*,/Users/ryan/Work/seattlerb/*,/Users/ryan/Work/searbsg/*,/Users/ryan/Work/git/chef/*,/Users/ryan/Work/git/inspec/*
 [rebase]
 	autosquash = true
 	autostash = true
+[absorb]
+        maxStack=20
+[remind]
+	paths = /Users/ryan/Work/git/zenspider/*,/Users/ryan/Work/seattlerb/*,/Users/ryan/Work/searbsg/*
 [delta]
     plus-empty-line-marker-style = normal
     keep-plus-minus-markers = true
