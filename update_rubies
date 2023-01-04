@@ -7,7 +7,9 @@ require "open-uri"
 require "net/http" # avoid require issues in threads
 require "net/https"
 
-versions = %w[ 2.7 3.0 3.1 ]
+versions = %w[ 2.7 3.0 3.1 3.2 ] | ARGV
+
+versions.unshift "2.6" # TODO: remove when minitest can drop it!
 
 my_gems = %w[
              rubygems-cleanroom
@@ -73,15 +75,13 @@ unless ARGV.empty? then
 end
 
 # https://github.com/postmodern/ruby-install/issues/363#issuecomment-580699347
-extra_args = {
-  "2.3" => "--with-openssl-dir=$(brew --prefix openssl@1.0) --with-static-linked-ext",
-}
+extra_args = {}
+extra_args["2.3"] = "--with-openssl-dir=$(brew --prefix openssl@1.0) --with-static-linked-ext"
 
 # https://github.com/postmodern/ruby-install/issues/399#issuecomment-829153466
-extra_env = {
-  "2.4" => "CFLAGS=-Wno-error=implicit-function-declaration",
-  "2.5" => "CFLAGS=-Wno-error=implicit-function-declaration",
-}
+extra_env = {}
+extra_env["2.4"] = "CFLAGS=-Wno-error=implicit-function-declaration"
+extra_env["2.5"] = extra_env["2.6"] = extra_env["2.4"]
 
 latest = versions.last
 
@@ -90,10 +90,7 @@ puts "# Install: #{install.reverse.join " "}"
 puts "# Delete : #{delete.join " "}"
 
 puts
-puts "set -e"
-puts
-
-puts "ln -shF .rubies/ruby-#{latest}  ~/.rubies.current"
+puts "set -exv"
 puts
 
 install.reverse_each do |ver|
@@ -108,14 +105,8 @@ install.reverse_each do |ver|
   puts "  #{gem} update --system #{gem_version} -N && \\"
   puts "  #{gem} uninstall rubygems-update && \\"
   puts "  #{gem} uninstall power_assert test-unit && \\"
-  unless $B or ver =~ /^3\./ then
-    puts "  find -d $(#{gem} env home) -name bundler\* -delete && \\"
-    puts "  find -d #{dir}             -name bundler\* -delete && \\"
-    puts "  find -d $(#{gem} env home) -name bundler\* -exec rm -rf {} \\; && \\"
-  end
   puts "  #{gem} install #{my_gems.join " "} && \\"
   puts "  #{gem} clean && \\"
-  puts "  echo #{gem} install bundler -v '~> 1.17.0' --force && \\"
   puts "  chmod u-w $(#{gem} env home)/*"
   puts
 end
@@ -125,3 +116,6 @@ delete.each do |ver|
   puts "chmod u+w $(#{gem} env home)/*"
   puts "rm -rf ~/.rubies/ruby-#{ver}"
 end
+
+puts "ln -shF .rubies/ruby-#{latest}  ~/.rubies.current"
+puts
