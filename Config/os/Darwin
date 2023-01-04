@@ -11,8 +11,12 @@ fi
 
 add_os_path ~/Work/git/zenspider/brew-cook
 
-add_os_path "/Library/Developer/CommandLineTools/usr/bin"
-export SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
+if command xcode-select --version &> /dev/null ; then
+    add_os_path "/Library/Developer/CommandLineTools/usr/bin"
+    export SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
+else
+    echo "Install devtools when you can with xcode-select --install"
+fi
 
 # needs to be DEAD LAST to allow the above to override apache+ruby+etc.
 if [ -d /opt/homebrew ]; then
