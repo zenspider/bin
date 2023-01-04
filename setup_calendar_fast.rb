@@ -1,4 +1,6 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby -ws
+
+$y ||= false # yes, commit
 
 require "date"
 
@@ -8,11 +10,19 @@ class Date
   end
 end
 
+if $y then
+  warn "setting $stdout to osascript"
+  $stdout = IO.popen "osascript", "w"
+end
+
 LOCATION = {
   :home => "530 Broadway E\nSeattle WA 98102\nUnited States",
+  :gym  => "RCF Barbell Club\n1318 E Pine St\nSeattle, WA 98122\nUnited States",
 }
 
 sun, mon, tue, wed, thu, fri, sat = (0..6).to_a
+sun = sun # warning
+sat = sat # warning
 
 year = Date.today.year
 
@@ -40,7 +50,8 @@ def new_event title, t0, t1, where, repeat:nil
   when :weekly, :weekdays then
     puts "modify recurrence event theEvent event frequency do weekly event interval 1 repeats until endOfYear"
   when :yearly then
-    puts "modify recurrence event theEvent event frequency do yearly event interval 1 repeats for 10"
+    # do nothing?
+    # puts "modify recurrence event theEvent event frequency do yearly event interval 1 repeats for 10"
   else
     # do nothing
   end
@@ -92,18 +103,19 @@ end
 
 puts DATA.read
 puts
+
+#     date,       start,    stop,       repeat,   title,        where=nil
+
+event first_weekday, [10,30], 11,      :weekdays, "Triage"
+
 event first[mon],    18,      23,      :weekly,   "Me Night",   :home
-event first[mon],    [10,30], 11,      :weekly,   "Weekly Planning"
-event first[mon],    11,      [11,30], :weekly,   "1:1"
-event first[tue],    18,      19,      :weekly,   "Study Group"
+event first[tue],    11,      [11,30], :weekly,   "1:1"
+event first[tue],    15,      16,      :weekly,   "Study Group"
 event first[tue],    19,      21,      :weekly,   "Nerd Party"
 event first[wed],    18,      23,      :weekly,   "Me Night",   :home
-# event first[wed],    12,      [12,30], :weekly,   "Ryan & Phil Call"
 event first[thu],    18,      23,      :weekly,   "Kai"
 event first[fri],    18,      23,      :weekly,   "Me Night",   :home
-
-# event first_weekday, 12,      13,      :weekdays, "Get Moving", :home
-# event first_weekday, 13,      [13,30], :weekdays, "Standup",    :home
+event first[fri],    12,      13,      :weekly,   "Pain",       :gym
 
 may_taxes = Date.new(year,  4, 15).next_monday
 oct_taxes = Date.new(year, 10, 15).next_monday
@@ -120,6 +132,11 @@ all_day "10/31",                                  "Property Taxes"
 all_day "3/14",                                   "Steak & Blowjob Day"
 all_day "5/8",                                    "Outdoor Intercourse Day"
 all_day "10/15",                                  "My Ruby Birthday (2000)"
+
+if $y then
+  $stdout.flush
+  $stdout.close
+end
 
 __END__
 use scripting additions
