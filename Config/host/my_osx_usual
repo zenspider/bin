@@ -4,6 +4,8 @@ export PGDATA=/usr/local/var/postgres
 
 eval "$($CONFIG/misc/ruby)"
 
+add_host_path ~/Work/git/postmodern/ruby-install/bin
+
 if [ -d ~/Applications/dev/lisp/Racket/bin ]; then
     add_host_path ~/Applications/dev/lisp/Racket/bin
 fi
