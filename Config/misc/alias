@@ -316,3 +316,10 @@ mem() {
 }
 
 . ~/Work/p4/zss/src/ohmygems/dev/ohmygems
+
+omg() {
+    NAME=${1:-$(basename $PWD)}
+    echo "export GEM_HOME=~/.gem/repos/${NAME}"        >> .envrc
+    echo "export PATH=~/.gem/repos/${NAME}/bin:\$PATH" >> .envrc
+    direnv allow
+}
