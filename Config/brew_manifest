@@ -55,9 +55,6 @@ cask "devdocs"                                     # desktop app for doco
 cask "perforce"                                    # perforce... duh
 
 host home_dev do
-  tap "heroku/brew"
-  brew "heroku"                                    # deployment and debugging
-
   tap "unisonweb/unison"
   brew "unison-language"
 end
