@@ -11,14 +11,6 @@ fi
 
 add_os_path ~/Work/git/zenspider/brew-cook
 
-if command xcode-select --version &> /dev/null ; then
-    add_os_path "/Library/Developer/CommandLineTools/usr/bin"
-    # if you uncomment this, ruby + graphics gem builds will break
-    # export SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
-else
-    echo "Install devtools when you can with xcode-select --install"
-fi
-
 # needs to be DEAD LAST to allow the above to override apache+ruby+etc.
 if [ -d /opt/homebrew ]; then
     add_os_path "/opt/homebrew/sbin"
@@ -34,6 +26,15 @@ add_os_path "/usr/bin"
 
 if [ -d /usr/X11R6 -a ! -e /usr/X11R6/bin/xstub ]; then
     add_os_path "/usr/X11R6/bin"
+fi
+
+# this NEEDS to be after /usr/bin:
+if command xcode-select --version &> /dev/null ; then
+    add_os_path "/Library/Developer/CommandLineTools/usr/bin"
+    # if you uncomment this, ruby + graphics gem builds will break
+    # export SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
+else
+    echo "Install devtools when you can with xcode-select --install"
 fi
 
 if [ -d /MyApplications ]; then
