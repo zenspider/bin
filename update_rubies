@@ -87,8 +87,8 @@ extra_pre_args = {
 # https://github.com/postmodern/ruby-install/issues/399#issuecomment-829153466
 extra_env = {}
 extra_env["2.4"] = "CFLAGS=-Wno-error=implicit-function-declaration"
-extra_env["2.5"] = extra_env["2.6"] = extra_env["2.4"]
-extra_env["2.6"] = "CFLAGS=\"-Wno-error=implicit-function-declaration -Wcompound-token-split-by-macro\" PATH=/opt/homebrew/opt/bison/bin:$PATH"
+extra_env["2.5"] = extra_env["2.4"]
+extra_env["2.6"] = "CFLAGS=\"-Wno-error=implicit-function-declaration -Wcompound-token-split-by-macro\" PATH=/opt/homebrew/opt/bison@2.7/bin:$PATH"
 
 latest = versions.last
 
@@ -109,8 +109,8 @@ install.reverse_each do |ver|
   gem = "#{dir}/bin/gem"
 
   puts "echo #{ver}"
-  print "#{extra_env[short_ver]} " if extra_env[short_ver]
-  puts "ruby-install -c --no-reinstall --no-install-deps #{extra_pre_args[short_ver]} -j#{cpus} -s /tmp/ ruby #{ver} -- #{extra_args[short_ver]} &> /tmp/#{ver}.log && \\"
+  puts "#{extra_env[short_ver]} \\" if extra_env[short_ver]
+  puts "ruby-install -c --no-reinstall --no-install-deps #{extra_pre_args[short_ver]} -j#{cpus} -s /tmp/ ruby #{ver} -- --enable-shared #{extra_args[short_ver]} &> /tmp/#{ver}.log && \\"
   puts "  #{gem} update --system #{gem_version} -N && \\"
   puts "  #{gem} uninstall rubygems-update && \\"
   puts "  #{gem} uninstall power_assert test-unit && \\"
