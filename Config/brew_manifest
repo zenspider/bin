@@ -4,7 +4,7 @@ M1 = `arch` =~ /arm64/
 
 home     = %w[ envy ]
 home_dev = %w[ envy ]
-work_dev = %w[ 25257-ryan ]
+work_dev = %w[ 25257-ryan TR9TJ70595 ]
 all_dev  = home_dev + work_dev
 
 tap "homebrew/bundle"
@@ -47,6 +47,7 @@ brew "git"                                         # git. duh.
 brew "git-delta"                                   # better(?) diffs
 brew "hub"                                         # TODO: remove
 brew "gh"                                          # most useful git extension
+brew "jless"                                       # json/yaml formatter/pager
 brew "jq"                                          # grep json
 brew "shellcheck"                                  # bash linter
 brew "sqlite"                                      # lightweight sql
@@ -133,19 +134,27 @@ host all_dev do
 end
 
 host work_dev do
+  tap "zendesk/zendesk", "git@github.com:zendesk/homebrew-zendesk.git" # ric
+
+  brew "awscli"
   brew "dhall"
   brew "dhall-json"
-  brew "docker"
   brew "gnupg"
   brew "go-jira"
   brew "icu4c"
   brew "imagemagick" # ugh
+  brew "jpeg"
+  brew "kubectl"
   brew "libidn"
   brew "mysql"
+  brew "ric"
+  brew "saml2aws"
+  brew "six"
   brew "snappy"
+
+  cask "docker"
   cask "google-cloud-sdk"
   cask "vagrant"
-  cask "virtualbox"
 end
 
 host all_dev do
