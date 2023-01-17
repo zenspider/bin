@@ -11,3 +11,4 @@ for n in $(jot $N 1); do
 done
 
 echo "BAD = $BAD"
+exit $BAD
