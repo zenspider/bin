@@ -71,19 +71,9 @@ unless ARGV.empty? then
   delete  = delete.grep version_re
 end
 
-# https://github.com/postmodern/ruby-install/issues/363#issuecomment-580699347
 extra_args = {}
-extra_args["2.3"] = "--with-openssl-dir=$(brew --prefix openssl@1.0) --with-static-linked-ext"
-
-# https://bugs.ruby-lang.org/issues/17106
 extra_pre_args = {}
-extra_pre_args["2.6"] = "-p /tmp/patches.diff"
-
-# https://github.com/postmodern/ruby-install/issues/399#issuecomment-829153466
 extra_env = {}
-extra_env["2.4"] = "CFLAGS=-Wno-error=implicit-function-declaration"
-extra_env["2.5"] = extra_env["2.4"]
-extra_env["2.6"] = "CFLAGS=\"-Wno-error=implicit-function-declaration -Wcompound-token-split-by-macro\" PATH=/opt/homebrew/opt/bison@2.7/bin:$PATH"
 
 latest = versions.last
 
@@ -94,8 +84,6 @@ warn "# Delete : #{delete.reverse.join " "}"
 puts
 puts "set -exv"
 puts
-
-File.write "/tmp/patches.diff", DATA.read
 
 install.reverse_each do |ver|
   short_ver = ver[/^\d+\.\d+/]
@@ -126,35 +114,3 @@ if File.exist? ".rubies/ruby-#{latest}" then
   puts "ln -shF .rubies/ruby-#{latest}  ~/.rubies.current"
   puts
 end
-
-__END__
-https://github.com/postmodern/ruby-install/issues/394#issuecomment-1011354351
-diff --git a/parse.h b/parse.h
-index b65ad8f..174e702 100644
---- a/parse.h
-+++ b/parse.h
-@@ -49,7 +49,10 @@ extern int yydebug;
- # define YYTOKENTYPE
-   enum yytokentype
-   {
-+    YYEMPTY = -2,
-     END_OF_INPUT = 0,
-+    YYerror = 256,                 /* error  */
-+    YYUNDEF = 257,                 /* "invalid token"  */
-     keyword_class = 258,
-     keyword_module = 259,
-     keyword_def = 260,
-
-https://github.com/ruby/ruby/commit/47720e2255f34ecad49763c66a7ea02a55a3f60a.patch
-diff --git a/tool/ytab.sed b/tool/ytab.sed
-index ba7566ac7fab..95a9b3e1eb33 100755
---- a/tool/ytab.sed
-+++ b/tool/ytab.sed
-@@ -14,6 +14,7 @@ a\
- }
- /^yydestruct.*yymsg/,/{/{
-   /^yydestruct/{
-+    /,$/N
-     /[, *]p)/!{
-       H
-       s/^/ruby_parser_&/
