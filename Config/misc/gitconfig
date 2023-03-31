@@ -80,3 +80,5 @@
     minus-style          = normal auto
     minus-non-emph-style = normal normal
     minus-emph-style     = auto auto
+[init]
+	defaultBranch = main
