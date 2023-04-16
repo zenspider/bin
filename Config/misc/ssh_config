@@ -21,6 +21,12 @@ Host l
   ControlMaster auto
   ControlPath ~/.ssh/master-%C
 
+Host s
+  Hostname seattlerb.org
+  User ryan
+  ControlMaster auto
+  ControlPath ~/.ssh/master-%C
+
 Host work.local w
   Hostname work.local
   User ryan.davis
