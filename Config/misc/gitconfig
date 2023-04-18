@@ -8,37 +8,38 @@
   excludesfile = /Users/ryan/.gitignore_global
   quotepath    = false
 [alias]
-  main      = "!git symbolic-ref refs/remotes/origin/HEAD | cut -f3- -d/"
+  default-branch = "!git symbolic-ref refs/remotes/origin/HEAD | cut -f4- -d/"
   name      = branch --show-current
   st        = status -uno
-  sta       = status
+  sta       = status -unormal
   downx     = pull --rebase
   down      = !git pull --rebase origin $(git name)
   onup      = push
   up        = push
   rollback  = reset HEAD^
-  l         = log --abbrev-commit --pretty=oneline
+  l         = sl 'stack()'
   CO        = checkout --ignore-other-worktrees
   lol       = log --graph --oneline
-  loggrep   = log -S
+  loggrep   = log -G
   skinny    = !"git gc; git repack -Ad; git gc; git prune; git prune-packed"
   new-pr    = !"hub pull-request --no-edit -o"
   topic     = checkout -t -b
   sha       = rev-parse --short
-  sweep     = !git branch -r --merged | grep -v master | sed \"s/origin\\///\" | xargs -n 1 echo git push --delete origin
+  sweep     = !git branch -r --merged | grep -v $(git default-branch) | sed \"s/origin\\///\" | xargs -n 1 echo git push --delete origin
   s         = status -sb
   unrebase  = reset --hard ORIG_HEAD
   unpull    = reset --hard HEAD@{1}
   files     = !"git diff --name-only"
-  bfiles    = !"git files $(git main).."
-  empty     = !"SHA=$(git rev-parse --short HEAD); git rollback; git commit -C $SHA --allow-empty"
+  bfiles    = !"git files $(git default-branch).."
+  empty     = !"SHA=$(git sha HEAD); git rollback; git commit -C $SHA --allow-empty"
+  print     = !"git show $1:$2"
 
 [push]
   default = current
 [diff]
   compactionHeuristic = true
 [merge]
-  keepBackup = false;
+  keepBackup = false
   summary = true
   tool = p4merge
 [mergetool "p4merge"]
@@ -54,31 +55,28 @@
   process = git-lfs filter-process
   required = true
 [branch]
-	autosetupmerge = true
-	autosetuprebase = always
-        sort=-committerdate
+  autosetupmerge = true
+  autosetuprebase = always
+  sort=-committerdate
 [fetch]
-	recurseSubmodules = true
-	prune = true
+  recurseSubmodules = true
+  prune = true
 [pull]
-	rebase = true
+  rebase = true
 [rebase]
-	autosquash = true
-	autostash = true
-[absorb]
-        maxStack=20
-[remind]
-	paths = /Users/ryan/Work/git/zenspider/*,/Users/ryan/Work/seattlerb/*,/Users/ryan/Work/searbsg/*
+  autosquash = true
+  autostash = true
+  updateRefs = true
 [delta]
-    plus-empty-line-marker-style = normal
-    keep-plus-minus-markers = true
+  plus-empty-line-marker-style = normal
+  keep-plus-minus-markers = true
 
-    plus-style          = normal auto
-    plus-non-emph-style = normal normal
-    plus-emph-style     = auto auto
+  plus-style          = normal auto
+  plus-non-emph-style = normal normal
+  plus-emph-style     = auto auto
 
-    minus-style          = normal auto
-    minus-non-emph-style = normal normal
-    minus-emph-style     = auto auto
+  minus-style          = normal auto
+  minus-non-emph-style = normal normal
+  minus-emph-style     = auto auto
 [init]
-	defaultBranch = main
+  defaultBranch = main
