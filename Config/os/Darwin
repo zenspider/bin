@@ -46,7 +46,7 @@ fi
 case $- in
   # interactive shell
   *i*)
-       export LESS=-RFEm
+       export LESS=-FREmiX
        export MORE=$LESS
        alias ec="emacsclient -a emacs"
        alias en="e -n"
