@@ -23,11 +23,3 @@ export HOMEBREW_NO_INSTALL_CLEANUP=1
 export HOMEBREW_NO_INSTALL_UPGRADE=1
 export HOMEBREW_NO_UPDATE_CLEANUP=1
 export HOMEBREW_UPDATE_REPORT_ONLY_INSTALLED=1
-
-if [[ $- == *i* ]]; then
-    if [ -d /opt/homebrew ]; then
-        eval "$(/opt/homebrew/bin/direnv hook bash)"
-    else
-        eval "$(direnv hook bash)"
-    fi
-fi

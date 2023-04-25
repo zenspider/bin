@@ -76,6 +76,13 @@ case $- in
   # ESHELL is what emacs will run for a shell
   export ESHELL=/bin/bash
   
+  # direnv to manage project specific env vars
+  eval "$(direnv hook bash)"
+
+  # for the eat.el terminal emulator:
+  [ -n "${EAT_SHELL_INTEGRATION_DIR:-}" ] && \
+      source ~/Bin/elisp/misc/eat.bash # my version of directory tracking
+
   ;;
 
   # not interactive
