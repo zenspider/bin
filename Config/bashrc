@@ -59,7 +59,7 @@ maybe_source () {
     fi
 }
 
-[ -z "${PROMPT_COMMAND:-}" ] && declare -x PROMPT_COMMAND
+[ -z "${PROMPT_COMMAND:-}" ] && declare -x PROMPT_COMMAND=""
 
 export DOMAIN=$(hostname -f | cut -f2- -d.)
 export HOSTNAME=$(hostname -s)
