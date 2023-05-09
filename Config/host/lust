@@ -1,1 +1,3 @@
+add_host_path ~/Work/git/postmodern/ruby-install/bin
+
 eval "$($CONFIG/misc/ruby -q)"
