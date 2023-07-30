@@ -76,10 +76,10 @@ class Omnifocus
     results.each do |(title, proj)|
       if proj != old_proj then
         old_proj = proj
-        puts "* %s" % [proj] if proj
+        puts "* %s: %s" % [proj, title]
+      else
+        puts "  * %s" % [title]
       end
-
-      puts "  * %s" % [title]
     end
   end
 
@@ -102,7 +102,7 @@ class Omnifocus
   end
 
   def soon_cmd args
-    ["Due Soon", "t.name", soon]
+    ["Due Soon", "t.name, proj.name", soon]
   end
 
   def count_soon_cmd args
