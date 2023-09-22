@@ -24,12 +24,13 @@ brew "fd"                                          # better find
 brew "fswatch"                                     # evented execution
 brew "hyperfine"                                   # cmdline benchmarking
 brew "ical-buddy"                                  # getting calendar items on my desktop
-cask "1password-cli"                               # one-password CLI (op)
-brew "zstd"                                        # fast and good compression
 brew "rdfind"                                      # clean out junk and nuke backups
-brew "rsync"                                       # file sync
 brew "ripgrep"                                     # rg > ag ?
+brew "rsync"                                       # file sync
 brew "swaks"                                       # smtp test tool
+brew "zstd"                                        # fast and good compression
+
+cask "1password-cli"                               # one-password CLI (op)
 
 # NOTE: you must modify /usr/local/etc/aspell.conf
 # NOTE: and set dict-dir to /Library/Application Support/cocoAspell/aspell*
@@ -43,23 +44,20 @@ brew "automake"                                    # for C dev
 brew "cloc"                                        # code analysis
 brew "cproto"                                      # generate / clean headers
 brew "ctags"                                       # tag ruby and lisp
+brew "gh"                                          # most useful git extension
 brew "gist"                                        # cmdline gist w/ 2FA support
 brew "git"                                         # git. duh.
 brew "git-delta"                                   # better(?) diffs
 brew "hub"                                         # TODO: remove
-brew "gh"                                          # most useful git extension
 brew "jless"                                       # json/yaml formatter/pager
 brew "jq"                                          # grep json
 brew "shellcheck"                                  # bash linter
 brew "sqlite"                                      # lightweight sql
-brew "yamllint"                                    # EXPERIMENT: lint yaml files
 brew "wiggle"                                      # EXPERIMENT: better `patch`
+brew "yamllint"                                    # EXPERIMENT: lint yaml files
+
 cask "devdocs"                                     # desktop app for doco
 cask "perforce"                                    # perforce... duh
-
-host home_dev do
-  cask "multipass"
-end
 
 ### ruby-install listed deps for ruby on brew:
 brew "bison"                                       # dependency for ruby-install
@@ -74,6 +72,8 @@ host home_dev do
   brew "exercism"                                  # fun, but not terribly useful
   brew "libyaml"                                   # for rbenv rubies
   brew "regex-opt"                                 # helps craft regexps
+
+  cask "multipass"                                 # clean virtualization
 end
 
 ## graphics
@@ -83,10 +83,10 @@ brew "graphviz"                                    # maddening but useful graphs
 host home_dev do
   brew "freeimage"                                 # really just for image_science
   brew "sdl2"                                      # needed for graphics gem
+  brew "sdl2_gfx"                                  # needed for graphics gem
   brew "sdl2_image"                                # needed for graphics gem
   brew "sdl2_mixer"                                # needed for graphics gem
   brew "sdl2_ttf"                                  # needed for graphics gem
-  brew "sdl2_gfx"                                  # needed for graphics gem
 end
 
 ## networking
@@ -96,8 +96,8 @@ brew "mtr"                                         # diagnose bad networks
 brew "nmap"                                        # scan machines
 
 host home_dev do
-  brew "tidy-html5"                                # helps me sanitize html
   brew "linklint"                                  # to check my website
+  brew "tidy-html5"                                # helps me sanitize html
   brew "visitors"                                  # scan httpd logs
 end
 
@@ -115,7 +115,6 @@ host home do
   brew "brightness"
   brew "highlight"                                 # quicklook dependency
   brew "ansible"
-  cask "multipass" unless M1                       # clean virtualization
 end
 
 ## casks:
@@ -131,7 +130,10 @@ end
 ### my dev machines
 
 host all_dev do
+  brew "git-absorb"                                # git game changer
+  brew "git-imerge"
   # brew "ruby-build" # I'm currently running my own version
+
   cask "emacs-mac"
 end
 
@@ -157,9 +159,4 @@ host work_dev do
   cask "docker"
   cask "google-cloud-sdk"
   cask "vagrant"
-end
-
-host all_dev do
-  brew "git-absorb"                                # git game changer
-  brew "git-imerge"
 end
