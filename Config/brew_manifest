@@ -29,6 +29,7 @@ brew "zstd"                                        # fast and good compression
 brew "rdfind"                                      # clean out junk and nuke backups
 brew "rsync"                                       # file sync
 brew "ripgrep"                                     # rg > ag ?
+brew "swaks"                                       # smtp test tool
 
 # NOTE: you must modify /usr/local/etc/aspell.conf
 # NOTE: and set dict-dir to /Library/Application Support/cocoAspell/aspell*
@@ -52,16 +53,17 @@ brew "jq"                                          # grep json
 brew "shellcheck"                                  # bash linter
 brew "sqlite"                                      # lightweight sql
 brew "yamllint"                                    # EXPERIMENT: lint yaml files
+brew "wiggle"                                      # EXPERIMENT: better `patch`
 cask "devdocs"                                     # desktop app for doco
 cask "perforce"                                    # perforce... duh
 
 host home_dev do
-  tap "unisonweb/unison"
-  brew "unison-language"
+  cask "multipass"
 end
 
 ### ruby-install listed deps for ruby on brew:
 brew "bison"                                       # dependency for ruby-install
+# brew "bison@2.7"                                 # FIX: which ruby needs this?
 brew "gdbm"                                        # dependency for ruby-install
 brew "libffi"                                      # dependency for ruby-install
 brew "libyaml"                                     # dependency for ruby-install
