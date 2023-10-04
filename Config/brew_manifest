@@ -60,6 +60,7 @@ cask "devdocs"                                     # desktop app for doco
 cask "perforce"                                    # perforce... duh
 
 ### ruby-install listed deps for ruby on brew:
+brew "autoconf@2.69"                               # fuck me... 2.71 breaks ruby
 brew "bison"                                       # dependency for ruby-install
 # brew "bison@2.7"                                 # FIX: which ruby needs this?
 brew "gdbm"                                        # dependency for ruby-install
