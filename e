@@ -6,7 +6,7 @@
 # Emacs.app via symlink and/or in the path.
 
 if [ -n "${INSIDE_EMACS:-}" ]; then
-    exec emacsclient "$@"
+    exec emacsclient -n "$@"
 fi
 
 if [ -z "${SSH_CLIENT:-}" ]; then
