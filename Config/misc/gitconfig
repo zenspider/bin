@@ -23,16 +23,20 @@
   loggrep   = log -G
   skinny    = !"git gc; git repack -Ad; git gc; git prune; git prune-packed"
   new-pr    = !"hub pull-request --no-edit -o"
+  find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
   topic     = checkout -t -b
   sha       = rev-parse --short
   sweep     = !git branch -r --merged | grep -v $(git default-branch) | sed \"s/origin\\///\" | xargs -n 1 echo git push --delete origin
   s         = status -sb
   unrebase  = reset --hard ORIG_HEAD
   unpull    = reset --hard HEAD@{1}
-  files     = !"git diff --name-only"
+  xfiles    = !"git diff --name-only ${1:-$(git default-branch)..} --"
+  files     = !"sh -c 'git diff --name-only ${1:-$(git default-branch)..}' --"
   bfiles    = !"git files $(git default-branch).."
   empty     = !"SHA=$(git sha HEAD); git rollback; git commit -C $SHA --allow-empty"
   print     = !"git show $1:$2"
+  logfiles  = !"git log --name-only --pretty='format:%h' $(git default-branch).."
+  debug     = !"GIT_TRACE=1 git"
 
 [push]
   default = current
