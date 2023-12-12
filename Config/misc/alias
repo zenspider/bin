@@ -234,8 +234,6 @@ mdf () {
     mdfind -onlyin . "$@"
 }
 
-alias git=hub
-
 fc () {
     f "$@" | sort -rn -k2 -t:
 }
