@@ -2,6 +2,7 @@
 Include config.local
 
 Host *
+  IdentityFile ~/.ssh/id_ed25519
   IdentityFile ~/.ssh/id_rsa
   ForwardAgent yes
   CheckHostIP yes
@@ -34,11 +35,12 @@ Host work.local w
   ControlPath ~/.ssh/master-%C
 
 Host github.com
-  IdentityFile ~/.ssh/passwordless
+  IdentityFile ~/.ssh/id_ed25519
 
-# password in keychain under sync.net
+# password in keychain under rsync.net
 Host rsync
   Hostname usw-s004.rsync.net
+  IdentityFile ~/.ssh/id_ed25519
   IdentityFile ~/.ssh/rsync.net
   User 4295
   ControlMaster auto
