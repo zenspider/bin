@@ -60,18 +60,19 @@ cask "devdocs"                                     # desktop app for doco
 cask "perforce"                                    # perforce... duh
 
 ### ruby-install listed deps for ruby on brew:
-brew "autoconf@2.69"                               # fuck me... 2.71 breaks ruby
-brew "bison"                                       # dependency for ruby-install
-# brew "bison@2.7"                                 # FIX: which ruby needs this?
-brew "gdbm"                                        # dependency for ruby-install
-brew "libffi"                                      # dependency for ruby-install
-brew "libyaml"                                     # dependency for ruby-install
-brew "openssl@1.1"                                 # dependency for ruby-install
-brew "readline"                                    # dependency for ruby-install
+host all_dev do
+  brew "autoconf@2.69"                             # fuck me... 2.71 breaks ruby
+  brew "bison"                                     # dependency for ruby-install
+  # brew "bison@2.7"                               # FIX: which ruby needs this?
+  brew "gdbm"                                      # dependency for ruby-install
+  brew "libffi"                                    # dependency for ruby-install
+  brew "libyaml"                                   # dependency for ruby-install
+  brew "openssl@1.1"                               # dependency for ruby-install
+  brew "readline"                                  # dependency for ruby-install
+end
 
 host home_dev do
   brew "exercism"                                  # fun, but not terribly useful
-  brew "libyaml"                                   # for rbenv rubies
   brew "regex-opt"                                 # helps craft regexps
 
   cask "multipass"                                 # clean virtualization
@@ -99,7 +100,6 @@ brew "nmap"                                        # scan machines
 host home_dev do
   brew "linklint"                                  # to check my website
   brew "tidy-html5"                                # helps me sanitize html
-  brew "visitors"                                  # scan httpd logs
 end
 
 host home do
