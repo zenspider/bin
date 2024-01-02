@@ -226,9 +226,18 @@ switchto () {
 export RIPGREP_CONFIG_PATH=~/.rgrc
 alias ag="switchto g"
 alias g=rg
-alias f="fd -Itf"
-alias d="fd -td"
+alias grb="rg -trb"
+alias gu="rg -uu"
+alias f="fd -pItf -c never"
+alias d="fd -pItd -c never"
 alias mdfn="switchto f"
+
+fg () {
+    file_pat=$1
+    regexp=$2
+
+    f $file_pat | xargs rg $regexp
+}
 
 mdf () {
     mdfind -onlyin . "$@"
@@ -313,8 +322,7 @@ mem() {
   ps -efo rss,vsz,user,args | perl -pi -e 'if (m/^(\S+)M/) { $mem = $1 * 1024; s/^(\S+)M/${mem}K/ }; s/^(\S+)K/$1/; ' | sort -n
 }
 
-. ~/Work/p4/zss/src/ohmygems/dev/ohmygems
-
+# . ~/Work/p4/zss/src/ohmygems/dev/ohmygems
 omg() {
     NAME=${1:-$(basename $PWD)}
     echo "export GEM_HOME=~/.gem/repos/${NAME}"        >> .envrc
