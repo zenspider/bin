@@ -10,6 +10,7 @@
 [alias]
   default-branch = "!git symbolic-ref refs/remotes/origin/HEAD | cut -f4- -d/"
   name      = branch --show-current
+  first     = rev-list --parents --topo-order --max-parents=0 HEAD
   st        = status -uno
   sta       = status -unormal
   downx     = pull --rebase
