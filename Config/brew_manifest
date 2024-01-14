@@ -69,6 +69,7 @@ host all_dev do
   brew "libyaml"                                   # dependency for ruby-install
   brew "openssl@1.1"                               # dependency for ruby-install
   brew "readline"                                  # dependency for ruby-install
+  brew "rust"                                      # dependency for ruby's yjit
 end
 
 host home_dev do
