@@ -3,12 +3,14 @@ Include config.local
 
 Host *
   IdentityFile ~/.ssh/id_ed25519
-  IdentityFile ~/.ssh/id_rsa
   ForwardAgent yes
   CheckHostIP yes
   IgnoreUnknown UseKeychain,AddKeysToAgent
   UseKeychain yes
   AddKeysToAgent yes
+  ControlMaster auto
+  ControlPath ~/.ssh/master-%C
+  ControlPersist 1h
 
 Host e
   Hostname envy.local
@@ -19,36 +21,30 @@ Host e
 Host l
   Hostname lust.zenspider.com
   User ryan
-  ControlMaster auto
-  ControlPath ~/.ssh/master-%C
 
 Host s
   Hostname seattlerb.org
   User ryan
-  ControlMaster auto
-  ControlPath ~/.ssh/master-%C
+
+Host kai
+  Hostname kaiscantlin.com
+  User root
 
 Host work.local w
   Hostname work.local
   User ryan.davis
-  ControlMaster auto
-  ControlPath ~/.ssh/master-%C
 
 Host github.com
-  IdentityFile ~/.ssh/id_ed25519
+  ControlMaster no
 
 # password in keychain under rsync.net
 Host rsync
   Hostname usw-s004.rsync.net
-  IdentityFile ~/.ssh/id_ed25519
-  IdentityFile ~/.ssh/rsync.net
   User 4295
-  ControlMaster auto
-  ControlPath ~/.ssh/master-%C
-  ControlPersist 1h
 
 Host docs
   Hostname docs.seattlerb.org
+  ControlMaster no
 
 Host drobo
   Hostname 10.0.1.99
