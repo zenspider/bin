@@ -157,8 +157,11 @@ host work_dev do
   brew "saml2aws"
   brew "six"
   brew "snappy"
+  brew "yq"
+  brew "zd_sigil"
 
   cask "docker"
   cask "google-cloud-sdk"
   cask "vagrant"
+  cask "session-manager-plugin"
 end
