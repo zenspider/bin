@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -ws
+#!/usr/bin/env -S ruby -ws
 
 require "etc"
 require "open-uri"
@@ -27,7 +27,7 @@ my_gems = %w[
              pry-byebug
             ]
 
-cpus = Etc.nprocessors
+cpus = [2, Etc.nprocessors].max
 
 base_url = "https://cache.ruby-lang.org/pub/ruby"
 
@@ -104,7 +104,7 @@ install.reverse_each do |ver|
   puts "  #{gem} install #{my_gems.join " "} && \\"
   puts "  #{gem} clean && \\"
   puts "  chmod u-w $(#{gem} env home)/*"
-  puts "say done installing ruby #{ver} with status $?"
+  puts "say done installing ruby #{ver} with status $?" if system "which say"
   puts
 end
 
