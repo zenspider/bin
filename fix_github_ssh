@@ -1,0 +1,29 @@
+#!/usr/bin/env -S ruby -ws
+
+$i ||= false # wipe all known IP addresses from known_hosts
+
+require "json"
+require "open-uri"
+
+meta = JSON.parse URI("https://api.github.com/meta").read
+
+if $i then
+  cidrs = meta["git"]
+    .map { |cidr_s| IPAddr.new cidr_s }
+    .select(&:ipv4?)
+    .sort
+
+  cidrs.each do |cidr|
+    cidr.to_range.each do |ip|
+      system "ssh-keygen -R #{ip}"
+    end
+  end
+end
+
+system "ssh-keygen -R github.com"
+
+File.open File.expand_path("~/.ssh/known_hosts"), "a+" do |io|
+  meta["ssh_keys"].each do |key|
+    io.puts "github.com #{key}"
+  end
+end
