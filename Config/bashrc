@@ -62,9 +62,8 @@ maybe_source () {
 [ -z "${PROMPT_COMMAND:-}" ] && declare -x PROMPT_COMMAND=""
 
 export DOMAIN=$(hostname -f | cut -f2- -d.)
-export HOSTNAME=$(hostname -s)
 
-for f in $CONFIG/os/$(uname) $CONFIG/domain/$DOMAIN $CONFIG/host/$HOSTNAME $CONFIG/misc/environment; do
+for f in $CONFIG/os/$(uname) $CONFIG/domain/$DOMAIN $CONFIG/host/$(hostname -s) $CONFIG/misc/environment; do
   maybe_source $f
 done
 
