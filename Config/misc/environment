@@ -53,7 +53,7 @@ case $- in
   # interactive shell
   *i*)
   export CDPATH=.:~/:~/Links:~/Work
-  PS1='\! % '
+  PS1='\[\e]7;file://$HOSTNAME$PWD\a\]\! \$ '
   PS4='$0@$LINENO: '
   HISTCONTROL=ignoredups
   
