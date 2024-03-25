@@ -28,7 +28,7 @@ Host s
 
 Host kai
   Hostname kaiscantlin.com
-  User root
+  User ryan
 
 Host work.local w
   Hostname work.local
@@ -39,8 +39,8 @@ Host github.com
 
 # password in keychain under rsync.net
 Host rsync
-  Hostname usw-s004.rsync.net
-  User 4295
+  Hostname fm1836.rsync.net
+  User fm1836
 
 Host docs
   Hostname docs.seattlerb.org
