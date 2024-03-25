@@ -21,6 +21,7 @@
   l         = sl 'stack()'
   CO        = checkout --ignore-other-worktrees
   lol       = log --graph --oneline
+  lg        = log --pretty='%h %cs %C(auto)%D%C(reset) %s'
   loggrep   = log -G
   p4sync    = !"git pull --rebase origin && git p4 rebase && git push"
   skinny    = !"git gc; git repack -Ad; git gc; git prune; git prune-packed"
@@ -39,6 +40,7 @@
   print     = !"git show $1:$2"
   logfiles  = !"git log --name-only --pretty='format:%h' $(git default-branch).."
   debug     = !"GIT_TRACE=1 git"
+  sync      = !"sh -c 'b=$(git symbolic-ref refs/remotes/origin/HEAD | cut -f4- -d/); git checkout --quiet --detach; git fetch origin $b:$b; git checkout --quiet -'"
 
 [push]
   default = current
