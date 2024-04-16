@@ -3,6 +3,12 @@ require "csv"
 class Omnifocus
 
   dbs = [
+    ["~/Library/Group Containers", # omnifocus 4
+     "34YW5XSRB7.com.omnigroup.OmniFocus",
+     "com.omnigroup.OmniFocus4",
+     "com.omnigroup.OmniFocusModel",
+     "OmniFocusDatabase.db"],
+
     ["~/Library/Group Containers", # omnifocus 3.5
      "34YW5XSRB7.com.omnigroup.OmniFocus",
      "com.omnigroup.OmniFocus3",
