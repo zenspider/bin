@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FLAGS="-NAXx --fileflags --force-change --protect-decmpfs --protect-args"
+FLAGS="-NAXxs --fileflags --force-change"
 EXCLS=".DS_Store .fseventsd .Trashes .Spotlight-V100 .com.apple.timemachine\* .DocumentRevisions-V100 .TemporaryItems"
 
 FLAGS="${FLAGS}$(printf " --exclude %s" $EXCLS)"
