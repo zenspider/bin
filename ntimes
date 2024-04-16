@@ -10,5 +10,7 @@ for n in $(jot $N 1); do
     fi
 done
 
-echo "BAD = $BAD"
+PCT=$((100 * $BAD / $N))
+
+echo "COUNT = $N; BAD = $BAD ($PCT%)"
 exit $BAD
