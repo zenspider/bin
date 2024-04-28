@@ -1,4 +1,5 @@
 #!/usr/bin/env -S ruby -ws
+# -*- ruby -*-
 
 require "etc"
 require "open-uri"
@@ -71,10 +72,9 @@ unless ARGV.empty? then
   delete  = delete.grep version_re
 end
 
-extra_args = {
-  "3.1" => "--with-openssl-dir=$(brew --prefix openssl@3)",
-}
-extra_args["3.3"] = extra_args["3.2"] = extra_args["3.1"]
+extra_args = {}
+
+extra_args["3.0"] = "--with-openssl-dir=$(brew --prefix openssl@1.1)" if RUBY_PLATFORM =~ /darwin/
 
 extra_pre_args = {}
 extra_env = {}
@@ -104,7 +104,6 @@ install.reverse_each do |ver|
   puts "  #{gem} install #{my_gems.join " "} && \\"
   puts "  #{gem} clean && \\"
   puts "  chmod u-w $(#{gem} env home)/*"
-  puts "say done installing ruby #{ver} with status $?" if system "which say"
   puts
 end
 
