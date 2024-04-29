@@ -90,6 +90,8 @@ puts "set -exv"
 puts
 
 install.reverse_each do |ver|
+  is_latest = ver == latest
+
   short_ver = ver[/^\d+\.\d+/]
 
   dir = "~/.rubies/ruby-#{ver}"
@@ -101,7 +103,7 @@ install.reverse_each do |ver|
   puts "  #{gem} update --system #{gem_version} -N && \\"
   puts "  #{gem} uninstall rubygems-update && \\"
   puts "  #{gem} uninstall power_assert test-unit && \\"
-  puts "  #{gem} install #{my_gems.join " "} && \\"
+  puts "  #{gem} install #{is_latest ? "" : "-N"} #{my_gems.join " "} && \\"
   puts "  #{gem} clean && \\"
   puts "  chmod u-w $(#{gem} env home)/*"
   puts
