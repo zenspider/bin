@@ -41,6 +41,7 @@ Host github.com
 
 # password in keychain under rsync.net
 Host rsync
+  IdentityFile ~/.ssh/rsync.net
   Hostname fm1836.rsync.net
   User fm1836
 
