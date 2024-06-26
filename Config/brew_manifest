@@ -73,7 +73,6 @@ host all_dev do
 end
 
 host home_dev do
-  brew "exercism"                                  # fun, but not terribly useful
   brew "regex-opt"                                 # helps craft regexps
 
   cask "multipass"                                 # clean virtualization
@@ -117,6 +116,7 @@ host home do
   brew "brightness"
   brew "highlight"                                 # quicklook dependency
   brew "ansible"
+  brew "pyyaml" # undeclared dependency of ansible?
 end
 
 ## casks:
