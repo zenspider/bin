@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -wn
+#!/usr/bin/env ruby -w
 
 module Enumerable
   def mean
