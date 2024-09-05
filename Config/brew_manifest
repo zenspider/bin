@@ -56,7 +56,6 @@ brew "sqlite"                                      # lightweight sql
 brew "wiggle"                                      # EXPERIMENT: better `patch`
 brew "yamllint"                                    # EXPERIMENT: lint yaml files
 
-cask "devdocs"                                     # desktop app for doco
 cask "perforce"                                    # perforce... duh
 
 ### ruby-install listed deps for ruby on brew:
@@ -80,7 +79,7 @@ end
 
 ## graphics
 
-brew "graphviz"                                    # maddening but useful graphs
+# brew "graphviz"                                    # maddening but useful graphs
 
 host home_dev do
   brew "freeimage"                                 # really just for image_science
