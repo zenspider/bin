@@ -115,7 +115,7 @@ delete.each do |ver|
   puts "rm -rf ~/.rubies/ruby-#{ver}"
 end
 
-if File.exist? ".rubies/ruby-#{latest}" then
-  puts "ln -snF .rubies/ruby-#{latest}  ~/.rubies.current"
+if File.exist? File.expand_path "~/.rubies/ruby-#{latest}" then
+  puts "ln -shF .rubies/ruby-#{latest} ~/.rubies.current"
   puts
 end
