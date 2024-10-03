@@ -38,7 +38,7 @@ if $o then
 end
 
 dead.reverse.each do |g|
-  pp DELETE: g.to_h.slice(:html_url, :public, :comments, :description, :files, :created_at, :updated_at)
+  puts g.to_h[:html_url]
   ghc.delete_gist g.id if $y
 end
 
