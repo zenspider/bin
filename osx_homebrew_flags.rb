@@ -1,6 +1,11 @@
 #!/usr/bin/env ruby
 
-$: << "/opt/homebrew/Library/Homebrew"
+homebrew = `brew --prefix`.chomp
+$: << "#{homebrew}/Library/Homebrew"
+# this is HORRIBLE:
+sorbet = Dir["#{homebrew}/Library/Homebrew/vendor/bundle/ruby/*/gems/sorbet-runtime-*/lib"].first
+$: << sorbet
+require "standalone/sorbet"
 
 class Object
   def present?
@@ -11,17 +16,8 @@ end
 module Homebrew
   module EnvConfig
     def self.const_missing name
-      :NAH!
+      nil
     end
-
-    def self.sig
-      :NAH!
-    end
-  end
-end
-
-module T
-  module Sig
   end
 end
 
