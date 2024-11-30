@@ -22,6 +22,7 @@
   CO        = checkout --ignore-other-worktrees
   lol       = log --graph --oneline
   lg        = log --pretty='%h %cs %C(auto)%D%C(reset) %s'
+  lga       = log --pretty='%h %cs %an\t%C(auto)%D%C(reset) %s'
   loggrep   = log -G
   p4sync    = !"git pull --rebase origin && git p4 rebase && git push"
   skinny    = !"git gc; git repack -Ad; git gc; git prune; git prune-packed"
