@@ -1,12 +1,12 @@
 #!/usr/bin/env -S ruby -ws
-# -*- ruby -*-
+# -*- enh-ruby -*-
 
 require "etc"
 require "open-uri"
 require "net/http" # avoid require issues in threads
 require "net/https"
 
-versions = %w[ 2.7 3.0 3.1 3.2 3.3 ] | ARGV
+versions = %w[ 3.2 3.3 3.4 ] | ARGV
 versions.uniq!
 
 my_gems = %w[
@@ -26,6 +26,8 @@ my_gems = %w[
              rake-compiler
              pry
              pry-byebug
+             vernier
+             profile-viewer
             ]
 
 cpus = [2, Etc.nprocessors].max
