@@ -1,5 +1,19 @@
 #!/usr/bin/env ruby -ws
 
+# The idea is to run this script and review the events. Each run
+# resets the calendar named "Test", so you can keep re-running the
+# script until you get the events are looking right.
+#
+# Once everything looks like it should, move each repeating event into
+# the calendar you want it to be in (eg Personal or Work).
+#
+# The only thing this stupid script doesn't do is create the "Test"
+# calendar that it puts all of the events into. For some reason the
+# CalendarLib EC library won't create calendars and I can't figure out
+# how to create a calendar in icloud in Calendar.app. Scripting
+# Calendar.app directly seems opaque as hell. This disparity sucks but
+# is a minor inconvenience.
+
 $y ||= false # yes, commit
 
 require "date"
@@ -9,30 +23,6 @@ class Date
     (self..(self+7)).find { |day| day.wday == 1 }
   end
 end
-
-if $y then
-  warn "setting $stdout to osascript"
-  $stdout = IO.popen "osascript", "w"
-end
-
-LOCATION = {
-  :home => "530 Broadway E\nSeattle WA 98102\nUnited States",
-  :gym  => "RCF\n1516 11th Ave\nSeattle, WA 98122\nUnited States",
-}
-
-sun, mon, tue, wed, thu, fri, sat = (0..6).to_a
-sun = sun # warning
-sat = sat # warning
-
-year = Date.today.year
-
-d = Date.new(year, 1, 1)
-
-week = (d..(d+6)).to_a
-
-first_weekday = week.find { |day| day.wday.between? mon, fri }
-
-first = week.rotate(-d.wday)
 
 def t n_or_a
   case n_or_a
@@ -58,11 +48,9 @@ def new_event title, t0, t1, where, repeat:nil
 
   puts "store event event theEvent event store theStore"
 
-  if repeat == :weekdays then
+  if repeat == :weekdays then # modify weekly to weekdays
     puts "my setToWeekdays(event_external_ID of (event info for event theEvent))"
   end
-
-  puts
 end
 
 def all_day date, title
@@ -94,47 +82,67 @@ def event date, start, stop, repeat, title, where = nil
   t1 = (date.to_time + (h1 * 3600) + (m1 * 60)).strftime fmt
 
   new_event title, t0, t1, where, repeat:repeat
+end
 
-  if repeat == :weekdays then
-    puts "my setToWeekdays(event_external_ID of (event info for event theEvent))"
-  end
+sun, mon, tue, wed, thu, fri, sat = (0..6).to_a
+sun = sun # quell unused warning
+sat = sat # quell unused warning
 
-  puts
+year = Date.today.year
+
+d = Date.new(year, 1, 1)
+
+week  = (d..(d+6)).to_a      # 1/1, 1/2, 1/3... 1/7
+first = week.rotate(-d.wday) # aligned to sunday=0, eg first[mon] = 2025-01-06
+
+first_wkdy = week.find { |day| day.wday.between? mon, fri }
+
+if $y then
+  warn "setting $stdout to osascript"
+  $stdout = IO.popen "osascript", "w"
 end
 
 puts DATA.read
 puts
 
-#     date,       start,    stop,       repeat,   title,        where=nil
+######################################################################
+# start of calendar data
 
-event first_weekday, [10,30], 11,      :weekdays, "Coffee & Triage"
-
-event first[mon],    18,      23,      :weekly,   "Me Night",   :home
-event first[mon],    [15,30], 16,      :weekly,   "1:1"
-event first[mon],    [16,30], [17,30], :weekly,   "Pain",       :gym
-event first[tue],    18,      19,      :weekly,   "Study Group"
-event first[tue],    19,      21,      :weekly,   "Nerd Party"
-event first[wed],    18,      23,      :weekly,   "Me Night",   :home
-event first[thu],    18,      23,      :weekly,   "Kai"
-event first[fri],    18,      23,      :weekly,   "Me Night",   :home
-event first[fri],    12,      13,      :weekly,   "Pain",       :gym
+LOCATION = {
+  :home => "Home\n530 Broadway E\nSeattle WA 98102\nUnited States",
+  :gym  => "RCF\n1516 11th Ave\nSeattle, WA 98122\nUnited States",
+}
 
 may_taxes = Date.new(year,  4, 15).next_monday
 oct_taxes = Date.new(year, 10, 15).next_monday
 
-event may_taxes,     12,      [12,30], :yearly,   "Schedule Property Tax Payment"
-event oct_taxes,     12,      [12,30], :yearly,   "Schedule Property Tax Payment"
-event "4/23",        12,      [12,30], :yearly,   "No, Really! Pay Property Taxes"
-event "10/23",       12,      [12,30], :yearly,   "No, Really! Pay Property Taxes"
+#     date,       start,   stop,    repeat,    title,        where=nil
 
-event "1/1",         12,      [12,30], :next_year,"Run setup_calendar_fast.rb"
+event first_wkdy, [10,30], 11,      :weekdays, "Coffee & Triage"
 
-all_day "4/30",                                   "Property Taxes"
-all_day "10/31",                                  "Property Taxes"
-all_day "3/14",                                   "Steak & Blowjob Day"
-all_day "5/8",                                    "Outdoor Intercourse Day"
-all_day "10/15",                                  "My Ruby Birthday (2000)"
-all_day "2/28",                                   "Seattle.rb Anniversary (2002)"
+event first[mon], 18,      23,      :weekly,   "Me Night",   :home
+event first[mon], [15,30], 16,      :weekly,   "1:1"
+event first[mon], [16,30], [17,30], :weekly,   "Pain",       :gym
+event first[tue], 18,      19,      :weekly,   "Study Group"
+event first[tue], 19,      21,      :weekly,   "Nerd Party"
+event first[wed], 18,      23,      :weekly,   "Me Night",   :home
+event first[thu], 18,      23,      :weekly,   "Kai"
+event first[fri], 18,      23,      :weekly,   "Me Night",   :home
+event first[fri], 13,      14,      :weekly,   "Pain",       :gym
+
+event may_taxes,  12,      [12,30], :yearly,   "Schedule Property Tax Payment"
+event oct_taxes,  12,      [12,30], :yearly,   "Schedule Property Tax Payment"
+event "4/23",     12,      [12,30], :yearly,   "No, Really! Pay Property Taxes"
+event "10/23",    12,      [12,30], :yearly,   "No, Really! Pay Property Taxes"
+
+event "1/1",      12,      [12,30], :next_year,"Run setup_calendar_fast.rb"
+
+all_day "4/30",                                "Property Taxes"
+all_day "10/31",                               "Property Taxes"
+all_day "3/14",                                "Steak & Blowjob Day"
+all_day "5/8",                                 "Outdoor Intercourse Day"
+all_day "10/15",                               "My Ruby Birthday (2000)"
+all_day "2/28",                                "Seattle.rb Anniversary (2002)"
 
 if $y then
   $stdout.flush
@@ -143,11 +151,12 @@ end
 
 __END__
 use scripting additions
-use script "CalendarLib EC" version "1.1.5" -- put this at the top of your scripts
+use script "CalendarLib EC" version "1.1.5"
 
 set thisYear to year of (current date)
 set startOfYear to date ("Jan 1 " & thisYear)
 set endOfYear to date ("Dec 31 " & thisYear & " 23:59 PST")
+set endOfYearPlusOne to endOfYear + 86400
 
 set theStore to fetch store
 if theStore is missing value then
@@ -159,7 +168,7 @@ if theCal is missing value then
   error "Couldn't find Test calendar"
 end if
 
-set myEvents to fetch events starting date startOfYear ending date endOfYear searching cals {theCal} event store theStore
+set myEvents to fetch events starting date startOfYear ending date endOfYearPlusOne searching cals {theCal} event store theStore
 repeat with anEvent in myEvents
         try
                 remove event event anEvent event store theStore
