@@ -3,7 +3,7 @@
 $-w = true
 $q = ARGV.delete("-q")
 
-versions    = %w[2.7 3.0 3.1 3.2 3.3]
+versions    = %w[3.2 3.3 3.4]
 active_ruby = ENV["CURRENT_RUBY"] || versions.last
 
 class Array
@@ -27,18 +27,20 @@ versions.each do |ver|
     current = Dir["*#{ver}*"].human_sort.last
     short   = ver.delete "."
     var     = "RUBY#{short}"
+    dir     = "RUBY#{short}DIR"
 
     unless current then
       warn "# ruby #{ver} not found, skipping." unless $q
       next
     end
 
-    puts "export #{var}=#{rb_dir}/#{current}"
-    puts "alias gem#{short}=$#{var}/bin/gem"
-    puts "alias irb#{short}=$#{var}/bin/irb"
-    puts "alias rake#{short}=$#{var}/bin/rake"
-    puts "alias ri#{short}=$#{var}/bin/ri"
-    puts "alias ruby#{short}=$#{var}/bin/ruby"
+    puts "export #{dir}=#{rb_dir}/#{current}"
+    puts "export #{var}=$#{dir}/bin/ruby"
+    puts "alias gem#{short}=$#{dir}/bin/gem"
+    puts "alias irb#{short}=$#{dir}/bin/irb"
+    puts "alias rake#{short}=$#{dir}/bin/rake"
+    puts "alias ri#{short}=$#{dir}/bin/ri"
+    puts "alias ruby#{short}=$#{dir}/bin/ruby"
     puts
   end
 end
