@@ -1,0 +1,67 @@
+#!/usr/bin/env ruby -ws
+
+$y ||= false # yes, do it
+
+require "json"
+require "open-uri"
+require "fileutils"
+
+DIR="/usr/local/opt/zig"
+
+if ARGV.delete "--clean" then
+  puts "...from clean"
+  # FileUtils.rm_rf DIR
+  puts "(not yet)"
+end
+
+has_zig = system("which zig")
+
+unless has_zig then
+  warn "zig not installed... fudging it"
+  abort "not yet"
+end
+
+current_version = `zig version`.chomp
+
+url = "https://ziglang.org/download/index.json"
+
+data = JSON.parse URI.parse(url).read
+
+data.each do |k,v|
+  data[k][:version] = k
+end
+
+requested_version = ARGV.shift || data.keys[1] # first stable version
+
+requested = data[requested_version] || data[data.keys.grep(Regexp.new requested_version).first]
+
+unless requested then
+  warn "Not found: %p" % [requested_version]
+  warn "Versions: #{data.keys.join ", "}"
+  exit 1
+end
+
+if requested[:version] == current_version then
+  warn "You are up to date, running #{current_version}"
+  warn "You might want to run with 'master' to get latest development version"
+  warn "Versions: #{data.keys.join ", "}"
+  exit 0
+end
+
+targets  = JSON.parse(`zig targets`)["native"]
+platform = "%s-%s" % [targets["cpu"]["arch"], targets["os"]] # => "aarch64-macos"
+url      = requested[platform]["tarball"]
+
+puts "Downloading zig %s for %s" % [requested_version, platform]
+
+exit 0 unless $y
+
+FileUtils.mkdir_p DIR
+
+puts "  from %s" % [url]
+
+system "curl -s #{url} | tar -xC #{DIR} --hfsCompression --strip-components 1"
+
+FileUtils.ln_sf "../opt/zig/zig", "/usr/local/bin/zig"
+
+system "zig version"
