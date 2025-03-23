@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -ws
+#!/usr/bin/env -S ruby -ws
 
 $r ||= false
 $h ||= false
