@@ -40,7 +40,7 @@ IFS=$oldIFS
 export SAVEPATH=$PATH
 
 shopt -s histappend
-PROMPT_COMMAND='history -a; history -n'
+PROMPT_COMMAND='history -a' # I do *not* like -n... it really interrupts my flow per term
 
 ############################################################
 # Other Global environment stuff:
@@ -55,7 +55,7 @@ case $- in
   export CDPATH=.:~/:~/Links:~/Work
   PS1='\[\e]7;file://$HOSTNAME$PWD\a\]\! \$ '
   PS4='$0@$LINENO: '
-  HISTCONTROL=ignoredups
+  HISTCONTROL=ignoreboth
   
   # TODO: consider EDITOR=~/Bin/e and make sure it defaults to emacsclient
   if [[ -n "${INSIDE_EMACS:-}" ]]; then
