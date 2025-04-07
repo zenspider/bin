@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby -ws
 
 $t ||= false
+$y ||= false
+
+warn "Not moving anything. Use -y to move." unless $y
 
 require 'fileutils'
 FU = FileUtils::Verbose
@@ -17,9 +20,9 @@ Dir['*'].each do |f|
 
   next if dir == now
 
-  Dir.mkdir(dir) unless File.exist? dir
+  Dir.mkdir(dir) unless File.exist? dir if $y
   unless File.exist? File.join(dir, f) then
-    FU.mv f, dir
+    FU.mv f, dir if $y
   else
     puts "file #{f} exists in #{dir}"
   end
@@ -30,7 +33,7 @@ if $t then
     next unless f =~ /^\d\d\d\d-\d\d$/
 
     Dir.chdir f do
-      system "clean_by_type.rb"
+      system "clean_by_type.rb" if $y
     end
   end
 end
