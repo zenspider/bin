@@ -118,6 +118,6 @@ delete.each do |ver|
 end
 
 if File.exist? File.expand_path "~/.rubies/ruby-#{latest}" then
-  puts "ln -shF .rubies/ruby-#{latest} ~/.rubies.current"
+  puts "ln -s --force .rubies/ruby-#{latest} ~/.rubies.current"
   puts
 end
