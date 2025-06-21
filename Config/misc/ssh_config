@@ -39,11 +39,11 @@ Host github.com
   Port 443
   ControlMaster no
 
-# password in keychain under rsync.net
+# passwordless
 Host rsync
-  IdentityFile ~/.ssh/rsync.net
   Hostname fm1836.rsync.net
   User fm1836
+  IdentityFile ~/.ssh/rsync.net
 
 Host docs
   Hostname docs.seattlerb.org
