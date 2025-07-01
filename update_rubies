@@ -5,8 +5,17 @@ require "etc"
 require "open-uri"
 require "net/http" # avoid require issues in threads
 require "net/https"
+require "yaml"
 
-versions = %w[ 3.2 3.3 3.4 ] | ARGV
+versions_path = File.expand_path "~/.rubies.versions"
+
+unless File.exist? versions_path
+  obj = [ RUBY_VERSION[/\d+\.\d+/] ]
+  File.write versions_path, YAML.dump(obj)
+  abort "Created %s. Please edit. Aborting." % [versions_path]
+end
+
+versions = YAML.load_file(versions_path) | ARGV
 versions.uniq!
 
 my_gems = %w[
@@ -34,8 +43,6 @@ cpus = [2, Etc.nprocessors].max
 
 base_url = "https://cache.ruby-lang.org/pub/ruby"
 
-gem_version = `gem search rubygems-update -v "~> 3.0"`[/\d+\.\d+\.\d+/]
-
 class Array
   def human_sort
     sort_by { |item| item.to_s.split(/(\d+)/).map { |e| [e.to_i, e] } }
@@ -53,7 +60,7 @@ versions = versions.map { |ver|
       .delete_prefix("ruby-")
       .delete_suffix ".tar.gz"
   }
-}.map(&:value).sort
+}.map(&:value).human_sort
 
 rubies = File.expand_path "~/.rubies"
 Dir.mkdir rubies unless File.directory? rubies
@@ -91,6 +98,8 @@ puts
 puts "set -e"
 puts
 
+gem_version = nil
+
 install.reverse_each do |ver|
   is_latest = ver == latest
 
@@ -98,6 +107,12 @@ install.reverse_each do |ver|
 
   dir = "~/.rubies/ruby-#{ver}"
   gem = "#{dir}/bin/gem"
+
+  gem_version ||=
+    begin
+      v = Gem.rubygems_version.approximate_recommendation
+      `gem search rubygems-update -v "#{v}"`[/\d+\.\d+\.\d+/]
+    end
 
   puts "echo #{ver}"
   puts "#{extra_env[short_ver]} \\" if extra_env[short_ver]
@@ -118,6 +133,6 @@ delete.each do |ver|
 end
 
 if File.exist? File.expand_path "~/.rubies/ruby-#{latest}" then
-  puts "ln -s --force .rubies/ruby-#{latest} ~/.rubies.current"
+  puts "ln -sf .rubies/ruby-#{latest} ~/.rubies.current"
   puts
 end
