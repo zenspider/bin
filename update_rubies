@@ -110,8 +110,15 @@ install.reverse_each do |ver|
 
   gem_version ||=
     begin
+      u = "https://rubygems.org/api/v1/versions/rubygems-update.yaml"
       v = Gem.rubygems_version.approximate_recommendation
-      `gem search rubygems-update -v "#{v}"`[/\d+\.\d+\.\d+/]
+      URI.parse(u).read
+        .lines
+        .grep(/number:/)
+        .map { |s| Gem::Version.new s.split[1] }
+        .grep(Gem::Requirement.new(v))
+        .sort
+        .last
     end
 
   puts "echo #{ver}"
