@@ -3,8 +3,6 @@
 set +xv
 
 chmod u+w ~/.rubies/ruby-*/lib/ruby/gems/*/*
-# chmod u+w $(gem env home)/*
 "$@"
-# chmod u-w $(gem env home)/*
 chmod u-w ~/.rubies/ruby-*/lib/ruby/gems/*/*
 
