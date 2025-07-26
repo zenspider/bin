@@ -23,12 +23,10 @@ end
 
 Dir.chdir base
 
-args = %W[find  ( -name .DS_Store -o -name *~ ) -print -delete]
-args[1,0] = dirs
-cmd = args.shelljoin
-
-puts cmd
-system cmd
+cmd = %W[ fd -Htf .DS_Store|~$ -x rm -v ]
+cmd[3,0] = dirs
+puts cmd.shelljoin
+system(*cmd)
 
 del = if extra.grep(/del/).empty? then
         "--del"
@@ -54,6 +52,7 @@ excludes = %w[
               compiled
               gauntlet*.noindex*
               pkg
+              ruby-*.tar.xz
               tmp
               unreadable*
               zig-cache
@@ -61,6 +60,7 @@ excludes = %w[
              ]
 
 cmd = ["/opt/homebrew/bin/rsync", flags, del, extra,
+       "--log-file", "/tmp/rsync_backup.log",
 
        includes.map { |pat| ["--include", pat] },
 
@@ -72,5 +72,5 @@ cmd = ["/opt/homebrew/bin/rsync", flags, del, extra,
        "rsync:backups/#{name}"
       ].flatten.compact
 
-warn cmd.join " "
+puts cmd.shelljoin
 system(*cmd)
