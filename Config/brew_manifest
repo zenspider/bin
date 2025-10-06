@@ -4,16 +4,11 @@ M1 = `arch` =~ /arm64/
 
 home     = %w[ envy ]
 home_dev = %w[ envy ]
-work_dev = %w[ 25257-ryan TR9TJ70595 ]
-all_dev  = home_dev + work_dev
+all_dev  = home_dev
 
-tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
-tap "homebrew/services"
 tap "railwaycat/emacsmacport"
-
-tap "1password/tap"
 
 ## utilities
 
@@ -29,8 +24,6 @@ brew "ripgrep"                                     # rg > ag ?
 brew "rsync"                                       # file sync
 brew "swaks"                                       # smtp test tool
 brew "zstd"                                        # fast and good compression
-
-cask "1password-cli"                               # one-password CLI (op)
 
 # NOTE: you must modify /usr/local/etc/aspell.conf
 # NOTE: and set dict-dir to /Library/Application Support/cocoAspell/aspell*
@@ -51,12 +44,15 @@ brew "git-delta"                                   # better(?) diffs
 brew "hub"                                         # TODO: remove
 brew "jless"                                       # json/yaml formatter/pager
 brew "jq"                                          # grep json
+brew "libtool"                                     # more autoconf et al pain
 brew "shellcheck"                                  # bash linter
 brew "sqlite"                                      # lightweight sql
 brew "wiggle"                                      # EXPERIMENT: better `patch`
 brew "yamllint"                                    # EXPERIMENT: lint yaml files
 
 cask "perforce"                                    # perforce... duh
+
+cask "font-fira-code-nerd-font"
 
 ### ruby-install listed deps for ruby on brew:
 host all_dev do
@@ -72,7 +68,13 @@ host all_dev do
 end
 
 host home_dev do
+  brew "age"                                       # for otp w/ rubygems
+  brew "age-plugin-se"                             # for otp w/ rubygems
+  brew "lua"                                       # fun language
+  brew "luarocks"                                  # lua package system
+  brew "mruby"                                     # to build w/ mruby
   brew "regex-opt"                                 # helps craft regexps
+  brew "totp-cli"                                  # for otp w/ rubygems
 
   cask "multipass"                                 # clean virtualization
 end
@@ -121,7 +123,7 @@ end
 ## casks:
 
 host home do # my main laptop
-  cask "handbrake"
+  cask "handbrake-app"
   cask "subler"
   cask "sublercli"
 end
@@ -136,31 +138,4 @@ host all_dev do
   # brew "ruby-build" # I'm currently running my own version
 
   cask "emacs-mac"
-end
-
-host work_dev do
-  tap "zendesk/zendesk", "git@github.com:zendesk/homebrew-zendesk.git" # ric
-
-  brew "awscli"
-  brew "dhall"
-  brew "dhall-json"
-  brew "gnupg"
-  brew "go-jira"
-  brew "icu4c"
-  brew "imagemagick" # ugh
-  brew "jpeg"
-  brew "kubectl"
-  brew "libidn"
-  brew "mysql"
-  brew "ric"
-  brew "saml2aws"
-  brew "six"
-  brew "snappy"
-  brew "yq"
-  brew "zd_sigil"
-
-  cask "docker"
-  cask "google-cloud-sdk"
-  cask "vagrant"
-  cask "session-manager-plugin"
 end
