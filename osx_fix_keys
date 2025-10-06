@@ -16,8 +16,8 @@
     "Navigator"                => "@~n",
     "Outline"                  => "@~u",
     "Play Slideshow"           => "@p",
-    "Reapply Master to Slide"  => "@^m",
-    "Reapply Master to Slides" => "@^m",
+    "Reapply Layout to Slide"  => "@^m",
+    "Reapply Layout to Slides" => "@^m",
     "Rehearse Slideshow"       => "@r",
   }
 }.each do |domain, bindings|
