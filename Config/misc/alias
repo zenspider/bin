@@ -56,32 +56,6 @@ if [ -n "${PS1-}" ]; then
     fi
   }
 
-  xtitle() {
-    # can't find binary xtitle
-    if [ $TERM = 'xterm' ]; then
-      [ "$2" ] && echo -ne "\033]2;$1\a\033]1;$2\a" || echo -ne "\033]0;$1\a"
-    fi
-  }
-  
-  if [ ! -z "${TERM-}" ]; then
-    case $TERM in
-      
-      "xterm" )
-	# this alias puts the host name and pwd in the xterm header
-	cd() {
-	  local dir=${1-}
-	  builtin cd $dir
-	  xtitle "$(hostname) @ ${PWD#/tmp_mnt}" $(hostname)
-        }
-	cd .
-	;;
-      
-      * )
-	  # no cd alias
-	  ;;
-    esac
-  fi
-
   type () {
 	  
     local fail=0
@@ -293,12 +267,6 @@ stfu () {
 
 STFU () {
     eval $* &> /dev/null
-}
-
-term() {
-  TERM=$1
-  export TERM
-  tset
 }
 
 alias fromto="jot -"
