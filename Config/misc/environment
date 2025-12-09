@@ -65,8 +65,8 @@ case $- in
       export EDITOR="emacsclient -t"
   fi
 
-  if test "${TERM-}" = "emacs" -o "${TERM-}" = "dumb" ; then
-    export PAGER=cat
+  if [ $TERM = "emacs" -o $TERM = "dumb" ]; then
+      export PAGER=cat
   fi
 
   if [ -z "${PAGER-}" ]; then
