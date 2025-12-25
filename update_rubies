@@ -24,8 +24,6 @@ my_gems = %w[
              hoe-seattlerb
              isolate
              minitest
-             minitest-autotest
-             minitest-sprint
              minitest-proveit
              benchmark-ips
              flay
@@ -140,7 +138,5 @@ delete.each do |ver|
   puts "rm -rf ~/.rubies/ruby-#{ver}"
 end
 
-if File.exist? File.expand_path "~/.rubies/ruby-#{latest}" then
-  puts "ln -sf .rubies/ruby-#{latest} ~/.rubies.current"
-  puts
-end
+puts "ln -sf .rubies/ruby-#{latest} ~/.rubies.current"
+puts
