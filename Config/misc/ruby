@@ -3,7 +3,7 @@
 $-w = true
 $q = ARGV.delete("-q")
 
-versions    = %w[3.2 3.3 3.4]
+versions    = %w[3.2 3.3 3.4 4.0]
 active_ruby = ENV["CURRENT_RUBY"] || versions.last
 
 class Array
