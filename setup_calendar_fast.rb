@@ -109,8 +109,10 @@ puts
 # start of calendar data
 
 LOCATION = {
-  :home => "Home\n530 Broadway E\nSeattle WA 98102\nUnited States",
-  :gym  => "RCF\n1516 11th Ave\nSeattle, WA 98122\nUnited States",
+  :home   => "Home\n530 Broadway E\nSeattle WA 98102\nUnited States",
+  :gym    => "RCF\n1516 11th Ave\nSeattle, WA 98122\nUnited States",
+  :lindas => "Linda's Tavern\n707 E Pine St\nSeattle, WA  98122\nUnited States",
+  :vivace => "Vivace\n532 Broadway Ave East\nSeattle, WA  98102\nUnited States",
 }
 
 may_taxes = Date.new(year,  4, 15).next_monday
@@ -118,13 +120,12 @@ oct_taxes = Date.new(year, 10, 15).next_monday
 
 #     date,       start,   stop,    repeat,    title,        where=nil
 
-event first_wkdy, [10,30], 11,      :weekdays, "Coffee & Triage"
+event first_wkdy, 12,      [12,30], :weekdays, "Coffee & Triage", :vivace
 
 event first[mon], 18,      23,      :weekly,   "Me Night",   :home
-event first[mon], [15,30], 16,      :weekly,   "1:1"
 event first[mon], [16,30], [17,30], :weekly,   "Pain",       :gym
-event first[tue], 18,      19,      :weekly,   "Study Group"
-event first[tue], 19,      21,      :weekly,   "Nerd Party"
+event first[tue], [17,30], [18,30], :weekly,   "Study?",     :vivace
+event first[tue], 19,      21,      :weekly,   "Nerd Party", :lindas
 event first[wed], 18,      23,      :weekly,   "Me Night",   :home
 event first[thu], 18,      23,      :weekly,   "Kai"
 event first[fri], 18,      23,      :weekly,   "Me Night",   :home
