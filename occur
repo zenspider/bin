@@ -5,6 +5,7 @@ $B ||= false
 $c ||= false
 $g ||= false
 $h ||= false
+$I ||= false
 $i ||= false
 $l ||= false
 $n ||= false
@@ -22,6 +23,7 @@ if $h then
   puts "  -o - skip lines that only occur once"
   puts "  -s - sort by line, rather than occurrence"
   puts
+  puts "  -I - ignore case"
   puts "  -b - strip leading and trailing whitespace, and blanks"
   puts "  -t - format with tabs so it is pastable into a spreadsheet"
   puts "  -w - preserve whitespace as-is"
@@ -39,8 +41,7 @@ if $h then
   exit 0
 end
 
-c = {}
-c.default = 0
+c = Hash.new 0
 total = 0
 
 ARGF.set_encoding("binary") if $B
@@ -72,6 +73,7 @@ ARGF.each_line do |line|
     next if line.empty?
   end
 
+  line.downcase! if $I
   c[line] += 1
   total += 1
 end rescue nil # silence broken pipe errors
