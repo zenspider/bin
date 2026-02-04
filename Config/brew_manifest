@@ -54,6 +54,8 @@ cask "perforce"                                    # perforce... duh
 
 cask "font-fira-code-nerd-font"
 
+cask "ungoogled-chromium"
+
 ### ruby-install listed deps for ruby on brew:
 host all_dev do
   brew "autoconf@2.69"                             # fuck me... 2.71 breaks ruby
