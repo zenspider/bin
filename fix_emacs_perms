@@ -1,5 +1,7 @@
 #!/bin/bash
 
+osascript -e 'tell application "Omnifocus" to return count of flattened tasks'
+
 osascript -e 'tell application "Reminders" to return default account'
 
 osascript -e 'tell application "Calendar" to return name of calendars'
