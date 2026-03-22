@@ -5,6 +5,7 @@ FULLNAME=envy.zenspider.com
 # oh god do I hate tooltips
 defaults write -g NSInitialToolTipDelay -int 30000
 defaults write -g ApplePressAndHoldEnabled -bool false # enable key repeat
+defaults write -g NSMenuEnableActionImages -bool NO
 
 defaults write .GlobalPreferences AppleTextBreakLocale en_US_POSIX
 defaults write com.apple.dock pinning -string start
