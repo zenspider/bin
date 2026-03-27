@@ -1,33 +1,41 @@
-#!/usr/bin/env ruby -w
+#!/usr/bin/env -S ruby -ws
 
-def usage
-  puts "quickbench number-of-benchmarks"
-  exit 1
-end
+$l ||= false # longer version
 
-# path = ARGV.shift || usage
-count = ARGV.shift.to_i || usage
-usage unless ARGV.empty?
+require "erb"
 
-print <<'EOM'
-#!/usr/bin/env ruby -w
+abort "quickbench [-l] number-of-benchmarks" unless ARGV.size == 1
+count = ARGV.shift.to_i
+
+# remove unused var warnings. usage not seen in ERB template
+names = methods = imethods = nil
+
+names    = count.times.map { |n| ":bench_#{n}" }
+methods  = count.times.map { |n| "def bench_#{n} = nil" }
+imethods = methods.map { |s| s.gsub(/^/, "  ") }
+
+short, long = DATA.read.split "OR"
+template = $l ? long : short
+
+puts ERB.new(template.strip).result
+
+__END__
+#!/usr/bin/env -S ruby -w --yjit
 
 require "benchmark/ips"
 
-Benchmark.ips do |x|
-  # x.options
-EOM
+<%= methods.join "\n" %>
 
-count.times do |n|
-  print <<"EOM"
+Benchmark.ips_quick(<%= names.join ", " %>, warmup: 2, time: 5)
+OR
+#!/usr/bin/env -S ruby -w --yjit
 
-  x.report("benchmark-#{n+1}") do |max|
-    max.times do
-      # insert code here
-    end
-  end
-EOM
+require "benchmark/ips"
+
+class B
+<%= imethods.join "\n" %>
 end
 
-puts "  x.compare!"
-puts "end"
+b = B.new
+
+Benchmark.ips_quick(<%= names.join ", " %>, on: b, warmup: 2, time: 5)
