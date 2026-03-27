@@ -13,60 +13,44 @@ require "fileutils"
 #  9 months of monthlies       12 months / 1 year
 #  9  years of yearlies        10 years
 
-def backup_dates
-  today = Date.today
-  day = Date.today
+def backup_dates offset=0
+  today   = Date.today + offset
 
-  days = 28.times               # 28 days / 4 weeks
-    .map { |n| today - n }
-    .sort
-    .reverse
-  day = days.last
+  daily   = (today-27..today).to_a
+  d_min   = daily.min
 
-  weeks = 2.times               # + 8 weeks = 3 months
-    .flat_map { |n|
-      day = today - 28 * (n+1)
-      [1, 8, 15, 22].map { |d| Date.civil(day.year, day.month, d) }
-    }
-    .sort
-    .reverse
-  day = weeks.last
+  weekly  = (d_min-7*9...d_min)
+    .select { |d| d.day < 28 && d.day % 7 == 1 }
+    .last 8
+  w_min   = weekly.min
 
-  months = 9.times              # + 9 months = 12 months
-    .map {
-      day -= 1
-      day = Date.civil(day.year, day.month, 1)
-    }
-    .sort
-    .reverse
-  day = months.last
+  monthly = (w_min-366...w_min)
+    .select { |d| d.day == 1 }
+    .last 9
+  m_min   = monthly.min
 
-  years = 9.times              # + 9 years = 10 years
-    .map {
-      day -= 1
-      day = Date.civil(day.year, 1, 1)
-    }
-    .sort
-    .reverse
+  yearly  = (m_min-365.246*10...m_min)
+    .select { |d| d.yday == 1 }
+    .last 9
 
-  return days, weeks, months, years
+  [ yearly, monthly, weekly, daily ]
 end
 
-d, w, m, y = backup_dates
-keep = [d, w, m, y].flatten.uniq.sort
+y, m, w, d = backup_dates
+keep = [y, m, w, d].flatten
 
 if ARGV.empty? then
-  puts "Daily: (%d)" % [d.size]
-  puts d.each_slice(7).map { |a| a.join(" ") }
+  puts "Yearly: (%d)" % [y.size]
+  puts y.each_slice(3).map { |a| a.join(" ") }
+  puts
+  puts "Monthly: (%d)" % [m.size]
+  puts m.each_slice(3).map { |a| a.join(" ") }
   puts
   puts "Weekly: (%d)" % [w.size]
   puts w.each_slice(4).map { |a| a.join(" ") }
   puts
-  puts "Monthly: (%d)" % [m.size]
-  puts m.each_slice(1).map { |a| a.join(" ") }
-  puts
-  puts "Yearly: (%d)" % [y.size]
-  puts y.each_slice(1).map { |a| a.join(" ") }
+  puts "Daily: (%d)" % [d.size]
+  puts d.each_slice(7).map { |a| a.join(" ") }
 else
   all = Dir[*ARGV].
     sort_by { |f| -File.mtime(f).to_f }.
