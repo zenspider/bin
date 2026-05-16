@@ -54,15 +54,12 @@ if ARGV.empty? then
 else
   all = Dir[*ARGV].
     sort_by { |f| -File.mtime(f).to_f }.
-    map { |f| [f, File.mtime(f).to_date] }.
-    to_h
+    to_h { |f| [f, File.mtime(f).to_date] }
 
   good = keep.map { |t0| all.values.min_by { |t1| (t0 - t1).abs } }.uniq
-  bad  = all.select { |_, t| not good.include? t }
+  bad  = all.select { |_, t| not good.include? t }.keys
 
   if $d then
-    bad = bad.map(&:first)
-
     bad_files, bad_dirs = bad.partition { |f| File.file? f }
 
     deleted = File.unlink(*bad_files)
@@ -75,6 +72,6 @@ else
   else
     puts "Deleted #{bad.size} files (no-op)"
     puts
-    puts bad.keys.sort
+    puts bad.sort
   end
 end
