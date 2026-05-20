@@ -1,6 +1,4 @@
-#!/usr/bin/env -S ruby -ws
-
-$y ||= false # yes, do it
+#!/usr/bin/env -S ruby -w
 
 require "json"
 require "open-uri"
@@ -50,11 +48,9 @@ end
 
 DIR="/usr/local/opt/zig"
 
-if ARGV.delete "--clean" then
-  puts "...from clean"
-  # FileUtils.rm_rf DIR
-  puts "(not yet)"
-end
+clean = ARGV.delete "--clean"
+force = ARGV.delete "--force"
+yes   = ARGV.delete "-y"
 
 has_zig = system("which zig")
 
@@ -83,7 +79,7 @@ unless requested then
   exit 1
 end
 
-if requested[:version] == current_version then
+if requested[:version] == current_version && !force then
   warn "You are up to date, running #{current_version}"
   warn "You might want to run with 'master' to get latest development version"
   warn "Versions: #{data.keys.join ", "}"
@@ -97,7 +93,12 @@ url      = requested[platform]["tarball"]
 puts "Current = %s" % [current_version]
 puts "Downloading zig %s for %s" % [requested_version, platform]
 
-exit 0 unless $y
+exit 0 unless yes
+
+if clean then
+  puts "...from clean"
+  FileUtils.rm_rf DIR
+end
 
 FileUtils.mkdir_p DIR
 
