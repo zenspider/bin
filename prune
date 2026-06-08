@@ -19,6 +19,7 @@ def backup_dates offset=0
   daily   = (today-27..today).to_a
   d_min   = daily.min
 
+  # weekly == 1st, 8th, 15th, 22st to avoid end of monthly oddities
   weekly  = (d_min-7*9...d_min)
     .select { |d| d.day < 28 && d.day % 7 == 1 }
     .last 8
