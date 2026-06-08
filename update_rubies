@@ -35,6 +35,7 @@ my_gems = %w[
              pry-byebug
              vernier
              profile-viewer
+             simplecov
             ]
 
 cpus = [2, Etc.nprocessors].max
