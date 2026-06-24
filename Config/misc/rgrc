@@ -1,0 +1,15 @@
+# -*- conf -*-
+-S
+--hidden
+--glob
+!.git/*
+--type-add
+rb:include:ruby
+--type-add
+el:include:elisp
+--type-clear
+r
+--type-add
+r:include:ruby
+--type-add
+rkt:*.rkt

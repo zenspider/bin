@@ -33,6 +33,10 @@ chmod 700 ~/.ssh ~/.ssh/config
 rm -f ~/.gitconfig
 ln misc/gitconfig ~/.gitconfig
 
+rm -f ~/.rgrc ~/.rgignore
+ln misc/rgrc ~/.rgrc
+ln misc/rgignore ~/.rgignore
+
 create_link() {
   p=$1
   f=$2
